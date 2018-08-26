@@ -26,8 +26,9 @@ class UserProfileManager(BaseUserManager):
 
         user = self.create_user(email,name,password)
 
-        user.isSuperuser = True
-        user.isStaff = True
+        user.is_superuser = True
+
+        user.is_staff = True
 
         user.save(using=self._db)
 
@@ -39,7 +40,8 @@ class pos_profile(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=255, unique=True)
     name = models.CharField(max_length=255)
     isActive = models.BooleanField(default=True)
-    isStaff = models.BooleanField(default=False)
+
+    is_staff = models.BooleanField(default=False)
 
     objects = UserProfileManager()
 
@@ -49,7 +51,7 @@ class pos_profile(AbstractBaseUser, PermissionsMixin):
     def get_full_name(self):
         """Get Full Usernamen"""
 
-        return self.NAME
+        return self.name
 
     def get_short_name(self):
         """Used to get users short name"""
