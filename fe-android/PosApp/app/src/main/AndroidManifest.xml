@@ -18,6 +18,10 @@
 
         <activity android:name=".billdesk.BillDetailActivity"></activity>
 
+        <activity android:name=".billdesk.AddProductActivity"></activity>
+
+        <activity android:name=".billdesk.StockDetailActivity"></activity>
+
         <activity android:name=".billdesk.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

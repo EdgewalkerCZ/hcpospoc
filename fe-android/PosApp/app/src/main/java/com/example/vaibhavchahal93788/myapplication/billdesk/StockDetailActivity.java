@@ -2,6 +2,7 @@ package com.example.vaibhavchahal93788.myapplication.billdesk;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
@@ -9,27 +10,36 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
-
 import com.example.vaibhavchahal93788.myapplication.R;
+import com.example.vaibhavchahal93788.myapplication.billdesk.adapter.BillDetailRecyclerAdapter;
 import com.example.vaibhavchahal93788.myapplication.billdesk.adapter.ProductListAdapter;
+import com.example.vaibhavchahal93788.myapplication.billdesk.adapter.ProductStockListAdapter;
+import com.example.vaibhavchahal93788.myapplication.billdesk.adapter.model.BillProduct;
+import com.example.vaibhavchahal93788.myapplication.billdesk.adapter.model.HeadingBillSummary;
+import com.example.vaibhavchahal93788.myapplication.billdesk.adapter.model.HeadingPaymentMode;
+import com.example.vaibhavchahal93788.myapplication.billdesk.adapter.model.PaymentMode;
+import com.example.vaibhavchahal93788.myapplication.billdesk.adapter.model.SelectedProduct;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class ProductDetailactivity extends AppCompatActivity {
+public class StockDetailActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private EditText editTextSearch;
     private ArrayList<String> names;
-    private ProductListAdapter adapter;
+    private ProductStockListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_product_detail);
+        setContentView(R.layout.activity_stock_detail);
 
         setTitle("Product List");
 
@@ -39,15 +49,8 @@ public class ProductDetailactivity extends AppCompatActivity {
 
         initViews();
 
-        actionEditSearch();
+//        actionEditSearch();
 
-        findViewById(R.id.btn_payment).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(ProductDetailactivity.this, BillDetailActivity.class);
-                startActivity(intent);
-            }
-        });
     }
 
     private void populateList() {
@@ -74,16 +77,14 @@ public class ProductDetailactivity extends AppCompatActivity {
         recyclerView.addItemDecoration(new DividerItemDecoration(this,
                 DividerItemDecoration.VERTICAL));
 
-        adapter = new ProductListAdapter(names);
+        adapter = new ProductStockListAdapter(names);
 
         recyclerView.setAdapter(adapter);
-
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ProductDetailactivity.this, AddProductActivity.class));
+                startActivity(new Intent(StockDetailActivity.this, AddProductActivity.class));
             }
         });
     }
@@ -123,7 +124,7 @@ public class ProductDetailactivity extends AppCompatActivity {
         }
 
         //calling a method of the adapter class and passing the filtered list
-        adapter.filterList(filterdNames);
+//        adapter.filterList(filterdNames);
     }
 
     @Override

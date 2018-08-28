@@ -25,6 +25,14 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        findViewById(R.id.btn_stock).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HomeActivity.this, StockDetailActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 

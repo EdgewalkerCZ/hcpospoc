@@ -3,9 +3,46 @@
     <string name="action_settings">Settings</string>
     <string name="online_payment">Online Payment</string>
     <string name="home">Home</string>
+    <string name="add_product">Add \nProduct</string>
 
     <string-array name="payment_modes">
         <item>Cash</item>
+    </string-array>
+
+    <string-array name="product_categories">
+        <item>Categories*</item>
+        <item>Phone</item>
+        <item>Tablet</item>
+        <item>iPad</item>
+        <item>iPhone</item>
+        <item>Fablet</item>
+    </string-array>
+
+    <string-array name="product_sub_categories">
+        <item>Sub Categories*</item>
+        <item>Phone</item>
+        <item>Tablet</item>
+        <item>iPad</item>
+        <item>iPhone</item>
+        <item>Fablet</item>
+    </string-array>
+
+    <string-array name="product_type">
+        <item>Product Type</item>
+        <item>Phone</item>
+        <item>Tablet</item>
+        <item>iPad</item>
+        <item>iPhone</item>
+        <item>Fablet</item>
+    </string-array>
+
+    <string-array name="brand_name">
+        <item>Brand Name</item>
+        <item>Samsung</item>
+        <item>Nokia</item>
+        <item>Moto</item>
+        <item>Apple</item>
+        <item>Sony</item>
     </string-array>
 
 </resources>

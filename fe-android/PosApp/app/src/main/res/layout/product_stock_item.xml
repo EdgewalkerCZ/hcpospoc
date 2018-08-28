@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#FFFFFF"
+    android:padding="20dp">
+
+
+    <TextView
+        android:id="@+id/tv_product_tag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:background="@drawable/circle_shape"
+        android:text="A"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@+id/tv_product_tag">
+
+        <TextView
+            android:id="@+id/tv_product_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Product Name"
+            android:textColor="#000000"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_quantity_available"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_product_name"
+            android:text="100 items"
+            android:textColor="#000000" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/product_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="15dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:text="Rs 50.00"
+        android:textColor="#000000" />
+
+    <TextView
+        android:id="@+id/product_gst"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/product_price"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:text="GST Included"
+        android:textColor="#000000" />
+
+</RelativeLayout>
