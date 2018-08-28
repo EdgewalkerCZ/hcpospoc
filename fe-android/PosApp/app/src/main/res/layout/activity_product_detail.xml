@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/rtl_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <EditText
+            android:id="@+id/editTextSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/btn_add_product"
+            android:background="@drawable/rectangle"
+            android:hint="Find Products"
+            android:padding="10dp" />
+
+        <Button
+            android:id="@+id/btn_add_product"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/add_product_background"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="Add Product"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF" />
+
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@+id/rtl_header"
+        android:background="#E0E0E0" />
+
+    <!-- <android.support.v7.widget.SearchView
+         android:id="@+id/searchview"
+         android:layout_w\idth="match_parent"
+         android:layout_height="wrap_content" />-->
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btn_charge"
+        android:layout_below="@+id/divider" />
+
+    <Button
+        android:id="@+id/btn_charge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#6D6D6D"
+        android:paddingBottom="25dp"
+        android:paddingTop="25dp"
+        android:text="Amount Rs 50/-"
+        android:textColor="#FFFFFF" />
+
+</RelativeLayout>
