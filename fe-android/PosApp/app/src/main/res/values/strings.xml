@@ -20,7 +20,13 @@
     <string name="text_search_products">Search Products</string>
     <string name="text_products">Products</string>
     <string name="text_price">Price</string>
-    <string name="dummy_text_3_items_in_cart_rs_150">3 items in cart - Rs 150</string>
+    <string name="text_price_INR">Price(INR)</string>
+
+    <string name="rupee_symbol">\u20B9</string>
+
+    <string name="text_estimated_price"><b>%1$s</b> item in cart \n <b>\u20B9 %2$d</b>\n Inclusive of all taxes</string>
+
+
     <string name="text_heading">Heading</string>
     <string name="dummy_text_coffee">Coffee</string>
     <string name="dummy_text_rs_50_00">Rs 50.00</string>

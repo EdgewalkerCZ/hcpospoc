@@ -6,56 +6,19 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_LOG_LEVEL" value="error" />
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="verbose" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Firebase" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="642ea526-37cf-4903-b412-4001f6aa7186" name="Default" comment="created xml of add product, available stock list.">
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/BillSummaryActivity.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/TransactionHistoryActivity.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/adapter/HistoryPagerAdapter.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/fragments/FragmentMonth.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/fragments/FragmentToday.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/fragments/FragmentWeek.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/fragments/FragmentYear.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/grey_rectangle.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_invoice.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_print.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_bill_summary.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_txn_history.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_today.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/model/ProductListModel.java" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/MainActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/AddProductActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/AddProductActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/BillDetailActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/BillDetailActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/HomeActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/HomeActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/ProductDetailactivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/ProductDetailactivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/StockDetailActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/StockDetailActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/adapter/BillDetailRecyclerAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/adapter/BillDetailRecyclerAdapter.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/adapter/model/BillProduct.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/model/BillProduct.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/adapter/model/HeadingBillSummary.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/model/HeadingBillSummary.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/adapter/model/HeadingPaymentMode.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/model/HeadingPaymentMode.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/adapter/model/PaymentMode.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/model/PaymentMode.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/adapter/model/SelectedProduct.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/model/SelectedProduct.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_add_product.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_add_product.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_bill_detail.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_bill_detail.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_home.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_home.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_payment.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/ProductDetailactivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/ProductDetailactivity.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/adapter/ProductListAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/adapter/ProductListAdapter.java" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_product_detail.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_product_detail.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_products.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_stock_detail.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_stock_detail.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/bill_item_heading.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/bill_item_heading.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/layout_list.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/payment_mode_item.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/payment_mode_item.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/product_bill_item.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/product_bill_item.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_today.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_today.xml" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/product_list_item.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/product_list_item.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/product_stock_item.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/product_stock_item.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -77,20 +40,103 @@
     </system>
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="ProductDetailactivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/ProductDetailactivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1598">
+              <caret line="115" column="39" lean-forward="true" selection-start-line="115" selection-start-column="39" selection-end-line="115" selection-end-column="39" />
+              <folding>
+                <element signature="e#1447#1703#0" expanded="true" />
+                <element signature="e#1702#1703#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="activity_product_detail.xml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_product_detail.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="365">
+              <caret line="137" column="35" lean-forward="true" selection-start-line="137" selection-start-column="35" selection-end-line="137" selection-end-column="35" />
+              <folding />
+            </state>
+          </provider>
+          <provider editor-type-id="android-designer2">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ProductListAdapter.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/adapter/ProductListAdapter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="283">
+              <caret line="41" column="88" lean-forward="false" selection-start-line="41" selection-start-column="88" selection-end-line="41" selection-end-column="88" />
+              <folding>
+                <element signature="e#790#791#0" expanded="true" />
+                <element signature="e#830#831#0" expanded="true" />
+                <element signature="e#1329#1394#0" expanded="true" />
+                <element signature="e#1644#2191#0" expanded="true" />
+                <element signature="e#2190#2191#0" expanded="true" />
+                <element signature="e#2249#2650#0" expanded="true" />
+                <element signature="e#2649#2650#0" expanded="true" />
+                <element signature="e#2708#3250#0" expanded="true" />
+                <element signature="e#3249#3250#0" expanded="true" />
+                <element signature="e#3304#3305#0" expanded="true" />
+                <element signature="e#3345#3346#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="colors.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="136">
+              <caret line="8" column="17" lean-forward="false" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="product_list_item.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/product_list_item.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="360">
+              <caret line="67" column="19" lean-forward="false" selection-start-line="67" selection-start-column="19" selection-end-line="67" selection-end-column="19" />
+              <folding />
+            </state>
+          </provider>
+          <provider editor-type-id="android-designer2">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="strings.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="408">
+              <caret line="24" column="25" lean-forward="false" selection-start-line="24" selection-start-column="25" selection-end-line="24" selection-end-column="25" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="resourceFile" />
-        <option value="Class" />
         <option value="layoutResourceFile" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
       <find>adapter</find>
+      <find>filter</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -2112,9 +2158,7 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/adapter/BillDetailRecyclerAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/adapter/ProductListAdapter.java" />
         <option value="$PROJECT_DIR$/app/.gitignore" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/drawable_green_oval.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/Utils/TextDrawable.java" />
@@ -2130,14 +2174,11 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/AddProductActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/bill_item_heading.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/product_stock_item.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_add_product.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_home.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_product_detail.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_stock_detail.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/payment_mode_item.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/product_bill_item.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/product_list_item.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/transactionHistoryActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/TransactionHistoryActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/MainActivity.java" />
@@ -2161,6 +2202,13 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/BillSummaryActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_bill_summary.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_today.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/model/ProductDetailModel.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/model/ProductListModel.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/product_list_item.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/adapter/ProductListAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_product_detail.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/ProductDetailactivity.java" />
       </list>
     </option>
   </component>
@@ -2247,6 +2295,36 @@
               <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="billdesk" type="462c0819:PsiDirectoryNode" />
+              <item name="adapter" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="PosApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="PosApp" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="billdesk" type="462c0819:PsiDirectoryNode" />
+              <item name="fragments" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="PosApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="PosApp" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="billdesk" type="462c0819:PsiDirectoryNode" />
+              <item name="model" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="PosApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="PosApp" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="res" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -2257,6 +2335,15 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="res" type="462c0819:PsiDirectoryNode" />
               <item name="layout" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="PosApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="PosApp" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="res" type="462c0819:PsiDirectoryNode" />
+              <item name="values" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="PosApp" type="b2602c69:ProjectViewProjectNode" />
@@ -2280,6 +2367,32 @@
               <item name="res" type="462c0819:PsiDirectoryNode" />
               <item name="values" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="PosApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Gradle: com.android.support:recyclerview-v7-27.1.1" type="70bed36:NamedLibraryElementNode" />
+            </path>
+            <path>
+              <item name="PosApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Gradle: com.android.support:recyclerview-v7-27.1.1" type="70bed36:NamedLibraryElementNode" />
+              <item name="classes.jar" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="PosApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Gradle: com.android.support:recyclerview-v7-27.1.1" type="70bed36:NamedLibraryElementNode" />
+              <item name="classes.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="v7" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="PosApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Gradle: com.android.support:recyclerview-v7-27.1.1" type="70bed36:NamedLibraryElementNode" />
+              <item name="classes.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="v7" type="462c0819:PsiDirectoryNode" />
+              <item name="widget" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -2294,7 +2407,7 @@
     <property name="android.project.structure.last.selected" value="app" />
     <property name="android.project.structure.proportion" value="0.15" />
     <property name="device.picker.selection" value="Nexus_5X_API_24" />
-    <property name="SearchEverywhereHistoryKey" value="bilsum&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/res/layout/activity_bill_summary.xml&#10;manifes&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/AndroidManifest.xml&#10;Bill&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/BillDetailActivity.java&#10;style&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/res/values/styles.xml&#10;manifest&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/AndroidManifest.xml&#10;History&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/TransactionHistoryActivity.java&#10;COLOR&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/res/values/colors.xml&#10;String&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/res/values/strings.xml&#10;Add&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/AddProductActivity.java&#10;Bilde&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/BillDetailActivity.java&#10;activity&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/res/layout/activity_product_detail.xml&#10;ProductDetail&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/ProductDetailactivity.java" />
+    <property name="SearchEverywhereHistoryKey" value="Produc&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/ProductDetailactivity.java&#10;bilsum&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/res/layout/activity_bill_summary.xml&#10;manifes&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/AndroidManifest.xml&#10;Bill&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/BillDetailActivity.java&#10;style&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/res/values/styles.xml&#10;manifest&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/AndroidManifest.xml&#10;History&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/TransactionHistoryActivity.java&#10;COLOR&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/res/values/colors.xml&#10;String&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/res/values/strings.xml&#10;Add&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/AddProductActivity.java&#10;Bilde&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/BillDetailActivity.java&#10;activity&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/res/layout/activity_product_detail.xml&#10;ProductDetail&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/ProductDetailactivity.java" />
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -2492,6 +2605,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -2500,10 +2614,10 @@
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="true" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32881355" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32881355" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32881355" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.47288135" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -2537,8 +2651,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/Utils/TextDrawable.java" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/drawable_green_oval.xml" />
     <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_plus.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
@@ -2580,14 +2692,6 @@
       </provider>
       <provider editor-type-id="android-designer2">
         <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/adapter/ProductListAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="122">
-          <caret line="24" column="40" lean-forward="false" selection-start-line="24" selection-start-column="40" selection-end-line="24" selection-end-column="40" />
-          <folding />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/adapter/ProductStockListAdapter.java">
@@ -2636,14 +2740,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="58" lean-forward="true" selection-start-line="9" selection-start-column="58" selection-end-line="9" selection-end-column="58" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/layout_list.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
@@ -2677,25 +2773,6 @@
       </provider>
       <provider editor-type-id="android-designer2">
         <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/product_list_item.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="46" column="16" lean-forward="true" selection-start-line="46" selection-start-column="16" selection-end-line="46" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="17" lean-forward="true" selection-start-line="17" selection-start-column="17" selection-end-line="17" selection-end-column="17" />
-          <folding />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_home.xml">
@@ -2758,17 +2835,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_product_detail.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="93" column="53" lean-forward="true" selection-start-line="93" selection-start-column="53" selection-end-line="93" selection-end-column="53" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/adapter/HistoryPagerAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="434">
@@ -2825,14 +2891,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
           <caret line="6" column="35" lean-forward="true" selection-start-line="6" selection-start-column="35" selection-end-line="6" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/add_product_background.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="8" lean-forward="false" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="8" />
           <folding />
         </state>
       </provider>
@@ -2966,28 +3024,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/ProductDetailactivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="39" column="20" lean-forward="false" selection-start-line="39" selection-start-column="20" selection-end-line="39" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_bill_summary.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
           <caret line="245" column="28" lean-forward="false" selection-start-line="245" selection-start-column="28" selection-end-line="245" selection-end-column="28" />
           <folding>
-            <element signature="e#546#575#0" expanded="true" />
-            <element signature="e#851#879#0" expanded="true" />
-            <element signature="e#3731#3755#0" expanded="true" />
-            <element signature="e#4173#4193#0" expanded="true" />
-            <element signature="e#4662#4680#0" expanded="true" />
-            <element signature="e#5148#5168#0" expanded="true" />
-            <element signature="e#5879#5903#0" expanded="true" />
-            <element signature="e#6727#6753#0" expanded="true" />
-            <element signature="e#7939#7964#0" expanded="true" />
+            <element signature="e#546#575#0" expanded="false" />
+            <element signature="e#851#879#0" expanded="false" />
+            <element signature="e#3731#3755#0" expanded="false" />
+            <element signature="e#4173#4193#0" expanded="false" />
+            <element signature="e#4662#4680#0" expanded="false" />
+            <element signature="e#5148#5168#0" expanded="false" />
+            <element signature="e#5879#5903#0" expanded="false" />
+            <element signature="e#6727#6753#0" expanded="false" />
+            <element signature="e#7939#7964#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -2995,10 +3045,29 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_txn_history.xml">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/add_product_background.xml">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="8" lean-forward="false" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_txn_history.xml">
+      <provider editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="18" column="33" lean-forward="false" selection-start-line="18" selection-start-column="33" selection-end-line="18" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_today.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="125" column="31" lean-forward="true" selection-start-line="125" selection-start-column="31" selection-end-line="125" selection-end-column="31" />
           <folding />
         </state>
       </provider>
@@ -3006,15 +3075,102 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_today.xml">
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.support/recyclerview-v7/27.1.1/ad225a74247e675db0b05ea4f8b17202acbb7f9d/recyclerview-v7-27.1.1-sources.jar!/android/support/v7/widget/RecyclerView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1972">
-          <caret line="116" column="21" lean-forward="true" selection-start-line="116" selection-start-column="21" selection-end-line="116" selection-end-column="21" />
+        <state relative-caret-position="179">
+          <caret line="10544" column="26" lean-forward="false" selection-start-line="10544" selection-start-column="26" selection-end-line="10544" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="17" lean-forward="false" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/product_list_item.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="67" column="19" lean-forward="false" selection-start-line="67" selection-start-column="19" selection-end-line="67" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="24" column="25" lean-forward="false" selection-start-line="24" selection-start-column="25" selection-end-line="24" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/adapter/ProductListAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="283">
+          <caret line="41" column="88" lean-forward="false" selection-start-line="41" selection-start-column="88" selection-end-line="41" selection-end-column="88" />
           <folding>
-            <element signature="e#741#767#0" expanded="true" />
-            <element signature="e#2205#2224#0" expanded="true" />
-            <element signature="e#3522#3543#0" expanded="true" />
+            <element signature="e#790#791#0" expanded="true" />
+            <element signature="e#830#831#0" expanded="true" />
+            <element signature="e#1329#1394#0" expanded="true" />
+            <element signature="e#1644#2191#0" expanded="true" />
+            <element signature="e#2190#2191#0" expanded="true" />
+            <element signature="e#2249#2650#0" expanded="true" />
+            <element signature="e#2649#2650#0" expanded="true" />
+            <element signature="e#2708#3250#0" expanded="true" />
+            <element signature="e#3249#3250#0" expanded="true" />
+            <element signature="e#3304#3305#0" expanded="true" />
+            <element signature="e#3345#3346#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/model/ProductListModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="5" lean-forward="false" selection-start-line="10" selection-start-column="5" selection-end-line="10" selection-end-column="5" />
+          <folding>
+            <element signature="e#246#247#0" expanded="true" />
+            <element signature="e#279#280#0" expanded="true" />
+            <element signature="e#310#311#0" expanded="true" />
+            <element signature="e#338#339#0" expanded="true" />
+            <element signature="e#387#388#0" expanded="true" />
+            <element signature="e#424#425#0" expanded="true" />
+            <element signature="e#460#461#0" expanded="true" />
+            <element signature="e#493#494#0" expanded="true" />
+            <element signature="e#525#526#0" expanded="true" />
+            <element signature="e#556#557#0" expanded="true" />
+            <element signature="e#601#602#0" expanded="true" />
+            <element signature="e#641#642#0" expanded="true" />
+            <element signature="e#670#671#0" expanded="true" />
+            <element signature="e#698#699#0" expanded="true" />
+            <element signature="e#737#738#0" expanded="true" />
+            <element signature="e#771#772#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/ProductDetailactivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1598">
+          <caret line="115" column="39" lean-forward="true" selection-start-line="115" selection-start-column="39" selection-end-line="115" selection-end-column="39" />
+          <folding>
+            <element signature="e#1447#1703#0" expanded="true" />
+            <element signature="e#1702#1703#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_product_detail.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="365">
+          <caret line="137" column="35" lean-forward="true" selection-start-line="137" selection-start-column="35" selection-end-line="137" selection-end-column="35" />
+          <folding />
         </state>
       </provider>
       <provider editor-type-id="android-designer2">

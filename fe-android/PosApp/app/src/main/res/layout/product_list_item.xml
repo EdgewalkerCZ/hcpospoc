@@ -61,9 +61,10 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="15dp"
         android:background="@drawable/rectangle"
+        android:gravity="center"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
-        android:text="@string/dummy_text_rs_50_00"
+        android:text="Rs 50.00"
         android:textColor="#000000" />
 
 </RelativeLayout>

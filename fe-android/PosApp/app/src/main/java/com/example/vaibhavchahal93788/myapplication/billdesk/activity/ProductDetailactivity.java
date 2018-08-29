@@ -16,6 +16,7 @@ import android.widget.EditText;
 
 import com.example.vaibhavchahal93788.myapplication.R;
 import com.example.vaibhavchahal93788.myapplication.billdesk.adapter.ProductListAdapter;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductListModel;
 
 import java.util.ArrayList;
 
@@ -23,14 +24,13 @@ public class ProductDetailactivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private EditText editTextSearch;
-    private ArrayList<String> names;
+    private ArrayList<ProductListModel> productList;
     private ProductListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_detail);
-
         setTitle("Product List");
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -51,18 +51,18 @@ public class ProductDetailactivity extends AppCompatActivity {
     }
 
     private void populateList() {
-        names = new ArrayList<>();
+        productList = new ArrayList<>();
 
-        names.add("Coffee");
-        names.add("Black Coffee");
-        names.add("Tea");
-        names.add("Green Tea");
-        names.add("Black Tea");
-        names.add("Red Tea");
-        names.add("Nescafe");
-        names.add("Nestle");
-        names.add("Taza");
-        names.add("Red Label");
+        productList.add(new ProductListModel("Coffee"));
+        productList.add(new ProductListModel("Black Coffee"));
+        productList.add(new ProductListModel("Tea"));
+        productList.add(new ProductListModel("Green Tea"));
+        productList.add(new ProductListModel("Black Tea"));
+        productList.add(new ProductListModel("Red Tea"));
+        productList.add(new ProductListModel("Nescafe"));
+        productList.add(new ProductListModel("Nestle"));
+        productList.add(new ProductListModel("Taza"));
+        productList.add(new ProductListModel("Red Label"));
     }
 
     private void initViews() {
@@ -74,7 +74,7 @@ public class ProductDetailactivity extends AppCompatActivity {
         recyclerView.addItemDecoration(new DividerItemDecoration(this,
                 DividerItemDecoration.VERTICAL));
 
-        adapter = new ProductListAdapter(names);
+        adapter = new ProductListAdapter(productList);
 
         recyclerView.setAdapter(adapter);
 
@@ -111,14 +111,14 @@ public class ProductDetailactivity extends AppCompatActivity {
 
     private void filter(String text) {
         //new array list that will hold the filtered data
-        ArrayList<String> filterdNames = new ArrayList<>();
+        ArrayList<ProductListModel> filterdNames = new ArrayList<>();
 
         //looping through existing elements
-        for (String s : names) {
+        for (ProductListModel object : productList) {
             //if the existing elements contains the search input
-            if (s.toLowerCase().contains(text.toLowerCase())) {
+            if (object.getText().toLowerCase().contains(text.toLowerCase())) {
                 //adding the element to filtered list
-                filterdNames.add(s);
+                filterdNames.add(object);
             }
         }
 
