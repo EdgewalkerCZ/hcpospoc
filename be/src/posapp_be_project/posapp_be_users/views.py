@@ -3,9 +3,11 @@ from django.shortcuts import render
 from rest_framework import viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework import generics
 from rest_framework import status
 
-
+from .models import UserProfile
+from .serializers import UserProfileSerializer
 from . import serializers
 
 # Create your views here.
@@ -93,3 +95,13 @@ class HelloViewSet(viewsets.ViewSet):
         """getting object by ID"""
 
         return Response({'http_method':'GET'})
+
+
+class ListUsers(generics.ListCreateAPIView):
+    queryset = UserProfile.objects.all()
+    serializer_class = UserProfileSerializer
+
+
+class ProfileDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = UserProfile.objects.all()
+    serializer_class = UserProfileSerializer
