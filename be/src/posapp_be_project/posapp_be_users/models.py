@@ -34,8 +34,8 @@ class UserProfileManager(BaseUserManager):
 
         return user
 
-class pos_profile(AbstractBaseUser, PermissionsMixin):
-    """Represent POS profile"""
+class UserProfile(AbstractBaseUser, PermissionsMixin):
+    """Represent profile"""
 
     email = models.EmailField(max_length=255, unique=True)
     name = models.CharField(max_length=255)

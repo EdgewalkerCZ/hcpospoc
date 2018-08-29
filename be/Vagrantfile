@@ -14,26 +14,84 @@ Vagrant.configure("2") do |config|
   # boxes at https://atlas.hashicorp.com/search.
   config.vm.box = "ubuntu/xenial64"
 
+
+
+  config.vm.host_name = "hcpospoc.local.dev"
   config.vm.network "forwarded_port", host_ip: "127.0.0.1", guest: 8080, host: 8080
+  #config.ssh.username = "ubuntu"
+  #config.ssh.password = "vagrant"
+
+  config.vm.provider "virtualbox" do |v|
+    v.name = "hcpospoc_dev"
+  end
+
+
+  $script = <<-SCRIPT
+    echo "--- PROVISIONING APP ---"
+
+    echo "... creating virtual environment - hcposapp_be_dev ..."
+    source /home/vagrant/.bashrc
+    export WORKON_HOME=~/.virtualenvs
+    export PROJECT_HOME=/vagrant
+    source /usr/local/bin/virtualenvwrapper.sh
+
+
+
+    mkvirtualenv --python=python3 hcposapp_be_dev
+    workon hcposapp_be_dev
+    pip3 install /vagrant/pip_requirements.txt
+
+    #pip3 install djangorestframework
+    #pip3 install markdown
+    #pip3 install django-filter
+
+
+    echo "--- END OF APP PROVISIONING ---"
+
+
+  SCRIPT
 
   config.vm.provision "shell", inline: <<-SHELL
-    # Update and upgrade the server packages.
+
+    echo "--- PROVISIONING ENV ---"
+
     sudo apt-get update
     sudo apt-get -y upgrade
+
+    #sudo apt-get install -y nfs-kernel-server # DEV func
+
     # Set Ubuntu Language
     sudo locale-gen en_GB.UTF-8
+
     # Install Python, SQLite and pip
-    sudo apt-get install -y python3-dev sqlite python-pip
-    # Upgrade pip to the latest version.
+    sudo apt-get install -y python3-dev
+
+    sudo apt-get install -y sqlite
+    sudo apt-get install -y python-pip
+
     sudo pip install --upgrade pip
+
+
     # Install and configure python virtualenvwrapper.
+    echo "installing virtualenvwrapper"
     sudo pip install virtualenvwrapper
-    if ! grep -q VIRTUALENV_ALREADY_ADDED /home/ubuntu/.bashrc; then
-        echo "# VIRTUALENV_ALREADY_ADDED" >> /home/ubuntu/.bashrc
-        echo "WORKON_HOME=~/.virtualenvs" >> /home/ubuntu/.bashrc
-        echo "PROJECT_HOME=/vagrant" >> /home/ubuntu/.bashrc
-        echo "source /usr/local/bin/virtualenvwrapper.sh" >> /home/ubuntu/.bashrc
+    if ! grep -q VIRTUALENV_ALREADY_ADDED /home/vagrant/.bashrc; then
+        echo "# VIRTUALENV_ALREADY_ADDED" >> /home/vagrant/.bashrc
+        echo "WORKON_HOME=~/.virtualenvs" >> /home/vagrant/.bashrc
+        echo "PROJECT_HOME=/vagrant" >> /home/vagrant/.bashrc
+        echo "source /usr/local/bin/virtualenvwrapper.sh" >> /home/vagrant/.bashrc
     fi
+
+    echo "installing python3 libs"
+    sudo apt-get install -y python3-pip
+    sudo pip3 install --upgrade pip
+
+    echo "ubuntu:vagrant" | sudo chpasswd
+    echo "--- END OF ENVIRONMENT PROVISIONING ---"
+
   SHELL
+
+  config.vm.provision "shell", inline: $script, privileged: false
+  #config.vm.provision "shell", path: "dev_app_provision.sh", privileged: false
 
 end
