@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'posapp_be_users',
+    'posapp_be_stocks',
+    'posapp_be_pos',
 ]
 
 MIDDLEWARE = [
