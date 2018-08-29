@@ -38,3 +38,20 @@ class HelloApiView(APIView):
         else:
             return Response(
                 serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+    def put(self, request, pk=None):
+        """Updating"""
+
+        return Response({'method': 'put'})
+
+    def patch(self, request, pk=None):
+        """Patch request, only updates fields required"""
+
+        return Response({'method': 'patch'})
+
+
+    def delete(self, request, pk=None):
+        """Patch request, only updates fields required"""
+
+        return Response({'method': 'delete'})

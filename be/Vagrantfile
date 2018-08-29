@@ -39,7 +39,7 @@ Vagrant.configure("2") do |config|
 
     mkvirtualenv --python=python3 hcposapp_be_dev
     workon hcposapp_be_dev
-    pip3 install /vagrant/pip_requirements.txt
+    pip3 install -r /vagrant/pip_requirements.txt
 
     #pip3 install djangorestframework
     #pip3 install markdown
