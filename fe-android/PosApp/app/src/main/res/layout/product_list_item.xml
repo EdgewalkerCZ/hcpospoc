@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#FFFFFF"
+    android:background="@color/white_color"
     android:padding="20dp">
 
     <RelativeLayout
@@ -14,7 +14,7 @@
             android:id="@+id/tv_product_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#000000"
+            android:textColor="@color/black_color"
             android:textStyle="bold" />
 
         <TextView
@@ -22,8 +22,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_product_name"
-            android:text="100 items"
-            android:textColor="#000000" />
+            android:text="@string/dummy_quantity"
+            android:textColor="@color/black_color" />
     </RelativeLayout>
 
     <ImageButton
@@ -41,7 +41,7 @@
         android:layout_toLeftOf="@+id/btn_add"
         android:background="@drawable/rectangle"
         android:text="0"
-        android:textColor="#000000"
+        android:textColor="@color/black_color"
         android:textSize="18dp" />
 
     <ImageButton
@@ -63,7 +63,7 @@
         android:background="@drawable/rectangle"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
-        android:text="Rs 50.00"
+        android:text="@string/dummy_text_rs_50_00"
         android:textColor="#000000" />
 
 </RelativeLayout>

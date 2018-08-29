@@ -4,13 +4,13 @@
     android:id="@+id/rl_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF">
+    android:background="@color/white_color">
 
     <RelativeLayout
         android:id="@+id/rtl_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FFFFFF"
+        android:background="@color/white_color"
         android:padding="10dp">
 
         <Spinner
@@ -29,7 +29,7 @@
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/spinner_categories"
             android:background="@drawable/rectangle"
-            android:hint="Find Products"
+            android:hint="@string/text_search_products"
             android:padding="10dp" />
 
 
@@ -52,7 +52,7 @@
             android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:backgroundTint="#DA1A32"
+            app:backgroundTint="@color/color_DA1A32"
             app:fabCustomSize="95dp" />
 
         <TextView

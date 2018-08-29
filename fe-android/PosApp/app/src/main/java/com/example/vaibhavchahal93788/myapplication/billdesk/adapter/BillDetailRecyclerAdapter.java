@@ -9,11 +9,11 @@ import android.widget.TextView;
 
 
 import com.example.vaibhavchahal93788.myapplication.R;
-import com.example.vaibhavchahal93788.myapplication.billdesk.adapter.model.BillProduct;
-import com.example.vaibhavchahal93788.myapplication.billdesk.adapter.model.HeadingBillSummary;
-import com.example.vaibhavchahal93788.myapplication.billdesk.adapter.model.HeadingPaymentMode;
-import com.example.vaibhavchahal93788.myapplication.billdesk.adapter.model.PaymentMode;
-import com.example.vaibhavchahal93788.myapplication.billdesk.adapter.model.SelectedProduct;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.BillProduct;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.HeadingBillSummary;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.HeadingPaymentMode;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.PaymentMode;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.SelectedProduct;
 
 import java.util.List;
 

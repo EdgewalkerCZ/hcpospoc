@@ -4,13 +4,13 @@
     android:id="@+id/rl_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF">
+    android:background="@color/white_color">
 
     <RelativeLayout
         android:id="@+id/rtl_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FFFFFF"
+        android:background="@color/white_color"
         android:padding="10dp">
 
         <Spinner
@@ -29,7 +29,7 @@
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/spinner_categories"
             android:background="@drawable/rectangle"
-            android:hint="Find Products"
+            android:hint="@string/text_search_products"
             android:padding="10dp" />
 
 
@@ -41,14 +41,14 @@
         android:layout_height="0.5dp"
         android:layout_below="@+id/rtl_header"
         android:layout_marginTop="8dp"
-        android:background="#E0E0E0" />
+        android:background="@color/color_E0E0E0" />
 
     <RelativeLayout
         android:id="@+id/rl_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/divider"
-        android:background="#F4F4F4"
+        android:background="@color/color_F4F4F4"
         android:padding="2dp">
 
         <TextView
@@ -56,21 +56,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="18dp"
-            android:text="Products" />
+            android:text="@string/text_products" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:paddingLeft="30dp"
-            android:text="Quantity" />
+            android:text="@string/text_quantity" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginRight="18dp"
-            android:text="Price" />
+            android:text="@string/text_price" />
 
 
     </RelativeLayout>
@@ -80,7 +80,7 @@
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:layout_below="@+id/rl_title"
-        android:background="#E0E0E0" />
+        android:background="@color/color_E0E0E0" />
     <!-- <android.support.v7.widget.SearchView
          android:id="@+id/searchview"
          android:layout_w\idth="match_parent"
@@ -104,7 +104,7 @@
             android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:backgroundTint="#1EAA2A"
+            app:backgroundTint="@color/color_1EAA2A"
             app:fabCustomSize="95dp" />
 
         <TextView
@@ -133,7 +133,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:text="3 items in cart - Rs 150"
+            android:text="@string/dummy_text_3_items_in_cart_rs_150"
             android:textSize="16dp" />
 
         <Button
@@ -147,9 +147,9 @@
             android:paddingLeft="30dp"
             android:paddingRight="30dp"
             android:paddingTop="10dp"
-            android:text="Payment"
+            android:text="@string/text_payment"
             android:textAllCaps="false"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/white_color"
             android:textSize="18dp" />
 
     </RelativeLayout>

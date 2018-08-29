@@ -3,7 +3,7 @@
     android:id="@+id/rl_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="@color/white_color"
     android:padding="20dp">
 
     <ScrollView
@@ -62,15 +62,6 @@
                 android:paddingBottom="20dp"
                 android:paddingTop="20dp"></Spinner>
 
-            <!--<EditText
-                android:id="@+id/et_brandname"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/ll_categories"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/rectangle"
-                android:hint="Brand Name"
-                android:padding="10dp" />-->
 
             <EditText
                 android:id="@+id/et_productname"
@@ -79,7 +70,7 @@
                 android:layout_below="@+id/spinner_brand_name"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/rectangle"
-                android:hint="Product Name"
+                android:hint="@string/text_product_name"
                 android:padding="10dp" />
 
             <RelativeLayout
@@ -95,8 +86,8 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
                     android:background="@drawable/rectangle"
-                    android:hint="10,000"
-                    android:padding="10dp" />
+                    android:padding="10dp"
+                    android:text="@string/dummy_price_10000" />
 
                 <RadioGroup
                     android:layout_width="wrap_content"
@@ -108,12 +99,12 @@
                     <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="GST Included" />
+                        android:text="@string/text_gst_included" />
 
                     <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="GST Excluded" />
+                        android:text="@string/text_gst_excluded" />
 
                 </RadioGroup>
 
@@ -126,7 +117,7 @@
                 android:layout_below="@+id/rl_price"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/rectangle"
-                android:hint="Quantity"
+                android:hint="@string/text_quantity"
                 android:padding="10dp" />
 
 
@@ -137,7 +128,7 @@
                 android:layout_below="@+id/et_quantity"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/rectangle"
-                android:hint="Product Description"
+                android:hint="@string/text_product_description"
                 android:padding="10dp" />
 
         </RelativeLayout>
@@ -156,9 +147,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/print_bill_background"
-            android:text="Add Product"
+            android:text="@string/text_add_product"
             android:textAllCaps="false"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/white_color"
             android:textSize="18dp" />
 
     </RelativeLayout>

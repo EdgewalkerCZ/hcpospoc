@@ -1,8 +1,7 @@
-package com.example.vaibhavchahal93788.myapplication.billdesk;
+package com.example.vaibhavchahal93788.myapplication.billdesk.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
@@ -10,24 +9,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
 import com.example.vaibhavchahal93788.myapplication.R;
-import com.example.vaibhavchahal93788.myapplication.billdesk.adapter.BillDetailRecyclerAdapter;
-import com.example.vaibhavchahal93788.myapplication.billdesk.adapter.ProductListAdapter;
 import com.example.vaibhavchahal93788.myapplication.billdesk.adapter.ProductStockListAdapter;
-import com.example.vaibhavchahal93788.myapplication.billdesk.adapter.model.BillProduct;
-import com.example.vaibhavchahal93788.myapplication.billdesk.adapter.model.HeadingBillSummary;
-import com.example.vaibhavchahal93788.myapplication.billdesk.adapter.model.HeadingPaymentMode;
-import com.example.vaibhavchahal93788.myapplication.billdesk.adapter.model.PaymentMode;
-import com.example.vaibhavchahal93788.myapplication.billdesk.adapter.model.SelectedProduct;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class StockDetailActivity extends AppCompatActivity {
 

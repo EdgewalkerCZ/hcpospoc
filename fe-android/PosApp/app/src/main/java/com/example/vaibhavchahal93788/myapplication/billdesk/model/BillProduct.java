@@ -1,8 +1,14 @@
-package com.example.vaibhavchahal93788.myapplication.billdesk.adapter.model;
+package com.example.vaibhavchahal93788.myapplication.billdesk.model;
 
-public class SelectedProduct {
+public class BillProduct {
 
     private String name, quantity, price;
+
+    public BillProduct(String name, String quantity, String price) {
+        this.name = name;
+        this.quantity = quantity;
+        this.price = price;
+    }
 
     public String getName() {
         return name;

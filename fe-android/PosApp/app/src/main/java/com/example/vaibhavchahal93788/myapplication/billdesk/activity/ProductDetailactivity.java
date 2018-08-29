@@ -1,4 +1,4 @@
-package com.example.vaibhavchahal93788.myapplication.billdesk;
+package com.example.vaibhavchahal93788.myapplication.billdesk.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
