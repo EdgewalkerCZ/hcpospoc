@@ -12,20 +12,29 @@ import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 
 import com.example.vaibhavchahal93788.myapplication.R;
+import com.example.vaibhavchahal93788.myapplication.billdesk.OnDataChangeListener;
 import com.example.vaibhavchahal93788.myapplication.billdesk.adapter.ProductListAdapter;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductListModel;
 
-import java.util.ArrayList;
+import org.w3c.dom.Text;
 
-public class ProductDetailactivity extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.List;
+
+public class ProductDetailactivity extends AppCompatActivity implements View.OnClickListener, OnDataChangeListener {
 
     private RecyclerView recyclerView;
     private EditText editTextSearch;
     private ArrayList<ProductListModel> productList;
     private ProductListAdapter adapter;
+    private TextView txtviewEstPrice;
+    private RelativeLayout rlTotalCharge;
+    private int totalItem, totalPrice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,14 +49,6 @@ public class ProductDetailactivity extends AppCompatActivity {
         initViews();
 
         actionEditSearch();
-
-        findViewById(R.id.btn_payment).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(ProductDetailactivity.this, BillDetailActivity.class);
-                startActivity(intent);
-            }
-        });
     }
 
     private void populateList() {
@@ -68,24 +69,20 @@ public class ProductDetailactivity extends AppCompatActivity {
     private void initViews() {
         recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         editTextSearch = (EditText) findViewById(R.id.editTextSearch);
+        txtviewEstPrice = (TextView) findViewById(R.id.tv_est_price);
+        rlTotalCharge = (RelativeLayout) findViewById(R.id.rl_charge);
+
+        findViewById(R.id.fab).setOnClickListener(this);
+        findViewById(R.id.btn_payment).setOnClickListener(this);
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new DividerItemDecoration(this,
                 DividerItemDecoration.VERTICAL));
 
-        adapter = new ProductListAdapter(productList);
+        adapter = new ProductListAdapter(productList, this);
 
         recyclerView.setAdapter(adapter);
-
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(ProductDetailactivity.this, AddProductActivity.class));
-            }
-        });
     }
 
     private void actionEditSearch() {
@@ -137,4 +134,48 @@ public class ProductDetailactivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+
+            case R.id.btn_payment:
+                ArrayList<ProductListModel> list = getSelectedItemList();
+                Intent intent = new Intent(ProductDetailactivity.this, BillDetailActivity.class);
+                intent.putParcelableArrayListExtra("selectedItemList", list);
+                intent.putExtra("totalItems", totalItem);
+                intent.putExtra("totalPrice", totalPrice);
+                startActivity(intent);
+                break;
+
+            case R.id.fab:
+                startActivity(new Intent(ProductDetailactivity.this, AddProductActivity.class));
+                break;
+
+            default:
+                break;
+
+        }
+    }
+
+    private ArrayList<ProductListModel> getSelectedItemList() {
+        ArrayList<ProductListModel> selectedItemList = new ArrayList<ProductListModel>();
+        for (ProductListModel model : productList) {
+            if (model.isSelected()) {
+                selectedItemList.add(model);
+            }
+        }
+        return selectedItemList;
+    }
+
+    @Override
+    public void onDataChanged(int totalItems, int totalPrice) {
+        this.totalItem = totalItems;
+        this.totalPrice = totalPrice;
+        if (totalItems > 0) {
+            rlTotalCharge.setVisibility(View.VISIBLE);
+        } else {
+            rlTotalCharge.setVisibility(View.GONE);
+        }
+        txtviewEstPrice.setText(String.format(getString(R.string.text_estimated_price), totalItems, totalPrice));
+    }
 }

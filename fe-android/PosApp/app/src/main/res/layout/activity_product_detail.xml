@@ -96,16 +96,17 @@
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/rl_charge"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_margin="15dp">
+        android:layout_marginBottom="80dp"
+        android:layout_marginRight="30dp">
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:backgroundTint="@color/color_1EAA2A"
-            app:fabCustomSize="95dp" />
+            app:fabCustomSize="73dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -116,18 +117,19 @@
             android:text="@string/add_product"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@android:color/white"
-            android:textSize="20dp" />
+            android:textSize="15dp" />
 
     </FrameLayout>
 
     <RelativeLayout
         android:id="@+id/rl_charge"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="75dp"
         android:layout_alignParentBottom="true"
         android:background="@drawable/rectangle"
         android:elevation="5dp"
-        android:padding="10dp">
+        android:padding="10dp"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/tv_est_price"

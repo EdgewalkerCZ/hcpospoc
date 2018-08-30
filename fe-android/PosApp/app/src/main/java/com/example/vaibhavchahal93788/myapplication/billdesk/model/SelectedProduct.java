@@ -2,7 +2,14 @@ package com.example.vaibhavchahal93788.myapplication.billdesk.model;
 
 public class SelectedProduct {
 
-    private String name, quantity, price;
+    public SelectedProduct(String name, int quantity, int price) {
+        this.name = name;
+        this.quantity = quantity;
+        this.price = price;
+    }
+
+    private String name;
+    private int quantity, price;
 
     public String getName() {
         return name;
@@ -12,19 +19,19 @@ public class SelectedProduct {
         this.name = name;
     }
 
-    public String getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(String quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
-    public String getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 }

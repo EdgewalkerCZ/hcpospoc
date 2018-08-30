@@ -12,7 +12,9 @@
         android:id="@+id/product_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/dummy_text_coffee" />
+        android:text="@string/dummy_text_coffee"
+        android:textColor="@color/black_color"
+        android:textSize="16dp" />
 
 
     <TextView
@@ -20,5 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:text="80" />
+        android:text="80"
+        android:textColor="@color/black_color"
+        android:textSize="16dp" />
 </RelativeLayout>

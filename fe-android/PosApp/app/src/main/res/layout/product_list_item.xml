@@ -15,6 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black_color"
+            android:textSize="16dp"
             android:textStyle="bold" />
 
         <TextView
@@ -22,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_product_name"
-            android:text="@string/dummy_quantity"
+            android:text="100 items"
             android:textColor="@color/black_color" />
     </RelativeLayout>
 

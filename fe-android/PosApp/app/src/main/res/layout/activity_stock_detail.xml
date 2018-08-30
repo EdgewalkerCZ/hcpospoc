@@ -53,7 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:backgroundTint="@color/color_DA1A32"
-            app:fabCustomSize="95dp" />
+            app:fabCustomSize="73dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -64,7 +64,7 @@
             android:text="@string/add_product"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@android:color/white"
-            android:textSize="20dp" />
+            android:textSize="15dp" />
 
     </FrameLayout>
 

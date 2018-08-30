@@ -7,20 +7,17 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="wrap_content"
         android:layout_above="@+id/bottom_view"
-        android:layout_alignParentBottom="true"
-        android:background="@color/color_E7E7E7" />
+        android:layout_alignParentTop="true" />
 
     <LinearLayout
         android:id="@+id/bottom_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:background="@drawable/rectangle"
+        android:elevation="3dp"
         android:padding="8dp"
         android:weightSum="2">
 
@@ -33,7 +30,8 @@
             android:paddingBottom="25dp"
             android:paddingTop="25dp"
             android:text="@string/text_view_bill"
-            android:textColor="@color/colorPrimary" />
+            android:textColor="@color/colorPrimary"
+            android:textSize="16dp" />
 
         <Button
             android:id="@+id/btn_print_bill"
@@ -45,6 +43,7 @@
             android:paddingBottom="25dp"
             android:paddingTop="25dp"
             android:text="@string/text_print_bill"
-            android:textColor="@color/white_color" />
+            android:textColor="@color/white_color"
+            android:textSize="16dp" />
     </LinearLayout>
 </RelativeLayout>

@@ -1,6 +1,5 @@
 package com.example.vaibhavchahal93788.myapplication.billdesk.adapter;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,6 +12,7 @@ import android.widget.TextView;
 
 
 import com.example.vaibhavchahal93788.myapplication.R;
+import com.example.vaibhavchahal93788.myapplication.billdesk.OnDataChangeListener;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductListModel;
 
 import java.util.ArrayList;
@@ -20,9 +20,11 @@ import java.util.ArrayList;
 public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.ViewHolder> {
 
     private ArrayList<ProductListModel> productList;
+    private OnDataChangeListener mOnDataChangeListener;
 
-    public ProductListAdapter(ArrayList<ProductListModel> names) {
+    public ProductListAdapter(ArrayList<ProductListModel> names, OnDataChangeListener onDataChangeListener) {
         this.productList = names;
+        this.mOnDataChangeListener = onDataChangeListener;
     }
 
     @Override
@@ -41,30 +43,12 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
         holder.itemView.setBackgroundColor(model.isSelected() ? selectionColor : Color.WHITE);
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                model.setSelected(!model.isSelected());
-                if (model.isSelected()) {
-                    model.setQuantity(model.getQuantity() + 1);
-                } else {
-                    model.setQuantity(0);
-                }
-                holder.btnCount.setText(String.valueOf(model.getQuantity()));
-                holder.itemView.setBackgroundColor(model.isSelected() ? selectionColor : Color.WHITE);
-            }
-        });
+        clickEventListItem(holder, model, selectionColor);
+        clickEventPlusBtn(holder, model, selectionColor);
+        clickEventMinusBtn(holder, model, selectionColor);
+    }
 
-        holder.imgBtnIncreaseCount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                model.setSelected(true);
-                model.setQuantity(model.getQuantity() + 1);
-                holder.btnCount.setText(String.valueOf(model.getQuantity()));
-                holder.itemView.setBackgroundColor(model.isSelected() ? selectionColor : Color.WHITE);
-            }
-        });
-
+    private void clickEventMinusBtn(final ViewHolder holder, final ProductListModel model, final int selectionColor) {
         holder.imgBtnDecreaseCount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -77,8 +61,50 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
                 }
                 holder.btnCount.setText(String.valueOf(model.getQuantity()));
                 holder.itemView.setBackgroundColor(model.isSelected() ? selectionColor : Color.WHITE);
+                updateEstPriceDetails();
             }
         });
+    }
+
+    private void clickEventPlusBtn(final ViewHolder holder, final ProductListModel model, final int selectionColor) {
+        holder.imgBtnIncreaseCount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                model.setSelected(true);
+                model.setQuantity(model.getQuantity() + 1);
+                holder.btnCount.setText(String.valueOf(model.getQuantity()));
+                holder.itemView.setBackgroundColor(model.isSelected() ? selectionColor : Color.WHITE);
+                updateEstPriceDetails();
+            }
+        });
+    }
+
+    private void clickEventListItem(final ViewHolder holder, final ProductListModel model, final int selectionColor) {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                model.setSelected(!model.isSelected());
+                if (model.isSelected()) {
+                    model.setQuantity(model.getQuantity() + 1);
+                } else {
+                    model.setQuantity(0);
+                }
+                holder.btnCount.setText(String.valueOf(model.getQuantity()));
+                holder.itemView.setBackgroundColor(model.isSelected() ? selectionColor : Color.WHITE);
+                updateEstPriceDetails();
+            }
+        });
+    }
+
+    private void updateEstPriceDetails() {
+        int totalPrice = 0, totalItems = 0;
+        for (ProductListModel listModel : productList) {
+            if (listModel.isSelected()) {
+                totalPrice = totalPrice + listModel.getQuantity() * listModel.getPrice();
+                totalItems = totalItems + listModel.getQuantity();
+            }
+        }
+        mOnDataChangeListener.onDataChanged(totalItems, totalPrice);
     }
 
     @Override
@@ -88,7 +114,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView textViewName;
+        TextView textViewName, textViewQtyAvble;
         ImageButton imgBtnIncreaseCount, imgBtnDecreaseCount;
         Button btnCount;
         EditText etPrice;
@@ -96,6 +122,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         ViewHolder(View itemView) {
             super(itemView);
             textViewName = (TextView) itemView.findViewById(R.id.tv_product_name);
+            textViewQtyAvble = (TextView) itemView.findViewById(R.id.tv_quantity_available);
             imgBtnIncreaseCount = (ImageButton) itemView.findViewById(R.id.btn_add);
             imgBtnDecreaseCount = (ImageButton) itemView.findViewById(R.id.btn_remove);
             btnCount = (Button) itemView.findViewById(R.id.btn_count);
@@ -106,5 +133,19 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     public void filterList(ArrayList<ProductListModel> filterdNames) {
         this.productList = filterdNames;
         notifyDataSetChanged();
+    }
+
+    public void setOnDataChangeListener(OnDataChangeListener onDataChangeListener) {
+        mOnDataChangeListener = onDataChangeListener;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
     }
 }

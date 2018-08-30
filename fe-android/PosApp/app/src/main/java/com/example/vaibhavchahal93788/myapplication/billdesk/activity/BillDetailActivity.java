@@ -18,7 +18,9 @@ import com.example.vaibhavchahal93788.myapplication.billdesk.model.BillProduct;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.HeadingBillSummary;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.HeadingPaymentMode;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.PaymentMode;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductListModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.SelectedProduct;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.TotalBillDetail;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,25 +37,30 @@ public class BillDetailActivity extends AppCompatActivity {
 
         setTitle("Payment");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         populateList();
         initViews();
     }
 
     private void populateList() {
+        ArrayList<ProductListModel> selectedItemList = getIntent().getParcelableArrayListExtra("selectedItemList");
+        int totalItems = getIntent().getIntExtra("totalItems", 0);
+        int totalPrice = getIntent().getIntExtra("totalPrice", 0);
         list = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            SelectedProduct selectedProduct = new SelectedProduct();
-            selectedProduct.setName("coffee" + i);
-            selectedProduct.setPrice("100" + (i + 1));
-            selectedProduct.setQuantity("" + i + 1);
+        for (ProductListModel listModel : selectedItemList) {
+            SelectedProduct selectedProduct = new SelectedProduct(listModel.getText(), listModel.getQuantity(), listModel.getPrice());
             list.add(selectedProduct);
         }
+
         list.add(new HeadingBillSummary("Bill Summary"));
-        for (int i = 0; i < 2; i++) {
-            BillProduct billProduct = new BillProduct(("coffee" + i), "100" + (i + 1), "" + i + 1);
+
+        for (ProductListModel listModel : selectedItemList) {
+            BillProduct billProduct = new BillProduct(listModel.getText(), listModel.getQuantity(), listModel.getPrice());
             list.add(billProduct);
         }
+
+        TotalBillDetail totalBillDetail = new TotalBillDetail("Total Amount" + " (" + totalItems + " items)", totalPrice);
+        list.add(totalBillDetail);
+
         list.add(new HeadingPaymentMode("Payment Mode"));
         list.add(new PaymentMode());
 

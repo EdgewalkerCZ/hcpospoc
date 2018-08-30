@@ -24,8 +24,7 @@
 
     <string name="rupee_symbol">\u20B9</string>
 
-    <string name="text_estimated_price"><b>%1$s</b> item in cart \n <b>\u20B9 %2$d</b>\n Inclusive of all taxes</string>
-
+    <string name="text_estimated_price"><b>%1$d</b> item in cart\n<b>\u20B9 %2$d</b>\nInclusive of all taxes</string>
 
     <string name="text_heading">Heading</string>
     <string name="dummy_text_coffee">Coffee</string>
