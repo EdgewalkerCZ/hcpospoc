@@ -10,8 +10,26 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django_currentuser.middleware import (
     get_current_user, get_current_authenticated_user)
 
+#from django.core.exceptions import ValidationError
+#from django.urls import reverse
+#from django.conf import settings
+#import re
+
 
 # Create your models here.
+
+
+def validate_product_name(productName):
+    regex_string = r'^\w[\w ]*$'
+    search = re.compile(regex_string).search
+    result = bool(search(productName))
+    if not result:
+        raise ValidationError("Please only use letters, "
+                              "numbers and underscores or spaces. "
+                              "The name cannot start with a space.")
+
+
+
 
 class UserProfileManager(BaseUserManager):
     """Helps Django to work with custom user model"""
@@ -19,7 +37,7 @@ class UserProfileManager(BaseUserManager):
     def create_user(self, mobile_number, name, password=None):
 
         if not mobile_number:
-            raise ValueError('Users must have a mobile number adress.')
+            raise ValueError('Users must have a mobile number.')
 
         #email = self.normalize_email(email)
         user = self.model(mobile_number=mobile_number, name=name)
@@ -105,7 +123,7 @@ class Product(models.Model):
         ('INDUSTRIAL', 'Industrial'),
     )
 
-    category = models.CharField(max_length=2, choices=CATEGORY_CHOICES, default='CONSUMER')
+    category = models.CharField(max_length=50, choices=CATEGORY_CHOICES, default='CONSUMER')
 
     subcategory = models.CharField(max_length=45, blank=True)
 
@@ -117,7 +135,7 @@ class Product(models.Model):
         ('ASTRALPIPES', 'Astral Pipes'),
     )
 
-    brand = models.CharField(max_length=2, choices=BRAND_CHOICES, default='', blank=True)
+    brand = models.CharField(max_length=50, choices=BRAND_CHOICES, default='', blank=True)
 
     quantity = models.SmallIntegerField() #fix min/max value
 
@@ -132,4 +150,9 @@ class Product(models.Model):
     warehouse = CurrentUserField()
 
     def __str__(self):
-        return self.title
+        return self.name
+
+
+
+#class SellProduct(models.Model):
+#    product = models.ForeignKey(Product)
