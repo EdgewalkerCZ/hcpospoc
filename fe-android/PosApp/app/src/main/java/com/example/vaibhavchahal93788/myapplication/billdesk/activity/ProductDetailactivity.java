@@ -2,7 +2,6 @@ package com.example.vaibhavchahal93788.myapplication.billdesk.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,16 +16,12 @@ import android.widget.TextView;
 
 
 import com.example.vaibhavchahal93788.myapplication.R;
-import com.example.vaibhavchahal93788.myapplication.billdesk.OnDataChangeListener;
 import com.example.vaibhavchahal93788.myapplication.billdesk.adapter.ProductListAdapter;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductListModel;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
-import java.util.List;
 
-public class ProductDetailactivity extends AppCompatActivity implements View.OnClickListener, OnDataChangeListener {
+public class ProductDetailactivity extends AppCompatActivity implements View.OnClickListener, ProductListAdapter.OnDataChangeListener {
 
     private RecyclerView recyclerView;
     private EditText editTextSearch;

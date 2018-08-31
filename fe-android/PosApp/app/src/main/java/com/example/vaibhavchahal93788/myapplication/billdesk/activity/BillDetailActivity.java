@@ -25,10 +25,11 @@ import com.example.vaibhavchahal93788.myapplication.billdesk.model.TotalBillDeta
 import java.util.ArrayList;
 import java.util.List;
 
-public class BillDetailActivity extends AppCompatActivity {
+public class BillDetailActivity extends AppCompatActivity implements BillDetailRecyclerAdapter.OnDataChangeListener {
     private List<Object> list = new ArrayList();
     private RecyclerView recyclerView;
     private BillDetailRecyclerAdapter adapter;
+    private ArrayList<ProductListModel> selectedItemList;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,10 +43,12 @@ public class BillDetailActivity extends AppCompatActivity {
     }
 
     private void populateList() {
-        ArrayList<ProductListModel> selectedItemList = getIntent().getParcelableArrayListExtra("selectedItemList");
+        selectedItemList = getIntent().getParcelableArrayListExtra("selectedItemList");
         int totalItems = getIntent().getIntExtra("totalItems", 0);
         int totalPrice = getIntent().getIntExtra("totalPrice", 0);
+
         list = new ArrayList<>();
+
         for (ProductListModel listModel : selectedItemList) {
             SelectedProduct selectedProduct = new SelectedProduct(listModel.getText(), listModel.getQuantity(), listModel.getPrice());
             list.add(selectedProduct);
@@ -72,7 +75,7 @@ public class BillDetailActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        adapter = new BillDetailRecyclerAdapter(list);
+        adapter = new BillDetailRecyclerAdapter(list, this);
 
         recyclerView.setAdapter(adapter);
 
@@ -110,5 +113,30 @@ public class BillDetailActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onDataChanged(int quantity, int position) {
+        int index = selectedItemList.size() + 1 + position;
+        BillProduct billProduct = (BillProduct) list.get(index);
+        billProduct.setQuantity(quantity);
+
+        int totalBillIndex = (selectedItemList.size() * 2) + 1;
+
+        TotalBillDetail totalBillDetail = (TotalBillDetail) list.get(totalBillIndex);
+
+        int startIndex = (selectedItemList.size() + 1);
+        int endIndex = (selectedItemList.size() * 2) + 1;
+
+        int totalItems = 0, totalPrice = 0;
+        for (int i = startIndex; i < endIndex; i++) {
+            totalItems = totalItems + ((BillProduct) list.get(i)).getQuantity();
+            totalPrice = totalPrice + ((BillProduct) list.get(i)).getPrice() * ((BillProduct) list.get(i)).getQuantity();
+        }
+        totalBillDetail.setTitle("Total Amount" + " (" + totalItems + " items)");
+        totalBillDetail.setTotalPrice(totalPrice);
+
+        adapter.notifyItemChanged(index);
+        adapter.notifyItemChanged(totalBillIndex);
     }
 }

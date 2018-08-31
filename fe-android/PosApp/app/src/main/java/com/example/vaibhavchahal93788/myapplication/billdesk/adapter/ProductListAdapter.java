@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 
 import com.example.vaibhavchahal93788.myapplication.R;
-import com.example.vaibhavchahal93788.myapplication.billdesk.OnDataChangeListener;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductListModel;
 
 import java.util.ArrayList;
@@ -147,5 +146,9 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     @Override
     public long getItemId(int position) {
         return position;
+    }
+
+    public interface OnDataChangeListener {
+        void onDataChanged(int totalItems, int totalPrice);
     }
 }
