@@ -15,6 +15,7 @@ from rest_framework.views import APIView
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.authtoken.serializers import AuthTokenSerializer
 from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 from .models import UserProfile
 from .models import Product
@@ -52,33 +53,53 @@ class LoginViewSet(viewsets.ViewSet):
         return ObtainAuthToken().post(request)
 
 
+class ProductViewSet(viewsets.ModelViewSet):
+    """Class implementing second approach to products"""
 
-@api_view(['GET'])
-def list_products(request, format=None):
-    products = Product.objects.all()
-    serializer = ProductSerializer(products, many=True)
-    return Response(serializer.data)
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (permissions.PostOwnStatus,)
+    serializer_class = ProductSerializer
+    #queryset = Product.objects.all()
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('name', 'brand_name', 'category')
+
+    def get_queryset(self):
+        user = self.request.user
+        return Product.objects.filter(warehouse=user)
+
+    def perform_create(self, serializer):
+        """sets the user profile to the logged in user"""
+        serializer.save(warehouse=self.request.user)
 
 
-@api_view(['GET', 'POST', 'PUT', 'DELETE']) #add and in future delete or update products
 
-def product_detail(request, pk, format=None):
 
-    try:
-        product = Product.objects.get(pk=pk)
-    except Product.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+#@api_view(['GET'])
+#def list_products(request, format=None):
+#    products = Product.objects.all()
+#    serializer = ProductSerializer(products, many=True)
+#    return Response(serializer.data)
 
-    if request.method == 'GET':
-        serializer = ProductSerializer(product)
-        return Response(serializer.data)
 
-    elif request.method == 'POST':
-        serializer = ProductSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+#@api_view(['GET', 'POST', 'PUT', 'DELETE']) #add and in future delete or update products
+
+#def product_detail(request, pk, format=None):
+
+#    try:
+#        product = Product.objects.get(pk=pk)
+#    except Product.DoesNotExist:
+#        return Response(status=status.HTTP_404_NOT_FOUND)
+#
+#    if request.method == 'GET':
+#        serializer = ProductSerializer(product)
+#        return Response(serializer.data)
+#
+#    elif request.method == 'POST':
+#        serializer = ProductSerializer(data=request.data)
+#        if serializer.is_valid():
+#            serializer.save()
+#            return Response(serializer.data, status=status.HTTP_201_CREATED)
+#        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 

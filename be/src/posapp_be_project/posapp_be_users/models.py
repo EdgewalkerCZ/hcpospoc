@@ -127,16 +127,6 @@ class Product(models.Model):
 
     subcategory = models.CharField(max_length=45, blank=True)
 
-    BRAND_CHOICES = (
-        ('PANASONIC', 'Panasonic'),
-        ('SAMSUNG', 'Samsung'),
-        ('ATUL', 'Atul'),
-        ('NESTLE', 'Nestle'),
-        ('ASTRALPIPES', 'Astral Pipes'),
-    )
-
-    brand = models.CharField(max_length=50, choices=BRAND_CHOICES, default='', blank=True)
-
     quantity = models.SmallIntegerField() #fix min/max value
 
     description = models.TextField(max_length=1000)
@@ -147,7 +137,9 @@ class Product(models.Model):
 
     from django_currentuser.db.models import CurrentUserField
 
-    warehouse = CurrentUserField()
+    #warehouse = CurrentUserField() / CurrentAuthenticatedUserField()
+
+    warehouse = models.ForeignKey('UserProfile', on_delete=models.CASCADE)
 
     created = models.DateTimeField(auto_now_add=True)
 

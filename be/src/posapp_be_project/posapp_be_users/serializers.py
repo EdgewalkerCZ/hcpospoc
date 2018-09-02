@@ -1,6 +1,8 @@
 from rest_framework import serializers
 
-from .models import Product, UserProfile
+from .models import Product
+from .models import UserProfile
+
 
 
 #class HelloSerializer(serializers.Serializer):
@@ -11,6 +13,7 @@ from .models import Product, UserProfile
 class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         fields = (
+            'id',
             'mobile_number',
             'name',
             'password',
@@ -39,9 +42,14 @@ class ProductSerializer(serializers.ModelSerializer):
     #id = serializers.IntegerField(read_only=True)
 
 
+
     class Meta:
         model = Product
         fields = '__all__'
+        extra_kwargs = {'warehouse': {'read_only': True}}
+
+    warehouse = serializers.ReadOnlyField(source='warehouse.id')
+
 
 #class UserSerializer(serializers.ModelSerializer):
 #    password = serializers.CharField(write_only=True)
