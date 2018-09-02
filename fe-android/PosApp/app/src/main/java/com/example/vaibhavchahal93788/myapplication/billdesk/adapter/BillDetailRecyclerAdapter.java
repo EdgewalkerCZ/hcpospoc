@@ -1,19 +1,24 @@
 package com.example.vaibhavchahal93788.myapplication.billdesk.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 
 import com.example.vaibhavchahal93788.myapplication.R;
-import com.example.vaibhavchahal93788.myapplication.billdesk.adapter.model.BillProduct;
-import com.example.vaibhavchahal93788.myapplication.billdesk.adapter.model.HeadingBillSummary;
-import com.example.vaibhavchahal93788.myapplication.billdesk.adapter.model.HeadingPaymentMode;
-import com.example.vaibhavchahal93788.myapplication.billdesk.adapter.model.PaymentMode;
-import com.example.vaibhavchahal93788.myapplication.billdesk.adapter.model.SelectedProduct;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.BillProduct;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.HeadingBillSummary;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.HeadingPaymentMode;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.PaymentMode;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductListModel;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.SelectedProduct;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.TotalBillDetail;
 
 import java.util.List;
 
@@ -23,14 +28,17 @@ public class BillDetailRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
     public static final int TYPE_ITEM_HEADING_BILL_SUMMARY = 1;
     public static final int TYPE_ITEM_HEADING_PAYMENT_MODE = 2;
     public static final int TYPE_ITEM_BILL_PRODUCT = 3;
-    public static final int TYPE_ITEM_PAYMENT_MODE = 4;
+    public static final int TYPE_ITEM_TOTAL_DETAIL = 4;
+    public static final int TYPE_ITEM_PAYMENT_MODE = 5;
 
     private final List<Object> itemsList;
+    private OnDataChangeListener onDataChangeListener;
 
     private Context context;
 
-    public BillDetailRecyclerAdapter(List<Object> list) {
+    public BillDetailRecyclerAdapter(List<Object> list, OnDataChangeListener onDataChangeListener) {
         itemsList = list;
+        this.onDataChangeListener = onDataChangeListener;
     }
 
     @Override
@@ -48,6 +56,9 @@ public class BillDetailRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
         } else if (viewType == TYPE_ITEM_BILL_PRODUCT) {
             View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.product_bill_item, parent, false);
             return new ViewHolderBillProduct(v);
+        } else if (viewType == TYPE_ITEM_TOTAL_DETAIL) {
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.product_bill_item, parent, false);
+            return new ViewHolderTotalBill(v);
         } else if (viewType == TYPE_ITEM_PAYMENT_MODE) {
             View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.payment_mode_item, parent, false);
             return new ViewHolderPaymentMode(v);
@@ -62,8 +73,12 @@ public class BillDetailRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
                 ViewHolderSeletedItem holderSeletedItem = (ViewHolderSeletedItem) holder;
                 SelectedProduct selectedProduct = (SelectedProduct) itemsList.get(position);
                 holderSeletedItem.name.setText(selectedProduct.getName());
-                holderSeletedItem.price.setText(selectedProduct.getPrice());
-                holderSeletedItem.quantity.setText(selectedProduct.getQuantity());
+                holderSeletedItem.price.setText(holderSeletedItem.name.getContext().getString(R.string.rupee_symbol) + String.valueOf(selectedProduct.getPrice()));
+                holderSeletedItem.quantity.setText(String.valueOf(selectedProduct.getQuantity()));
+
+                clickEventPlusBtn(holderSeletedItem, selectedProduct, position);
+                clickEventMinusBtn(holderSeletedItem, selectedProduct, position);
+
                 break;
             case TYPE_ITEM_HEADING_BILL_SUMMARY:
                 ViewHolderHeadingBillSummary holderHeadingBillSummary = (ViewHolderHeadingBillSummary) holder;
@@ -78,8 +93,16 @@ public class BillDetailRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
             case TYPE_ITEM_BILL_PRODUCT:
                 ViewHolderBillProduct holderBillProduct = (ViewHolderBillProduct) holder;
                 BillProduct billProduct = (BillProduct) itemsList.get(position);
-                holderBillProduct.name.setText(billProduct.getName());
-                holderBillProduct.price.setText(billProduct.getPrice());
+                holderBillProduct.name.setText(billProduct.getName() + " x " + billProduct.getQuantity());
+                holderBillProduct.price.setText(holderBillProduct.name.getContext().getString(R.string.rupee_symbol) + String.valueOf(billProduct.getPrice() * billProduct.getQuantity()));
+                break;
+            case TYPE_ITEM_TOTAL_DETAIL:
+                ViewHolderTotalBill holderTotalBill = (ViewHolderTotalBill) holder;
+                TotalBillDetail totalBillDetail = (TotalBillDetail) itemsList.get(position);
+                holderTotalBill.name.setTypeface(null, Typeface.BOLD);
+                holderTotalBill.price.setTypeface(null, Typeface.BOLD);
+                holderTotalBill.name.setText(totalBillDetail.getTitle());
+                holderTotalBill.price.setText(holderTotalBill.name.getContext().getString(R.string.rupee_symbol) + String.valueOf(totalBillDetail.getTotalPrice()));
                 break;
             case TYPE_ITEM_PAYMENT_MODE:
                 break;
@@ -95,6 +118,8 @@ public class BillDetailRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
             return TYPE_ITEM_SELECTED;
         } else if (object instanceof BillProduct) {
             return TYPE_ITEM_BILL_PRODUCT;
+        } else if (object instanceof TotalBillDetail) {
+            return TYPE_ITEM_TOTAL_DETAIL;
         } else if (object instanceof HeadingBillSummary) {
             return TYPE_ITEM_HEADING_BILL_SUMMARY;
         } else if (object instanceof HeadingPaymentMode) {
@@ -114,11 +139,14 @@ public class BillDetailRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
     public class ViewHolderSeletedItem extends RecyclerView.ViewHolder {
 
         public TextView name, quantity, price;
+        ImageButton imageBtnIncrease, imageBtnDecrease;
 
         public ViewHolderSeletedItem(View itemView) {
             super(itemView);
             name = (TextView) itemView.findViewById(R.id.tv_product_name);
             quantity = (TextView) itemView.findViewById(R.id.btn_count);
+            imageBtnIncrease = (ImageButton) itemView.findViewById(R.id.btn_add);
+            imageBtnDecrease = (ImageButton) itemView.findViewById(R.id.btn_remove);
             price = (TextView) itemView.findViewById(R.id.product_price);
         }
     }
@@ -161,5 +189,45 @@ public class BillDetailRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
         }
     }
 
+    public class ViewHolderTotalBill extends RecyclerView.ViewHolder {
+
+        public TextView name, price;
+
+        public ViewHolderTotalBill(View itemView) {
+            super(itemView);
+            name = (TextView) itemView.findViewById(R.id.product_name);
+            price = (TextView) itemView.findViewById(R.id.product_price);
+
+        }
+    }
+
+
+    private void clickEventMinusBtn(final ViewHolderSeletedItem holder, final SelectedProduct model, final int position) {
+        holder.imageBtnDecrease.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (model.getQuantity() > 0) {
+                    model.setQuantity(model.getQuantity() - 1);
+                }
+                holder.quantity.setText(String.valueOf(model.getQuantity()));
+                onDataChangeListener.onDataChanged(model.getQuantity(), position);
+            }
+        });
+    }
+
+    private void clickEventPlusBtn(final ViewHolderSeletedItem holder, final SelectedProduct model, final int position) {
+        holder.imageBtnIncrease.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                model.setQuantity(model.getQuantity() + 1);
+                holder.quantity.setText(String.valueOf(model.getQuantity()));
+                onDataChangeListener.onDataChanged(model.getQuantity(), position);
+            }
+        });
+    }
+
+    public interface OnDataChangeListener {
+        void onDataChanged(int quantity, int position);
+    }
 }
 

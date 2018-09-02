@@ -1,4 +1,4 @@
-package com.example.vaibhavchahal93788.myapplication.billdesk;
+package com.example.vaibhavchahal93788.myapplication.billdesk.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,6 +22,22 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(HomeActivity.this, ProductDetailactivity.class);
+                startActivity(intent);
+            }
+        });
+
+        findViewById(R.id.btn_stock).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HomeActivity.this, StockDetailActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        findViewById(R.id.btn_history).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HomeActivity.this, TransactionHistoryActivity.class);
                 startActivity(intent);
             }
         });

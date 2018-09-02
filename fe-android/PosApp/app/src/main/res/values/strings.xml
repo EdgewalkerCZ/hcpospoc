@@ -4,8 +4,84 @@
     <string name="online_payment">Online Payment</string>
     <string name="home">Home</string>
 
+    <string name="add_product">Add \nProduct</string>
+    <string name="text_print_bill">Print Bill</string>
+    <string name="text_view_bill">View Bill</string>
+    <string name="text_product_name">Product Name</string>
+    <string name="dummy_price_10000">10,000</string>
+    <string name="text_gst_included">GST Included</string>
+    <string name="text_gst_excluded">GST Excluded</string>
+    <string name="text_product_description">Product Description</string>
+    <string name="text_quantity">Quantity</string>
+    <string name="text_add_product">Add Product</string>
+    <string name="text_payment">Payment</string>
+    <string name="text_history">History</string>
+    <string name="text_stock">Stock</string>
+    <string name="text_search_products">Search Products</string>
+    <string name="text_products">Products</string>
+    <string name="text_price">Price</string>
+    <string name="text_price_INR">Price(INR)</string>
+
+    <string name="rupee_symbol">\u20B9</string>
+
+    <string name="text_estimated_price"><b>%1$d</b> item in cart\n<b>\u20B9 %2$d</b>\nInclusive of all taxes</string>
+
+    <string name="text_heading">Heading</string>
+    <string name="dummy_text_coffee">Coffee</string>
+    <string name="dummy_text_rs_50_00">Rs 50.00</string>
+    <string name="dummy_quantity">100 items</string>
+    <string name="dummy_tag_A">A</string>
+    <string name="text_item_name">Item Name</string>
+    <string name="text_tax_summary">Tax Summary</string>
+    <string name="text_net_amount">Net Amount</string>
+    <string name="text_balance">Balance</string>
+    <string name="text_payment_summmary">Payment Summary</string>
+    <string name="text_cash">Cash</string>
+    <string name="text_print_preview">Print Preview</string>
+    <string name="text_invoice_3_inch">Invoice 3 Inch</string>
+    <string name="text_qty">Qty</string>
+    <string name="text_total">Total</string>
+    <string name="text_total_value">Total Value</string>
+    <string name="text_online">Online</string>
+
     <string-array name="payment_modes">
         <item>Cash</item>
+    </string-array>
+
+    <string-array name="product_categories">
+        <item>Categories*</item>
+        <item>Phone</item>
+        <item>Tablet</item>
+        <item>iPad</item>
+        <item>iPhone</item>
+        <item>Fablet</item>
+    </string-array>
+
+    <string-array name="product_sub_categories">
+        <item>Sub Categories*</item>
+        <item>Phone</item>
+        <item>Tablet</item>
+        <item>iPad</item>
+        <item>iPhone</item>
+        <item>Fablet</item>
+    </string-array>
+
+    <string-array name="product_type">
+        <item>Product Type</item>
+        <item>Phone</item>
+        <item>Tablet</item>
+        <item>iPad</item>
+        <item>iPhone</item>
+        <item>Fablet</item>
+    </string-array>
+
+    <string-array name="brand_name">
+        <item>Brand Name</item>
+        <item>Samsung</item>
+        <item>Nokia</item>
+        <item>Moto</item>
+        <item>Apple</item>
+        <item>Sony</item>
     </string-array>
 
 </resources>

@@ -1,4 +1,4 @@
-package com.example.vaibhavchahal93788.myapplication.billdesk.adapter.model;
+package com.example.vaibhavchahal93788.myapplication.billdesk.model;
 
 public class PaymentMode {
 

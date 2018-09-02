@@ -1,38 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/rl_main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white_color">
 
     <RelativeLayout
         android:id="@+id/rtl_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white_color"
         android:padding="10dp">
+
+        <Spinner
+            android:id="@+id/spinner_categories"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/product_categories"
+            android:padding="10dp" />
 
         <EditText
             android:id="@+id/editTextSearch"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/btn_add_product"
-            android:background="@drawable/rectangle"
-            android:hint="Find Products"
-            android:padding="10dp" />
-
-        <Button
-            android:id="@+id/btn_add_product"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
-            android:background="@drawable/add_product_background"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:text="Add Product"
-            android:textAllCaps="false"
-            android:textColor="#FFFFFF" />
+            android:layout_toRightOf="@+id/spinner_categories"
+            android:background="@drawable/rectangle"
+            android:hint="@string/text_search_products"
+            android:padding="10dp" />
+
 
     </RelativeLayout>
 
@@ -41,8 +40,47 @@
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:layout_below="@+id/rtl_header"
-        android:background="#E0E0E0" />
+        android:layout_marginTop="8dp"
+        android:background="@color/color_E0E0E0" />
 
+    <RelativeLayout
+        android:id="@+id/rl_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/divider"
+        android:background="@color/color_F4F4F4"
+        android:padding="2dp">
+
+        <TextView
+            android:id="@+id/tv_product_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="18dp"
+            android:text="@string/text_products" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:paddingLeft="30dp"
+            android:text="@string/text_quantity" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="18dp"
+            android:text="@string/text_price_INR" />
+
+
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/bottom_divider"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@+id/rl_title"
+        android:background="@color/color_E0E0E0" />
     <!-- <android.support.v7.widget.SearchView
          android:id="@+id/searchview"
          android:layout_w\idth="match_parent"
@@ -52,18 +90,72 @@
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/btn_charge"
-        android:layout_below="@+id/divider" />
+        android:layout_above="@+id/rl_charge"
+        android:layout_below="@+id/bottom_divider" />
 
-    <Button
-        android:id="@+id/btn_charge"
-        android:layout_width="match_parent"
+    <FrameLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="#6D6D6D"
-        android:paddingBottom="25dp"
-        android:paddingTop="25dp"
-        android:text="Amount Rs 50/-"
-        android:textColor="#FFFFFF" />
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="80dp"
+        android:layout_marginRight="30dp">
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:backgroundTint="@color/color_1EAA2A"
+            app:fabCustomSize="73dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:elevation="16dp"
+            android:gravity="center"
+            android:text="@string/add_product"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@android:color/white"
+            android:textSize="15dp" />
+
+    </FrameLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_charge"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/rectangle"
+        android:elevation="5dp"
+        android:padding="10dp"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tv_est_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="@string/text_estimated_price"
+            android:textColor="@color/black_color"
+            android:textSize="16dp" />
+
+        <Button
+            android:id="@+id/btn_payment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/print_bill_background"
+            android:paddingBottom="10dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:paddingTop="10dp"
+            android:text="@string/text_payment"
+            android:textAllCaps="false"
+            android:textColor="@color/white_color"
+            android:textSize="18dp" />
+
+    </RelativeLayout>
 
 </RelativeLayout>

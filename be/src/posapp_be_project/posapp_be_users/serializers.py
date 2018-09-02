@@ -13,13 +13,32 @@ class UserProfileSerializer(serializers.ModelSerializer):
         fields = (
             'mobile_number',
             'name',
+            'password',
         )
         model = UserProfile
+        extra_kwargs = {'password': {'write_only': True}}
+
+    def create(self, validated_data):
+        """Create and return a new user"""
+
+        user = UserProfile(
+            mobile_number=validated_data['mobile_number'],
+            name=validated_data['name'],
+        )
+
+        user.set_password(validated_data['password'])
+
+        user.save()
+
+        return user
 
 
 
 
 class ProductSerializer(serializers.ModelSerializer):
+    #id = serializers.IntegerField(read_only=True)
+
+
     class Meta:
         model = Product
         fields = '__all__'

@@ -6,6 +6,10 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -14,11 +18,25 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".billdesk.ProductDetailactivity"></activity>
+        <activity android:name=".billdesk.activity.ProductDetailactivity"></activity>
 
-        <activity android:name=".billdesk.BillDetailActivity"></activity>
+        <activity android:name=".billdesk.activity.BillDetailActivity"></activity>
 
-        <activity android:name=".billdesk.HomeActivity">
+        <activity android:name=".billdesk.activity.AddProductActivity"></activity>
+
+        <activity android:name=".billdesk.activity.StockDetailActivity"></activity>
+        <activity android:name=".billdesk.printing.DeviceListActivity"></activity>
+
+        <activity android:name=".billdesk.activity.TransactionHistoryActivity"></activity>
+        <activity android:name=".billdesk.activity.BillSummaryActivity"></activity>
+
+        <activity android:name=".billdesk.activity.HomeActivity">
+
+
+        </activity>
+
+        <activity android:name=".billdesk.printing.MainActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#FFFFFF"
+    android:background="@color/white_color"
     android:paddingBottom="10dp"
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
@@ -12,7 +12,9 @@
         android:id="@+id/product_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Coffee" />
+        android:text="@string/dummy_text_coffee"
+        android:textColor="@color/black_color"
+        android:textSize="16dp" />
 
 
     <TextView
@@ -20,5 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:text="80" />
+        android:text="80"
+        android:textColor="@color/black_color"
+        android:textSize="16dp" />
 </RelativeLayout>

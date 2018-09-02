@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/color_E1E1E1"
     android:gravity="center">
 
     <Button
@@ -9,10 +10,11 @@
         android:layout_width="190dp"
         android:layout_height="130dp"
         android:layout_centerHorizontal="true"
+        android:background="@color/color_F9F9F9"
         android:drawableTop="@drawable/ic_payment"
         android:gravity="center"
         android:padding="40dp"
-        android:text="Payment"
+        android:text="@string/text_payment"
         android:textAllCaps="false"
         android:textColor="@color/colorPrimary"
         android:textSize="20dp" />
@@ -24,10 +26,11 @@
         android:layout_below="@+id/btn_payment"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
+        android:background="@color/color_F9F9F9"
         android:drawableTop="@drawable/ic_transaction"
         android:gravity="center"
         android:padding="40dp"
-        android:text="History"
+        android:text="@string/text_history"
         android:textAllCaps="false"
         android:textColor="@color/colorPrimary"
         android:textSize="20dp" />
@@ -39,9 +42,10 @@
         android:layout_below="@+id/btn_history"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
+        android:background="@color/color_F9F9F9"
         android:drawableTop="@drawable/ic_product"
         android:padding="40dp"
-        android:text="Stock"
+        android:text="@string/text_stock"
         android:textAllCaps="false"
         android:textColor="@color/colorPrimary"
         android:textSize="20dp" />

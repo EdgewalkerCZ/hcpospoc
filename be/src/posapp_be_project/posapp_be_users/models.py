@@ -73,7 +73,7 @@ class UserProfileManager(BaseUserManager):
 class UserProfile(AbstractBaseUser, PermissionsMixin):
     """Represent profile, including POC now"""
 
-    email = models.EmailField(max_length=255, unique=True)
+    email = models.EmailField(max_length=255, unique=False)
     phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
     mobile_number = models.CharField(validators=[phone_regex], max_length=17, blank=False, unique=True) # validators should be a list
 
@@ -87,7 +87,7 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
 
     objects = UserProfileManager()
 
-    USERNAME_FIELD = 'email'
+    USERNAME_FIELD = 'mobile_number'
     REQUIRED_FIELDS = ['name']
 
     def get_full_name(self):
@@ -103,7 +103,7 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         """Django Uses this when it needs to convert object to string"""
 
-        return self.email
+        return self.name
 
 
 
@@ -149,10 +149,13 @@ class Product(models.Model):
 
     warehouse = CurrentUserField()
 
+    created = models.DateTimeField(auto_now_add=True)
+
     def __str__(self):
         return self.name
 
-
+    class Meta:
+        ordering = ('created',)
 
 #class SellProduct(models.Model):
 #    product = models.ForeignKey(Product)
