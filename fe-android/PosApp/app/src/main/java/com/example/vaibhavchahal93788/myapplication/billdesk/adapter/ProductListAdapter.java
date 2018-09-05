@@ -15,13 +15,14 @@ import com.example.vaibhavchahal93788.myapplication.R;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductListModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.ViewHolder> {
 
-    private ArrayList<ProductListModel> productList;
+    private List<ProductListModel> productList;
     private OnDataChangeListener mOnDataChangeListener;
 
-    public ProductListAdapter(ArrayList<ProductListModel> names, OnDataChangeListener onDataChangeListener) {
+    public ProductListAdapter(List<ProductListModel> names, OnDataChangeListener onDataChangeListener) {
         this.productList = names;
         this.mOnDataChangeListener = onDataChangeListener;
     }
@@ -36,8 +37,8 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         final ProductListModel model = productList.get(position);
-        holder.textViewName.setText(model.getText());
-        holder.etPrice.setText(holder.textViewName.getContext().getString(R.string.rupee_symbol) + String.valueOf(model.getPrice() + ".00"));
+        holder.textViewName.setText(model.getLabel());
+        holder.etPrice.setText(holder.textViewName.getContext().getString(R.string.rupee_symbol) + Math.round(Float.valueOf(model.getPrice())) + ".00");
         final int selectionColor = Color.parseColor("#B8FFBE");
 
         holder.itemView.setBackgroundColor(model.isSelected() ? selectionColor : Color.WHITE);
@@ -99,7 +100,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         int totalPrice = 0, totalItems = 0;
         for (ProductListModel listModel : productList) {
             if (listModel.isSelected()) {
-                totalPrice = totalPrice + listModel.getQuantity() * listModel.getPrice();
+                totalPrice = (totalPrice + listModel.getQuantity() * Math.round(Float.valueOf(listModel.getPrice())));
                 totalItems = totalItems + listModel.getQuantity();
             }
         }

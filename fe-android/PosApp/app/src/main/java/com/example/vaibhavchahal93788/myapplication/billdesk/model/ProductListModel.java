@@ -3,47 +3,27 @@ package com.example.vaibhavchahal93788.myapplication.billdesk.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class ProductListModel implements Parcelable {
+import com.google.gson.annotations.SerializedName;
 
-    private String title;
-    private int quantity,price=50;
+import java.io.Serializable;
+
+public class ProductListModel implements Serializable {
+
+    private int quantity;
     private boolean isSelected = false;
 
-    public ProductListModel(String text) {
-        this.title = text;
-    }
+    @SerializedName("label")
+    private String label;
 
-    protected ProductListModel(Parcel in) {
-        title = in.readString();
-        quantity = in.readInt();
-        price = in.readInt();
-        isSelected = in.readByte() != 0;
-    }
+    @SerializedName("description")
+    private String description;
 
-    public static final Creator<ProductListModel> CREATOR = new Creator<ProductListModel>() {
-        @Override
-        public ProductListModel createFromParcel(Parcel in) {
-            return new ProductListModel(in);
-        }
+    @SerializedName("price")
+    private String price;
 
-        @Override
-        public ProductListModel[] newArray(int size) {
-            return new ProductListModel[size];
-        }
-    };
+    @SerializedName("tva_tx")
+    private String taxPercentage;
 
-    public String getText() {
-        return title;
-    }
-
-    public void setSelected(boolean selected) {
-        isSelected = selected;
-    }
-
-
-    public boolean isSelected() {
-        return isSelected;
-    }
 
     public int getQuantity() {
         return quantity;
@@ -53,24 +33,29 @@ public class ProductListModel implements Parcelable {
         this.quantity = quantity;
     }
 
-    public int getPrice() {
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
+    public String getTaxPercentage() {
+        return taxPercentage;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(title);
-        parcel.writeInt(quantity);
-        parcel.writeInt(price);
-        parcel.writeByte((byte) (isSelected ? 1 : 0));
-    }
 }

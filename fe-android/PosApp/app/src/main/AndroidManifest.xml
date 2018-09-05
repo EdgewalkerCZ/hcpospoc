@@ -18,31 +18,36 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".billdesk.activity.ProductDetailactivity"></activity>
+        <activity
+            android:name=".billdesk.activity.ProductDetailactivity"
+            android:windowSoftInputMode="stateAlwaysHidden"></activity>
 
-        <activity android:name=".billdesk.activity.BillDetailActivity"></activity>
+        <activity
+            android:name=".billdesk.activity.BillDetailActivity"
+            android:windowSoftInputMode="stateAlwaysHidden"></activity>
 
-        <activity android:name=".billdesk.activity.AddProductActivity"></activity>
+        <activity
+            android:name=".billdesk.activity.AddProductActivity"
+            android:windowSoftInputMode="stateAlwaysHidden"></activity>
 
-        <activity android:name=".billdesk.activity.StockDetailActivity"></activity>
+        <activity
+            android:name=".billdesk.activity.StockDetailActivity"
+            android:windowSoftInputMode="stateAlwaysHidden"></activity>
+
         <activity android:name=".billdesk.printing.DeviceListActivity"></activity>
 
         <activity android:name=".billdesk.activity.TransactionHistoryActivity"></activity>
         <activity android:name=".billdesk.activity.BillSummaryActivity"></activity>
 
         <activity android:name=".billdesk.activity.HomeActivity">
-
-
-        </activity>
-
-        <activity android:name=".billdesk.printing.MainActivity">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
 
+        <activity android:name=".billdesk.printing.MainActivity">
         </activity>
 
     </application>

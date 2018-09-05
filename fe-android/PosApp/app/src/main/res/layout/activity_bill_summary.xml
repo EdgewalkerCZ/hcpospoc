@@ -26,7 +26,6 @@
             android:textColor="@color/black_color"
             android:textSize="18dp" />
 
-
         <TextView
             android:id="@+id/tv_merchant_name"
             android:layout_width="wrap_content"

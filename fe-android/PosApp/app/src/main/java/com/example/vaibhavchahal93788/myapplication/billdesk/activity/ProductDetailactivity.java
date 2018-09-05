@@ -11,25 +11,31 @@ import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.example.vaibhavchahal93788.myapplication.R;
 import com.example.vaibhavchahal93788.myapplication.billdesk.adapter.ProductListAdapter;
+import com.example.vaibhavchahal93788.myapplication.billdesk.api.ProductApiHelper;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductListModel;
+import com.example.vaibhavchahal93788.myapplication.billdesk.network.IApiRequestComplete;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ProductDetailactivity extends AppCompatActivity implements View.OnClickListener, ProductListAdapter.OnDataChangeListener {
 
     private RecyclerView recyclerView;
     private EditText editTextSearch;
-    private ArrayList<ProductListModel> productList;
+    private List<ProductListModel> productsList;
     private ProductListAdapter adapter;
     private TextView txtviewEstPrice;
-    private RelativeLayout rlTotalCharge;
     private int totalItem, totalPrice;
+    private RelativeLayout rlTotalCharge;
+    private ProgressBar progreeBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,15 +44,12 @@ public class ProductDetailactivity extends AppCompatActivity implements View.OnC
         setTitle("Product List");
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        populateList();
-
         initViews();
-
         actionEditSearch();
+        getProductList();
     }
 
-    private void populateList() {
+    /*private void populateList(List<Product> productList) {
         productList = new ArrayList<>();
 
         productList.add(new ProductListModel("Coffee"));
@@ -60,16 +63,19 @@ public class ProductDetailactivity extends AppCompatActivity implements View.OnC
         productList.add(new ProductListModel("Taza"));
         productList.add(new ProductListModel("Red Label"));
     }
-
+*/
     private void initViews() {
         recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         editTextSearch = (EditText) findViewById(R.id.editTextSearch);
         txtviewEstPrice = (TextView) findViewById(R.id.tv_est_price);
         rlTotalCharge = (RelativeLayout) findViewById(R.id.rl_charge);
+        progreeBar = (ProgressBar) findViewById(R.id.progress_bar);
 
         findViewById(R.id.fab).setOnClickListener(this);
         findViewById(R.id.btn_payment).setOnClickListener(this);
+    }
 
+    private void setadapter(List<ProductListModel> productList) {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new DividerItemDecoration(this,
@@ -106,9 +112,9 @@ public class ProductDetailactivity extends AppCompatActivity implements View.OnC
         ArrayList<ProductListModel> filterdNames = new ArrayList<>();
 
         //looping through existing elements
-        for (ProductListModel object : productList) {
+        for (ProductListModel object : productsList) {
             //if the existing elements contains the search input
-            if (object.getText().toLowerCase().contains(text.toLowerCase())) {
+            if (object.getLabel().toLowerCase().contains(text.toLowerCase())) {
                 //adding the element to filtered list
                 filterdNames.add(object);
             }
@@ -136,7 +142,7 @@ public class ProductDetailactivity extends AppCompatActivity implements View.OnC
             case R.id.btn_payment:
                 ArrayList<ProductListModel> list = getSelectedItemList();
                 Intent intent = new Intent(ProductDetailactivity.this, BillDetailActivity.class);
-                intent.putParcelableArrayListExtra("selectedItemList", list);
+                intent.putExtra("selectedItemList", list);
                 intent.putExtra("totalItems", totalItem);
                 intent.putExtra("totalPrice", totalPrice);
                 startActivity(intent);
@@ -154,7 +160,7 @@ public class ProductDetailactivity extends AppCompatActivity implements View.OnC
 
     private ArrayList<ProductListModel> getSelectedItemList() {
         ArrayList<ProductListModel> selectedItemList = new ArrayList<ProductListModel>();
-        for (ProductListModel model : productList) {
+        for (ProductListModel model : productsList) {
             if (model.isSelected()) {
                 selectedItemList.add(model);
             }
@@ -172,5 +178,24 @@ public class ProductDetailactivity extends AppCompatActivity implements View.OnC
             rlTotalCharge.setVisibility(View.GONE);
         }
         txtviewEstPrice.setText(String.format(getString(R.string.text_estimated_price), totalItems, totalPrice));
+    }
+
+    public void getProductList() {
+        progreeBar.setVisibility(View.VISIBLE);
+        new ProductApiHelper().fetchProductList("t.ref", "ASC", 100, new IApiRequestComplete<List<ProductListModel>>() {
+
+            @Override
+            public void onSuccess(List<ProductListModel> productList) {
+                productsList = productList;
+                progreeBar.setVisibility(View.GONE);
+                setadapter(productList);
+            }
+
+            @Override
+            public void onFailure(String message) {
+                progreeBar.setVisibility(View.GONE);
+                Toast.makeText(ProductDetailactivity.this, message, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

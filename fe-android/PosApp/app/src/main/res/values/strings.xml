@@ -43,6 +43,7 @@
     <string name="text_total">Total</string>
     <string name="text_total_value">Total Value</string>
     <string name="text_online">Online</string>
+    <string name="text_connect_printer">Find/Connect Printer</string>
 
     <string-array name="payment_modes">
         <item>Cash</item>
@@ -83,5 +84,10 @@
         <item>Apple</item>
         <item>Sony</item>
     </string-array>
+
+    <string name="check_intenet_connection">Check Your Internet Connection</string>
+    <string name="something_went_wrong_msg">Something went wrong, please try again</string>
+    <string name="unauthorized_user">Unauthorized user</string>
+    <string name="user_already_exists">User already exists</string>
 
 </resources>

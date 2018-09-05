@@ -3,7 +3,7 @@ package com.example.vaibhavchahal93788.myapplication.billdesk.model;
 public class BillProduct {
 
     private String name;
-    private int quantity, price;
+    private int quantity, price, originalPrice;
 
     public BillProduct(String name, int quantity, int price) {
         this.name = name;
