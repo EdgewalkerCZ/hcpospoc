@@ -29,6 +29,7 @@
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/spinner_categories"
             android:background="@drawable/rectangle"
+            android:enabled="false"
             android:hint="@string/text_search_products"
             android:padding="10dp" />
 
@@ -72,8 +73,8 @@
         android:id="@+id/progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:layout_centerInParent="true"/>
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
 
 
 </RelativeLayout>

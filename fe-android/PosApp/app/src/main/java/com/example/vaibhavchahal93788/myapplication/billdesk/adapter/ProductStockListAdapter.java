@@ -62,8 +62,9 @@ public class ProductStockListAdapter extends RecyclerView.Adapter<ProductStockLi
     public long getItemId(int position) {
         return position;
     }
-    /*public void filterList(ArrayList<String> filterdNames) {
-        this.names = filterdNames;
+
+    public void filterList(ArrayList<ProductListModel> filterdNames) {
+        this.productList = filterdNames;
         notifyDataSetChanged();
-    }*/
+    }
 }

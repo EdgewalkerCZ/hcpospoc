@@ -43,29 +43,12 @@ public class StockDetailActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-//        populateList();
-
         initViews();
 
-//        actionEditSearch();
+        actionEditSearch();
         getProductList();
 
     }
-
-//    private void populateList() {
-//        names = new ArrayList<>();
-//
-//        names.add("Coffee");
-//        names.add("Black Coffee");
-//        names.add("Tea");
-//        names.add("Green Tea");
-//        names.add("Black Tea");
-//        names.add("Red Tea");
-//        names.add("Nescafe");
-//        names.add("Nestle");
-//        names.add("Taza");
-//        names.add("Red Label");
-//    }
 
     private void initViews() {
         recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
@@ -112,22 +95,21 @@ public class StockDetailActivity extends AppCompatActivity {
         });
     }
 
-
     private void filter(String text) {
         //new array list that will hold the filtered data
-        ArrayList<String> filterdNames = new ArrayList<>();
+        ArrayList<ProductListModel> filterdNames = new ArrayList<>();
 
         //looping through existing elements
-        for (String s : names) {
+        for (ProductListModel object : productsList) {
             //if the existing elements contains the search input
-            if (s.toLowerCase().contains(text.toLowerCase())) {
+            if (object.getLabel().toLowerCase().contains(text.toLowerCase())) {
                 //adding the element to filtered list
-                filterdNames.add(s);
+                filterdNames.add(object);
             }
         }
 
         //calling a method of the adapter class and passing the filtered list
-//        adapter.filterList(filterdNames);
+        adapter.filterList(filterdNames);
     }
 
     @Override
