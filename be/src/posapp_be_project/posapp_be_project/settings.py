@@ -25,7 +25,7 @@ SECRET_KEY = 'ul_avvga$z1ur0=mv(ntmgi45x6ixjgel+^!aw0$w#mhe00=b9'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["192.168.99.100"]
 
 
 # Application definition

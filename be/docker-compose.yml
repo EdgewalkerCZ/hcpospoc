@@ -1,0 +1,11 @@
+version: '3.3'
+
+services:
+  web:
+    build: .
+    environment:
+      - COMPOSE_CONVERT_WINDOWS_PATHS=1
+    command: python3 /code/src/posapp_be_project/manage.py runserver 0.0.0.0:8000
+    ports:
+      - "8000:8000"
+    container_name: posapp_be_web

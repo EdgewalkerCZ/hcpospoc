@@ -1,0 +1,16 @@
+# escape=`
+
+FROM python:3
+
+ENV PYTHONUNBUFFERED 1
+
+#RUN apt-get update && apt-get install -y dos2unix
+RUN mkdir /code
+WORKDIR /code
+#ADD . /code/
+COPY pip_requirements.txt pip_requirements.txt
+COPY . /code/
+#ADD entrypoint.sh /entrypoint.sh
+#RUN find . -type f -print0 | xargs -0 dos2unix
+#RUN apt-get --purge remove -y dos2unix && rm -rf /var/lib/apt/lists/*
+RUN pip install -r /code/pip_requirements.txt
