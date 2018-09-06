@@ -293,7 +293,7 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         int totalPrice = 0;
         for (int i = startIndex; i < endIndex; i++) {
             BillProduct billProduct = ((BillProduct) list.get(i));
-            printTextNormal(billProduct.getName() + " : " + billProduct.getPrice() + "     " + billProduct.getQuantity() + "     l" + (billProduct.getPrice() * billProduct.getQuantity()));
+            printTextNormal(billProduct.getName() + " : " + billProduct.getPrice() + "     " + billProduct.getQuantity() + "     " + (billProduct.getPrice() * billProduct.getQuantity()));
             printNewLine();
             totalPrice = totalPrice + ((BillProduct) list.get(i)).getPrice() * ((BillProduct) list.get(i)).getQuantity();
         }

@@ -38,7 +38,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     public void onBindViewHolder(final ViewHolder holder, int position) {
         final ProductListModel model = productList.get(position);
         holder.textViewName.setText(model.getLabel());
-        holder.etPrice.setText(holder.textViewName.getContext().getString(R.string.rupee_symbol) + Math.round(Float.valueOf(model.getPrice())) + ".00");
+        holder.etPrice.setText(holder.textViewName.getContext().getString(R.string.rupee_symbol) + Math.round(Float.valueOf(model.getPrice())));
         final int selectionColor = Color.parseColor("#B8FFBE");
 
         holder.itemView.setBackgroundColor(model.isSelected() ? selectionColor : Color.WHITE);

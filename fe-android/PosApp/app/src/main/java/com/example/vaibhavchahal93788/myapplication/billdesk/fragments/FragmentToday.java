@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.vaibhavchahal93788.myapplication.R;
+import com.example.vaibhavchahal93788.myapplication.billdesk.adapter.ProductHistoryListAdapter;
 import com.example.vaibhavchahal93788.myapplication.billdesk.adapter.ProductStockListAdapter;
 
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 public class FragmentToday extends Fragment {
 
     private RecyclerView recyclerView;
-    private ProductStockListAdapter adapter;
+    private ProductHistoryListAdapter adapter;
     private ArrayList<String> names;
 
     //Overriden method onCreateView
@@ -56,7 +57,7 @@ public class FragmentToday extends Fragment {
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext(),
                 DividerItemDecoration.VERTICAL));
 
-        adapter = new ProductStockListAdapter(names);
+        adapter = new ProductHistoryListAdapter(names);
 
         recyclerView.setAdapter(adapter);
     }

@@ -24,13 +24,13 @@ public class ResponseHandler<T> implements Callback<T> {
         } else {
             switch (response.code()) {
                 case 401:
-                    iApiRequestComplete.onFailure(Application.getAppContext().getResources().getString(R.string.unauthorized_user));
+                    iApiRequestComplete.onFailure("Unauthorized user");
                     break;
                 case 422:
-                    iApiRequestComplete.onFailure(Application.getAppContext().getResources().getString(R.string.user_already_exists));
+                    iApiRequestComplete.onFailure("User already exists");
                     break;
                 default:
-                    iApiRequestComplete.onFailure(Application.getAppContext().getResources().getString(R.string.something_went_wrong_msg));
+                    iApiRequestComplete.onFailure("Something went wrong, please try again");
                     break;
             }
         }
@@ -39,10 +39,10 @@ public class ResponseHandler<T> implements Callback<T> {
     @Override
     public void onFailure(Call<T> call, Throwable t) {
         if (t instanceof IOException) {
-            iApiRequestComplete.onFailure(Application.getAppContext().getResources().getString(R.string.check_intenet_connection))
+            iApiRequestComplete.onFailure("Check Your Internet Connection")
             ;
         } else {
-            iApiRequestComplete.onFailure(Application.getAppContext().getResources().getString(R.string.something_went_wrong_msg));
+            iApiRequestComplete.onFailure("Something went wrong, please try again");
         }
     }
 }

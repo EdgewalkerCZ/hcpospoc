@@ -85,9 +85,9 @@
         <item>Sony</item>
     </string-array>
 
-    <string name="check_intenet_connection">Check Your Internet Connection</string>
-    <string name="something_went_wrong_msg">Something went wrong, please try again</string>
-    <string name="unauthorized_user">Unauthorized user</string>
-    <string name="user_already_exists">User already exists</string>
+    <string name="text_add_product_success">Product added successfully!</string>
+    <string name="text_decrtn_required">Product description required!</string>
+    <string name="text_price_req">Product price required!</string>
+    <string name="prodct_name_req">Product name required!</string>
 
 </resources>

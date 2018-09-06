@@ -1,12 +1,12 @@
 package com.example.vaibhavchahal93788.myapplication.billdesk.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -17,6 +17,7 @@ import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductListMo
 import com.example.vaibhavchahal93788.myapplication.billdesk.network.IApiRequestComplete;
 
 import java.util.List;
+import java.util.UUID;
 
 import okhttp3.ResponseBody;
 
@@ -24,6 +25,7 @@ import okhttp3.ResponseBody;
 public class AddProductActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ProgressBar progressBar;
+    private EditText etProductName, etProductPrice, etProductAvlbleQty, etProductDescptn;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,6 +37,11 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         progressBar = findViewById(R.id.progress_bar);
+        findViewById(R.id.btn_add_product).setOnClickListener(this);
+        etProductName = findViewById(R.id.et_productname);
+        etProductPrice = findViewById(R.id.et_price);
+        etProductAvlbleQty = findViewById(R.id.et_quantity);
+        etProductDescptn = findViewById(R.id.et_productdescription);
     }
 
 
@@ -72,21 +79,34 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void addProduct() {
-        progressBar.setVisibility(View.VISIBLE);
-        AddProductModel addProductModel = new AddProductModel("coffee", "xyz", "10", "cfe");
-        new ProductApiHelper().addNewProduct(addProductModel, new IApiRequestComplete() {
-
-            @Override
-            public void onSuccess(Object response) {
-                progressBar.setVisibility(View.GONE);
+        if (etProductName.getText().toString().isEmpty() || etProductPrice.getText().toString().isEmpty() || etProductDescptn.getText().toString().isEmpty()) {
+            if (etProductName.getText().toString().isEmpty()) {
+                Toast.makeText(this, R.string.prodct_name_req, Toast.LENGTH_LONG).show();
+            } else if (etProductPrice.getText().toString().isEmpty()) {
+                Toast.makeText(this, R.string.text_price_req, Toast.LENGTH_LONG).show();
+            } else if (etProductDescptn.getText().toString().isEmpty()) {
+                Toast.makeText(this, R.string.text_decrtn_required, Toast.LENGTH_LONG).show();
             }
+        } else {
+            progressBar.setVisibility(View.VISIBLE);
+            AddProductModel addProductModel = new AddProductModel(etProductName.getText().toString(), etProductDescptn.getText().toString(), etProductPrice.getText().toString(), etProductName.getText().toString() + UUID.randomUUID().toString());
+            new ProductApiHelper().addNewProduct(addProductModel, new IApiRequestComplete() {
 
-            @Override
-            public void onFailure(String message) {
-                progressBar.setVisibility(View.GONE);
-                Toast.makeText(AddProductActivity.this, message, Toast.LENGTH_SHORT).show();
-            }
-        });
+                @Override
+                public void onSuccess(Object response) {
+                    progressBar.setVisibility(View.GONE);
+                    Toast.makeText(AddProductActivity.this, R.string.text_add_product_success, Toast.LENGTH_SHORT).show();
+                    setResult(RESULT_OK);
+                    finish();
+                }
+
+                @Override
+                public void onFailure(String message) {
+                    progressBar.setVisibility(View.GONE);
+                    Toast.makeText(AddProductActivity.this, message, Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 }
 

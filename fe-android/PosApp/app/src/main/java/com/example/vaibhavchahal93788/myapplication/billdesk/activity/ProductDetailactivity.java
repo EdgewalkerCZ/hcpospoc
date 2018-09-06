@@ -36,6 +36,7 @@ public class ProductDetailactivity extends AppCompatActivity implements View.OnC
     private int totalItem, totalPrice;
     private RelativeLayout rlTotalCharge;
     private ProgressBar progreeBar;
+    private int REQUEST_CODE = 10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,21 +50,6 @@ public class ProductDetailactivity extends AppCompatActivity implements View.OnC
         getProductList();
     }
 
-    /*private void populateList(List<Product> productList) {
-        productList = new ArrayList<>();
-
-        productList.add(new ProductListModel("Coffee"));
-        productList.add(new ProductListModel("Black Coffee"));
-        productList.add(new ProductListModel("Tea"));
-        productList.add(new ProductListModel("Green Tea"));
-        productList.add(new ProductListModel("Black Tea"));
-        productList.add(new ProductListModel("Red Tea"));
-        productList.add(new ProductListModel("Nescafe"));
-        productList.add(new ProductListModel("Nestle"));
-        productList.add(new ProductListModel("Taza"));
-        productList.add(new ProductListModel("Red Label"));
-    }
-*/
     private void initViews() {
         recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         editTextSearch = (EditText) findViewById(R.id.editTextSearch);
@@ -149,7 +135,7 @@ public class ProductDetailactivity extends AppCompatActivity implements View.OnC
                 break;
 
             case R.id.fab:
-                startActivity(new Intent(ProductDetailactivity.this, AddProductActivity.class));
+                startActivityForResult(new Intent(ProductDetailactivity.this, AddProductActivity.class), REQUEST_CODE);
                 break;
 
             default:
@@ -186,6 +172,9 @@ public class ProductDetailactivity extends AppCompatActivity implements View.OnC
 
             @Override
             public void onSuccess(List<ProductListModel> productList) {
+                if (!productList.isEmpty()) {
+                    editTextSearch.setEnabled(true);
+                }
                 productsList = productList;
                 progreeBar.setVisibility(View.GONE);
                 setadapter(productList);
@@ -197,5 +186,13 @@ public class ProductDetailactivity extends AppCompatActivity implements View.OnC
                 Toast.makeText(ProductDetailactivity.this, message, Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
+            getProductList();
+        }
     }
 }

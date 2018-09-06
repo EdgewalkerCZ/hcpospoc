@@ -7,15 +7,17 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.vaibhavchahal93788.myapplication.R;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductListModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ProductStockListAdapter extends RecyclerView.Adapter<ProductStockListAdapter.ViewHolder> {
 
-    private ArrayList<String> names;
+    private List<ProductListModel> productList;
 
-    public ProductStockListAdapter(ArrayList<String> names) {
-        this.names = names;
+    public ProductStockListAdapter(List<ProductListModel> names) {
+        this.productList = names;
     }
 
     @Override
@@ -27,21 +29,27 @@ public class ProductStockListAdapter extends RecyclerView.Adapter<ProductStockLi
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.textViewName.setText(names.get(position));
+        final ProductListModel model = productList.get(position);
+        holder.textViewName.setText(model.getLabel());
+        holder.textViewPrice.setText(holder.textViewName.getContext().getString(R.string.rupee_symbol) + Math.round(Float.valueOf(model.getPrice())) + ".00");
+        holder.textViewTag.setText(model.getLabel().toString().substring(0, 1));
     }
+
 
     @Override
     public int getItemCount() {
-        return names.size();
+        return productList.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView textViewName;
+        TextView textViewName, textViewPrice, textViewTag;
 
         ViewHolder(View itemView) {
             super(itemView);
             textViewName = (TextView) itemView.findViewById(R.id.tv_product_name);
+            textViewPrice = (TextView) itemView.findViewById(R.id.product_price);
+            textViewTag = (TextView) itemView.findViewById(R.id.tv_product_tag);
         }
     }
 
