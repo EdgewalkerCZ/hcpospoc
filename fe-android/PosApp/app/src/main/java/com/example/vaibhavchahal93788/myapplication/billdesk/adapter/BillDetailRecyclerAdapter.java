@@ -77,10 +77,11 @@ public class BillDetailRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
                 SelectedProduct selectedProduct = (SelectedProduct) itemsList.get(position);
                 holderSeletedItem.name.setText(selectedProduct.getName());
                 holderSeletedItem.price.setEnabled(true);
-                holderSeletedItem.price.setText(holderSeletedItem.name.getContext().getString(R.string.rupee_symbol) + String.valueOf(selectedProduct.getPrice()));
+                holderSeletedItem.price.setCompoundDrawablesWithIntrinsicBounds(R.drawable.rupee_icon, 0, 0, 0);
+                holderSeletedItem.price.setText(String.valueOf(selectedProduct.getPrice()));
                 holderSeletedItem.quantity.setText(String.valueOf(selectedProduct.getQuantity()));
 
-//                clickEventEditPrice(position, holderSeletedItem);
+                clickEventEditPrice(selectedProduct, position, holderSeletedItem);
 
                 clickEventPlusBtn(holderSeletedItem, selectedProduct, position);
                 clickEventMinusBtn(holderSeletedItem, selectedProduct, position);
@@ -209,7 +210,7 @@ public class BillDetailRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
         }
     }
 
-    private void clickEventEditPrice(final SelectedProduct model, final int position, ViewHolderSeletedItem holderSeletedItem) {
+    private void clickEventEditPrice(final SelectedProduct model, final int position, final ViewHolderSeletedItem holderSeletedItem) {
         holderSeletedItem.price.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -217,7 +218,13 @@ public class BillDetailRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                onDataChangeListener.onDataChangedWithPrice(model.getPrice(), position);
+//                onDataChangeListener.onDataChangedWithPrice(model.getPrice(), position);
+                if (charSequence.toString().isEmpty()) {
+                    model.setPrice(0);
+                } else {
+                    model.setPrice(Math.round(Float.parseFloat(charSequence.toString())));
+                }
+                onDataChangeListener.onDataChanged(model.getQuantity(), position, model.getPrice());
             }
 
             @Override
@@ -235,7 +242,7 @@ public class BillDetailRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
                     model.setQuantity(model.getQuantity() - 1);
                 }
                 holder.quantity.setText(String.valueOf(model.getQuantity()));
-                onDataChangeListener.onDataChanged(model.getQuantity(), position);
+                onDataChangeListener.onDataChanged(model.getQuantity(), position, -1);
             }
         });
     }
@@ -246,15 +253,13 @@ public class BillDetailRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
             public void onClick(View view) {
                 model.setQuantity(model.getQuantity() + 1);
                 holder.quantity.setText(String.valueOf(model.getQuantity()));
-                onDataChangeListener.onDataChanged(model.getQuantity(), position);
+                onDataChangeListener.onDataChanged(model.getQuantity(), position, -1);
             }
         });
     }
 
     public interface OnDataChangeListener {
-        void onDataChanged(int quantity, int position);
-
-        void onDataChangedWithPrice(int price, int position);
+        void onDataChanged(int quantity, int position, int price);
     }
 }
 
