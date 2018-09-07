@@ -28,7 +28,6 @@ public class StockDetailActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private EditText editTextSearch;
-    private ArrayList<String> names;
     private List<ProductListModel> productsList;
     private ProductStockListAdapter adapter;
     private ProgressBar progreeBar;

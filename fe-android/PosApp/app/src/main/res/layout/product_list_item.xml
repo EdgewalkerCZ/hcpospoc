@@ -72,8 +72,9 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="15dp"
         android:background="@drawable/rectangle"
+        android:enabled="false"
         android:gravity="center"
-        android:text="R5000"
+        android:inputType="number"
         android:textColor="#000000" />
 
 </RelativeLayout>

@@ -95,34 +95,6 @@
         android:layout_above="@+id/rl_charge"
         android:layout_below="@+id/bottom_divider" />
 
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="80dp"
-        android:layout_marginRight="30dp">
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:backgroundTint="@color/color_1EAA2A"
-            app:fabCustomSize="73dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:elevation="16dp"
-            android:gravity="center"
-            android:text="@string/add_product"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@android:color/white"
-            android:textSize="15dp" />
-
-    </FrameLayout>
-
     <RelativeLayout
         android:id="@+id/rl_charge"
         android:layout_width="match_parent"

@@ -1,0 +1,16 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    
+    <item
+        android:id="@+id/action_add_product"
+        android:title=""
+        app:actionLayout="@layout/add_product_menu_item1"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_add_product2"
+        android:title=""
+        app:actionLayout="@layout/add_product_menu_item2"
+        app:showAsAction="always" />
+
+</menu>

@@ -8,6 +8,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -57,7 +59,6 @@ public class ProductDetailactivity extends AppCompatActivity implements View.OnC
         rlTotalCharge = (RelativeLayout) findViewById(R.id.rl_charge);
         progreeBar = (ProgressBar) findViewById(R.id.progress_bar);
 
-        findViewById(R.id.fab).setOnClickListener(this);
         findViewById(R.id.btn_payment).setOnClickListener(this);
     }
 
@@ -110,16 +111,6 @@ public class ProductDetailactivity extends AppCompatActivity implements View.OnC
         adapter.filterList(filterdNames);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     @Override
     public void onClick(View view) {
@@ -132,10 +123,6 @@ public class ProductDetailactivity extends AppCompatActivity implements View.OnC
                 intent.putExtra("totalItems", totalItem);
                 intent.putExtra("totalPrice", totalPrice);
                 startActivity(intent);
-                break;
-
-            case R.id.fab:
-                startActivityForResult(new Intent(ProductDetailactivity.this, AddProductActivity.class), REQUEST_CODE);
                 break;
 
             default:
@@ -194,5 +181,42 @@ public class ProductDetailactivity extends AppCompatActivity implements View.OnC
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
             getProductList();
         }
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(final Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.product_list_menu, menu);
+
+        View view = menu.findItem(R.id.action_add_product).getActionView();
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivityForResult(new Intent(ProductDetailactivity.this, AddProductActivity.class), REQUEST_CODE);
+            }
+        });
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_add_product) {
+            Intent intent = new Intent(ProductDetailactivity.this, HomeActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        } else if (id == android.R.id.home) {
+            finish();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

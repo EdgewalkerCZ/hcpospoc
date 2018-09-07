@@ -183,6 +183,11 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
     }
 
     @Override
+    public void onDataChangedWithPrice(int price, int position) {
+
+    }
+
+    @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_find_printer:

@@ -4,9 +4,12 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -73,8 +76,11 @@ public class BillDetailRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
                 ViewHolderSeletedItem holderSeletedItem = (ViewHolderSeletedItem) holder;
                 SelectedProduct selectedProduct = (SelectedProduct) itemsList.get(position);
                 holderSeletedItem.name.setText(selectedProduct.getName());
+                holderSeletedItem.price.setEnabled(true);
                 holderSeletedItem.price.setText(holderSeletedItem.name.getContext().getString(R.string.rupee_symbol) + String.valueOf(selectedProduct.getPrice()));
                 holderSeletedItem.quantity.setText(String.valueOf(selectedProduct.getQuantity()));
+
+//                clickEventEditPrice(position, holderSeletedItem);
 
                 clickEventPlusBtn(holderSeletedItem, selectedProduct, position);
                 clickEventMinusBtn(holderSeletedItem, selectedProduct, position);
@@ -111,6 +117,7 @@ public class BillDetailRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
         }
     }
 
+
     @Override
     public int getItemViewType(int position) {
         Object object = itemsList.get(position);
@@ -138,7 +145,8 @@ public class BillDetailRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
 
     public class ViewHolderSeletedItem extends RecyclerView.ViewHolder {
 
-        public TextView name, quantity, price;
+        public TextView name, quantity;
+        public EditText price;
         ImageButton imageBtnIncrease, imageBtnDecrease;
 
         public ViewHolderSeletedItem(View itemView) {
@@ -147,7 +155,7 @@ public class BillDetailRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
             quantity = (TextView) itemView.findViewById(R.id.btn_count);
             imageBtnIncrease = (ImageButton) itemView.findViewById(R.id.btn_add);
             imageBtnDecrease = (ImageButton) itemView.findViewById(R.id.btn_remove);
-            price = (TextView) itemView.findViewById(R.id.product_price);
+            price = (EditText) itemView.findViewById(R.id.product_price);
         }
     }
 
@@ -201,6 +209,23 @@ public class BillDetailRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
         }
     }
 
+    private void clickEventEditPrice(final SelectedProduct model, final int position, ViewHolderSeletedItem holderSeletedItem) {
+        holderSeletedItem.price.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                onDataChangeListener.onDataChangedWithPrice(model.getPrice(), position);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+    }
 
     private void clickEventMinusBtn(final ViewHolderSeletedItem holder, final SelectedProduct model, final int position) {
         holder.imageBtnDecrease.setOnClickListener(new View.OnClickListener() {
@@ -228,6 +253,8 @@ public class BillDetailRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
 
     public interface OnDataChangeListener {
         void onDataChanged(int quantity, int position);
+
+        void onDataChangedWithPrice(int price, int position);
     }
 }
 
