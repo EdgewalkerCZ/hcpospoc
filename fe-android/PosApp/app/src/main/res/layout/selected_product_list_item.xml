@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white_color"
+    android:paddingBottom="20dp"
+    android:paddingLeft="12dp"
+    android:paddingRight="12dp"
+    android:paddingTop="20dp">
+
+    <RelativeLayout
+        android:id="@+id/rl_product_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true">
+
+        <TextView
+            android:id="@+id/tv_product_name"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLength="25"
+            android:textColor="@color/black_color"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_quantity_available"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_product_name"
+            android:text="100 items"
+            android:textColor="@color/black_color" />
+    </RelativeLayout>
+
+    <ImageButton
+        android:id="@+id/btn_add"
+        android:layout_width="45dp"
+        android:layout_height="40dp"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/product_price"
+        android:background="@drawable/right_rectangle"
+        android:src="@drawable/ic_add_black_24dp" />
+
+    <Button
+        android:id="@+id/btn_count"
+        android:layout_width="45dp"
+        android:layout_height="40dp"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/btn_add"
+        android:background="@drawable/rectangle"
+        android:text="0"
+        android:textColor="@color/black_color"
+        android:textSize="18dp" />
+
+    <ImageButton
+        android:id="@+id/btn_remove"
+        android:layout_width="45dp"
+        android:layout_height="40dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="5dp"
+        android:layout_toLeftOf="@+id/btn_count"
+        android:background="@drawable/left_rectangle"
+        android:src="@drawable/ic_remove_black_24dp" />
+
+
+    <EditText
+        android:id="@+id/product_price"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="15dp"
+        android:background="@drawable/rectangle"
+        android:gravity="center"
+        android:inputType="number"
+        android:textColor="#000000" />
+
+</RelativeLayout>

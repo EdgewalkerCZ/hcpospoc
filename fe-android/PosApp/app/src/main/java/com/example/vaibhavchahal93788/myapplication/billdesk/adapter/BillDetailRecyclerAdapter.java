@@ -38,6 +38,7 @@ public class BillDetailRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
     private OnDataChangeListener onDataChangeListener;
 
     private Context context;
+    private String textBeforeChanged;
 
     public BillDetailRecyclerAdapter(List<Object> list, OnDataChangeListener onDataChangeListener) {
         itemsList = list;
@@ -48,7 +49,7 @@ public class BillDetailRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         context = parent.getContext();
         if (viewType == TYPE_ITEM_SELECTED) {
-            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.product_list_item, parent, false);
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.selected_product_list_item, parent, false);
             return new ViewHolderSeletedItem(v);
         } else if (viewType == TYPE_ITEM_HEADING_BILL_SUMMARY) {
             View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.bill_item_heading, parent, false);
@@ -76,13 +77,12 @@ public class BillDetailRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
                 ViewHolderSeletedItem holderSeletedItem = (ViewHolderSeletedItem) holder;
                 SelectedProduct selectedProduct = (SelectedProduct) itemsList.get(position);
                 holderSeletedItem.name.setText(selectedProduct.getName());
-                holderSeletedItem.price.setEnabled(true);
-                holderSeletedItem.price.setCompoundDrawablesWithIntrinsicBounds(R.drawable.rupee_icon, 0, 0, 0);
+
+//                holderSeletedItem.price.setCompoundDrawablesWithIntrinsicBounds(R.drawable.rupee_icon, 0, 0, 0);
                 holderSeletedItem.price.setText(String.valueOf(selectedProduct.getPrice()));
+
                 holderSeletedItem.quantity.setText(String.valueOf(selectedProduct.getQuantity()));
-
                 clickEventEditPrice(selectedProduct, position, holderSeletedItem);
-
                 clickEventPlusBtn(holderSeletedItem, selectedProduct, position);
                 clickEventMinusBtn(holderSeletedItem, selectedProduct, position);
 
@@ -211,20 +211,27 @@ public class BillDetailRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
     }
 
     private void clickEventEditPrice(final SelectedProduct model, final int position, final ViewHolderSeletedItem holderSeletedItem) {
+
+        textBeforeChanged = "";
         holderSeletedItem.price.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                textBeforeChanged = charSequence.toString();
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 //                onDataChangeListener.onDataChangedWithPrice(model.getPrice(), position);
-                if (charSequence.toString().isEmpty()) {
-                    model.setPrice(0);
+                if (textBeforeChanged.equals(String.valueOf(charSequence))) {
+
                 } else {
-                    model.setPrice(Math.round(Float.parseFloat(charSequence.toString())));
+                    if (charSequence.toString().isEmpty()) {
+                        model.setPrice(0);
+                    } else {
+                        model.setPrice(Math.round(Float.parseFloat(charSequence.toString())));
+                    }
+                    onDataChangeListener.onDataChanged(model.getQuantity(), position, model.getPrice());
                 }
-                onDataChangeListener.onDataChanged(model.getQuantity(), position, model.getPrice());
             }
 
             @Override
@@ -261,5 +268,11 @@ public class BillDetailRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
     public interface OnDataChangeListener {
         void onDataChanged(int quantity, int position, int price);
     }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
 }
 

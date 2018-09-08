@@ -70,6 +70,7 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
     private OutputStream os;
     byte FONT_TYPE;
     private EditText message;
+    private boolean isBluetoothConnected = false;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -118,6 +119,7 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         adapter = new BillDetailRecyclerAdapter(list, this);
 
         recyclerView.setAdapter(adapter);
+        recyclerView.setItemViewCacheSize(list.size());
 
         btnConnectPrinter = findViewById(R.id.btn_find_printer);
         btnConnectPrinter.setOnClickListener(this);
@@ -134,6 +136,18 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_main, menu);
+
+        View view = menu.findItem(R.id.action_home).getActionView();
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO
+                Intent intent = new Intent(BillDetailActivity.this, HomeActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+        });
+
         return true;
     }
 
@@ -146,9 +160,9 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_home) {
-            Intent intent = new Intent(BillDetailActivity.this, HomeActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
+//            Intent intent = new Intent(BillDetailActivity.this, HomeActivity.class);
+//            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//            startActivity(intent);
         } else if (id == android.R.id.home) {
             finish();
             return true;
@@ -189,16 +203,12 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.btn_find_printer:
-                connectPrinter();
-                break;
-
             case R.id.btn_view_bill:
                 startActivity(new Intent(BillDetailActivity.this, BillSummaryActivity.class));
                 break;
 
             case R.id.btn_print_bill:
-                printBill();
+                connectPrinter();
                 break;
 
             default:
@@ -255,39 +265,57 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         printNewLine();
         printCustom("Print Preview", 0, 0);
         printNewLine();
-        printCustom("Store Name", 1, 1);
         printNewLine();
-        printCustom("Address and Details", 0, 1);
+        printCustom("Home credit Store", 1, 1);
         printNewLine();
-        printCustom("Supply of Goods", 0, 1);
+        printCustom("10A, Dlf Phase 2,", 0, 1);
+        printNewLine();
+        printCustom("Gurgaon(Haryana) - 122001", 0, 1);
+        printNewLine();
+        printCustom("Email - care@homecredit.co.in", 0, 1);
+        printNewLine();
+        printCustom("Supply of Goods", 1, 1);
+        printNewLine();
         printNewLine();
 
         String uniqueID = UUID.randomUUID().toString();
 
-        printCustom("Invoice No - " + uniqueID, 0, 0);
+        printCustom("Invoice No - " + uniqueID.substring(0, 11), 0, 0);
         printNewLine();
         String date_n = new SimpleDateFormat("dd MMM, yyyy HH:mm", Locale.getDefault()).format(new Date());
 
         printCustom("Date -" + date_n, 0, 0);
         printNewLine();
-        printNewLine();
-        printTextNormal("----------------------------------------");
-        printNewLine();
+        printCustom("--------------------------------", 1, 0);
+        makTextNormal();
         printTextNormal("Item Name : Price  Qty  Total");
+        makTextNormal();
         printNewLine();
-        printTextNormal("----------------------------------------");
+        printCustom("--------------------------------", 1, 0);
+        makTextNormal();
         printNewLine();
-
         int totalPrice = getIndividualBill();
-
-        printNewLine();
+        printCustom("--------------------------------", 1, 0);
+        makTextNormal();
         printTextNormal("Net Amount : " + totalPrice);
         printNewLine();
-        printCustom("Payment Mode", 1, 0);
         printNewLine();
-        printCustom("Cash", 0, 0);
+        printTextNormal("Payment Summary");
+        printNewLine();
+        printTextNormal("Cash : " + totalPrice + ".00");
         //resetPrint(); //reset printer
-        printUnicode();
+        printNewLine();
+        printNewLine();
+        printCustom("  Powered by Home Credit India.   1800 121 6660", 1, 1);
+    }
+
+    private void makTextNormal() {
+        byte[] cc = new byte[]{0x1B, 0x21, 0x03};  // 0- normal size text
+        try {
+            os.write(cc);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private int getIndividualBill() {
@@ -310,29 +338,62 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
             Toast.makeText(BillDetailActivity.this, "Message1", Toast.LENGTH_SHORT).show();
         } else {
             if (!mBluetoothAdapter.isEnabled()) {
+                isBluetoothConnected = false;
                 Intent enableBtIntent = new Intent(
                         BluetoothAdapter.ACTION_REQUEST_ENABLE);
                 startActivityForResult(enableBtIntent,
                         REQUEST_ENABLE_BT);
             } else {
-                ListPairedDevices();
-                Intent connectIntent = new Intent(BillDetailActivity.this,
-                        DeviceListActivity.class);
-                startActivityForResult(connectIntent,
-                        REQUEST_CONNECT_DEVICE);
+                if (!isBluetoothConnected)
+                    connectBluetooth();
+                initPrinting();
+//                ListPairedDevices();
+//                Intent connectIntent = new Intent(BillDetailActivity.this,
+//                        DeviceListActivity.class);
+//                startActivityForResult(connectIntent,
+//                        REQUEST_CONNECT_DEVICE);
             }
         }
     }
 
-    private void ListPairedDevices() {
+    private void initPrinting() {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                printBill();
+            }
+        }, 1000);
+    }
+
+    private void connectBluetooth() {
+        if (getFirstConnectedDevice().isEmpty()) {
+            Toast.makeText(this, "No device paired, please paired a device!", Toast.LENGTH_LONG).show();
+        } else {
+            mBluetoothDevice = mBluetoothAdapter
+                    .getRemoteDevice(getFirstConnectedDevice());
+            mBluetoothConnectProgressDialog = ProgressDialog.show(this,
+                    "Connecting...", mBluetoothDevice.getName() + " : "
+                            + mBluetoothDevice.getAddress(), true, false);
+            Thread mBlutoothConnectThread = new Thread(this);
+            mBlutoothConnectThread.start();
+            isBluetoothConnected = true;
+        }
+    }
+
+    private String getFirstConnectedDevice() {
         Set<BluetoothDevice> mPairedDevices = mBluetoothAdapter
                 .getBondedDevices();
+        String deviceADD = "";
         if (mPairedDevices.size() > 0) {
             for (BluetoothDevice mDevice : mPairedDevices) {
                 Log.v(TAG, "PairedDevices: " + mDevice.getName() + "  "
                         + mDevice.getAddress());
+                deviceADD = mDevice.getAddress();
+                break;
             }
         }
+        return deviceADD;
     }
 
     public void onActivityResult(int mRequestCode, int mResultCode,
@@ -340,29 +401,11 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         super.onActivityResult(mRequestCode, mResultCode, mDataIntent);
 
         switch (mRequestCode) {
-            case REQUEST_CONNECT_DEVICE:
-                if (mResultCode == Activity.RESULT_OK) {
-                    Bundle mExtra = mDataIntent.getExtras();
-                    String mDeviceAddress = mExtra.getString("DeviceAddress");
-                    Log.v(TAG, "Coming incoming address " + mDeviceAddress);
-                    mBluetoothDevice = mBluetoothAdapter
-                            .getRemoteDevice(mDeviceAddress);
-                    mBluetoothConnectProgressDialog = ProgressDialog.show(this,
-                            "Connecting...", mBluetoothDevice.getName() + " : "
-                                    + mBluetoothDevice.getAddress(), true, false);
-                    Thread mBlutoothConnectThread = new Thread(this);
-                    mBlutoothConnectThread.start();
-                    // pairToDevice(mBluetoothDevice); This method is replaced by
-                    // progress dialog with thread
-                }
-                break;
-
             case REQUEST_ENABLE_BT:
                 if (mResultCode == Activity.RESULT_OK) {
-                    ListPairedDevices();
-                    Intent connectIntent = new Intent(BillDetailActivity.this,
-                            DeviceListActivity.class);
-                    startActivityForResult(connectIntent, REQUEST_CONNECT_DEVICE);
+                    if (!isBluetoothConnected)
+                        connectBluetooth();
+                    initPrinting();
                 } else {
                     Toast.makeText(BillDetailActivity.this, "Message", Toast.LENGTH_SHORT).show();
                 }
@@ -427,17 +470,6 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         }
     };
 
-    public void printUnicode() {
-        try {
-            os.write(PrinterCommands.ESC_ALIGN_CENTER);
-            printText(Utils.UNICODE_TEXT);
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
 
     //print new line
     private void printNewLine() {
@@ -449,17 +481,6 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
 
     }
 
-    //print text
-    private void printText(String msg) {
-        try {
-            // Print normal text
-            os.write(PrinterCommands.ESC_ALIGN_CENTER);
-            os.write(msg.getBytes());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
 
     void printTextNormal(String msg) {
         try {
@@ -478,29 +499,6 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         }
     }
 
-    //print text
-    private void printTextRight(String msg) {
-        try {
-            // Print normal text
-            os.write(PrinterCommands.ESC_ALIGN_RIGHT);
-            os.write(msg.getBytes());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    //print text
-    private void printTextLeft(String msg) {
-        try {
-            // Print normal text
-            os.write(PrinterCommands.ESC_ALIGN_LEFT);
-            os.write(msg.getBytes());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
 
     //print byte[]
     private void printText(byte[] msg) {
@@ -517,9 +515,11 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
     private void printCustom(String msg, int size, int align) {
         //Print config "mode"
         byte[] cc = new byte[]{0x1B, 0x21, 0x03};  // 0- normal size text
-        //byte[] cc1 = new byte[]{0x1B,0x21,0x00};  // 0- normal size text
+        byte[] cc1 = new byte[]{0x1B, 0x21, 0x00};  // 0- normal size text
         byte[] bb = new byte[]{0x1B, 0x21, 0x08};  // 1- only bold text
         byte[] bb2 = new byte[]{0x1B, 0x21, 0x20}; // 2- bold with medium text
+        byte[] bb4 = new byte[]{0x1B, 0x21, 0x12}; // 2- bold with medium text
+        byte[] bb5 = new byte[]{0x1B, 0x21, 0x14}; // 2- bold with medium text
         byte[] bb3 = new byte[]{0x1B, 0x21, 0x10}; // 3- bold with large text
         try {
             switch (size) {
@@ -534,6 +534,12 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
                     break;
                 case 3:
                     os.write(bb3);
+                    break;
+                case 4:
+                    os.write(bb4);
+                    break;
+                case 5:
+                    os.write(bb5);
                     break;
             }
 
