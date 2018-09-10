@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.example.vaibhavchahal93788.myapplication.R;
 import com.example.vaibhavchahal93788.myapplication.billdesk.api.ProductApiHelper;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.AddCategoryModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.AddProductModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductListModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.network.IApiRequestComplete;
@@ -89,7 +90,7 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
             }
         } else {
             progressBar.setVisibility(View.VISIBLE);
-            AddProductModel addProductModel = new AddProductModel(etProductName.getText().toString(), etProductDescptn.getText().toString(), etProductPrice.getText().toString(), etProductName.getText().toString() + UUID.randomUUID().toString());
+            AddProductModel addProductModel = new AddProductModel(etProductName.getText().toString(), etProductDescptn.getText().toString(), etProductPrice.getText().toString(), etProductName.getText().toString() + UUID.randomUUID().toString(), new AddCategoryModel("", ""));
             new ProductApiHelper().addNewProduct(addProductModel, new IApiRequestComplete() {
 
                 @Override

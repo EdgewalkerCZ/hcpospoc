@@ -1,6 +1,7 @@
 package com.example.vaibhavchahal93788.myapplication.billdesk.api;
 
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.AddProductModel;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.CategoryModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductListModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.network.IApiRequestComplete;
 import com.example.vaibhavchahal93788.myapplication.billdesk.network.ResponseHandler;
@@ -21,9 +22,14 @@ public class ProductApiHelper {
         productApi = RetrofitClient.getInstance().create(ProductApi.class);
     }
 
-    public void fetchProductList(String sortfield, String sortorder, long limit, final IApiRequestComplete successInterface) {
-        Call<List<ProductListModel>> productsApiResponseCall = productApi.getProductList(Constants.API_KEY, sortfield, sortorder, limit);
+    public void fetchProductList(String sortfield, String sortorder, long limit,String category, final IApiRequestComplete successInterface) {
+        Call<List<ProductListModel>> productsApiResponseCall = productApi.getProductList(Constants.API_KEY, sortfield, sortorder, limit,category);
         productsApiResponseCall.enqueue(new ResponseHandler<List<ProductListModel>>(successInterface));
+    }
+
+    public void fetchCategoryList(String sortfield, String sortorder, long limit, String type, final IApiRequestComplete successInterface) {
+        Call<List<CategoryModel>> categoryApiResponseCall = productApi.getCategoryList(Constants.API_KEY, sortfield, sortorder, limit, type);
+        categoryApiResponseCall.enqueue(new ResponseHandler<List<CategoryModel>>(successInterface));
     }
 
     public void addNewProduct(AddProductModel addProductModel, final IApiRequestComplete successInterface) {

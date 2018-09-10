@@ -42,8 +42,11 @@ import com.example.vaibhavchahal93788.myapplication.billdesk.printing.Utils;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -263,8 +266,6 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         //print normal text
         printCustom("Invoice 3 Inch", 0, 0);
         printNewLine();
-        printCustom("Print Preview", 0, 0);
-        printNewLine();
         printNewLine();
         printCustom("Home credit Store", 1, 1);
         printNewLine();
@@ -297,12 +298,13 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         int totalPrice = getIndividualBill();
         printCustom("--------------------------------", 1, 0);
         makTextNormal();
-        printTextNormal("Net Amount : " + totalPrice);
+        printTextNormal("Net Amount : " + "Rs " + totalPrice);
         printNewLine();
         printNewLine();
         printTextNormal("Payment Summary");
         printNewLine();
-        printTextNormal("Cash : " + totalPrice + ".00");
+        printTextNormal("Cash : " + "Rs " + totalPrice + ".00");
+
         //resetPrint(); //reset printer
         printNewLine();
         printNewLine();

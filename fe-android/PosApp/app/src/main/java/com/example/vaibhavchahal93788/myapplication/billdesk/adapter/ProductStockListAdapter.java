@@ -32,7 +32,7 @@ public class ProductStockListAdapter extends RecyclerView.Adapter<ProductStockLi
         final ProductListModel model = productList.get(position);
         holder.textViewName.setText(model.getLabel());
         holder.textViewPrice.setText(holder.textViewName.getContext().getString(R.string.rupee_symbol) + Math.round(Float.valueOf(model.getPrice())) + ".00");
-        holder.textViewTag.setText(model.getLabel().toString().substring(0, 1));
+        holder.textViewTag.setText(model.getLabel().toString().substring(0, 1).toUpperCase());
     }
 
 

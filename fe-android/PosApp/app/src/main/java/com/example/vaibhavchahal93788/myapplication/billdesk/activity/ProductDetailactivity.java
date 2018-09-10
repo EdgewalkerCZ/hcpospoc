@@ -12,9 +12,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,10 +25,12 @@ import android.widget.Toast;
 import com.example.vaibhavchahal93788.myapplication.R;
 import com.example.vaibhavchahal93788.myapplication.billdesk.adapter.ProductListAdapter;
 import com.example.vaibhavchahal93788.myapplication.billdesk.api.ProductApiHelper;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.CategoryModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductListModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.network.IApiRequestComplete;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class ProductDetailactivity extends AppCompatActivity implements View.OnClickListener, ProductListAdapter.OnDataChangeListener {
@@ -39,35 +44,54 @@ public class ProductDetailactivity extends AppCompatActivity implements View.OnC
     private RelativeLayout rlTotalCharge;
     private ProgressBar progreeBar;
     private int REQUEST_CODE = 10;
+    private Spinner spinnerCategories;
+    private String load_category_id = "0";
+    private HashMap<String, String> hashMapCategories = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_detail);
         setTitle("Product List");
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         initViews();
         actionEditSearch();
-        getProductList();
+        getCategoriesList();
     }
 
     private void initViews() {
         recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
-        editTextSearch = (EditText) findViewById(R.id.editTextSearch);
-        txtviewEstPrice = (TextView) findViewById(R.id.tv_est_price);
-        rlTotalCharge = (RelativeLayout) findViewById(R.id.rl_charge);
-        progreeBar = (ProgressBar) findViewById(R.id.progress_bar);
-
-        findViewById(R.id.btn_payment).setOnClickListener(this);
-    }
-
-    private void setadapter(List<ProductListModel> productList) {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new DividerItemDecoration(this,
                 DividerItemDecoration.VERTICAL));
 
+        spinnerCategories = (Spinner) findViewById(R.id.spinner_categories);
+        editTextSearch = (EditText) findViewById(R.id.editTextSearch);
+        txtviewEstPrice = (TextView) findViewById(R.id.tv_est_price);
+        rlTotalCharge = (RelativeLayout) findViewById(R.id.rl_charge);
+        progreeBar = (ProgressBar) findViewById(R.id.progress_bar);
+
+        spinnerCategories.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (productsList != null && productsList.size() > 0) {
+                    productsList.clear();
+                }
+                load_category_id = hashMapCategories.get(spinnerCategories.getSelectedItem().toString());
+                getProductList(load_category_id);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        findViewById(R.id.btn_payment).setOnClickListener(this);
+    }
+
+    private void setadapter(List<ProductListModel> productList) {
         adapter = new ProductListAdapter(productList, this);
 
         recyclerView.setAdapter(adapter);
@@ -153,9 +177,9 @@ public class ProductDetailactivity extends AppCompatActivity implements View.OnC
         txtviewEstPrice.setText(String.format(getString(R.string.text_estimated_price), totalItems, totalPrice));
     }
 
-    public void getProductList() {
+    public void getProductList(String category) {
         progreeBar.setVisibility(View.VISIBLE);
-        new ProductApiHelper().fetchProductList("t.ref", "ASC", 100, new IApiRequestComplete<List<ProductListModel>>() {
+        new ProductApiHelper().fetchProductList("t.ref", "ASC", 100, category, new IApiRequestComplete<List<ProductListModel>>() {
 
             @Override
             public void onSuccess(List<ProductListModel> productList) {
@@ -175,11 +199,36 @@ public class ProductDetailactivity extends AppCompatActivity implements View.OnC
         });
     }
 
+    public void getCategoriesList() {
+        new ProductApiHelper().fetchCategoryList("t.rowid", "ASC", 100, "product", new IApiRequestComplete<List<CategoryModel>>() {
+
+            @Override
+            public void onSuccess(List<CategoryModel> categoryList) {
+                List<String> categoriesList = new ArrayList<>();
+                categoriesList.add("Categories*");
+                for (CategoryModel categoryModel : categoryList) {
+                    categoriesList.add(categoryModel.getLabel());
+                    hashMapCategories.put(categoryModel.getLabel(), categoryModel.getId());
+                }
+                ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>
+                        (ProductDetailactivity.this, android.R.layout.simple_spinner_item, categoriesList);
+                spinnerArrayAdapter.setDropDownViewResource(android.R.layout
+                        .simple_spinner_dropdown_item);
+                spinnerCategories.setAdapter(spinnerArrayAdapter);
+            }
+
+            @Override
+            public void onFailure(String message) {
+                Toast.makeText(ProductDetailactivity.this, message, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
-            getProductList();
+            getProductList(load_category_id);
         }
     }
 

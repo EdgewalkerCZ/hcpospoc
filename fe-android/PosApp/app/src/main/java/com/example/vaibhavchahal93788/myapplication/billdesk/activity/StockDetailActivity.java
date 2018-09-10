@@ -11,8 +11,10 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.vaibhavchahal93788.myapplication.R;
@@ -32,6 +34,7 @@ public class StockDetailActivity extends AppCompatActivity {
     private ProductStockListAdapter adapter;
     private ProgressBar progreeBar;
     private int REQUEST_CODE = 11;
+    private Spinner spinnerCategories;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,14 +48,20 @@ public class StockDetailActivity extends AppCompatActivity {
         initViews();
 
         actionEditSearch();
-        getProductList();
+//        getProductList();
 
     }
 
     private void initViews() {
         recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.addItemDecoration(new DividerItemDecoration(this,
+                DividerItemDecoration.VERTICAL));
+
         editTextSearch = (EditText) findViewById(R.id.editTextSearch);
         progreeBar = (ProgressBar) findViewById(R.id.progress_bar);
+        spinnerCategories = (Spinner) findViewById(R.id.spinner_categories);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -61,14 +70,24 @@ public class StockDetailActivity extends AppCompatActivity {
                 startActivityForResult(new Intent(StockDetailActivity.this, AddProductActivity.class), REQUEST_CODE);
             }
         });
+
+        spinnerCategories.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (productsList != null && productsList.size() > 0) {
+                    productsList.clear();
+                }
+//                getProductList();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
 
     private void setAdapter(List<ProductListModel> productList) {
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.addItemDecoration(new DividerItemDecoration(this,
-                DividerItemDecoration.VERTICAL));
-
         adapter = new ProductStockListAdapter(productList);
 
         recyclerView.setAdapter(adapter);
@@ -122,33 +141,33 @@ public class StockDetailActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void getProductList() {
-        progreeBar.setVisibility(View.VISIBLE);
-        new ProductApiHelper().fetchProductList("t.ref", "ASC", 100, new IApiRequestComplete<List<ProductListModel>>() {
-
-            @Override
-            public void onSuccess(List<ProductListModel> productList) {
-                if (!productList.isEmpty()) {
-                    editTextSearch.setEnabled(true);
-                }
-                productsList = productList;
-                progreeBar.setVisibility(View.GONE);
-                setAdapter(productList);
-            }
-
-            @Override
-            public void onFailure(String message) {
-                progreeBar.setVisibility(View.GONE);
-                Toast.makeText(StockDetailActivity.this, message, Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
+//    public void getProductList() {
+//        progreeBar.setVisibility(View.VISIBLE);
+//        new ProductApiHelper().fetchProductList("t.ref", "ASC", 100, new IApiRequestComplete<List<ProductListModel>>() {
+//
+//            @Override
+//            public void onSuccess(List<ProductListModel> productList) {
+//                if (!productList.isEmpty()) {
+//                    editTextSearch.setEnabled(true);
+//                }
+//                productsList = productList;
+//                progreeBar.setVisibility(View.GONE);
+//                setAdapter(productList);
+//            }
+//
+//            @Override
+//            public void onFailure(String message) {
+//                progreeBar.setVisibility(View.GONE);
+//                Toast.makeText(StockDetailActivity.this, message, Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
-            getProductList();
+//            getProductList();
         }
     }
 }

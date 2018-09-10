@@ -1,6 +1,7 @@
 package com.example.vaibhavchahal93788.myapplication.billdesk.api;
 
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.AddProductModel;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.CategoryModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductListModel;
 
 import java.util.List;
@@ -20,8 +21,13 @@ public interface ProductApi {
 
     @GET("products")
     Call<List<ProductListModel>> getProductList(@Header("DOLAPIKEY") String dolApiKey, @Query("sortfield") String sortfield, @Query("sortorder") String sortorder,
-                                                @Query("limit") long limit);
+                                                @Query("limit") long limit, @Query("category") String category);
 
     @POST("products")
     Call<ResponseBody> addNewProduct(@Header("DOLAPIKEY") String dolApiKey, @Body AddProductModel addProductModel);
+
+    @GET("categories")
+    Call<List<CategoryModel>> getCategoryList(@Header("DOLAPIKEY") String dolApiKey, @Query("sortfield") String sortfield, @Query("sortorder") String sortorder,
+                                              @Query("limit") long limit, @Query("type") String type);
+
 }

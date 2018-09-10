@@ -15,11 +15,12 @@
 
         <Spinner
             android:id="@+id/spinner_categories"
-            android:layout_width="wrap_content"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
+            android:background="@drawable/rectangle_white_background"
             android:entries="@array/product_categories"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp" />
+            android:paddingBottom="11dp"
+            android:paddingTop="11dp" />
 
         <EditText
             android:id="@+id/editTextSearch"
@@ -29,10 +30,13 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/spinner_categories"
-            android:background="@drawable/rectangle"
+            android:background="@drawable/rectangle_white_background"
+            android:drawableRight="@drawable/ic_icon_search"
             android:enabled="false"
             android:hint="@string/text_search_products"
-            android:padding="10dp" />
+            android:padding="10dp"
+            android:maxLines="1"
+            android:textSize="15dp" />
 
 
     </RelativeLayout>
@@ -42,7 +46,6 @@
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:layout_below="@+id/rtl_header"
-        android:layout_marginTop="8dp"
         android:background="@color/color_E0E0E0" />
 
     <RelativeLayout
@@ -58,21 +61,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:text="@string/text_products" />
+            android:text="@string/text_products"
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:paddingLeft="30dp"
-            android:text="@string/text_quantity" />
+            android:text="@string/text_quantity"
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
-            android:text="@string/text_price_INR" />
+            android:text="@string/text_price_INR"
+            android:textStyle="bold" />
 
 
     </RelativeLayout>

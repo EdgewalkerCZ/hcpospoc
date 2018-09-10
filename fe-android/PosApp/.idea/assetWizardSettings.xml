@@ -3,6 +3,11 @@
   <component name="WizardSettings">
     <option name="children">
       <map>
+        <entry key="imageWizard">
+          <value>
+            <PersistentState />
+          </value>
+        </entry>
         <entry key="vectorWizard">
           <value>
             <PersistentState>
@@ -14,8 +19,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_print" />
-                            <entry key="sourceFile" value="C:\Users\vaibhav.chahal93788\Downloads\print.svg" />
+                            <entry key="outputName" value="ic_icon_search4" />
+                            <entry key="sourceFile" value="C:\Users\vaibhav.chahal93788\Downloads\icons8-search (4).svg" />
                           </map>
                         </option>
                       </PersistentState>

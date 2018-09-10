@@ -51,11 +51,13 @@
 
     <string-array name="product_categories">
         <item>Categories*</item>
-        <item>Phone</item>
-        <item>Tablet</item>
-        <item>iPad</item>
-        <item>iPhone</item>
-        <item>Fablet</item>
+        <item>Grocery</item>
+        <item>Foods</item>
+        <item>Fruits</item>
+        <item>Vegetables</item>
+        <item>Home Appliances</item>
+        <item>Electrical Appliances</item>
+        <item>Medicines</item>
     </string-array>
 
     <string-array name="product_sub_categories">
@@ -69,18 +71,15 @@
 
     <string-array name="product_type">
         <item>Product Type</item>
-        <item>Phone</item>
-        <item>Tablet</item>
-        <item>iPad</item>
-        <item>iPhone</item>
-        <item>Fablet</item>
+        <item>Service</item>
+        <item>Store</item>
     </string-array>
 
     <string-array name="brand_name">
         <item>Brand Name</item>
         <item>Samsung</item>
         <item>Nokia</item>
-        <item>Moto</item>
+        <item>Motorola</item>
         <item>Apple</item>
         <item>Sony</item>
     </string-array>
