@@ -2,6 +2,7 @@ package com.example.vaibhavchahal93788.myapplication.billdesk.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -47,6 +48,8 @@ public class ProductDetailactivity extends AppCompatActivity implements View.OnC
     private Spinner spinnerCategories;
     private String load_category_id = "0";
     private HashMap<String, String> hashMapCategories = new HashMap<>();
+    private ArrayList<String> categoriesList;
+    private SwipeRefreshLayout pullToRefresh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +60,7 @@ public class ProductDetailactivity extends AppCompatActivity implements View.OnC
         initViews();
         actionEditSearch();
         getCategoriesList();
+        actionCategorySelection();
     }
 
     private void initViews() {
@@ -72,6 +76,23 @@ public class ProductDetailactivity extends AppCompatActivity implements View.OnC
         rlTotalCharge = (RelativeLayout) findViewById(R.id.rl_charge);
         progreeBar = (ProgressBar) findViewById(R.id.progress_bar);
 
+        findViewById(R.id.btn_payment).setOnClickListener(this);
+
+        pullToRefresh();
+    }
+
+    private void pullToRefresh() {
+        pullToRefresh = (SwipeRefreshLayout) findViewById(R.id.pull_to_refresh);
+        pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getCategoriesList();
+                pullToRefresh.setRefreshing(false);
+            }
+        });
+    }
+
+    private void actionCategorySelection() {
         spinnerCategories.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -87,8 +108,6 @@ public class ProductDetailactivity extends AppCompatActivity implements View.OnC
 
             }
         });
-
-        findViewById(R.id.btn_payment).setOnClickListener(this);
     }
 
     private void setadapter(List<ProductListModel> productList) {
@@ -204,7 +223,7 @@ public class ProductDetailactivity extends AppCompatActivity implements View.OnC
 
             @Override
             public void onSuccess(List<CategoryModel> categoryList) {
-                List<String> categoriesList = new ArrayList<>();
+                categoriesList = new ArrayList<>();
                 categoriesList.add("Categories*");
                 for (CategoryModel categoryModel : categoryList) {
                     categoriesList.add(categoryModel.getLabel());
@@ -242,7 +261,14 @@ public class ProductDetailactivity extends AppCompatActivity implements View.OnC
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivityForResult(new Intent(ProductDetailactivity.this, AddProductActivity.class), REQUEST_CODE);
+                if (categoriesList != null && !categoriesList.isEmpty()) {
+                    Intent intent = new Intent(ProductDetailactivity.this, AddProductActivity.class);
+                    intent.putStringArrayListExtra("listCategories", categoriesList);
+                    intent.putExtra("CategoriesIdMap", hashMapCategories);
+                    startActivityForResult(intent, REQUEST_CODE);
+                } else {
+                    Toast.makeText(ProductDetailactivity.this, R.string.msg_category_loading_failed, Toast.LENGTH_SHORT).show();
+                }
             }
         });
         return true;

@@ -51,13 +51,6 @@
 
     <string-array name="product_categories">
         <item>Categories*</item>
-        <item>Grocery</item>
-        <item>Foods</item>
-        <item>Fruits</item>
-        <item>Vegetables</item>
-        <item>Home Appliances</item>
-        <item>Electrical Appliances</item>
-        <item>Medicines</item>
     </string-array>
 
     <string-array name="product_sub_categories">
@@ -88,5 +81,8 @@
     <string name="text_decrtn_required">Product description required!</string>
     <string name="text_price_req">Product price required!</string>
     <string name="prodct_name_req">Product name required!</string>
+    <string name="text_select_category">Please select a category</string>
+    <string name="text_quantity_req">Quantity required</string>
+    <string name="msg_category_loading_failed">Categories not available, pull to refresh categories</string>
 
 </resources>
