@@ -1,5 +1,6 @@
 package com.example.vaibhavchahal93788.myapplication.billdesk.adapter;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.vaibhavchahal93788.myapplication.R;
+import com.example.vaibhavchahal93788.myapplication.billdesk.activity.AddProductActivity;
+import com.example.vaibhavchahal93788.myapplication.billdesk.activity.StockDetailActivity;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductListModel;
 
 import java.util.ArrayList;
@@ -16,9 +19,13 @@ public class ProductStockListAdapter extends RecyclerView.Adapter<ProductStockLi
 
     private List<ProductListModel> productList;
 
-    public ProductStockListAdapter(List<ProductListModel> names) {
+    public ProductStockListAdapter(List<ProductListModel> names, OnItemClickListener onItemClickListener) {
         this.productList = names;
+        this.onItemClickListener = onItemClickListener;
     }
+
+    private OnItemClickListener onItemClickListener;
+
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -28,11 +35,18 @@ public class ProductStockListAdapter extends RecyclerView.Adapter<ProductStockLi
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         final ProductListModel model = productList.get(position);
         holder.textViewName.setText(model.getLabel());
         holder.textViewPrice.setText(holder.textViewName.getContext().getString(R.string.rupee_symbol) + Math.round(Float.valueOf(model.getPrice())) + ".00");
         holder.textViewTag.setText(model.getLabel().toString().substring(0, 1).toUpperCase());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onItemClickListener.onItemClick(position);
+            }
+        });
     }
 
 
@@ -66,5 +80,9 @@ public class ProductStockListAdapter extends RecyclerView.Adapter<ProductStockLi
     public void filterList(ArrayList<ProductListModel> filterdNames) {
         this.productList = filterdNames;
         notifyDataSetChanged();
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(int position);
     }
 }

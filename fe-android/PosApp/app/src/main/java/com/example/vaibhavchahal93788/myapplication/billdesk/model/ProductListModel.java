@@ -12,6 +12,9 @@ public class ProductListModel implements Serializable {
     private int quantity;
     private boolean isSelected = false;
 
+    @SerializedName("id")
+    private String id;
+
     @SerializedName("label")
     private String label;
 
@@ -24,7 +27,9 @@ public class ProductListModel implements Serializable {
     @SerializedName("tva_tx")
     private String taxPercentage;
 
-
+   /* @SerializedName("array_options")
+    private AddCategoryModel categoryModel;
+*/
     public int getQuantity() {
         return quantity;
     }
@@ -58,4 +63,11 @@ public class ProductListModel implements Serializable {
         return taxPercentage;
     }
 
+    /* public AddCategoryModel getCategoryModel() {
+         return categoryModel;
+     }
+ */
+    public String getId() {
+        return id;
+    }
 }

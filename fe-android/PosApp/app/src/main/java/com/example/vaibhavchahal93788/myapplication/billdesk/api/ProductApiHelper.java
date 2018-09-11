@@ -22,8 +22,8 @@ public class ProductApiHelper {
         productApi = RetrofitClient.getInstance().create(ProductApi.class);
     }
 
-    public void fetchProductList(String sortfield, String sortorder, long limit,String category, final IApiRequestComplete successInterface) {
-        Call<List<ProductListModel>> productsApiResponseCall = productApi.getProductList(Constants.API_KEY, sortfield, sortorder, limit,category);
+    public void fetchProductList(String sortfield, String sortorder, long limit, String category, final IApiRequestComplete successInterface) {
+        Call<List<ProductListModel>> productsApiResponseCall = productApi.getProductList(Constants.API_KEY, sortfield, sortorder, limit, category);
         productsApiResponseCall.enqueue(new ResponseHandler<List<ProductListModel>>(successInterface));
     }
 
@@ -34,6 +34,11 @@ public class ProductApiHelper {
 
     public void addNewProduct(AddProductModel addProductModel, final IApiRequestComplete successInterface) {
         Call<ResponseBody> productsApiResponseCall = productApi.addNewProduct(Constants.API_KEY, addProductModel);
+        productsApiResponseCall.enqueue(new ResponseHandler<ResponseBody>(successInterface));
+    }
+
+    public void updateProduct(String productId, AddProductModel addProductModel, final IApiRequestComplete successInterface) {
+        Call<ResponseBody> productsApiResponseCall = productApi.updateProduct(Constants.API_KEY, productId, addProductModel);
         productsApiResponseCall.enqueue(new ResponseHandler<ResponseBody>(successInterface));
     }
 }

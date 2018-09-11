@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -17,6 +16,7 @@ import com.example.vaibhavchahal93788.myapplication.R;
 import com.example.vaibhavchahal93788.myapplication.billdesk.api.ProductApiHelper;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.AddCategoryModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.AddProductModel;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductListModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.network.IApiRequestComplete;
 
 import java.util.ArrayList;
@@ -30,6 +30,7 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
     private EditText etProductName, etProductPrice, etProductAvlbleQty, etProductDescptn;
     private Spinner spinnerCategories;
     private HashMap<String, String> mapCategoriesId;
+    private ProductListModel productModel;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,14 +41,14 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        populateCategories();
-
         progressBar = findViewById(R.id.progress_bar);
         findViewById(R.id.btn_add_product).setOnClickListener(this);
         etProductName = findViewById(R.id.et_productname);
         etProductPrice = findViewById(R.id.et_price);
         etProductAvlbleQty = findViewById(R.id.et_quantity);
         etProductDescptn = findViewById(R.id.et_productdescription);
+
+        populateCategories();
     }
 
 
@@ -62,6 +63,26 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout
                 .simple_spinner_dropdown_item);
         spinnerCategories.setAdapter(spinnerArrayAdapter);
+
+        prefillProductDetails(categoriesList);
+    }
+
+    private void prefillProductDetails(ArrayList<String> categoriesList) {
+        productModel = (ProductListModel) getIntent().getSerializableExtra("productModel");
+        if (productModel != null) {
+            etProductName.setText(productModel.getLabel());
+            etProductDescptn.setText(productModel.getDescription());
+            etProductPrice.setText(productModel.getPrice());
+//            String productCategory = productModel.getCategoryModel().getCategoryName();
+//            int selectedCategoryPosition = 0;
+//            for (int i = 0; i < categoriesList.size(); i++) {
+//                if (categoriesList.get(i).equals(productCategory)) {
+//                    selectedCategoryPosition = i;
+//                    break;
+//                }
+//            }
+//            spinnerCategories.setSelection(selectedCategoryPosition);
+        }
     }
 
 
@@ -86,7 +107,7 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_add_product:
-                addProduct();
+                addOrUpdateProduct();
                 break;
 
             default:
@@ -94,7 +115,7 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
-    private void addProduct() {
+    private void addOrUpdateProduct() {
         String selectedCategoryId = mapCategoriesId.get(spinnerCategories.getSelectedItem().toString());
         if (etProductName.getText().toString().isEmpty() || etProductPrice.getText().toString().isEmpty() || etProductDescptn.getText().toString().isEmpty() || etProductAvlbleQty.getText().toString().isEmpty() || selectedCategoryId == null) {
             if (selectedCategoryId == null) {
@@ -111,24 +132,52 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
         } else {
             progressBar.setVisibility(View.VISIBLE);
             AddCategoryModel addCategoryModel = new AddCategoryModel(selectedCategoryId, spinnerCategories.getSelectedItem().toString());
-            AddProductModel addProductModel = new AddProductModel(etProductName.getText().toString(), etProductDescptn.getText().toString(), etProductPrice.getText().toString(), etProductName.getText().toString() + UUID.randomUUID().toString(), addCategoryModel);
-            new ProductApiHelper().addNewProduct(addProductModel, new IApiRequestComplete() {
-
-                @Override
-                public void onSuccess(Object response) {
-                    progressBar.setVisibility(View.GONE);
-                    Toast.makeText(AddProductActivity.this, R.string.text_add_product_success, Toast.LENGTH_SHORT).show();
-                    setResult(RESULT_OK);
-                    finish();
-                }
-
-                @Override
-                public void onFailure(String message) {
-                    progressBar.setVisibility(View.GONE);
-                    Toast.makeText(AddProductActivity.this, message, Toast.LENGTH_SHORT).show();
-                }
-            });
+            if (productModel != null) {
+                updateProduct(productModel.getId(), addCategoryModel);
+            } else {
+                addProduct(addCategoryModel);
+            }
         }
+    }
+
+    private void addProduct(AddCategoryModel addCategoryModel) {
+        AddProductModel addProductModel = new AddProductModel(etProductName.getText().toString(), etProductDescptn.getText().toString(), etProductPrice.getText().toString(), etProductName.getText().toString() + UUID.randomUUID().toString(), addCategoryModel);
+        new ProductApiHelper().addNewProduct(addProductModel, new IApiRequestComplete() {
+
+            @Override
+            public void onSuccess(Object response) {
+                progressBar.setVisibility(View.GONE);
+                Toast.makeText(AddProductActivity.this, R.string.text_add_product_success, Toast.LENGTH_SHORT).show();
+                setResult(RESULT_OK);
+                finish();
+            }
+
+            @Override
+            public void onFailure(String message) {
+                progressBar.setVisibility(View.GONE);
+                Toast.makeText(AddProductActivity.this, message, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void updateProduct(String productId, AddCategoryModel addCategoryModel) {
+        AddProductModel addProductModel = new AddProductModel(etProductName.getText().toString(), etProductDescptn.getText().toString(), etProductPrice.getText().toString(), addCategoryModel);
+        new ProductApiHelper().updateProduct(productId, addProductModel, new IApiRequestComplete() {
+
+            @Override
+            public void onSuccess(Object response) {
+                progressBar.setVisibility(View.GONE);
+                Toast.makeText(AddProductActivity.this, R.string.msg_product_update_success, Toast.LENGTH_SHORT).show();
+                setResult(RESULT_OK);
+                finish();
+            }
+
+            @Override
+            public void onFailure(String message) {
+                progressBar.setVisibility(View.GONE);
+                Toast.makeText(AddProductActivity.this, message, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
 

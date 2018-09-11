@@ -30,4 +30,11 @@ public class AddProductModel implements Serializable {
         this.ref = ref;
         this.addCategoryModel = addCategoryModel;
     }
+
+    public AddProductModel(String label, String description, String price, AddCategoryModel addCategoryModel) {
+        this.label = label;
+        this.description = description;
+        this.price = price;
+        this.addCategoryModel = addCategoryModel;
+    }
 }

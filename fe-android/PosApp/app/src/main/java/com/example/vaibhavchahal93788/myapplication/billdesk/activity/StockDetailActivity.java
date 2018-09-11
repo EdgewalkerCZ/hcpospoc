@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class StockDetailActivity extends AppCompatActivity {
+public class StockDetailActivity extends AppCompatActivity implements ProductStockListAdapter.OnItemClickListener {
 
     private RecyclerView recyclerView;
     private EditText editTextSearch;
@@ -123,7 +123,7 @@ public class StockDetailActivity extends AppCompatActivity {
     }
 
     private void setAdapter(List<ProductListModel> productList) {
-        adapter = new ProductStockListAdapter(productList);
+        adapter = new ProductStockListAdapter(productList, this);
 
         recyclerView.setAdapter(adapter);
     }
@@ -229,5 +229,14 @@ public class StockDetailActivity extends AppCompatActivity {
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
             getProductList(load_category_id);
         }
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        Intent intent = new Intent(StockDetailActivity.this, AddProductActivity.class);
+        intent.putStringArrayListExtra("listCategories", categoriesList);
+        intent.putExtra("CategoriesIdMap", hashMapCategories);
+        intent.putExtra("productModel", productsList.get(position));
+        startActivityForResult(intent, REQUEST_CODE);
     }
 }

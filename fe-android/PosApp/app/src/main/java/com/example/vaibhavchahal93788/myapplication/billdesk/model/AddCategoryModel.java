@@ -16,4 +16,12 @@ public class AddCategoryModel implements Serializable {
         this.categoryId = categoryId;
         this.categoryName = categoryName;
     }
+
+    public String getCategoryId() {
+        return categoryId;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
 }
