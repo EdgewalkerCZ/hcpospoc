@@ -3,12 +3,13 @@ package com.example.vaibhavchahal93788.myapplication.billdesk.model;
 public class BillProduct {
 
     private String name;
-    private int quantity, price, originalPrice;
+    private int quantity, price, originalPrice, gstTax;
 
-    public BillProduct(String name, int quantity, int price) {
+    public BillProduct(String name, int quantity, int price, int gstTax) {
         this.name = name;
         this.quantity = quantity;
         this.price = price;
+        this.gstTax = gstTax;
     }
 
     public String getName() {
@@ -33,5 +34,9 @@ public class BillProduct {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public int getGstTax() {
+        return gstTax;
     }
 }

@@ -125,10 +125,22 @@
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="20dp"
-                    android:background="@drawable/black_rectangle"
+                    android:background="@null"
                     android:hint="@string/text_product_name"
-                    android:padding="10dp"
-                    android:textColor="@color/black_color" />
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:textColor="@color/black_color"
+                    android:textColorHint="@color/black_color"
+                    android:textSize="16dp" />
+
+                <View
+                    android:id="@+id/divider5"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/et_productname"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@color/black_color" />
 
                 <RelativeLayout
                     android:id="@+id/rl_price"
@@ -136,25 +148,97 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/et_productname"
                     android:layout_marginLeft="8dp"
+                    android:layout_marginRight="10dp">
+
+                    <EditText
+                        android:id="@+id/et_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:background="@null"
+                        android:drawableLeft="@drawable/rupee_icon"
+                        android:hint="@string/text_price"
+                        android:inputType="number"
+                        android:paddingBottom="10dp"
+                        android:paddingRight="1dp"
+                        android:paddingTop="10dp"
+                        android:textColor="@color/black_color"
+                        android:textColorHint="@color/black_color"
+                        android:textSize="16dp" />
+
+                    <EditText
+                        android:id="@+id/et_taxinfo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_toRightOf="@+id/et_price"
+                        android:background="@null"
+                        android:enabled="false"
+                        android:paddingBottom="10dp"
+                        android:paddingTop="10dp"
+                        android:textColor="@color/black_color"
+                        android:textColorHint="@color/black_color"
+                        android:textSize="16dp" />
+
+                    <EditText
+                        android:id="@+id/et_final_price"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="15dp"
+                        android:background="@drawable/grey_rectangle"
+                        android:drawableLeft="@drawable/rupee_icon"
+                        android:enabled="false"
+                        android:hint="@string/text_final_price"
+                        android:inputType="number"
+                        android:paddingBottom="10dp"
+                        android:paddingLeft="5dp"
+                        android:paddingTop="10dp"
+                        android:textColor="@color/black_color"
+                        android:textColorHint="@color/black_color"
+                        android:textSize="16dp" />
+
+                </RelativeLayout>
+
+                <View
+                    android:id="@+id/divider6"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/rl_price"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@color/black_color" />
+
+                <RelativeLayout
+                    android:id="@+id/rl_tax"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/rl_price"
+                    android:layout_marginLeft="8dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="20dp">
 
                     <EditText
-                        android:id="@+id/et_price"
+                        android:id="@+id/et_tax"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/black_rectangle"
-                        android:hint="@string/text_price"
-                        android:inputType="number"
-                        android:padding="10dp"
-                        android:textColor="@color/black_color" />
+                        android:background="@null"
+                        android:enabled="false"
+                        android:hint="@string/text_gst"
+                        android:paddingBottom="10dp"
+                        android:paddingTop="10dp"
+                        android:textColor="@color/black_color"
+                        android:textColorHint="@color/black_color"
+                        android:textSize="16dp" />
 
                     <RadioGroup
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:visibility="gone">
 
                         <RadioButton
                             android:layout_width="wrap_content"
@@ -172,19 +256,40 @@
 
                 </RelativeLayout>
 
+                <View
+                    android:id="@+id/divider7"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/rl_tax"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@color/black_color" />
+
                 <EditText
                     android:id="@+id/et_quantity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/rl_price"
+                    android:layout_below="@+id/rl_tax"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="20dp"
-                    android:background="@drawable/black_rectangle"
+                    android:background="@null"
                     android:hint="@string/text_quantity"
                     android:inputType="number"
-                    android:padding="10dp"
-                    android:textColor="@color/black_color" />
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:textColor="@color/black_color"
+                    android:textColorHint="@color/black_color"
+                    android:textSize="16dp" />
+
+                <View
+                    android:id="@+id/divider8"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/et_quantity"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@color/black_color" />
 
 
                 <EditText
@@ -195,10 +300,23 @@
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="20dp"
-                    android:background="@drawable/black_rectangle"
+                    android:background="@null"
                     android:hint="@string/text_product_description"
-                    android:padding="10dp"
-                    android:textColor="@color/black_color" />
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:textColor="@color/black_color"
+                    android:textColorHint="@color/black_color"
+                    android:textSize="16dp" />
+
+                <View
+                    android:id="@+id/divider9"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/et_productdescription"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@color/black_color" />
+
 
             </RelativeLayout>
         </ScrollView>

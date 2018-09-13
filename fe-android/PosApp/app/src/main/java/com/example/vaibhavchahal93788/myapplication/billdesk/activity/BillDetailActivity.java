@@ -101,7 +101,7 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         list.add(new HeadingBillSummary("Bill Summary"));
 
         for (ProductListModel listModel : selectedItemList) {
-            BillProduct billProduct = new BillProduct(listModel.getLabel(), listModel.getQuantity(), Math.round(Float.valueOf(listModel.getPrice())));
+            BillProduct billProduct = new BillProduct(listModel.getLabel(), listModel.getQuantity(), Math.round(Float.valueOf(listModel.getPrice())), Math.round(Float.valueOf(listModel.getTaxPercentage())));
             list.add(billProduct);
         }
 
@@ -289,7 +289,7 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         printNewLine();
         printCustom("--------------------------------", 1, 0);
         makTextNormal();
-        printTextNormal("Item Name : Price  Qty  Total");
+        printTextNormal("Item Name : Gst   Price  Qty  Total");
         makTextNormal();
         printNewLine();
         printCustom("--------------------------------", 1, 0);
@@ -325,11 +325,22 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         int endIndex = (selectedItemList.size() * 2) + 1;
 
         int totalPrice = 0;
+//        int maxLength = 0;
+//        for (int i = startIndex; i < endIndex; i++) {
+//            BillProduct billProduct = ((BillProduct) list.get(i));
+////            if ()
+////            maxLength = String.valueOf(billProduct.getPrice()).length();
+//        }
+
         for (int i = startIndex; i < endIndex; i++) {
             BillProduct billProduct = ((BillProduct) list.get(i));
-            printTextNormal(billProduct.getName() + " : " + billProduct.getPrice() + "     " + billProduct.getQuantity() + "     " + (billProduct.getPrice() * billProduct.getQuantity()));
+            int priceWithQty = billProduct.getPrice() * billProduct.getQuantity();
+            int totalGst = billProduct.getGstTax() * billProduct.getQuantity();
+            int priceAfterGst = (priceWithQty + ((priceWithQty * totalGst) / 100));
+
+            printTextNormal(billProduct.getName() + " : " + billProduct.getGstTax() + "%" + "     " + billProduct.getPrice() + "    " + billProduct.getQuantity() + "    " + (priceAfterGst));
             printNewLine();
-            totalPrice = totalPrice + ((BillProduct) list.get(i)).getPrice() * ((BillProduct) list.get(i)).getQuantity();
+            totalPrice = totalPrice + priceAfterGst;
         }
         return totalPrice;
     }

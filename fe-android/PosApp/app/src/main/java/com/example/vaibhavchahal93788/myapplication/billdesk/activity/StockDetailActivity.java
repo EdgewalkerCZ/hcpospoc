@@ -41,6 +41,7 @@ public class StockDetailActivity extends AppCompatActivity implements ProductSto
     private Spinner spinnerCategories;
     private String load_category_id = "0";
     private HashMap<String, String> hashMapCategories = new HashMap<>();
+    private HashMap<String, String> hashMapCategoriesTax = new HashMap<>();
     private ArrayList<String> categoriesList;
     private SwipeRefreshLayout pullToRefresh;
 
@@ -95,6 +96,7 @@ public class StockDetailActivity extends AppCompatActivity implements ProductSto
                     Intent intent = new Intent(StockDetailActivity.this, AddProductActivity.class);
                     intent.putStringArrayListExtra("listCategories", categoriesList);
                     intent.putExtra("CategoriesIdMap", hashMapCategories);
+                    intent.putExtra("CategoriesTaxMap", hashMapCategoriesTax);
                     startActivityForResult(intent
                             , REQUEST_CODE);
                 } else {
@@ -206,8 +208,11 @@ public class StockDetailActivity extends AppCompatActivity implements ProductSto
                 categoriesList = new ArrayList<>();
                 categoriesList.add("Categories*");
                 for (CategoryModel categoryModel : categoryList) {
-                    categoriesList.add(categoryModel.getLabel());
-                    hashMapCategories.put(categoryModel.getLabel(), categoryModel.getId());
+                    if (categoryModel.getParentType().equals("0")) {
+                        categoriesList.add(categoryModel.getLabel());
+                        hashMapCategories.put(categoryModel.getLabel(), categoryModel.getId());
+                        hashMapCategoriesTax.put(categoryModel.getLabel(), categoryModel.getTaxCode());
+                    }
                 }
                 ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>
                         (StockDetailActivity.this, android.R.layout.simple_spinner_item, categoriesList);
@@ -236,6 +241,7 @@ public class StockDetailActivity extends AppCompatActivity implements ProductSto
         Intent intent = new Intent(StockDetailActivity.this, AddProductActivity.class);
         intent.putStringArrayListExtra("listCategories", categoriesList);
         intent.putExtra("CategoriesIdMap", hashMapCategories);
+        intent.putExtra("CategoriesTaxMap", hashMapCategoriesTax);
         intent.putExtra("productModel", productsList.get(position));
         startActivityForResult(intent, REQUEST_CODE);
     }

@@ -48,6 +48,7 @@ public class ProductDetailactivity extends AppCompatActivity implements View.OnC
     private Spinner spinnerCategories;
     private String load_category_id = "0";
     private HashMap<String, String> hashMapCategories = new HashMap<>();
+    private HashMap<String, String> hashMapCategoriesTax = new HashMap<>();
     private ArrayList<String> categoriesList;
     private SwipeRefreshLayout pullToRefresh;
 
@@ -226,8 +227,11 @@ public class ProductDetailactivity extends AppCompatActivity implements View.OnC
                 categoriesList = new ArrayList<>();
                 categoriesList.add("Categories*");
                 for (CategoryModel categoryModel : categoryList) {
-                    categoriesList.add(categoryModel.getLabel());
-                    hashMapCategories.put(categoryModel.getLabel(), categoryModel.getId());
+                    if (categoryModel.getParentType().equals("0")) {
+                        categoriesList.add(categoryModel.getLabel());
+                        hashMapCategories.put(categoryModel.getLabel(), categoryModel.getId());
+                        hashMapCategoriesTax.put(categoryModel.getLabel(), categoryModel.getTaxCode().substring(2));
+                    }
                 }
                 ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>
                         (ProductDetailactivity.this, android.R.layout.simple_spinner_item, categoriesList);
@@ -264,6 +268,7 @@ public class ProductDetailactivity extends AppCompatActivity implements View.OnC
                 if (categoriesList != null && !categoriesList.isEmpty()) {
                     Intent intent = new Intent(ProductDetailactivity.this, AddProductActivity.class);
                     intent.putStringArrayListExtra("listCategories", categoriesList);
+                    intent.putExtra("CategoriesTaxMap", hashMapCategoriesTax);
                     intent.putExtra("CategoriesIdMap", hashMapCategories);
                     startActivityForResult(intent, REQUEST_CODE);
                 } else {
@@ -273,8 +278,7 @@ public class ProductDetailactivity extends AppCompatActivity implements View.OnC
         });
         return true;
     }
-
-
+    
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will

@@ -85,5 +85,7 @@
     <string name="text_quantity_req">Quantity required</string>
     <string name="msg_category_loading_failed">Categories not available, pull to refresh categories</string>
     <string name="msg_product_update_success">Product updated successfully!</string>
+    <string name="text_gst">Gst%</string>
+    <string name="text_final_price">Final Price</string>
 
 </resources>

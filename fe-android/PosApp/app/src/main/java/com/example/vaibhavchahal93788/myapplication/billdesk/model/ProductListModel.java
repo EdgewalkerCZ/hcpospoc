@@ -27,9 +27,9 @@ public class ProductListModel implements Serializable {
     @SerializedName("tva_tx")
     private String taxPercentage;
 
-   /* @SerializedName("array_options")
-    private AddCategoryModel categoryModel;
-*/
+    /* @SerializedName("array_options")
+     private AddCategoryModel categoryModel;
+ */
     public int getQuantity() {
         return quantity;
     }
