@@ -111,16 +111,28 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                if (mapCategoriesTax.get(spinnerCategories.getSelectedItem().toString()) != null && !etBasePrice.getText().toString().isEmpty()) {
+                int taxPrice = 0;
+                int finalPrice = 0;
+
+                if (mapCategoriesTax.get(spinnerCategories.getSelectedItem().toString()) != null) {
+                    if (!etBasePrice.getText().toString().isEmpty()) {
+                        taxPrice = Math.round(Float.parseFloat(etBasePrice.getText().toString())) * Integer.parseInt(mapCategoriesTax.get(spinnerCategories.getSelectedItem().toString())) / 100;
+                        etTaxInfo.setText("+ " + taxPrice + " tax");
+                        finalPrice = Integer.parseInt(etBasePrice.getText().toString()) + taxPrice;
+                        etFinalPrice.setText("" + finalPrice);
+                    } else {
+                        etTaxInfo.setText("");
+                        etFinalPrice.setText("" + finalPrice);
+                    }
+                } else {
+                    etTaxInfo.setText("");
+                    etFinalPrice.setText("" + etBasePrice.getText().toString());
+                }
+
+                if (mapCategoriesTax.get(spinnerCategories.getSelectedItem().toString()) != null) {
                     etProductTax.setText("Gst@ " + mapCategoriesTax.get(spinnerCategories.getSelectedItem().toString()) + "%");
-                    int taxAmount = (Integer.valueOf(etBasePrice.getText().toString()) * Integer.valueOf(mapCategoriesTax.get(spinnerCategories.getSelectedItem().toString())) / 100);
-                    int finalPrice = Integer.parseInt(etBasePrice.getText().toString()) + taxAmount;
-                    etFinalPrice.setText("" + finalPrice);
-                    etTaxInfo.setText("+" + taxAmount + " tax");
                 } else {
                     etProductTax.setText("");
-                    etTaxInfo.setText("");
-                    etFinalPrice.setText("");
                 }
             }
 
@@ -138,7 +150,9 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
         if (productModel != null) {
             etProductName.setText(productModel.getLabel());
             etProductDescptn.setText(productModel.getDescription());
-            etBasePrice.setText(productModel.getPrice());
+            etBasePrice.setText("" + Math.round(Float.parseFloat(productModel.getPrice())));
+            etFinalPrice.setText("" + Math.round(Float.parseFloat(productModel.getFinalPrice())));
+
 //            String productCategory = productModel.getCategoryModel().getCategoryName();
 //            int selectedCategoryPosition = 0;
 //            for (int i = 0; i < categoriesList.size(); i++) {

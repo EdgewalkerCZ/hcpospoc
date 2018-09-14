@@ -79,7 +79,7 @@ public class BillDetailRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
                 holderSeletedItem.name.setText(selectedProduct.getName());
 
 //                holderSeletedItem.price.setCompoundDrawablesWithIntrinsicBounds(R.drawable.rupee_icon, 0, 0, 0);
-                holderSeletedItem.price.setText(String.valueOf(selectedProduct.getPrice()));
+                holderSeletedItem.price.setText(String.valueOf(selectedProduct.getFinalPrice()));
 
                 holderSeletedItem.quantity.setText(String.valueOf(selectedProduct.getQuantity()));
                 clickEventEditPrice(selectedProduct, position, holderSeletedItem);
@@ -101,7 +101,7 @@ public class BillDetailRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
                 ViewHolderBillProduct holderBillProduct = (ViewHolderBillProduct) holder;
                 BillProduct billProduct = (BillProduct) itemsList.get(position);
                 holderBillProduct.name.setText(billProduct.getName() + " x " + billProduct.getQuantity());
-                holderBillProduct.price.setText(holderBillProduct.name.getContext().getString(R.string.rupee_symbol) + String.valueOf(billProduct.getPrice() * billProduct.getQuantity()));
+                holderBillProduct.price.setText(holderBillProduct.name.getContext().getString(R.string.rupee_symbol) + String.valueOf(billProduct.getFinalPrice() * billProduct.getQuantity()));
                 break;
             case TYPE_ITEM_TOTAL_DETAIL:
                 ViewHolderTotalBill holderTotalBill = (ViewHolderTotalBill) holder;
@@ -110,6 +110,7 @@ public class BillDetailRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
                 holderTotalBill.price.setTypeface(null, Typeface.BOLD);
                 holderTotalBill.name.setText(totalBillDetail.getTitle());
                 holderTotalBill.price.setText(holderTotalBill.name.getContext().getString(R.string.rupee_symbol) + String.valueOf(totalBillDetail.getTotalPrice()));
+
                 break;
             case TYPE_ITEM_PAYMENT_MODE:
                 break;

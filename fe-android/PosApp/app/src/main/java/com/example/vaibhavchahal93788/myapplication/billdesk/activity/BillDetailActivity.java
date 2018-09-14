@@ -94,14 +94,14 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         list = new ArrayList<>();
 
         for (ProductListModel listModel : selectedItemList) {
-            SelectedProduct selectedProduct = new SelectedProduct(listModel.getLabel(), listModel.getQuantity(), Math.round(Float.valueOf(listModel.getPrice())));
+            SelectedProduct selectedProduct = new SelectedProduct(listModel.getLabel(), listModel.getQuantity(), Math.round(Float.valueOf(listModel.getPrice())), Math.round(Float.valueOf(listModel.getFinalPrice())));
             list.add(selectedProduct);
         }
 
         list.add(new HeadingBillSummary("Bill Summary"));
 
         for (ProductListModel listModel : selectedItemList) {
-            BillProduct billProduct = new BillProduct(listModel.getLabel(), listModel.getQuantity(), Math.round(Float.valueOf(listModel.getPrice())), Math.round(Float.valueOf(listModel.getTaxPercentage())));
+            BillProduct billProduct = new BillProduct(listModel.getLabel(), listModel.getQuantity(), Math.round(Float.valueOf(listModel.getPrice())), Math.round(Float.valueOf(listModel.getTaxPercentage())), Math.round(Float.valueOf(listModel.getFinalPrice())));
             list.add(billProduct);
         }
 

@@ -211,7 +211,7 @@ public class StockDetailActivity extends AppCompatActivity implements ProductSto
                     if (categoryModel.getParentType().equals("0")) {
                         categoriesList.add(categoryModel.getLabel());
                         hashMapCategories.put(categoryModel.getLabel(), categoryModel.getId());
-                        hashMapCategoriesTax.put(categoryModel.getLabel(), categoryModel.getTaxCode());
+                        hashMapCategoriesTax.put(categoryModel.getLabel(), categoryModel.getTaxCode().substring(2));
                     }
                 }
                 ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>
