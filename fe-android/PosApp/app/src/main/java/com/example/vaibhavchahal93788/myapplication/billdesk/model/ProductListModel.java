@@ -27,6 +27,9 @@ public class ProductListModel implements Serializable {
     @SerializedName("tva_tx")
     private String taxPercentage;
 
+    @SerializedName("price_ttc")
+    private String finalPrice;
+
     /* @SerializedName("array_options")
      private AddCategoryModel categoryModel;
  */
@@ -69,5 +72,9 @@ public class ProductListModel implements Serializable {
  */
     public String getId() {
         return id;
+    }
+
+    public String getFinalPrice() {
+        return finalPrice;
     }
 }

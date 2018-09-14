@@ -26,7 +26,6 @@ public class ProductStockListAdapter extends RecyclerView.Adapter<ProductStockLi
 
     private OnItemClickListener onItemClickListener;
 
-
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
@@ -38,7 +37,7 @@ public class ProductStockListAdapter extends RecyclerView.Adapter<ProductStockLi
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final ProductListModel model = productList.get(position);
         holder.textViewName.setText(model.getLabel());
-        holder.textViewPrice.setText(holder.textViewName.getContext().getString(R.string.rupee_symbol) + Math.round(Float.valueOf(model.getPrice())) + ".00");
+        holder.textViewPrice.setText(holder.textViewName.getContext().getString(R.string.rupee_symbol) + Math.round(Float.valueOf(model.getFinalPrice())) + ".00");
         holder.textViewTag.setText(model.getLabel().toString().substring(0, 1).toUpperCase());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

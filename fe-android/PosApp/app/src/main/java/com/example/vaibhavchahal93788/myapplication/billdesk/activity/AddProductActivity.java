@@ -110,10 +110,17 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
         spinnerCategories.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if (mapCategoriesTax.get(spinnerCategories.getSelectedItem().toString()) != null) {
+
+                if (mapCategoriesTax.get(spinnerCategories.getSelectedItem().toString()) != null && !etBasePrice.getText().toString().isEmpty()) {
                     etProductTax.setText("Gst@ " + mapCategoriesTax.get(spinnerCategories.getSelectedItem().toString()) + "%");
+                    int taxAmount = (Integer.valueOf(etBasePrice.getText().toString()) * Integer.valueOf(mapCategoriesTax.get(spinnerCategories.getSelectedItem().toString())) / 100);
+                    int finalPrice = Integer.parseInt(etBasePrice.getText().toString()) + taxAmount;
+                    etFinalPrice.setText("" + finalPrice);
+                    etTaxInfo.setText("+" + taxAmount + " tax");
                 } else {
                     etProductTax.setText("");
+                    etTaxInfo.setText("");
+                    etFinalPrice.setText("");
                 }
             }
 
