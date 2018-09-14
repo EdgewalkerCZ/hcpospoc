@@ -16,10 +16,10 @@ import retrofit2.Call;
 
 public class ProductApiHelper {
 
-    private ProductApi productApi;
+    private com.example.vaibhavchahal93788.myapplication.billdesk.api.productApi productApi;
 
     public ProductApiHelper() {
-        productApi = RetrofitClient.getInstance().create(ProductApi.class);
+        productApi = RetrofitClient.getInstance().create(com.example.vaibhavchahal93788.myapplication.billdesk.api.productApi.class);
     }
 
     public void fetchProductList(String sortfield, String sortorder, long limit, String category, final IApiRequestComplete successInterface) {

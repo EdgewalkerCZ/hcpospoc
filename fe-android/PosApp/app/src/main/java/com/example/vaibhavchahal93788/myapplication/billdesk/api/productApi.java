@@ -18,7 +18,7 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 
-public interface ProductApi {
+public interface productApi {
     //http://52.172.129.14:80/api/index.php/products?sortfield=t.ref&sortorder=ASC&limit=100
 ///products/{id}
     @GET("products")

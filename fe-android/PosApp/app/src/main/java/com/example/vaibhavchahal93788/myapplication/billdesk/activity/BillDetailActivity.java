@@ -180,7 +180,7 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         BillProduct billProduct = (BillProduct) list.get(index);
         billProduct.setQuantity(quantity);
         if (price >= 0) {
-            billProduct.setPrice(price);
+            billProduct.setFinalPrice(price);
         }
 
         int totalBillIndex = (selectedItemList.size() * 2) + 1;
@@ -193,7 +193,7 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         int totalItems = 0, totalPrice = 0;
         for (int i = startIndex; i < endIndex; i++) {
             totalItems = totalItems + ((BillProduct) list.get(i)).getQuantity();
-            totalPrice = totalPrice + ((BillProduct) list.get(i)).getPrice() * ((BillProduct) list.get(i)).getQuantity();
+            totalPrice = totalPrice + ((BillProduct) list.get(i)).getFinalPrice() * ((BillProduct) list.get(i)).getQuantity();
         }
         totalBillDetail.setTitle("Total Amount" + " (" + totalItems + " items)");
         totalBillDetail.setTotalPrice(totalPrice);
