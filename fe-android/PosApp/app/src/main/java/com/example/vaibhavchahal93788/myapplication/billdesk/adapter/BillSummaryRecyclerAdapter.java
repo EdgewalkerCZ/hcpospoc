@@ -82,7 +82,7 @@ public class BillSummaryRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
                 holderBillProduct.tvBasePrice.setText("" + billProduct.getPrice());
                 holderBillProduct.tvGst.setText(billProduct.getGstTax() + "%");
                 holderBillProduct.tvQty.setText("" + billProduct.getQuantity());
-                holderBillProduct.tvTotalPrice.setText("" + billProduct.getFinalPrice());
+                holderBillProduct.tvTotalPrice.setText("" + billProduct.getFinalPrice() * billProduct.getQuantity());
                 break;
             case TYPE_ITEM_TOTAL_DETAIL:
                 ViewHolderTotalBill holderTotalBill = (ViewHolderTotalBill) holder;

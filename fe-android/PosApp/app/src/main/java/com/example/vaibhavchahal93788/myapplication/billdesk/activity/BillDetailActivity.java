@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -319,6 +320,8 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         printNewLine();
         printNewLine();
         printCustom("  Powered by Home Credit India.   1800 121 6660", 1, 1);
+        printNewLine();
+        printNewLine();
     }
 
     private void makTextNormal() {
@@ -438,7 +441,17 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
                     .getRemoteDevice(getFirstConnectedDevice());
             mBluetoothConnectProgressDialog = ProgressDialog.show(this,
                     "Connecting...", mBluetoothDevice.getName() + " : "
-                            + mBluetoothDevice.getAddress(), true, false);
+                            + mBluetoothDevice.getAddress(), true, true);
+
+
+            mBluetoothConnectProgressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                @Override
+                public void onCancel(DialogInterface dialog) {
+                    mBluetoothAdapter.cancelDiscovery();
+                    isBluetoothConnected = false;
+                }
+            });
+
             Thread mBlutoothConnectThread = new Thread(this);
             mBlutoothConnectThread.start();
             isBluetoothConnected = true;

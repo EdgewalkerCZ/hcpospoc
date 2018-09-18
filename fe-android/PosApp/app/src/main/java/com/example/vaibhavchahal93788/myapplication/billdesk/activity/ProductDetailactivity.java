@@ -101,6 +101,8 @@ public class ProductDetailactivity extends AppCompatActivity implements View.OnC
                 if (productsList != null && productsList.size() > 0) {
                     productsList.clear();
                 }
+
+                rlTotalCharge.setVisibility(View.GONE);
                 load_category_id = hashMapCategories.get(spinnerCategories.getSelectedItem().toString());
                 getProductList(load_category_id);
             }
