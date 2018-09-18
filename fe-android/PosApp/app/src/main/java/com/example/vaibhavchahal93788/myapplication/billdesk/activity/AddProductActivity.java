@@ -24,6 +24,7 @@ import com.example.vaibhavchahal93788.myapplication.billdesk.network.IApiRequest
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 
@@ -154,6 +155,13 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
             etBasePrice.setText("" + Math.round(Float.parseFloat(productModel.getPrice())));
             etFinalPrice.setText("" + Math.round(Float.parseFloat(productModel.getFinalPrice())));
 
+            String key = findCategory();
+
+            if (key != null) {
+                int spinnerDefaultCategory = ((ArrayAdapter<String>) spinnerCategories.getAdapter()).getPosition(key);
+                spinnerCategories.setSelection(spinnerDefaultCategory);
+            }
+
 //            String productCategory = productModel.getCategoryModel().getCategoryName();
 //            int selectedCategoryPosition = 0;
 //            for (int i = 0; i < categoriesList.size(); i++) {
@@ -164,6 +172,20 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
 //            }
 //            spinnerCategories.setSelection(selectedCategoryPosition);
         }
+    }
+
+    @Nullable
+    private String findCategory() {
+        String key = null;
+        String value = String.valueOf(Math.round(Float.valueOf(productModel.getTaxPercentage())));
+
+        for (Map.Entry entry : mapCategoriesTax.entrySet()) {
+            if (value.equals(entry.getValue())) {
+                key = entry.getKey().toString();
+                break; //breaking because its one to one map
+            }
+        }
+        return key;
     }
 
 

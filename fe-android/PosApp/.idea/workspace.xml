@@ -12,6 +12,7 @@
   <component name="ChangeListManager">
     <list default="true" id="642ea526-37cf-4903-b412-4001f6aa7186" name="Default" comment="created xml of add product, available stock list.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/AddProductActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/AddProductActivity.java" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -44,45 +45,54 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="StockDetailActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/StockDetailActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="203">
+              <caret line="214" column="21" lean-forward="false" selection-start-line="214" selection-start-column="21" selection-end-line="214" selection-end-column="21" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="BillDetailActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/BillDetailActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="194" column="41" lean-forward="false" selection-start-line="194" selection-start-column="41" selection-end-line="194" selection-end-column="41" />
+            <state relative-caret-position="169">
+              <caret line="99" column="204" lean-forward="false" selection-start-line="99" selection-start-column="204" selection-end-line="99" selection-end-column="204" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AddProductActivity.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/AddProductActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="288">
+              <caret line="164" column="40" lean-forward="false" selection-start-line="164" selection-start-column="40" selection-end-line="164" selection-end-column="40" />
               <folding>
-                <element signature="e#20030#20282#0" expanded="true" />
-                <element signature="e#20281#20282#0" expanded="true" />
+                <element signature="e#4372#4380#0" expanded="true" />
+                <element signature="e#9251#9280#0" expanded="true" />
+                <element signature="e#9417#9441#0" expanded="true" />
+                <element signature="e#9583#9609#0" expanded="true" />
+                <element signature="e#9744#9767#0" expanded="true" />
+                <element signature="e#9907#9936#0" expanded="true" />
+                <element signature="e#11039#11072#0" expanded="true" />
+                <element signature="e#11998#12033#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ProductDetailactivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/ProductDetailactivity.java">
+      <file leaf-file-name="ProductListModel.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/model/ProductListModel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="322">
-              <caret line="106" column="49" lean-forward="false" selection-start-line="106" selection-start-column="49" selection-end-line="106" selection-end-column="49" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ProductApiHelper.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/api/ProductApiHelper.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="24" column="16" lean-forward="false" selection-start-line="24" selection-start-column="16" selection-end-line="24" selection-end-column="16" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="productApi.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/api/productApi.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="25" column="23" lean-forward="false" selection-start-line="25" selection-start-column="23" selection-end-line="25" selection-end-column="23" />
-              <folding />
+            <state relative-caret-position="374">
+              <caret line="27" column="33" lean-forward="false" selection-start-line="27" selection-start-column="33" selection-end-line="27" selection-end-column="33" />
+              <folding>
+                <element signature="e#1314#1315#0" expanded="true" />
+                <element signature="e#1350#1351#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -101,12 +111,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>ondatachange</find>
-      <find>print</find>
-      <find>getPriceMaxLength</find>
-      <find>spacingRequired</find>
-      <find>getMaxLengthArray</find>
-      <find>billsummary</find>
       <find>populate</find>
       <find>list</find>
       <find>billproduct</find>
@@ -131,6 +135,12 @@
       <find>rlTotalCharge</find>
       <find>selected</find>
       <find>printcont</find>
+      <find>addproduct</find>
+      <find>hashMapCategories</find>
+      <find>spinnerCategories</find>
+      <find>prefillProductDetails</find>
+      <find>productModel.getTaxPercentage()</find>
+      <find>getTaxPercentage()</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -2186,7 +2196,6 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_product_detail.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/StockDetailActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/model/SelectedProduct.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/AddProductActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/model/ProductListModel.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/adapter/BillDetailRecyclerAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/model/BillProduct.java" />
@@ -2203,6 +2212,7 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/adapter/BillSummaryRecyclerAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/ProductDetailactivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/BillDetailActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/AddProductActivity.java" />
       </list>
     </option>
   </component>
@@ -2275,91 +2285,23 @@
             </path>
             <path>
               <item name="PosApp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="PosApp" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="billdesk" type="462c0819:PsiDirectoryNode" />
+              <item name="activity" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="PosApp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Android API 27 Platform &gt;" type="70bed36:NamedLibraryElementNode" />
-            </path>
-            <path>
-              <item name="PosApp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Android API 27 Platform &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="android.jar" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="PosApp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Android API 27 Platform &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="android.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="android" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="PosApp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Android API 27 Platform &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="android.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="android" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="PosApp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Android API 27 Platform &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="android.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="android" type="462c0819:PsiDirectoryNode" />
-              <item name="bluetooth" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="PosApp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Android API 27 Platform &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="android.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="android" type="462c0819:PsiDirectoryNode" />
-              <item name="os" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="PosApp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Android API 27 Platform &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="android.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="android" type="462c0819:PsiDirectoryNode" />
-              <item name="view" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="PosApp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Android API 27 Platform &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="android.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="android" type="462c0819:PsiDirectoryNode" />
-              <item name="widget" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="PosApp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Gradle: com.android.support:recyclerview-v7-27.1.1" type="70bed36:NamedLibraryElementNode" />
-            </path>
-            <path>
-              <item name="PosApp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Gradle: com.android.support:recyclerview-v7-27.1.1" type="70bed36:NamedLibraryElementNode" />
-              <item name="classes.jar" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="PosApp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Gradle: com.android.support:recyclerview-v7-27.1.1" type="70bed36:NamedLibraryElementNode" />
-              <item name="classes.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="v7" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="PosApp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Gradle: com.android.support:recyclerview-v7-27.1.1" type="70bed36:NamedLibraryElementNode" />
-              <item name="classes.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="v7" type="462c0819:PsiDirectoryNode" />
-              <item name="widget" type="462c0819:PsiDirectoryNode" />
+              <item name="PosApp" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="billdesk" type="462c0819:PsiDirectoryNode" />
+              <item name="model" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -2374,7 +2316,7 @@
     <property name="android.sdk.path" value="D:/Android/sdk" />
     <property name="android.project.structure.last.selected" value="app" />
     <property name="android.project.structure.proportion" value="0.15" />
-    <property name="device.picker.selection" value="PL2GAR4850706392" />
+    <property name="device.picker.selection" value="792b9a8f0404" />
     <property name="SearchEverywhereHistoryKey" value="producthel&#9;PSI&#9;JAVA://com.example.vaibhavchahal93788.myapplication.billdesk.api.ProductApiHelper&#10;Productdetail&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/ProductDetailactivity.java&#10;BillDetail&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/BillDetailActivity.java&#10;Productdetai&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/ProductDetailactivity.java&#10;Billdetailac&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/BillDetailActivity.java&#10;BillSummary&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/adapter/BillSummaryRecyclerAdapter.java&#10;Bill&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/BillSummaryActivity.java&#10;BILL&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/BillSummaryActivity.java&#10;adapter&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/adapter/BillSummaryRecyclerAdapter.java&#10;bill&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/res/layout/bill_summary_bill_item.xml&#10;bill_&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/res/layout/bill_summary_bill_item.xml&#10;billdeta&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/BillDetailActivity.java&#10;productdetail&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/ProductDetailactivity.java&#10;productlist&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/adapter/ProductListAdapter.java&#10;Billdetail&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/BillDetailActivity.java&#10;addproduct&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/AddProductActivity.java&#10;Stockdetail&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/StockDetailActivity.java&#10;stockdetail&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/StockDetailActivity.java&#10;Stocklist&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/adapter/ProductStockListAdapter.java&#10;Addproduct&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/AddProductActivity.java&#10;Stock&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/StockDetailActivity.java&#10;Adapter&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/adapter/ProductStockListAdapter.java&#10;stocklist&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/adapter/ProductStockListAdapter.java&#10;Add&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/AddProductActivity.java&#10;categorymodel&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/model/AddCategoryModel.java&#10;billrecyclerada&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/adapter/BillDetailRecyclerAdapter.java&#10;ic_rupee&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/res/drawable-xxxhdpi/ic_rupee_icon.png&#10;stock&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/res/layout/product_stock_item.xml&#10;Product&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/model/ProductListModel.java&#10;string&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/res/values/strings.xml&#10;Addproduc&#9;PSI&#9;JAVA://com.example.vaibhavchahal93788.myapplication.billdesk.activity.AddProductActivity&#10;Bil&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/BillDetailActivity.java&#10;ProductDetail&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/ProductDetailactivity.java&#10;strin&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/res/values/strings.xml&#10;str&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/res/values/strings.xml&#10;addPro&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/res/layout/activity_add_product.xml&#10;ad&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/adapter/BillDetailRecyclerAdapter.java&#10;productlis&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/res/layout/product_list_item.xml&#10;adap&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/adapter/ProductStockListAdapter.java&#10;head&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/res/layout/bill_item_heading.xml&#10;StockDetai&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/res/layout/activity_stock_detail.xml&#10;productdet&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/ProductDetailactivity.java&#10;Devicelis&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/printing/DeviceListActivity.java&#10;Bi&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/BillDetailActivity.java&#10;menu&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/res/menu/menu_main.xml&#10;His&#9;PSI&#9;JAVA://com.example.vaibhavchahal93788.myapplication.billdesk.activity.TransactionHistoryActivity&#10;manifest&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/AndroidManifest.xml&#10;manifes&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/AndroidManifest.xml&#10;Const&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/utility/Constants.java&#10;Print&#9;FILE&#9;file://C:/Users/vaibhav.chahal93788/AndroidStudioProjects/hcpospoc/fe-android/PosApp/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/printing/PrinterCommands.java" />
     <property name="extract.method.default.visibility" value="private" />
     <property name="DEBUGGABLE_DEVICE" value="xiaomi-mi_a1-792b9a8f0404" />
@@ -2583,6 +2525,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32881355" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -2594,7 +2537,7 @@
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3214826" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32881355" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32881355" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32881355" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32881355" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.7016949" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -2671,12 +2614,22 @@
           <option name="timeStamp" value="58" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="75" />
+      <option name="time" value="76" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="evaluateExpression">
+      <expression>
+        <expression-string>productModel.getLabel()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>spinnerCategories.getAdapter()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
       <expression>
         <expression-string>billProduct</expression-string>
         <language-id>JAVA</language-id>
@@ -2712,38 +2665,9 @@
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
-      <expression>
-        <expression-string>billProduct.getFinalPrice() * billProduct.getQuantity()</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>totalBillDetail.getTotalPrice()</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/selected_product_list_item.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" column="31" lean-forward="false" selection-start-line="16" selection-start-column="31" selection-end-line="16" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/model/TotalBillDetail.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/model/SelectedProduct.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="442">
@@ -2763,14 +2687,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2040">
           <caret line="137" column="28" lean-forward="false" selection-start-line="137" selection-start-column="28" selection-end-line="137" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/model/ProductListModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="57" column="14" lean-forward="false" selection-start-line="57" selection-start-column="14" selection-end-line="57" selection-end-column="14" />
           <folding />
         </state>
       </provider>
@@ -3171,33 +3087,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/AddProductActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="75" column="89" lean-forward="false" selection-start-line="75" selection-start-column="89" selection-end-line="75" selection-end-column="89" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/ProductDetailactivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="106" column="49" lean-forward="false" selection-start-line="106" selection-start-column="49" selection-end-line="106" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/BillDetailActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="194" column="41" lean-forward="false" selection-start-line="194" selection-start-column="41" selection-end-line="194" selection-end-column="41" />
-          <folding>
-            <element signature="e#20030#20282#0" expanded="true" />
-            <element signature="e#20281#20282#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/api/ProductApiHelper.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
@@ -3211,6 +3100,75 @@
         <state relative-caret-position="170">
           <caret line="25" column="23" lean-forward="false" selection-start-line="25" selection-start-column="23" selection-end-line="25" selection-end-column="23" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/ProductDetailactivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="254">
+          <caret line="102" column="17" lean-forward="true" selection-start-line="102" selection-start-column="17" selection-end-line="102" selection-end-column="17" />
+          <folding>
+            <element signature="e#3560#3833#0" expanded="false" />
+            <element signature="e#3832#3833#0" expanded="false" />
+            <element signature="e#6822#6840#0" expanded="false" />
+            <element signature="e#7408#7448#0" expanded="false" />
+            <element signature="e#9233#9241#0" expanded="false" />
+            <element signature="e#10353#11127#0" expanded="false" />
+            <element signature="e#11020#11056#0" expanded="false" />
+            <element signature="e#11126#11127#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/model/ProductListModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="27" column="33" lean-forward="false" selection-start-line="27" selection-start-column="33" selection-end-line="27" selection-end-column="33" />
+          <folding>
+            <element signature="e#1314#1315#0" expanded="true" />
+            <element signature="e#1350#1351#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/StockDetailActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="203">
+          <caret line="214" column="21" lean-forward="false" selection-start-line="214" selection-start-column="21" selection-end-line="214" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/BillDetailActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="169">
+          <caret line="99" column="204" lean-forward="false" selection-start-line="99" selection-start-column="204" selection-end-line="99" selection-end-column="204" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/AddProductActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="164" column="40" lean-forward="false" selection-start-line="164" selection-start-column="40" selection-end-line="164" selection-end-column="40" />
+          <folding>
+            <element signature="e#4372#4380#0" expanded="true" />
+            <element signature="e#9251#9280#0" expanded="true" />
+            <element signature="e#9417#9441#0" expanded="true" />
+            <element signature="e#9583#9609#0" expanded="true" />
+            <element signature="e#9744#9767#0" expanded="true" />
+            <element signature="e#9907#9936#0" expanded="true" />
+            <element signature="e#11039#11072#0" expanded="true" />
+            <element signature="e#11998#12033#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
