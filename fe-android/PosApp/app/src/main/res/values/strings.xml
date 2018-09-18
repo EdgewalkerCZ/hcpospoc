@@ -87,5 +87,7 @@
     <string name="msg_product_update_success">Product updated successfully!</string>
     <string name="text_gst">Gst%</string>
     <string name="text_final_price">Final Price</string>
+    <string name="text_powered_by_home_credit_india">Powered by Home Credit India \n 1800 121 6660</string>
+    <string name="text_address">10A, Dlf Phase 2,\nGurgaon(Haryana) - 122001\nEmail - care@homecredit.co.in</string>
 
 </resources>

@@ -88,6 +88,7 @@ public class ProductDetailactivity extends AppCompatActivity implements View.OnC
             @Override
             public void onRefresh() {
                 getCategoriesList();
+                rlTotalCharge.setVisibility(View.GONE);
                 pullToRefresh.setRefreshing(false);
             }
         });
@@ -166,6 +167,7 @@ public class ProductDetailactivity extends AppCompatActivity implements View.OnC
                 intent.putExtra("selectedItemList", list);
                 intent.putExtra("totalItems", totalItem);
                 intent.putExtra("totalPrice", totalPrice);
+//                intent.putExtra("categoryList", totalPrice);
                 startActivity(intent);
                 break;
 

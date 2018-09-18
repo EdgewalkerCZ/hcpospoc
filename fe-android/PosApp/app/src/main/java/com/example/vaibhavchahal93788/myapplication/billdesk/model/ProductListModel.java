@@ -77,4 +77,5 @@ public class ProductListModel implements Serializable {
     public String getFinalPrice() {
         return finalPrice;
     }
+    
 }

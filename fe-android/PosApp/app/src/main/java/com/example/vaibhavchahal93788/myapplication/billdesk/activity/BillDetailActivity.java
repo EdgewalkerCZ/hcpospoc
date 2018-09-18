@@ -11,6 +11,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -34,20 +35,13 @@ import com.example.vaibhavchahal93788.myapplication.billdesk.model.PaymentMode;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductListModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.SelectedProduct;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.TotalBillDetail;
-import com.example.vaibhavchahal93788.myapplication.billdesk.printing.DeviceListActivity;
-import com.example.vaibhavchahal93788.myapplication.billdesk.printing.MainActivity;
 import com.example.vaibhavchahal93788.myapplication.billdesk.printing.PrinterCommands;
 import com.example.vaibhavchahal93788.myapplication.billdesk.printing.Utils;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
-import java.nio.ByteBuffer;
-import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -60,6 +54,7 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
     private BillDetailRecyclerAdapter adapter;
     private ArrayList<ProductListModel> selectedItemList;
     private Button btnConnectPrinter, btnPrint, btnViewBill;
+
     protected static final String TAG = "TAG";
     private static final int REQUEST_CONNECT_DEVICE = 1;
     private static final int REQUEST_ENABLE_BT = 2;
@@ -180,7 +175,7 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         BillProduct billProduct = (BillProduct) list.get(index);
         billProduct.setQuantity(quantity);
         if (price >= 0) {
-            billProduct.setPrice(price);
+            billProduct.setFinalPrice(price);
         }
 
         int totalBillIndex = (selectedItemList.size() * 2) + 1;
@@ -193,7 +188,7 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         int totalItems = 0, totalPrice = 0;
         for (int i = startIndex; i < endIndex; i++) {
             totalItems = totalItems + ((BillProduct) list.get(i)).getQuantity();
-            totalPrice = totalPrice + ((BillProduct) list.get(i)).getPrice() * ((BillProduct) list.get(i)).getQuantity();
+            totalPrice = totalPrice + ((BillProduct) list.get(i)).getFinalPrice() * ((BillProduct) list.get(i)).getQuantity();
         }
         totalBillDetail.setTitle("Total Amount" + " (" + totalItems + " items)");
         totalBillDetail.setTotalPrice(totalPrice);
@@ -207,7 +202,10 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_view_bill:
-                startActivity(new Intent(BillDetailActivity.this, BillSummaryActivity.class));
+                Intent intent = new Intent(BillDetailActivity.this, BillSummaryActivity.class);
+                ArrayList<BillProduct> billProducts = getBillProductsList();
+                intent.putParcelableArrayListExtra("billProductsList", billProducts);
+                startActivity(intent);
                 break;
 
             case R.id.btn_print_bill:
@@ -217,6 +215,18 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
             default:
                 break;
         }
+    }
+
+    @NonNull
+    private ArrayList<BillProduct> getBillProductsList() {
+        ArrayList<BillProduct> billProducts = new ArrayList<>();
+
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i) instanceof BillProduct) {
+                billProducts.add((BillProduct) list.get(i));
+            }
+        }
+        return billProducts;
     }
 
     private void printBill() {
@@ -324,25 +334,66 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         int startIndex = (selectedItemList.size() + 1);
         int endIndex = (selectedItemList.size() * 2) + 1;
 
-        int totalPrice = 0;
-//        int maxLength = 0;
-//        for (int i = startIndex; i < endIndex; i++) {
-//            BillProduct billProduct = ((BillProduct) list.get(i));
-////            if ()
-////            maxLength = String.valueOf(billProduct.getPrice()).length();
-//        }
+        int maxLengthFinalPrice = getFinalPriceMaxLength(startIndex, endIndex);
+        int maxLengthBasePrice = getBasePriceMaxLength(startIndex, endIndex);
+        int maxLengthQty = getQtyMaxLength(startIndex, endIndex);
 
+        int totalPrice = 0;
         for (int i = startIndex; i < endIndex; i++) {
             BillProduct billProduct = ((BillProduct) list.get(i));
-            int priceWithQty = billProduct.getPrice() * billProduct.getQuantity();
-            int totalGst = billProduct.getGstTax() * billProduct.getQuantity();
-            int priceAfterGst = (priceWithQty + ((priceWithQty * totalGst) / 100));
+            int priceAfterGst = billProduct.getFinalPrice() * billProduct.getQuantity();
 
-            printTextNormal(billProduct.getName() + " : " + billProduct.getGstTax() + "%" + "     " + billProduct.getPrice() + "    " + billProduct.getQuantity() + "    " + (priceAfterGst));
+            printTextNormal(billProduct.getName() + " : " + billProduct.getGstTax() + "%" + "    " + spacingRequired(maxLengthBasePrice, billProduct.getPrice()) + billProduct.getPrice() + "    " + spacingRequired(maxLengthQty, billProduct.getQuantity()) + billProduct.getQuantity() + "   " + spacingRequired(maxLengthFinalPrice, priceAfterGst) + (priceAfterGst));
+
             printNewLine();
             totalPrice = totalPrice + priceAfterGst;
         }
         return totalPrice;
+    }
+
+    private int getFinalPriceMaxLength(int startIndex, int endIndex) {
+        int maxLength = 0;
+        for (int i = startIndex; i < endIndex; i++) {
+            BillProduct billProduct = ((BillProduct) list.get(i));
+            int currentLength = String.valueOf(billProduct.getFinalPrice() * billProduct.getQuantity()).length();
+            if (currentLength > maxLength) {
+                maxLength = currentLength;
+            }
+        }
+        return maxLength;
+    }
+
+    private int getBasePriceMaxLength(int startIndex, int endIndex) {
+        int maxLength = 0;
+        for (int i = startIndex; i < endIndex; i++) {
+            BillProduct billProduct = ((BillProduct) list.get(i));
+            int currentLength = String.valueOf(billProduct.getPrice()).length();
+            if (currentLength > maxLength) {
+                maxLength = currentLength;
+            }
+        }
+        return maxLength;
+    }
+
+    private int getQtyMaxLength(int startIndex, int endIndex) {
+        int maxLength = 0;
+        for (int i = startIndex; i < endIndex; i++) {
+            BillProduct billProduct = ((BillProduct) list.get(i));
+            int currentLength = String.valueOf(billProduct.getQuantity()).length();
+            if (currentLength > maxLength) {
+                maxLength = currentLength;
+            }
+        }
+        return maxLength;
+    }
+
+    private String spacingRequired(int maxLength, int priceAfterGst) {
+        int spacingReq = maxLength - String.valueOf(priceAfterGst).length();
+        String totalSpacing = "";
+        for (int i = 0; i < spacingReq; i++) {
+            totalSpacing = " " + totalSpacing;
+        }
+        return totalSpacing;
     }
 
     private void connectPrinter() {

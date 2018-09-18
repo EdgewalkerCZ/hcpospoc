@@ -1,6 +1,9 @@
 package com.example.vaibhavchahal93788.myapplication.billdesk.model;
 
-public class BillProduct {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class BillProduct implements Parcelable {
 
     private String name;
     private int quantity, price, originalPrice, gstTax, finalPrice;
@@ -12,6 +15,27 @@ public class BillProduct {
         this.gstTax = gstTax;
         this.finalPrice = finalPrice;
     }
+
+    protected BillProduct(Parcel in) {
+        name = in.readString();
+        quantity = in.readInt();
+        price = in.readInt();
+        originalPrice = in.readInt();
+        gstTax = in.readInt();
+        finalPrice = in.readInt();
+    }
+
+    public static final Creator<BillProduct> CREATOR = new Creator<BillProduct>() {
+        @Override
+        public BillProduct createFromParcel(Parcel in) {
+            return new BillProduct(in);
+        }
+
+        @Override
+        public BillProduct[] newArray(int size) {
+            return new BillProduct[size];
+        }
+    };
 
     public String getName() {
         return name;
@@ -47,5 +71,20 @@ public class BillProduct {
 
     public void setFinalPrice(int finalPrice) {
         this.finalPrice = finalPrice;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(name);
+        parcel.writeInt(quantity);
+        parcel.writeInt(price);
+        parcel.writeInt(originalPrice);
+        parcel.writeInt(gstTax);
+        parcel.writeInt(finalPrice);
     }
 }

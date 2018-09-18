@@ -78,10 +78,11 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
                         finalPrice = Integer.parseInt(etBasePrice.getText().toString()) + taxPrice;
                         etFinalPrice.setText("" + finalPrice);
                     } else {
-                        etTaxInfo.setText("+ " + taxPrice + " tax");
+                        etTaxInfo.setText("");
                         etFinalPrice.setText("" + finalPrice);
                     }
                 } else {
+                    etTaxInfo.setText("");
                     etFinalPrice.setText("" + etBasePrice.getText().toString());
                 }
             }

@@ -100,7 +100,11 @@ public class BillDetailRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
             case TYPE_ITEM_BILL_PRODUCT:
                 ViewHolderBillProduct holderBillProduct = (ViewHolderBillProduct) holder;
                 BillProduct billProduct = (BillProduct) itemsList.get(position);
-                holderBillProduct.name.setText(billProduct.getName() + " x " + billProduct.getQuantity());
+                String productName = billProduct.getName();
+                if (billProduct.getName().length() >= 15) {
+                    productName = productName.substring(0, 15);
+                }
+                holderBillProduct.name.setText(productName + " x " + billProduct.getQuantity() + " (Gst Inc " + billProduct.getGstTax() + "%)");
                 holderBillProduct.price.setText(holderBillProduct.name.getContext().getString(R.string.rupee_symbol) + String.valueOf(billProduct.getFinalPrice() * billProduct.getQuantity()));
                 break;
             case TYPE_ITEM_TOTAL_DETAIL:
@@ -110,7 +114,6 @@ public class BillDetailRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
                 holderTotalBill.price.setTypeface(null, Typeface.BOLD);
                 holderTotalBill.name.setText(totalBillDetail.getTitle());
                 holderTotalBill.price.setText(holderTotalBill.name.getContext().getString(R.string.rupee_symbol) + String.valueOf(totalBillDetail.getTotalPrice()));
-
                 break;
             case TYPE_ITEM_PAYMENT_MODE:
                 break;
@@ -227,11 +230,11 @@ public class BillDetailRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
 
                 } else {
                     if (charSequence.toString().isEmpty()) {
-                        model.setPrice(0);
+                        model.setFinalPrice(0);
                     } else {
-                        model.setPrice(Math.round(Float.parseFloat(charSequence.toString())));
+                        model.setFinalPrice(Math.round(Float.parseFloat(charSequence.toString())));
                     }
-                    onDataChangeListener.onDataChanged(model.getQuantity(), position, model.getPrice());
+                    onDataChangeListener.onDataChanged(model.getQuantity(), position, model.getFinalPrice());
                 }
             }
 
