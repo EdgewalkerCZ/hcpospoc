@@ -4,9 +4,12 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -35,6 +38,7 @@ public class BillDetailRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
     private OnDataChangeListener onDataChangeListener;
 
     private Context context;
+    private String textBeforeChanged;
 
     public BillDetailRecyclerAdapter(List<Object> list, OnDataChangeListener onDataChangeListener) {
         itemsList = list;
@@ -45,7 +49,7 @@ public class BillDetailRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         context = parent.getContext();
         if (viewType == TYPE_ITEM_SELECTED) {
-            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.product_list_item, parent, false);
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.selected_product_list_item, parent, false);
             return new ViewHolderSeletedItem(v);
         } else if (viewType == TYPE_ITEM_HEADING_BILL_SUMMARY) {
             View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.bill_item_heading, parent, false);
@@ -73,9 +77,12 @@ public class BillDetailRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
                 ViewHolderSeletedItem holderSeletedItem = (ViewHolderSeletedItem) holder;
                 SelectedProduct selectedProduct = (SelectedProduct) itemsList.get(position);
                 holderSeletedItem.name.setText(selectedProduct.getName());
-                holderSeletedItem.price.setText(holderSeletedItem.name.getContext().getString(R.string.rupee_symbol) + String.valueOf(selectedProduct.getPrice()));
-                holderSeletedItem.quantity.setText(String.valueOf(selectedProduct.getQuantity()));
 
+//                holderSeletedItem.price.setCompoundDrawablesWithIntrinsicBounds(R.drawable.rupee_icon, 0, 0, 0);
+                holderSeletedItem.price.setText(String.valueOf(selectedProduct.getFinalPrice()));
+
+                holderSeletedItem.quantity.setText(String.valueOf(selectedProduct.getQuantity()));
+                clickEventEditPrice(selectedProduct, position, holderSeletedItem);
                 clickEventPlusBtn(holderSeletedItem, selectedProduct, position);
                 clickEventMinusBtn(holderSeletedItem, selectedProduct, position);
 
@@ -93,8 +100,12 @@ public class BillDetailRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
             case TYPE_ITEM_BILL_PRODUCT:
                 ViewHolderBillProduct holderBillProduct = (ViewHolderBillProduct) holder;
                 BillProduct billProduct = (BillProduct) itemsList.get(position);
-                holderBillProduct.name.setText(billProduct.getName() + " x " + billProduct.getQuantity());
-                holderBillProduct.price.setText(holderBillProduct.name.getContext().getString(R.string.rupee_symbol) + String.valueOf(billProduct.getPrice() * billProduct.getQuantity()));
+                String productName = billProduct.getName();
+                if (billProduct.getName().length() >= 15) {
+                    productName = productName.substring(0, 15);
+                }
+                holderBillProduct.name.setText(productName + " x " + billProduct.getQuantity() + " (Gst Inc " + billProduct.getGstTax() + "%)");
+                holderBillProduct.price.setText(holderBillProduct.name.getContext().getString(R.string.rupee_symbol) + String.valueOf(billProduct.getFinalPrice() * billProduct.getQuantity()));
                 break;
             case TYPE_ITEM_TOTAL_DETAIL:
                 ViewHolderTotalBill holderTotalBill = (ViewHolderTotalBill) holder;
@@ -110,6 +121,7 @@ public class BillDetailRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
                 break;
         }
     }
+
 
     @Override
     public int getItemViewType(int position) {
@@ -138,7 +150,8 @@ public class BillDetailRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
 
     public class ViewHolderSeletedItem extends RecyclerView.ViewHolder {
 
-        public TextView name, quantity, price;
+        public TextView name, quantity;
+        public EditText price;
         ImageButton imageBtnIncrease, imageBtnDecrease;
 
         public ViewHolderSeletedItem(View itemView) {
@@ -147,7 +160,7 @@ public class BillDetailRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
             quantity = (TextView) itemView.findViewById(R.id.btn_count);
             imageBtnIncrease = (ImageButton) itemView.findViewById(R.id.btn_add);
             imageBtnDecrease = (ImageButton) itemView.findViewById(R.id.btn_remove);
-            price = (TextView) itemView.findViewById(R.id.product_price);
+            price = (EditText) itemView.findViewById(R.id.product_price);
         }
     }
 
@@ -201,6 +214,36 @@ public class BillDetailRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
         }
     }
 
+    private void clickEventEditPrice(final SelectedProduct model, final int position, final ViewHolderSeletedItem holderSeletedItem) {
+
+        textBeforeChanged = "";
+        holderSeletedItem.price.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                textBeforeChanged = charSequence.toString();
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//                onDataChangeListener.onDataChangedWithPrice(model.getPrice(), position);
+                if (textBeforeChanged.equals(String.valueOf(charSequence))) {
+
+                } else {
+                    if (charSequence.toString().isEmpty()) {
+                        model.setFinalPrice(0);
+                    } else {
+                        model.setFinalPrice(Math.round(Float.parseFloat(charSequence.toString())));
+                    }
+                    onDataChangeListener.onDataChanged(model.getQuantity(), position, model.getFinalPrice());
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+    }
 
     private void clickEventMinusBtn(final ViewHolderSeletedItem holder, final SelectedProduct model, final int position) {
         holder.imageBtnDecrease.setOnClickListener(new View.OnClickListener() {
@@ -210,7 +253,7 @@ public class BillDetailRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
                     model.setQuantity(model.getQuantity() - 1);
                 }
                 holder.quantity.setText(String.valueOf(model.getQuantity()));
-                onDataChangeListener.onDataChanged(model.getQuantity(), position);
+                onDataChangeListener.onDataChanged(model.getQuantity(), position, -1);
             }
         });
     }
@@ -221,13 +264,19 @@ public class BillDetailRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
             public void onClick(View view) {
                 model.setQuantity(model.getQuantity() + 1);
                 holder.quantity.setText(String.valueOf(model.getQuantity()));
-                onDataChangeListener.onDataChanged(model.getQuantity(), position);
+                onDataChangeListener.onDataChanged(model.getQuantity(), position, -1);
             }
         });
     }
 
     public interface OnDataChangeListener {
-        void onDataChanged(int quantity, int position);
+        void onDataChanged(int quantity, int position, int price);
     }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
 }
 

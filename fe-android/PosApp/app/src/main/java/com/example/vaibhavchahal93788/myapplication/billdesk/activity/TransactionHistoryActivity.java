@@ -23,7 +23,7 @@ import com.example.vaibhavchahal93788.myapplication.billdesk.adapter.ProductStoc
 import java.util.ArrayList;
 
 
-public class TransactionHistoryActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener {
+public class TransactionHistoryActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener, ViewPager.OnPageChangeListener {
 
     //This is our tablayout
     private TabLayout tabLayout;
@@ -39,7 +39,12 @@ public class TransactionHistoryActivity extends AppCompatActivity implements Tab
         setTitle("Transaction History");
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        initViewPager();
 
+
+    }
+
+    private void initViewPager() {
         //Initializing the tablayout
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
 
@@ -60,8 +65,9 @@ public class TransactionHistoryActivity extends AppCompatActivity implements Tab
         viewPager.setAdapter(adapter);
 
         //Adding onTabSelectedListener to swipe views
-        tabLayout.setOnTabSelectedListener(this);
+        tabLayout.addOnTabSelectedListener(this);
 
+        viewPager.addOnPageChangeListener(this);
     }
 
     @Override
@@ -78,6 +84,7 @@ public class TransactionHistoryActivity extends AppCompatActivity implements Tab
     public void onTabReselected(TabLayout.Tab tab) {
 
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -92,5 +99,20 @@ public class TransactionHistoryActivity extends AppCompatActivity implements Tab
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        tabLayout.getTabAt(position).select();
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
     }
 }

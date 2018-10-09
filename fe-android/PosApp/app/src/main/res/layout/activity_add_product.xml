@@ -3,143 +3,332 @@
     android:id="@+id/rl_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white_color"
-    android:padding="20dp">
+    android:background="@color/white_color">
 
-    <ScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:layout_above="@+id/rl_bottomview"
+        android:paddingBottom="20dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="20dp">
 
-        <RelativeLayout
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <Spinner
-                android:id="@+id/spinner_product_type"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="2dp"
-                android:entries="@array/product_type"
-                android:paddingBottom="20dp"
-                android:paddingTop="20dp"></Spinner>
-
-            <LinearLayout
-                android:id="@+id/ll_categories"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/spinner_product_type"
-                android:weightSum="2">
-
-                <Spinner
-                    android:id="@+id/spinner_product_category"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:layout_weight="1"
-                    android:entries="@array/product_categories"
-                    android:paddingBottom="20dp"
-                    android:paddingTop="20dp"></Spinner>
-
-                <Spinner
-                    android:id="@+id/spinner_product_sub_category"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:layout_weight="1"
-                    android:entries="@array/product_sub_categories"
-                    android:paddingBottom="20dp"
-                    android:paddingTop="20dp"></Spinner>
-
-            </LinearLayout>
-
-            <Spinner
-                android:id="@+id/spinner_brand_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/ll_categories"
-                android:layout_margin="2dp"
-                android:entries="@array/brand_name"
-                android:paddingBottom="20dp"
-                android:paddingTop="20dp"></Spinner>
-
-
-            <EditText
-                android:id="@+id/et_productname"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/spinner_brand_name"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/rectangle"
-                android:hint="@string/text_product_name"
-                android:padding="10dp" />
-
             <RelativeLayout
-                android:id="@+id/rl_price"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/et_productname"
-                android:layout_marginTop="10dp">
+                android:layout_height="wrap_content">
+
+                <Spinner
+                    android:id="@+id/spinner_product_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/product_type"
+                    android:paddingBottom="8dp"
+                    android:paddingTop="8dp"></Spinner>
+
+                <View
+                    android:id="@+id/divider1"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/spinner_product_type"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@color/black_color" />
+
+                <LinearLayout
+                    android:id="@+id/ll_categories"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/divider1"
+                    android:layout_marginTop="20dp"
+                    android:weightSum="2">
+
+                    <Spinner
+                        android:id="@+id/spinner_product_category"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="2dp"
+                        android:layout_weight="1"
+                        android:entries="@array/product_categories"
+                        android:paddingBottom="8dp"
+                        android:paddingTop="8dp"></Spinner>
+
+                    <Spinner
+                        android:id="@+id/spinner_product_sub_category"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="2dp"
+                        android:layout_weight="1"
+                        android:entries="@array/product_sub_categories"
+                        android:paddingBottom="8dp"
+                        android:paddingTop="8dp"></Spinner>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_categories_divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ll_categories"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+
+                    <View
+                        android:id="@+id/divider3"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        android:background="@color/black_color" />
+
+                    <View
+                        android:id="@+id/divider4"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        android:background="@color/black_color" />
+
+                </LinearLayout>
+
+                <Spinner
+                    android:id="@+id/spinner_brand_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ll_categories_divider"
+                    android:layout_marginTop="20dp"
+                    android:entries="@array/brand_name"
+                    android:paddingBottom="8dp"
+                    android:paddingTop="8dp"></Spinner>
+
+                <View
+                    android:id="@+id/divider2"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/spinner_brand_name"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@color/black_color" />
 
                 <EditText
-                    android:id="@+id/et_price"
-                    android:layout_width="100dp"
+                    android:id="@+id/et_productname"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:background="@drawable/rectangle"
-                    android:padding="10dp"
-                    android:text="@string/dummy_price_10000" />
+                    android:layout_below="@+id/divider2"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@null"
+                    android:hint="@string/text_product_name"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:textColor="@color/black_color"
+                    android:textColorHint="@color/black_color"
+                    android:textSize="16dp" />
 
-                <RadioGroup
-                    android:layout_width="wrap_content"
+                <View
+                    android:id="@+id/divider5"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/et_productname"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@color/black_color" />
+
+                <RelativeLayout
+                    android:id="@+id/rl_price"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:orientation="horizontal">
+                    android:layout_below="@+id/et_productname"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="10dp">
 
-                    <RadioButton
+                    <EditText
+                        android:id="@+id/et_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/text_gst_included" />
+                        android:layout_marginTop="20dp"
+                        android:background="@null"
+                        android:drawableLeft="@drawable/rupee_icon"
+                        android:hint="@string/text_price"
+                        android:inputType="number"
+                        android:paddingBottom="10dp"
+                        android:paddingRight="1dp"
+                        android:paddingTop="10dp"
+                        android:textColor="@color/black_color"
+                        android:textColorHint="@color/black_color"
+                        android:textSize="16dp" />
 
-                    <RadioButton
+                    <EditText
+                        android:id="@+id/et_taxinfo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/text_gst_excluded" />
+                        android:layout_marginTop="20dp"
+                        android:layout_toRightOf="@+id/et_price"
+                        android:background="@null"
+                        android:enabled="false"
+                        android:paddingBottom="10dp"
+                        android:paddingTop="10dp"
+                        android:textColor="@color/black_color"
+                        android:textColorHint="@color/black_color"
+                        android:textSize="16dp" />
 
-                </RadioGroup>
+                    <EditText
+                        android:id="@+id/et_final_price"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="15dp"
+                        android:background="@drawable/grey_rectangle"
+                        android:drawableLeft="@drawable/rupee_icon"
+                        android:enabled="false"
+                        android:hint="@string/text_final_price"
+                        android:inputType="number"
+                        android:paddingBottom="10dp"
+                        android:paddingLeft="5dp"
+                        android:paddingTop="10dp"
+                        android:textColor="@color/black_color"
+                        android:textColorHint="@color/black_color"
+                        android:textSize="16dp" />
+
+                </RelativeLayout>
+
+                <View
+                    android:id="@+id/divider6"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/rl_price"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@color/black_color" />
+
+                <RelativeLayout
+                    android:id="@+id/rl_tax"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/rl_price"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="20dp">
+
+                    <EditText
+                        android:id="@+id/et_tax"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:enabled="false"
+                        android:hint="@string/text_gst"
+                        android:paddingBottom="10dp"
+                        android:paddingTop="10dp"
+                        android:textColor="@color/black_color"
+                        android:textColorHint="@color/black_color"
+                        android:textSize="16dp" />
+
+                    <RadioGroup
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/text_gst_included"
+                            android:textSize="11dp" />
+
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/text_gst_excluded"
+                            android:textSize="11dp" />
+
+                    </RadioGroup>
+
+                </RelativeLayout>
+
+                <View
+                    android:id="@+id/divider7"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/rl_tax"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@color/black_color" />
+
+                <EditText
+                    android:id="@+id/et_quantity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/rl_tax"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@null"
+                    android:hint="@string/text_quantity"
+                    android:inputType="number"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:textColor="@color/black_color"
+                    android:textColorHint="@color/black_color"
+                    android:textSize="16dp" />
+
+                <View
+                    android:id="@+id/divider8"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/et_quantity"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@color/black_color" />
+
+
+                <EditText
+                    android:id="@+id/et_productdescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/et_quantity"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@null"
+                    android:hint="@string/text_product_description"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:textColor="@color/black_color"
+                    android:textColorHint="@color/black_color"
+                    android:textSize="16dp" />
+
+                <View
+                    android:id="@+id/divider9"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/et_productdescription"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@color/black_color" />
+
 
             </RelativeLayout>
-
-            <EditText
-                android:id="@+id/et_quantity"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/rl_price"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/rectangle"
-                android:hint="@string/text_quantity"
-                android:padding="10dp" />
-
-
-            <EditText
-                android:id="@+id/et_productdescription"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/et_quantity"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/rectangle"
-                android:hint="@string/text_product_description"
-                android:padding="10dp" />
-
-        </RelativeLayout>
-    </ScrollView>
+        </ScrollView>
+    </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/rl_bottomview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@drawable/rectangle"
-        android:elevation="10dp"
+        android:elevation="20dp"
         android:padding="15dp">
 
         <Button
@@ -153,4 +342,12 @@
             android:textSize="18dp" />
 
     </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
 </RelativeLayout>

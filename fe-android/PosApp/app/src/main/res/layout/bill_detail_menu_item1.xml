@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Button xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="85dp"
+    android:layout_height="38dp"
+    android:background="@drawable/add_prodct_menu_item_backgrnd"
+    android:text="@string/home"
+    android:textAllCaps="false"
+    android:textColor="@color/white_color"
+    android:textSize="12dp" />
+

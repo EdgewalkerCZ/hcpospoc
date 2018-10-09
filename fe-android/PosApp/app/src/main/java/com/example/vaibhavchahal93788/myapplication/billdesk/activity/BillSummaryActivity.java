@@ -4,15 +4,28 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.example.vaibhavchahal93788.myapplication.R;
+import com.example.vaibhavchahal93788.myapplication.billdesk.adapter.BillSummaryRecyclerAdapter;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.BillProduct;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.BillSummaryHeaderModel;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.HeadingPaymentMode;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.SponceredModel;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.TotalBillDetail;
+
+import java.util.ArrayList;
 
 
 public class BillSummaryActivity extends AppCompatActivity {
 
+    private RecyclerView recyclerView;
+    private ArrayList<BillProduct> billProductsList;
+    private ArrayList<Object> list;
+    private BillSummaryRecyclerAdapter adapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -20,6 +33,48 @@ public class BillSummaryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_bill_summary);
         setTitle("Bill Summary");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        populateList();
+        initViews();
+    }
+
+    private void populateList() {
+        billProductsList = getIntent().getParcelableArrayListExtra("billProductsList");
+
+        list = new ArrayList<>();
+
+        list.add(new BillSummaryHeaderModel());
+
+        for (BillProduct listModel : billProductsList) {
+            list.add(listModel);
+        }
+
+        int totalPrice = 0;
+        for (int i = 0; i < billProductsList.size(); i++) {
+            BillProduct billProduct = ((BillProduct) billProductsList.get(i));
+            int priceAfterGst = billProduct.getFinalPrice() * billProduct.getQuantity();
+            totalPrice = totalPrice + priceAfterGst;
+        }
+
+        TotalBillDetail totalBillDetail = new TotalBillDetail("Net Amount", totalPrice);
+        list.add(totalBillDetail);
+
+        list.add(new HeadingPaymentMode("Payment Mode"));
+        TotalBillDetail paymentSummary = new TotalBillDetail("Cash", totalPrice);
+        list.add(paymentSummary);
+
+        list.add(new SponceredModel());
+
+    }
+
+    private void initViews() {
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
+
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        adapter = new BillSummaryRecyclerAdapter(list);
+
+        recyclerView.setAdapter(adapter);
     }
 
     @Override

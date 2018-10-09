@@ -135,6 +135,18 @@ public class MainActivity extends Activity implements Runnable {
 
     }// onCreate
 
+    private void billPrintView() {
+        printCustom("Invoice 3 Inch", 0, 0);
+        printNewLine();
+        printCustom("Print Preview", 0, 0);
+
+        printNewLine();
+        printNewLine();
+
+//        printCustom("");
+
+    }
+
     @Override
     protected void onDestroy() {
         // TODO Auto-generated method stub
@@ -178,7 +190,56 @@ public class MainActivity extends Activity implements Runnable {
                     mBlutoothConnectThread.start();
                     // pairToDevice(mBluetoothDevice); This method is replaced by
                     // progress dialog with thread
+                    Thread t = new Thread() {
+                        public void run() {
+                            try {
+                                os = mBluetoothSocket
+                                        .getOutputStream();
+                                OutputStream opstream = null;
+                                try {
+                                    opstream = mBluetoothSocket.getOutputStream();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                                os = opstream;
+
+                                //print command
+                                try {
+                                    try {
+                                        Thread.sleep(1000);
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
+                                    os = mBluetoothSocket.getOutputStream();
+
+                                    byte[] printformat = {0x1B, 0 * 21, FONT_TYPE};
+                                    //outputStream.write(printformat);
+
+                                    //print title
+                                    printUnicode();
+                                    //print normal text
+                                    printCustom(message.getText().toString(), 0, 0);
+                                    printPhoto(R.mipmap.ic_launcher);
+                                    printNewLine();
+                                    printText("     >>>>   Thank you  <<<<     "); // total 32 char in a single line
+                                    //resetPrint(); //reset printer
+                                    printUnicode();
+                                    printNewLine();
+                                    printNewLine();
+
+                                    os.flush();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+
+                            } catch (Exception e) {
+                                Log.e("MainActivity", "Exe ", e);
+                            }
+                        }
+                    };
+                    t.start();
                 }
+
                 break;
 
             case REQUEST_ENABLE_BT:

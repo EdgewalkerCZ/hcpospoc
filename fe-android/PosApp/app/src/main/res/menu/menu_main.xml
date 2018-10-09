@@ -4,7 +4,13 @@
     tools:context="com.example.vaibhavchahal93788.sampleapp.payu.MainActivity">
     <item
         android:id="@+id/action_home"
-        android:orderInCategory="100"
-        android:title="@string/home"
+        app:actionLayout="@layout/bill_detail_menu_item1"
+        android:title=""
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_home_eb"
+        app:actionLayout="@layout/bill_detail_menu_item2"
+        android:title=""
         app:showAsAction="always" />
 </menu>
