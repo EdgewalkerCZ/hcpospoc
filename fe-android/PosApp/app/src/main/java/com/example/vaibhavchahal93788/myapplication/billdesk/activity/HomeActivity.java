@@ -17,6 +17,7 @@ public class HomeActivity extends AppCompatActivity {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        //Test
 
         findViewById(R.id.btn_payment).setOnClickListener(new View.OnClickListener() {
             @Override
