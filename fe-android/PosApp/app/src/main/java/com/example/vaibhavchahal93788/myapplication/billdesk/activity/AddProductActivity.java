@@ -35,6 +35,7 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
     private Spinner spinnerCategories;
     private HashMap<String, String> mapCategoriesId;
     private ProductListModel productModel;
+    String TAG="";
     private HashMap<String, String> mapCategoriesTax;
 
     @Override
