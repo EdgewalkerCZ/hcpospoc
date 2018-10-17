@@ -108,6 +108,8 @@
     <string name="text_final_price">Final Price</string>
     <string name="text_powered_by_home_credit_india">Powered by Home Credit India \n 1800 121 6660</string>
     <string name="text_address">10A, Dlf Phase 2,\nGurgaon(Haryana) - 122001\nEmail - care@homecredit.co.in</string>
+    <string name="str_please_login_to_continue">Please login to continue</string>
+    <string name="str_login">LOGIN</string>
     <string name="ptofile_image">Profile Image</string>
     <string name="camera_click">Camera Click</string>
     <string name="personal_information">Personal Informantion</string>
