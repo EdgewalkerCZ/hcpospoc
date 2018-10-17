@@ -5,7 +5,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
@@ -17,38 +16,31 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
             android:name=".billdesk.activity.ProductDetailactivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden"></activity>
-
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".billdesk.activity.BillDetailActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden"></activity>
-
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".billdesk.activity.AddProductActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden"></activity>
-
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".billdesk.activity.StockDetailActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden"></activity>
-
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".billdesk.printing.DeviceListActivity"
-            android:screenOrientation="portrait"></activity>
-
+            android:screenOrientation="portrait" />
         <activity
             android:name=".billdesk.activity.TransactionHistoryActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".billdesk.activity.BillSummaryActivity"
-            android:screenOrientation="portrait"></activity>
-
+            android:screenOrientation="portrait" />
         <activity
             android:name=".billdesk.activity.HomeActivity"
             android:screenOrientation="portrait">
@@ -58,12 +50,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".billdesk.printing.MainActivity"
-            android:screenOrientation="portrait"></activity>
-
+            android:screenOrientation="portrait" />
+        <activity android:name=".billdesk.activity.DeleteProductActivity" />
+        <activity android:name=".billdesk.activity.ViewProduct" />
+        <activity android:name=".billdesk.activity.ViewProductActivity"></activity>
     </application>
-
 
 </manifest>
