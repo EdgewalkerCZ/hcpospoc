@@ -134,7 +134,6 @@
     <string name="quantity">Quantity *</string>
     <string name="description">Description *</string>
     <string name="serial_number">Serial Number</string>
-    <string name="price">Price (Excl. GST )* </string>
     <string name="gst">GST %</string>
 
     <string name="add">+</string>
@@ -143,12 +142,11 @@
 
     <string name="final_price">Final Price for Customer</string>
 
-    <string name="description">Description*</string>
     <string name="update">UPDATE</string>
 
     <string name="unit">Quantity*(Unit)</string>
 
-    <string name="price_gst">Price(Exsl.GST)</string>
+    <string name="price_gst">Price(Excl.GST)</string>
 
     <string name="description_text">Oppo F9 has always put powerful technology
 in the hands of those who demand more</string>
