@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#DA1A32</color>
-    <color name="colorPrimaryDark">#DA1A32</color>
+    <color name="colorPrimaryDark">#ab1c25</color>
     <color name="colorAccent">#999999</color>
 
 
@@ -16,4 +16,8 @@
     <color name="color_DA1A32">#DA1A32</color>
     <color name="color_D0D0D0">#D0D0D0</color>
     <color name="color_C6C6C6">#C6C6C6</color>
+    <color name="color_verified">#33a470</color>
+    <color name="add_product">#f1efef</color>
+    <color name="view_color">#afaeae</color>
+
 </resources>
