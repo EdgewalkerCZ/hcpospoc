@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="int_splash_time">5000</integer>
+
+
+</resources>
