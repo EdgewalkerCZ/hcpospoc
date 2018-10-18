@@ -160,7 +160,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
-                android:hint="@string/price" />
+                android:hint="@string/price_gst" />
         </android.support.design.widget.TextInputLayout>
 
         <LinearLayout

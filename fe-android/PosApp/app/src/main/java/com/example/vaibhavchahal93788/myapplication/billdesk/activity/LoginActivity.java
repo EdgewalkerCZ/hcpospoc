@@ -28,6 +28,7 @@ public class LoginActivity extends AppCompatActivity
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                 LoginActivity.this.startActivity(intent);
+                overridePendingTransition(R.anim.animation_enter,R.anim.animation_leave);
 
                 finish();
             }
