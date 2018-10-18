@@ -24,6 +24,9 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         getSupportActionBar().setTitle("");
+        getSupportActionBar().setLogo(R.drawable.hc_logo);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setIcon(R.drawable.rupee_icon);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -52,6 +55,8 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(HomeActivity.this, TransactionHistoryActivity.class);
                 startActivity(intent);
+
+
             }
         });
     }
