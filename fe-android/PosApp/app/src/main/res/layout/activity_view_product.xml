@@ -152,7 +152,7 @@
             <View
                 android:id="@+id/viewHorizontal"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp2"
+                android:layout_height="@dimen/dp1"
                 android:layout_below="@+id/layout_serial"
                 android:layout_marginLeft="@dimen/dp20"
                 android:layout_marginRight="@dimen/dp20"
@@ -215,7 +215,7 @@
                 <View
                     android:id="@+id/viewHorizontal_gst"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp2"
+                    android:layout_height="@dimen/dp1"
                     android:layout_below="@+id/rel_layout_unit"
                     android:layout_marginTop="@dimen/dp11"
                     android:background="@color/color_horizontal_view" />
@@ -257,7 +257,7 @@
                 <View
                     android:id="@+id/viewHorizontal_gstex"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp2"
+                    android:layout_height="@dimen/dp1"
                     android:layout_below="@+id/rel_layout_unit"
                     android:layout_marginTop="@dimen/dp10"
                     android:background="@color/color_horizontal_view" />
@@ -312,7 +312,7 @@
                         android:layout_alignParentRight="true"
                         android:text="(+₹4000)"
                         android:textColor="@color/color_product_name"
-                        android:textSize="@dimen/sp18"
+                        android:textSize="18sp"
                         android:textStyle="bold" />
                 </RelativeLayout>
 
@@ -320,7 +320,7 @@
                     android:id="@+id/layout_desc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp27"
+                    android:layout_marginTop="27dp"
                     android:orientation="vertical">
 
                     <TextView
@@ -328,16 +328,16 @@
                         android:layout_height="wrap_content"
                         android:text="@string/description"
                         android:textColor="@color/color_configuration"
-                        android:textSize="@dimen/sp12" />
+                        android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/tv_description_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dp9"
+                        android:layout_marginTop="9dp"
                         android:text="@string/description_text"
                         android:textColor="@color/color_product_name"
-                        android:textSize="@dimen/sp14" />
+                        android:textSize="14sp" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -347,14 +347,14 @@
     <Button
         android:id="@+id/btn_update"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp46"
+        android:layout_height="46dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/dp23"
-        android:layout_marginLeft="@dimen/dp20"
-        android:layout_marginRight="@dimen/dp20"
+        android:layout_marginBottom="23dp"
+        android:layout_marginLeft="@dimen/margin_left"
+        android:layout_marginRight="@dimen/margin_right"
         android:background="@color/color_DA1A32"
         android:text="@string/update"
         android:textColor="@color/white_color"
-        android:textSize="@dimen/sp16" />
+        android:textSize="16sp" />
 
 </RelativeLayout>

@@ -144,6 +144,10 @@
 
     <string name="add">+</string>
 
+    <string name="reduce">Reduced(Less)</string>
+
+    <string name="less">(Less)</string>
+
     <string name="price">Price</string>
 
     <string name="final_price">Final Price for Customer</string>
@@ -155,6 +159,31 @@
     <string name="price_gst">Price(Excl.GST)</string>
     <string name="parent_class_name">ParentClassName</string>
 
+
+    <string name="gst_text">Excl.GST</string>
+
+    <string name="current_stock">Current Stock</string>
+
+    <string name="updated_stock">Updated Stock</string>
+
+    <string name="remove_stock">Remove Stock</string>
+
+    <string name="units">Units</string>
+
+
+    <string name="store_recount">Store Recount</string>
+
+    <string name="damage">Damage</string>
+
+    <string name="theft">Theft</string>
+
+    <string name="loss">Loss</string>
+
+    <string name="restock_return">Restock Return</string>
+
+
+
+    <string name="minus">-</string>
 
     <string name="description_text">Oppo F9 has always put powerful technology
 in the hands of those who demand more</string>
