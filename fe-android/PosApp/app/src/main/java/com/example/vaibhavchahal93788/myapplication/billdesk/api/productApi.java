@@ -3,6 +3,7 @@ package com.example.vaibhavchahal93788.myapplication.billdesk.api;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.AddProductModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.CategoryModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductListModel;
+import com.google.gson.JsonObject;
 
 import java.util.List;
 import java.util.Map;
@@ -34,5 +35,8 @@ public interface productApi {
 
     @PUT("products/{id}")
     Call<ResponseBody> updateProduct(@Header("DOLAPIKEY") String dolApiKey, @Path("id") String id, @Body AddProductModel addProductModel);
+
+    @GET("allitems")
+    Call<JsonObject> getAllProductList();
 
 }
