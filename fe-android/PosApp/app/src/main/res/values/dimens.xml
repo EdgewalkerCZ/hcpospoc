@@ -1,0 +1,86 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="nav_drawer_width">290dp</dimen>
+    <dimen name="listview_swipe_progress_height">3dp</dimen>
+    <dimen name="height_100dp">100dp</dimen>
+    <dimen name="height_300dp">300dp</dimen>
+
+    <!-- Text sizes -->
+    <dimen name="textsize_small">12sp</dimen>
+    <dimen name="textsize_medium">14sp</dimen>
+    <dimen name="textsize_normal">16sp</dimen>
+    <dimen name="textsize_large">18sp</dimen>
+    <dimen name="textsize_xlarge">20sp</dimen>
+    <dimen name="textsize_xxlarge">22sp</dimen>
+
+    <!--  medium margin dimension -->
+    <dimen name="margin_medium">5dp</dimen>
+    <dimen name="margin_top_medium">5dp</dimen>
+    <dimen name="margin_bottom_medium">5dp</dimen>
+    <dimen name="margin_left_medium">5dp</dimen>
+    <dimen name="margin_right_medium">5dp</dimen>
+
+    <!--  normal margin dimension -->
+    <dimen name="margin_normal">10dp</dimen>
+    <dimen name="margin_top_normal">10dp</dimen>
+    <dimen name="margin_bottom_normal">10dp</dimen>
+    <dimen name="margin_left_normal">10dp</dimen>
+    <dimen name="margin_right_normal">10dp</dimen>
+
+    <!--  large margin dimension -->
+    <dimen name="margin_large">15dp</dimen>
+    <dimen name="margin_top_large">15dp</dimen>
+    <dimen name="margin_bottom_large">15dp</dimen>
+    <dimen name="margin_left_large">15dp</dimen>
+    <dimen name="margin_right_large">15dp</dimen>
+
+    <!--  xlarge margin dimension -->
+    <dimen name="margin_xlarge">20dp</dimen>
+    <dimen name="margin_top_xlarge">20dp</dimen>
+    <dimen name="margin_bottom_xlarge">20dp</dimen>
+    <dimen name="margin_left_xlarge">20dp</dimen>
+    <dimen name="margin_right_xlarge">20dp</dimen>
+
+
+    <!--  xlarge margin dimension -->
+    <dimen name="margin_xxlarge">25dp</dimen>
+    <dimen name="margin_bottom_xxlarge">25dp</dimen>
+    <dimen name="margin_top_xxlarge">25dp</dimen>
+    <dimen name="margin_left_xxlarge">25dp</dimen>
+    <dimen name="margin_right_xxlarge">25dp</dimen>
+
+
+    <!--  normal padding dimension -->
+    <dimen name="padding_normal">10dp</dimen>
+    <dimen name="padding_top_normal">10dp</dimen>
+    <dimen name="padding_bottom_normal">10dp</dimen>
+    <dimen name="padding_left_normal">10dp</dimen>
+    <dimen name="padding_right_normal">10dp</dimen>
+
+    <!--  large padding dimension -->
+    <dimen name="padding_large">15dp</dimen>
+    <dimen name="padding_top_large">15dp</dimen>
+    <dimen name="padding_bottom_large">15dp</dimen>
+    <dimen name="padding_left_large">15dp</dimen>
+    <dimen name="padding_right_large">15dp</dimen>
+
+    <!--  medium padding dimension -->
+    <dimen name="padding_medium">5dp</dimen>
+    <dimen name="padding_top_medium">5dp</dimen>
+    <dimen name="padding_bottom_medium">5dp</dimen>
+    <dimen name="padding_left_medium">5dp</dimen>
+    <dimen name="padding_right_medium">5dp</dimen>
+
+    <!--  xlarge padding dimension -->
+    <dimen name="padding_xlarge">20dp</dimen>
+    <dimen name="padding_top_xlarge">20dp</dimen>
+    <dimen name="padding_bottom_xlarge">20dp</dimen>
+    <dimen name="padding_left_xlarge">20dp</dimen>
+    <dimen name="padding_right_xlarge">20dp</dimen>
+
+    <dimen name="padding_small">4dp</dimen>
+
+
+</resources>

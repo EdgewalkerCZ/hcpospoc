@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.vaibhavchahal93788.myapplication">
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
@@ -16,42 +15,61 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
 
         <activity
             android:name=".billdesk.activity.ProductDetailactivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden"></activity>
+            android:windowSoftInputMode="stateAlwaysHidden"/>
 
         <activity
             android:name=".billdesk.activity.BillDetailActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden"></activity>
+            android:windowSoftInputMode="stateAlwaysHidden"/>
 
         <activity
             android:name=".billdesk.activity.AddProductActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden"></activity>
+            android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity
+            android:name=".billdesk.activity.UserProfileActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+
+        <activity
+            android:name=".billdesk.activity.AddNewProduct"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+
+        <activity
+            android:name=".billdesk.activity.AddProductSubmit"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+
+
+
+
 
         <activity
             android:name=".billdesk.activity.StockDetailActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden"></activity>
+            android:windowSoftInputMode="stateAlwaysHidden"/>
 
         <activity
             android:name=".billdesk.printing.DeviceListActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".billdesk.activity.TransactionHistoryActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".billdesk.activity.BillSummaryActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
 
         <activity
-            android:name=".billdesk.activity.HomeActivity"
-            android:screenOrientation="portrait">
+            android:name=".billdesk.activity.SplashActivity"
+            android:screenOrientation="portrait" android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -60,9 +78,24 @@
         </activity>
 
         <activity
-            android:name=".billdesk.printing.MainActivity"
-            android:screenOrientation="portrait"></activity>
+            android:name=".billdesk.activity.LoginActivity"
+            android:screenOrientation="portrait" android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        </activity>
 
+
+
+        <activity
+            android:name=".billdesk.activity.HomeActivity"
+            android:screenOrientation="portrait"
+            android:icon="@drawable/logo">
+        </activity>
+
+        <activity
+            android:name=".billdesk.printing.MainActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".billdesk.activity.DeleteProductActivity" />
+        <activity android:name=".billdesk.activity.ViewProductActivity"></activity>
     </application>
 
 
