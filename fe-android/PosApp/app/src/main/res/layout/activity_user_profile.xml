@@ -504,6 +504,7 @@
                     <Spinner
                         android:id="@+id/spinner"
                         android:layout_width="match_parent"
+                        android:entries="@array/language_option"
                         android:layout_height="40dp" />
                 </LinearLayout>
 

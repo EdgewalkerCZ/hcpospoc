@@ -97,6 +97,12 @@
         <item>Sony</item>
     </string-array>
 
+
+    <string-array name="language_option">
+        <item>English</item>
+        <item> हिंदी  </item>
+    </string-array>
+
     <string name="text_add_product_success">Product added successfully!</string>
     <string name="text_decrtn_required">Product description required!</string>
     <string name="text_price_req">Product price required!</string>
@@ -147,7 +153,10 @@
     <string name="unit">Quantity*(Unit)</string>
 
     <string name="price_gst">Price(Excl.GST)</string>
+    <string name="parent_class_name">ParentClassName</string>
+
 
     <string name="description_text">Oppo F9 has always put powerful technology
 in the hands of those who demand more</string>
+    <string name="profile">Profile</string>
 </resources>

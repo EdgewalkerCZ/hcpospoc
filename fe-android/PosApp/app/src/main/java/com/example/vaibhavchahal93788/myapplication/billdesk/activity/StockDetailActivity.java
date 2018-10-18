@@ -108,12 +108,13 @@ public class StockDetailActivity extends AppCompatActivity implements ProductSto
             @Override
             public void onClick(View view) {
                 if (categoriesList != null && !categoriesList.isEmpty()) {
-                    Intent intent = new Intent(StockDetailActivity.this, AddProductActivity.class);
+                    Intent intent = new Intent(StockDetailActivity.this, AddNewProduct.class);
                     intent.putStringArrayListExtra("listCategories", categoriesList);
                     intent.putExtra("CategoriesIdMap", hashMapCategories);
                     intent.putExtra("CategoriesTaxMap", hashMapCategoriesTax);
                     startActivityForResult(intent
                             , REQUEST_CODE);
+                    overridePendingTransition(R.anim.animation_enter,R.anim.animation_leave);
                 } else {
                     Toast.makeText(StockDetailActivity.this, R.string.msg_category_loading_failed, Toast.LENGTH_SHORT).show();
                 }

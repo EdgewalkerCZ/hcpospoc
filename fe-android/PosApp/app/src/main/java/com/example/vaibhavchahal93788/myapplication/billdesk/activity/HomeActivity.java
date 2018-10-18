@@ -69,7 +69,9 @@ public class HomeActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == android.R.id.home) {
-            Toast.makeText(this, "testing", Toast.LENGTH_SHORT).show();
+           UserProfileActivity.startActivity(this);
+           overridePendingTransition(R.anim.animation_enter,R.anim.animation_leave);
+
             return true;
         }
 
