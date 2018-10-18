@@ -162,4 +162,8 @@ public class Utils {
     private static byte charToByte(char c) {
         return (byte) "0123456789ABCDEF".indexOf(c);
     }
+
+    public static boolean isLogin() {
+        return false;
+    }
 }

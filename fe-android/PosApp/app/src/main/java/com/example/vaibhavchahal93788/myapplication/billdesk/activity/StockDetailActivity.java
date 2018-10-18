@@ -10,12 +10,15 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -25,6 +28,7 @@ import com.example.vaibhavchahal93788.myapplication.billdesk.api.ProductApiHelpe
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.CategoryModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductListModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.network.IApiRequestComplete;
+import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Constants;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,6 +38,7 @@ public class StockDetailActivity extends AppCompatActivity implements ProductSto
 
     private RecyclerView recyclerView;
     private EditText editTextSearch;
+    private RelativeLayout relativeHeader;
     private List<ProductListModel> productsList;
     private ProductStockListAdapter adapter;
     private ProgressBar progreeBar;
@@ -44,7 +49,8 @@ public class StockDetailActivity extends AppCompatActivity implements ProductSto
     private HashMap<String, String> hashMapCategoriesTax = new HashMap<>();
     private ArrayList<String> categoriesList;
     private SwipeRefreshLayout pullToRefresh;
-
+    private boolean delProductFlag = false;
+    MenuItem crossmenu;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,11 +60,19 @@ public class StockDetailActivity extends AppCompatActivity implements ProductSto
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        updateFlag();
         initViews();
 
         actionEditSearch();
         getCategoriesList();
         actionCategorySelection();
+    }
+
+    /*
+     manage the delete product flow
+     */
+    private void updateFlag() {
+        delProductFlag = getIntent().getBooleanExtra(Constants.DELETE_FLAG,false);
     }
 
     private void initViews() {
@@ -71,6 +85,7 @@ public class StockDetailActivity extends AppCompatActivity implements ProductSto
         editTextSearch = (EditText) findViewById(R.id.editTextSearch);
         progreeBar = (ProgressBar) findViewById(R.id.progress_bar);
         spinnerCategories = (Spinner) findViewById(R.id.spinner_categories);
+        relativeHeader = (RelativeLayout) findViewById(R.id.rtl_header);
 
         pullToRefresh();
         actionAddProduct();
@@ -164,7 +179,29 @@ public class StockDetailActivity extends AppCompatActivity implements ProductSto
         }
 
         //calling a method of the adapter class and passing the filtered list
+        if(delProductFlag){
+            int size = filterdNames.size();
+            setTitle(filterdNames.size()+" item found");
+            if(size==1)
+                relativeHeader.setVisibility(View.GONE);
+            else relativeHeader.setVisibility(View.VISIBLE);
+            crossmenu.setVisible(true);
+
+        }
+
         adapter.filterList(filterdNames);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.cross_menu, menu);
+        return true;
+    }
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        //  preparation code here
+         crossmenu = menu.findItem(R.id.cross);
+        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
@@ -172,6 +209,13 @@ public class StockDetailActivity extends AppCompatActivity implements ProductSto
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
+
+            case R.id.cross:
+                editTextSearch.setText("");
+                getProductList(load_category_id);
+                relativeHeader.setVisibility(View.VISIBLE);
+                setTitle("Product List");
+                crossmenu.setVisible(false);
                 return true;
         }
 
@@ -238,11 +282,16 @@ public class StockDetailActivity extends AppCompatActivity implements ProductSto
 
     @Override
     public void onItemClick(int position) {
-        Intent intent = new Intent(StockDetailActivity.this, AddProductActivity.class);
-        intent.putStringArrayListExtra("listCategories", categoriesList);
-        intent.putExtra("CategoriesIdMap", hashMapCategories);
-        intent.putExtra("CategoriesTaxMap", hashMapCategoriesTax);
-        intent.putExtra("productModel", productsList.get(position));
-        startActivityForResult(intent, REQUEST_CODE);
+
+        if(delProductFlag){
+
+        }else {
+            Intent intent = new Intent(StockDetailActivity.this, AddProductActivity.class);
+            intent.putStringArrayListExtra("listCategories", categoriesList);
+            intent.putExtra("CategoriesIdMap", hashMapCategories);
+            intent.putExtra("CategoriesTaxMap", hashMapCategoriesTax);
+            intent.putExtra("productModel", productsList.get(position));
+            startActivityForResult(intent, REQUEST_CODE);
+        }
     }
 }

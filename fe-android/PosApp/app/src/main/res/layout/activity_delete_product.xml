@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#FFFFFF"
+   >
+
+   <RelativeLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+
+       <TextView
+           android:id="@+id/tv_product_tag"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginTop="@dimen/dp32"
+           android:background="@drawable/circle_shape"
+           android:padding="15dp"
+           android:layout_marginLeft="@dimen/dp20"
+           android:text="@string/dummy_tag_A"
+           android:textColor="#FFFFFF"
+           android:textStyle="bold" />
+
+       <RelativeLayout
+           android:id="@+id/rel_layout_gst"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_toRightOf="@+id/tv_product_tag"
+           android:layout_marginRight="@dimen/sp25"
+
+           android:layout_marginTop="@dimen/dp8"
+          >
+
+
+           <LinearLayout
+               android:id="@+id/layout_horizontal_top"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_marginLeft="@dimen/dp10"
+               android:orientation="vertical">
+               <LinearLayout
+
+                   android:id="@+id/product_name_container"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_below="@+id/tv_product_tag"
+                   android:gravity="center">
+
+                   <TextView
+                       android:id="@+id/tv_product_name"
+                       android:layout_width="wrap_content"
+                       android:layout_height="match_parent"
+                       android:layout_marginTop="@dimen/dp14"
+                       android:gravity="center"
+                       android:paddingBottom="@dimen/dp6"
+                       android:text="OPP F9"
+                       android:textColor="@color/color_product_name"
+                       android:textSize="@dimen/sp18"
+                       android:textStyle="bold" />
+
+               </LinearLayout>
+
+               <LinearLayout
+                   android:id="@+id/layoutConfig"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_below="@+id/product_name_container"
+                   android:orientation="horizontal">
+
+                   <TextView
+                       android:id="@+id/tv_pname"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:layout_marginRight="@dimen/dp3"
+                       android:paddingBottom="@dimen/dp6"
+                       android:text="oppo"
+                       android:textColor="@color/color_configuration"
+                       android:textSize="@dimen/sp12"
+                       android:textStyle="bold" />
+
+                   <View
+                       android:layout_width="@dimen/dp1"
+                       android:layout_height="@dimen/dp11"
+                       android:layout_gravity="center"
+                       android:background="@color/color_configuration" />
+
+                   <TextView
+                       android:id="@+id/tv_rsize"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:layout_marginLeft="@dimen/dp3"
+                       android:layout_marginRight="@dimen/dp3"
+                       android:paddingBottom="@dimen/dp6"
+                       android:text="4GB"
+                       android:textColor="@color/color_configuration"
+                       android:textSize="@dimen/sp12"
+                       android:textStyle="bold" />
+
+                   <View
+                       android:layout_width="@dimen/dp1"
+                       android:layout_height="@dimen/dp11"
+                       android:layout_gravity="center"
+                       android:background="@color/color_configuration" />
+
+                   <TextView
+                       android:id="@+id/tv_hsize"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:layout_marginLeft="@dimen/dp3"
+                       android:layout_marginRight="@dimen/dp3"
+                       android:paddingBottom="@dimen/dp6"
+                       android:text="32GB"
+                       android:textColor="@color/color_configuration"
+                       android:textSize="@dimen/sp12"
+                       android:textStyle="bold" />
+
+                   <View
+                       android:layout_width="@dimen/dp1"
+                       android:layout_height="@dimen/dp11"
+                       android:layout_gravity="center"
+                       android:background="@color/color_configuration" />
+
+                   <TextView
+                       android:id="@+id/tv_color"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:layout_marginLeft="@dimen/dp3"
+                       android:layout_marginRight="@dimen/dp3"
+                       android:paddingBottom="@dimen/dp6"
+                       android:text="4GB"
+                       android:textColor="@color/color_configuration"
+                       android:textSize="@dimen/sp12"
+                       android:textStyle="bold" />
+
+                   <View
+                       android:layout_width="@dimen/dp1"
+                       android:layout_height="@dimen/dp11"
+                       android:layout_gravity="center"
+                       android:background="@color/color_configuration" />
+
+               </LinearLayout>
+           </LinearLayout>
+
+
+           <LinearLayout
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:orientation="vertical"
+               android:layout_alignParentRight="true"
+               android:layout_marginTop="@dimen/dp6"
+               >
+               <TextView
+                   android:id="@+id/tv_price"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_marginRight="@dimen/dp3"
+                   android:paddingBottom="@dimen/dp6"
+                   android:text="oppo"
+                   android:textColor="@color/color_configuration"
+                   android:textSize="@dimen/sp12"
+                   android:textStyle="bold" />
+
+           </LinearLayout>
+       </RelativeLayout>
+
+
+
+
+
+
+
+   </RelativeLayout>
+</RelativeLayout>
