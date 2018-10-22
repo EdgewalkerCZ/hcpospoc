@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -30,6 +32,9 @@ public class LoginActivity extends AppCompatActivity
     private EditText edtUsername;
     private EditText edtPassword;
     private ProgressBar progress_bar;
+    private boolean isUsernameFilled = false;
+    private boolean isPasswordFilled = false;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,11 +52,48 @@ public class LoginActivity extends AppCompatActivity
         txtLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                validateLogin();
+                if(isUsernameFilled && isPasswordFilled)
+                    validateLogin();
             }
         });
 
+        edtUsername.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                isUsernameFilled = s.length() != 0;
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                txtLogin.setBackgroundResource(isUsernameFilled && isPasswordFilled ?
+                        R.drawable.login_rounded_background_enable :
+                        R.drawable.login_rounded_background_disable);
+            }
+        });
+
+        edtPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                isPasswordFilled = s.length() != 0;
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                txtLogin.setBackgroundResource(isUsernameFilled && isPasswordFilled ?
+                        R.drawable.login_rounded_background_enable :
+                        R.drawable.login_rounded_background_disable);
+            }
+        });
 
     }
 

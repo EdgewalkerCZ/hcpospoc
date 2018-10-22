@@ -68,7 +68,7 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/edtPassword"
         android:fontFamily="sans-serif"
-        android:background="@drawable/login_rounded_background"
+        android:background="@drawable/login_rounded_background_disable"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         android:gravity="center_horizontal"
