@@ -76,7 +76,7 @@ public class Utility {
 
     public static ProgressDialog createProgressDialog(Context context) {
         ProgressDialog progressDialog = new ProgressDialog(context, ProgressDialog.THEME_HOLO_DARK);
-        progressDialog.setMessage("Loading...");
+        //progressDialog.setMessage("Loading...");
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.setCancelable(false);
         return progressDialog;

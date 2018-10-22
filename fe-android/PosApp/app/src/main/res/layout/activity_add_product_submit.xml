@@ -6,9 +6,10 @@
     android:layout_height="wrap_content"
     android:fillViewport="true">
 
-    <android.support.constraint.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <LinearLayout
             android:id="@+id/linearLayout"
@@ -29,20 +30,18 @@
                 android:id="@+id/sp_product_type"
                 style="@style/Widget.AppCompat.Spinner.Underlined"
                 android:layout_width="match_parent"
-                android:entries="@array/product_type"
-                android:spinnerMode="dropdown"
-                android:dropDownVerticalOffset="50dp"
                 android:layout_height="60dp"
-                />
+                android:dropDownVerticalOffset="50dp"
+                android:entries="@array/product_type"
+                android:spinnerMode="dropdown" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:baselineAligned="false"
                 android:orientation="horizontal"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:weightSum="2"
-                >
+                android:weightSum="2">
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -54,10 +53,10 @@
                         android:id="@+id/sp_category"
                         style="@style/Widget.AppCompat.Spinner.Underlined"
                         android:layout_width="match_parent"
-                        android:entries="@array/product_categories"
-                        android:spinnerMode="dropdown"
+                        android:layout_height="60dp"
                         android:dropDownVerticalOffset="50dp"
-                        android:layout_height="60dp" />
+                        android:entries="@array/product_categories_default"
+                        android:spinnerMode="dropdown" />
 
                 </LinearLayout>
 
@@ -71,10 +70,10 @@
                         android:id="@+id/sp_sub_category"
                         style="@style/Widget.AppCompat.Spinner.Underlined"
                         android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:dropDownVerticalOffset="50dp"
                         android:entries="@array/product_sub_categories"
                         android:spinnerMode="dropdown"
-                        android:dropDownVerticalOffset="50dp"
-                        android:layout_height="60dp"
 
                         />
 
@@ -91,10 +90,7 @@
             android:layout_marginLeft="8dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+            android:layout_marginRight="8dp">
 
             <android.support.design.widget.TextInputEditText
                 android:layout_width="match_parent"
@@ -111,10 +107,7 @@
             android:layout_marginLeft="8dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
+            android:layout_marginRight="8dp">
 
             <android.support.design.widget.TextInputEditText
                 android:layout_width="match_parent"
@@ -131,10 +124,7 @@
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout2">
+            android:layout_marginRight="8dp">
 
             <android.support.design.widget.TextInputEditText
                 android:layout_width="match_parent"
@@ -151,10 +141,7 @@
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout3">
+            android:layout_marginRight="8dp">
 
             <android.support.design.widget.TextInputEditText
                 android:layout_width="match_parent"
@@ -163,40 +150,6 @@
                 android:hint="@string/price_gst" />
         </android.support.design.widget.TextInputLayout>
 
-        <LinearLayout
-            android:id="@+id/ll_price_hint"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_medium"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:gravity="center"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout6">
-
-            <TextView
-                android:id="@+id/tv_est_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/dummy_price_10000"
-                android:textColor="@color/black_color"
-                android:textSize="@dimen/textsize_normal"
-                android:fontFamily="sans-serif"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tv_price_lebel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/text_final_price"
-                android:fontFamily="sans-serif"
-                android:textStyle="bold" />
-        </LinearLayout>
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/textInputLayout5"
@@ -206,10 +159,7 @@
             android:layout_marginLeft="8dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout4">
+            android:layout_marginRight="8dp">
 
             <android.support.design.widget.TextInputEditText
                 android:layout_width="match_parent"
@@ -218,9 +168,25 @@
                 android:hint="@string/description" />
         </android.support.design.widget.TextInputLayout>
 
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/til_serial_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp">
+
+            <android.support.design.widget.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:hint="@string/serial_number" />
+        </android.support.design.widget.TextInputLayout>
 
         <LinearLayout
-            android:id="@+id/linearLayout2"
+            android:id="@+id/ll_mobile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -229,50 +195,143 @@
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:baselineAligned="false"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout5">
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <Spinner
-                    android:id="@+id/sp_variant"
-                    style="@style/Widget.AppCompat.Spinner.Underlined"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:entries="@array/product_variant"
-                    android:spinnerMode="dropdown"
-                    android:dropDownVerticalOffset="50dp"
-                    android:layout_height="60dp" />
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <Spinner
+                            android:id="@+id/sp_variant"
+                            style="@style/Widget.AppCompat.Spinner.Underlined"
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:dropDownVerticalOffset="50dp"
+                            android:entries="@array/product_variant"
+                            android:spinnerMode="dropdown" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <Spinner
+                            android:id="@+id/sp_color"
+                            style="@style/Widget.AppCompat.Spinner.Underlined"
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:dropDownVerticalOffset="50dp"
+                            android:entries="@array/color_option"
+                            android:spinnerMode="dropdown"
+
+                            />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
 
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:baselineAligned="false"
+                android:orientation="horizontal"
+                android:weightSum="3">
 
-                <Spinner
-                    android:id="@+id/sp_color"
-                    style="@style/Widget.AppCompat.Spinner.Underlined"
-                    android:layout_width="match_parent"
-                    android:entries="@array/color_option"
-                    android:spinnerMode="dropdown"
-                    android:dropDownVerticalOffset="50dp"
-                    android:layout_height="60dp"
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-                    />
+                    <Spinner
+                        android:id="@+id/sp_camera_pixel"
+                        style="@style/Widget.AppCompat.Spinner.Underlined"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:dropDownVerticalOffset="50dp"
+                        android:entries="@array/camera_pixel"
+                        android:spinnerMode="dropdown" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <Spinner
+                        android:id="@+id/sp_compatible"
+                        style="@style/Widget.AppCompat.Spinner.Underlined"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:dropDownVerticalOffset="50dp"
+                        android:entries="@array/mobile_battery"
+                        android:spinnerMode="dropdown"
+
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <Spinner
+                        android:id="@+id/sp_mobile_warranty"
+                        style="@style/Widget.AppCompat.Spinner.Underlined"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:dropDownVerticalOffset="50dp"
+                        android:entries="@array/mobile_warranty"
+                        android:spinnerMode="dropdown"
+
+                        />
+
+                </LinearLayout>
 
             </LinearLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/til_weight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+
+                >
+
+                <android.support.design.widget.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:hint="@string/weight" />
+            </android.support.design.widget.TextInputLayout>
         </LinearLayout>
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/textInputLayout6"
+        <LinearLayout
+            android:id="@+id/ll_power_bank"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -280,16 +339,335 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+            android:baselineAligned="false"
+            android:orientation="vertical"
+            android:visibility="gone">
 
-            <android.support.design.widget.TextInputEditText
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <Spinner
+                            android:id="@+id/sp_power_mah"
+                            style="@style/Widget.AppCompat.Spinner.Underlined"
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:dropDownVerticalOffset="50dp"
+                            android:entries="@array/product_sub_categories_powerbank_mah"
+                            android:spinnerMode="dropdown" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <Spinner
+                            android:id="@+id/sp_power_compatible"
+                            style="@style/Widget.AppCompat.Spinner.Underlined"
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:dropDownVerticalOffset="50dp"
+                            android:entries="@array/product_sub_categories_powerbank_compatible"
+                            android:spinnerMode="dropdown"
+
+                            />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:baselineAligned="false"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <Spinner
+                        android:id="@+id/sp_battery_composition"
+                        style="@style/Widget.AppCompat.Spinner.Underlined"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:dropDownVerticalOffset="50dp"
+                        android:entries="@array/powerbank_composition"
+                        android:spinnerMode="dropdown" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <Spinner
+                        android:id="@+id/sp_cable_type"
+                        style="@style/Widget.AppCompat.Spinner.Underlined"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:dropDownVerticalOffset="50dp"
+                        android:entries="@array/power_bank_cable"
+                        android:spinnerMode="dropdown"
+
+                        />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/til_weight_battery"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+
+                >
+
+                <android.support.design.widget.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:hint="@string/weight" />
+            </android.support.design.widget.TextInputLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_wired_ear_phones"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <Spinner
+                        android:id="@+id/sp_wire_phone_color"
+                        style="@style/Widget.AppCompat.Spinner.Underlined"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:dropDownVerticalOffset="50dp"
+                        android:entries="@array/wire_ear_phones_color"
+                        android:spinnerMode="dropdown" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <Spinner
+                        android:id="@+id/sp_connectivity"
+                        style="@style/Widget.AppCompat.Spinner.Underlined"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:dropDownVerticalOffset="50dp"
+                        android:entries="@array/wire_ear_phones"
+                        android:spinnerMode="dropdown"
+
+                        />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_television"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <Spinner
+                        android:id="@+id/sp_television"
+                        style="@style/Widget.AppCompat.Spinner.Underlined"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:dropDownVerticalOffset="50dp"
+                        android:entries="@array/television_size"
+                        android:spinnerMode="dropdown" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <Spinner
+                        android:id="@+id/sp_television_color"
+                        style="@style/Widget.AppCompat.Spinner.Underlined"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:dropDownVerticalOffset="50dp"
+                        android:entries="@array/color_option"
+                        android:spinnerMode="dropdown"
+
+                        />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <Spinner
+                android:id="@+id/sp_television_warranty"
+                style="@style/Widget.AppCompat.Spinner.Underlined"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:dropDownVerticalOffset="50dp"
+                android:entries="@array/mobile_warranty"
+                android:spinnerMode="dropdown"
+
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_refregerator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <Spinner
+                        android:id="@+id/sp_refregerator_capacity"
+                        style="@style/Widget.AppCompat.Spinner.Underlined"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:dropDownVerticalOffset="50dp"
+                        android:entries="@array/refregerator_capacity"
+                        android:spinnerMode="dropdown" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <Spinner
+                        android:id="@+id/sp_refregerator_color"
+                        style="@style/Widget.AppCompat.Spinner.Underlined"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:dropDownVerticalOffset="50dp"
+                        android:entries="@array/color_option"
+                        android:spinnerMode="dropdown"
+
+                        />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <Spinner
+                android:id="@+id/sp_refregerator_warranty"
+                style="@style/Widget.AppCompat.Spinner.Underlined"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:dropDownVerticalOffset="50dp"
+                android:entries="@array/mobile_warranty"
+                android:spinnerMode="dropdown"
+
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_price_hint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/til_serial_number">
+
+            <TextView
+                android:id="@+id/tv_est_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
-                android:hint="@string/serial_number" />
-        </android.support.design.widget.TextInputLayout>
+                android:text="@string/dummy_price_10000"
+                android:textColor="@color/black_color"
+                android:textSize="@dimen/textsize_normal"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_price_lebel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:text="@string/text_final_price"
+                android:textStyle="bold" />
+        </LinearLayout>
 
         <Button
             android:id="@+id/bt_add_submit"
@@ -309,5 +687,5 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ll_price_hint" />
 
-    </android.support.constraint.ConstraintLayout>
+    </LinearLayout>
 </android.support.v4.widget.NestedScrollView>
