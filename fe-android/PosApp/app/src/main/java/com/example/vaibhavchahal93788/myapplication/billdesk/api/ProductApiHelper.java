@@ -3,6 +3,7 @@ package com.example.vaibhavchahal93788.myapplication.billdesk.api;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.AddProductModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.CategoryModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductListModel;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.profile.ProfileResponse;
 import com.example.vaibhavchahal93788.myapplication.billdesk.network.IApiRequestComplete;
 import com.example.vaibhavchahal93788.myapplication.billdesk.network.ResponseHandler;
 import com.example.vaibhavchahal93788.myapplication.billdesk.network.RetrofitClient;
@@ -40,5 +41,11 @@ public class ProductApiHelper {
     public void updateProduct(String productId, AddProductModel addProductModel, final IApiRequestComplete successInterface) {
         Call<ResponseBody> productsApiResponseCall = productApi.updateProduct(Constants.API_KEY, productId, addProductModel);
         productsApiResponseCall.enqueue(new ResponseHandler<ResponseBody>(successInterface));
+    }
+
+    public void userProfile(IApiRequestComplete successInterface){
+
+        Call<ProfileResponse> profileResponseCall=productApi.getProfileDetails();
+        profileResponseCall.enqueue(new ResponseHandler<ProfileResponse>(successInterface));
     }
 }
