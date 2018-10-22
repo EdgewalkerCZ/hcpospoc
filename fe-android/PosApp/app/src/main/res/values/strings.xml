@@ -52,6 +52,14 @@
 
     <string-array name="product_categories">
         <item>Categories*</item>
+        <item>Mobile</item>
+        <item>Mobile Accessories</item>
+        <item>Home Appliances</item>
+    </string-array>
+
+    <string-array name="product_categories_default">
+        <item>Categories*</item>
+
     </string-array>
 
     <string-array name="product_variant">
@@ -63,13 +71,122 @@
         <item>3GB|64GB</item>
     </string-array>
 
+
+    <string-array name="wire_ear_phones">
+        <item>Connection Type *</item>
+        <item> USB</item>
+    </string-array>
+
+    <string-array name="television_size">
+        <item>Size *</item>
+        <item>40"</item>
+        <item>45"</item>
+        <item>50"</item>
+    </string-array>
+
+    <string-array name="refregerator_capacity">
+        <item>Capacity</item>
+        <item>190 L</item>
+        <item>250 L</item>
+        <item>300 L</item>
+        <item>450 L</item>
+    </string-array>
+
+    <string-array name="wire_ear_phones_color">
+        <item>Color *</item>
+        <item> White </item>
+        <item> Black </item>
+    </string-array>
+
     <string-array name="product_sub_categories">
         <item>Sub Categories*</item>
-        <item>Phone</item>
+       <!-- <item>Phone</item>
         <item>Tablet</item>
         <item>iPad</item>
         <item>iPhone</item>
-        <item>Fablet</item>
+        <item>Fablet</item>-->
+    </string-array>
+
+    <string-array name="product_sub_categories_mobile">
+        <item>Sub Categories*</item>
+        <item>Mobile</item>
+      <!--  <item>Samsung</item>
+        <item>Iphone</item>
+        <item>Oppo</item>
+        <item>Xiaomi</item>
+        <item>Nokia</item>
+        <item>Huawei</item>
+        <item>Asus</item>-->
+    </string-array>
+
+    <string-array name="product_sub_categories_mobile_accessories">
+        <item>Sub Categories*</item>
+        <item>Power Bank</item>
+        <item> Wired Ear Phones</item>
+        <!--<item>Power Bank</item>
+        <item>Blue Tooth Ear Phones</item>
+        <item>Charger</item>
+        <item>Mobile Cover</item>
+        <item>Memory Card</item>
+        <item> Mobile Stands</item>
+        <item>Micro USB Cable</item>
+        -->
+    </string-array>
+
+    <string-array name="product_sub_categories_home_appliances">
+        <item>Sub Categories*</item>
+       <!-- <item>Washing Machine</item>-->
+        <!--<item>Micro Wave</item>
+        <item>Air Conditioner</item>-->
+        <item>Televisions</item>
+        <item>Refrigerator</item>
+
+    </string-array>
+
+
+    <string-array name="product_sub_categories_powerbank_mah">
+        <item>Power mAh*</item>
+        <item>10000</item>
+        <item>15000</item>
+        <item>20000</item>
+
+    </string-array>
+
+    <string-array name="camera_pixel">
+        <item>Camera Pixel*</item>
+        <item>Front Dual Camera</item>
+        <item>Selfie Camera</item>
+    </string-array>
+
+    <string-array name="mobile_battery">
+        <item>Battery</item>
+        <item>Lithium ion</item>
+    </string-array>
+
+    <string-array name="mobile_warranty">
+        <item>Warranty</item>
+        <item> 2 Years</item>
+        <item> 3 Years</item>
+    </string-array>
+
+
+    <string-array name="product_sub_categories_powerbank_compatible">
+        <item>Compatible *</item>
+        <item>5V/2A</item>
+        <item>9V/2A</item>
+        <item>12V/1.5A</item>
+
+    </string-array>
+
+    <string-array name="powerbank_composition">
+        <item>Battery Composition</item>
+        <item>Lithium Polymer</item>
+    </string-array>
+
+    <string-array name="power_bank_cable">
+        <item>Power Bank Cable</item>
+        <item>Micro USB</item>
+        <item>USB</item>
     </string-array>
 
 
@@ -84,8 +201,8 @@
 
     <string-array name="product_type">
         <item>Product Type *</item>
-        <item>Service</item>
         <item>Store</item>
+        <item>Online</item>
     </string-array>
 
     <string-array name="brand_name">
@@ -135,6 +252,7 @@
     <string name="category">Category</string>
     <string name="sub_category">Sub Category</string>
     <string name="add_product_new">Add Product</string>
+    <string name="add_new_customer">Add New Customer</string>
     <string name="store">Store</string>
     <string name="product_name">Product Name *</string>
     <string name="quantity">Quantity *</string>
@@ -143,6 +261,10 @@
     <string name="gst">GST %</string>
 
     <string name="add">+</string>
+
+    <string name="reduce">Reduced(Less)</string>
+
+    <string name="less">(Less)</string>
 
     <string name="price">Price</string>
 
@@ -156,10 +278,56 @@
     <string name="parent_class_name">ParentClassName</string>
 
 
+    <string name="gst_text">Excl.GST</string>
+
+    <string name="current_stock">Current Stock</string>
+
+    <string name="updated_stock">Updated Stock</string>
+
+    <string name="remove_stock">Remove Stock</string>
+
+    <string name="units">Units</string>
+
+
+    <string name="store_recount">Store Recount</string>
+
+    <string name="damage">Damage</string>
+
+    <string name="theft">Theft</string>
+
+    <string name="loss">Loss</string>
+
+    <string name="restock_return">Restock Return</string>
+
+
+
+    <string name="minus">-</string>
+
     <string name="description_text">Oppo F9 has always put powerful technology
 in the hands of those who demand more</string>
     <string name="profile">Profile</string>
+
     <string name="search">Search</string>
     <string name="_contitue">Continue</string>
+
     <string name="inc_gst">Inc. GST</string>
+
+    <string name="search_customer_hint">Enter phone no / Name</string>
+    <string name="search_customer_header">Search Custumer</string>
+    <string name="add_customer">ADD NEW CUSTOMER</string>
+    <string name="add_customer_new">ADD CUSTOMER</string>
+    <string name="countinue_str">COUNTINUE</string>
+    <string name="add_customer_name">Name*</string>
+    <string name="add_customer_email">Email*</string>
+    <string name="add_customer_phone">Phone*</string>
+    <string name="add_customer_address">Address</string>
+    <string name="add_customer_dob">Date of Birth</string>
+    <string name="add_customer_note">Note</string>
+
+
+
+
+
+    <string name="weight">Weight*</string>
+
 </resources>

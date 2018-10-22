@@ -47,9 +47,7 @@ public class AddNewProduct extends AppCompatActivity implements View.OnClickList
     private void getToolbar() {
 
         getSupportActionBar().setHomeButtonEnabled(true);
-        // getSupportActionBar().setHomeAsUpIndicator(R.drawable.rupee_icon);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setIcon(R.drawable.ic_icon_pos);
         getSupportActionBar().setTitle(getResources().getString(R.string.add_product_new));
 
     }

@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.vaibhavchahal93788.myapplication.R;
+import com.example.vaibhavchahal93788.myapplication.billdesk.payment.CustomerSearchActivity;
 
 
 public class HomeActivity extends AppCompatActivity {
@@ -24,6 +25,9 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         getSupportActionBar().setTitle("");
+        getSupportActionBar().setLogo(R.drawable.hc_logo);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setIcon(R.drawable.rupee_icon);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -34,7 +38,7 @@ public class HomeActivity extends AppCompatActivity {
         findViewById(R.id.cardPayment).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(HomeActivity.this, ProductDetailactivity.class);
+                Intent intent = new Intent(HomeActivity.this, CustomerSearchActivity.class);
                 startActivity(intent);
             }
         });
@@ -52,6 +56,8 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(HomeActivity.this, TransactionHistoryActivity.class);
                 startActivity(intent);
+
+
             }
         });
     }
