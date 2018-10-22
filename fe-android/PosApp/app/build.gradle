@@ -4,7 +4,7 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.example.vaibhavchahal93788.myapplication"
-        minSdkVersion 15
+        minSdkVersion 17
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
@@ -44,4 +44,8 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:2.2.0'
     implementation 'com.jakewharton:butterknife-runtime:9.0.0-rc1'
     implementation 'com.android.support:design:27.1.1'
+    implementation 'org.glassfish:javax.annotation:10.0-b28'
+    implementation 'com.github.bumptech.glide:glide:4.8.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
+
 }
