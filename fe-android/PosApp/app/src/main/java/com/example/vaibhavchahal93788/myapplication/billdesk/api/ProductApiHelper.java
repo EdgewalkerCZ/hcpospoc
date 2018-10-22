@@ -8,6 +8,7 @@ import com.example.vaibhavchahal93788.myapplication.billdesk.network.IApiRequest
 import com.example.vaibhavchahal93788.myapplication.billdesk.network.ResponseHandler;
 import com.example.vaibhavchahal93788.myapplication.billdesk.network.RetrofitClient;
 import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Constants;
+import com.google.gson.JsonObject;
 
 import java.util.List;
 
@@ -43,9 +44,17 @@ public class ProductApiHelper {
         productsApiResponseCall.enqueue(new ResponseHandler<ResponseBody>(successInterface));
     }
 
-    public void userProfile(IApiRequestComplete successInterface){
 
-        Call<ProfileResponse> profileResponseCall=productApi.getProfileDetails();
+    public void getAllProductList(String category, String subCategory, final IApiRequestComplete successInterface) {
+        Call<JsonObject> productsApiResponseCall = productApi.getAllProductList();
+        productsApiResponseCall.enqueue(new ResponseHandler<JsonObject>(successInterface));
+
+
+    }
+    public void userProfile (IApiRequestComplete successInterface){
+
+        Call<ProfileResponse> profileResponseCall = productApi.getProfileDetails();
         profileResponseCall.enqueue(new ResponseHandler<ProfileResponse>(successInterface));
+
     }
 }

@@ -17,6 +17,12 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+
+    <style name="ToolbarTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- @style/ThemeOverlay.AppCompat.ActionBar -->
+        <item name="colorControlNormal">@color/white_color</item>
+    </style>
+
     <style name="progressBarRed" parent="@style/Theme.AppCompat">
         <item name="colorAccent">@color/colorPrimary</item>
      <!--   <item name="android:progressBarStyleLarge">42dp</item>-->
@@ -30,5 +36,6 @@
     </style>-->
 
 
+>>>>>>> 3dd5ed5415316249635318afa5150036c74975ca
 
 </resources>
