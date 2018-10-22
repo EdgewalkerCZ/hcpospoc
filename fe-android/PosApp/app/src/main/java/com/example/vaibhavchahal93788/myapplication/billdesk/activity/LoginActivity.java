@@ -5,16 +5,29 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.vaibhavchahal93788.myapplication.R;
+import com.example.vaibhavchahal93788.myapplication.billdesk.api.LoginApiHelper;
+import com.example.vaibhavchahal93788.myapplication.billdesk.api.ProductApiHelper;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.LoginBodyModel;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.LoginModel;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductListModel;
+import com.example.vaibhavchahal93788.myapplication.billdesk.network.IApiRequestComplete;
+
+import java.util.List;
 
 public class LoginActivity extends AppCompatActivity
 {
 
     private TextView txtLogin;
+    private EditText edtUsername;
+    private EditText edtPassword;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -22,19 +35,50 @@ public class LoginActivity extends AppCompatActivity
         setContentView(R.layout.activity_login);
 
         txtLogin = (TextView) findViewById(R.id.txtLogin);
+        edtUsername = (EditText) findViewById(R.id.edtUsername);
+        edtPassword = (EditText) findViewById(R.id.edtPassword);
+
+
+
 
         txtLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                LoginActivity.this.startActivity(intent);
-                overridePendingTransition(R.anim.animation_enter,R.anim.animation_leave);
-
-                finish();
+                validateLogin();
             }
         });
 
 
 
+    }
+
+    private void validateLogin()
+    {
+        LoginBodyModel loginBodyModel = new LoginBodyModel();
+        loginBodyModel.setUsername(edtUsername.getText().toString());
+        loginBodyModel.setPassword(edtPassword.getText().toString());
+
+        new LoginApiHelper().validateLogin(loginBodyModel, new IApiRequestComplete<LoginModel>() {
+
+
+            @Override
+            public void onSuccess(LoginModel response) {
+                if(response.getJSESSIONID() != null)
+                {
+                    //for now, considering this as successful login
+                    // save this JSESSIONID for future communication
+                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                    LoginActivity.this.startActivity(intent);
+                    overridePendingTransition(R.anim.animation_enter,R.anim.animation_leave);
+
+                    finish();
+                }
+            }
+
+            @Override
+            public void onFailure(String message) {
+                Toast.makeText(LoginActivity.this, "Login failed : " + message, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
