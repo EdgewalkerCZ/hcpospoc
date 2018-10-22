@@ -102,6 +102,9 @@
             android:name=".billdesk.payment.SelectProductActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:screenOrientation="portrait"/>
+        <activity android:name=".billdesk.payment.CustomerSearchActivity" />
+        <activity android:name=".billdesk.payment.AddNewCustomerActivity" />
+        <activity android:name=".billdesk.payment.ViewCustomerDetailActivity" />
     </application>
 
 

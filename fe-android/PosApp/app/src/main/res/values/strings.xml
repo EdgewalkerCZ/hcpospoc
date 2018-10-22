@@ -135,6 +135,7 @@
     <string name="category">Category</string>
     <string name="sub_category">Sub Category</string>
     <string name="add_product_new">Add Product</string>
+    <string name="add_new_customer">Add New Customer</string>
     <string name="store">Store</string>
     <string name="product_name">Product Name *</string>
     <string name="quantity">Quantity *</string>
@@ -161,4 +162,19 @@ in the hands of those who demand more</string>
     <string name="profile">Profile</string>
     <string name="search">Search</string>
     <string name="_contitue">Continue</string>
+    <string name="search_customer_hint">Enter phone no / Name</string>
+    <string name="search_customer_header">Search Custumer</string>
+    <string name="add_customer">ADD NEW CUSTOMER</string>
+    <string name="add_customer_new">ADD CUSTOMER</string>
+    <string name="countinue_str">COUNTINUE</string>
+    <string name="add_customer_name">Name*</string>
+    <string name="add_customer_email">Email*</string>
+    <string name="add_customer_phone">Phone*</string>
+    <string name="add_customer_address">Address</string>
+    <string name="add_customer_dob">Date of Birth</string>
+    <string name="add_customer_note">Note</string>
+
+
+
+
 </resources>

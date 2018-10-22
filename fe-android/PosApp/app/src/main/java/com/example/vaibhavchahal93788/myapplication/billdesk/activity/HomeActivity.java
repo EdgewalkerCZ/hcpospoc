@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.vaibhavchahal93788.myapplication.R;
+import com.example.vaibhavchahal93788.myapplication.billdesk.payment.CustomerSearchActivity;
 
 
 public class HomeActivity extends AppCompatActivity {
@@ -34,7 +35,7 @@ public class HomeActivity extends AppCompatActivity {
         findViewById(R.id.cardPayment).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(HomeActivity.this, ProductDetailactivity.class);
+                Intent intent = new Intent(HomeActivity.this, CustomerSearchActivity.class);
                 startActivity(intent);
             }
         });

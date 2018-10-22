@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:padding="@dimen/dp20"
+        android:id="@+id/view_name_layout"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+             android:id="@+id/view_name"
+            android:text="Name"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:id="@+id/view_name_value"
+            android:textStyle="bold"
+            android:layout_marginLeft="@dimen/dp30"
+             android:layout_toRightOf="@+id/view_name"
+            android:text="HomeCredit"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/dp5"
+            android:layout_below="@+id/view_name_value"
+            android:background="@color/black_color"
+            android:layout_height="1dp"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:padding="@dimen/dp20"
+        android:id="@+id/view_email_layout"
+        android:layout_below="@+id/view_name_layout"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:id="@+id/view_email"
+            android:text="Email"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:id="@+id/view_email_value"
+            android:textStyle="bold"
+            android:layout_marginLeft="@dimen/dp30"
+            android:layout_toRightOf="@+id/view_email"
+            android:text="ashish@homeCredit.com"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/dp5"
+            android:layout_below="@+id/view_email_value"
+            android:background="@color/black_color"
+            android:layout_height="1dp"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:padding="@dimen/dp20"
+        android:id="@+id/view_phone_layout"
+        android:layout_below="@+id/view_email_layout"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:id="@+id/view_phone"
+            android:text="Phone"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:id="@+id/view_phone_value"
+            android:textStyle="bold"
+            android:maxLength="13"
+
+            android:layout_marginLeft="@dimen/dp30"
+            android:layout_toRightOf="@+id/view_phone"
+            android:text="+91-1234555334"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/dp5"
+            android:layout_below="@+id/view_phone_value"
+            android:background="@color/black_color"
+            android:layout_height="1dp"/>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:padding="@dimen/dp20"
+        android:id="@+id/view_address_layout"
+        android:layout_below="@+id/view_phone_layout"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:id="@+id/view_address"
+            android:text="Address"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:id="@+id/view_address_value"
+            android:textStyle="bold"
+            android:maxLines="2"
+
+            android:layout_marginLeft="@dimen/dp30"
+            android:layout_toRightOf="@+id/view_address"
+            android:text="+91-1234555334"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/dp5"
+            android:layout_below="@+id/view_address_value"
+            android:background="@color/black_color"
+            android:layout_height="1dp"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:padding="@dimen/dp20"
+        android:id="@+id/view_dob_layout"
+        android:layout_below="@+id/view_address_layout"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:id="@+id/view_dob"
+            android:text="Date of Birth"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:id="@+id/view_dob_value"
+            android:textStyle="bold"
+            android:maxLines="1"
+
+            android:layout_marginLeft="@dimen/dp30"
+            android:layout_toRightOf="@+id/view_dob"
+            android:text="13-jan-1989"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/dp5"
+            android:layout_below="@+id/view_dob_value"
+            android:background="@color/black_color"
+            android:layout_height="1dp"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:padding="@dimen/dp20"
+        android:id="@+id/view_note_layout"
+        android:layout_below="@+id/view_dob_layout"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:id="@+id/view_note"
+            android:text="Note"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:id="@+id/view_note_value"
+            android:textStyle="bold"
+            android:maxLines="1"
+
+            android:layout_marginLeft="@dimen/dp30"
+            android:layout_toRightOf="@+id/view_note"
+            android:text="13-jan-1989"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/dp5"
+            android:layout_below="@+id/view_note_value"
+            android:background="@color/black_color"
+            android:layout_height="1dp"/>
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/view_customer_countinue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/round_corner_rectangle_fill"
+        android:text="@string/countinue_str"
+        android:textColor="@color/white_color"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</RelativeLayout>

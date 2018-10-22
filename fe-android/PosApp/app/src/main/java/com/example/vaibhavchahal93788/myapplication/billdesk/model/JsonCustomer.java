@@ -9,6 +9,36 @@ public class JsonCustomer {
 
     private String img;
 
+    private String dob;
+
+    private String address;
+
+    public String getDob() {
+        return dob;
+    }
+
+    public void setDob(String dob) {
+        this.dob = dob;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    private String note;
+
     public String getPhone ()
     {
         return phone;
