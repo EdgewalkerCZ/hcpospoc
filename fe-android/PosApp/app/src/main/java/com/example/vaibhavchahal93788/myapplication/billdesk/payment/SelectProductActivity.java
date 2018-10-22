@@ -8,14 +8,17 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.vaibhavchahal93788.myapplication.R;
 import com.example.vaibhavchahal93788.myapplication.billdesk.activity.ProductDetailactivity;
+import com.example.vaibhavchahal93788.myapplication.billdesk.activity.StockDetailActivity;
 import com.example.vaibhavchahal93788.myapplication.billdesk.adapter.SelectProductAdapter;
 import com.example.vaibhavchahal93788.myapplication.billdesk.api.ProductApiHelper;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.AllProduct;
@@ -41,7 +44,7 @@ public class SelectProductActivity extends AppCompatActivity implements SelectPr
 
     private RecyclerView recyclerView;
     private SelectProductAdapter mAdapterSelectProduct;
-    private String temp = "{\"status\":\"success\",\"items\":[{\"id\":1,\"name\":\"Oppo F9\",\"desc\":\"OPPO|4GB|32GB|White\",\"price\":24000,\"quantity\":4,\"img\":\"\",\"gst\":1,\"color\":\"White\",\"ram\":\"4GB\",\"rom\":\"32GB\",\"ramExpandable\":1,\"category\":\"Mobile\",\"currency\":\"Indian\"},{\"id\":2,\"name\":\"MI Note3\",\"desc\":\"Xiomi|4GB|32GB|Black\",\"price\":22000,\"quantity\":10,\"img\":\"\",\"gst\":1,\"color\":\"Black\",\"ram\":\"4GB\",\"rom\":\"32GB\",\"ramExpandable\":1,\"category\":\"Mobile\",\"currency\":\"Indian\"},{\"id\":3,\"name\":\"LG Washing Machine\",\"desc\":\"Front Load|6KG\",\"price\":18000,\"quantity\":6,\"img\":\"\",\"gst\":1,\"color\":\"Black\",\"category\":\"Home Appliance\",\"currency\":\"Indian\"},{\"id\":4,\"name\":\"Samsung LED\",\"desc\":\"32 inch|LED\",\"price\":18000,\"quantity\":6,\"img\":\"\",\"gst\":1,\"color\":\"Red\",\"category\":\"Home Appliance\",\"currency\":\"Indian\"}]}";
+    private ProgressBar progreeBar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,19 +53,23 @@ public class SelectProductActivity extends AppCompatActivity implements SelectPr
 
         setUpToolbar();
         init();
+        fetchProductsList();
     }
 
     private void init() {
         recyclerView = findViewById(R.id.recyclerView);
+        progreeBar = findViewById(R.id.progress_bar);
 
         mAdapterSelectProduct = new SelectProductAdapter(new ArrayList<AllProduct>(), this);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapterSelectProduct);
+    }
 
-        buildUpData(temp);
 
+    private void fetchProductsList() {
+        progreeBar.setVisibility(View.VISIBLE);
         ApiInterface apiService =
                 ApiClient.getClient().create(ApiInterface.class);
 
@@ -71,14 +78,14 @@ public class SelectProductActivity extends AppCompatActivity implements SelectPr
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject>call, Response<JsonObject> response) {
-                //List<Movie> movies = response.body().getResults();
-                //Log.d(TAG, "Number of movies received: " + movies.size());
-                Log.e("response", response.toString());
+                progreeBar.setVisibility(View.GONE);
+                Log.e("response", response.body().toString());
+                buildUpData(response.body().toString());
             }
 
             @Override
             public void onFailure(Call<JsonObject>call, Throwable t) {
-                // Log error here since request failed
+                progreeBar.setVisibility(View.GONE);
                 Log.e("response", t.toString());
             }
         });

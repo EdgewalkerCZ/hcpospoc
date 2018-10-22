@@ -84,7 +84,8 @@ public class SelectProductAdapter extends RecyclerView.Adapter<SelectProductAdap
                 holder.imvProduct.setVisibility(View.GONE);
                 holder.txtProductSymbol.setVisibility(View.VISIBLE);
                 if(!TextUtils.isEmpty(product.getName())) {
-                    holder.txtProductSymbol.setText(product.getName().subSequence(0, 0));
+                    String initial = product.getName().subSequence(0, 1).toString().toUpperCase();
+                    holder.txtProductSymbol.setText(initial);
                 }
             } else {
                 //ToDo: set image from web url

@@ -8,7 +8,7 @@ import retrofit2.http.Query;
 
 public interface ApiInterface {
 
-    @GET("/allitems")
+    @GET("allitems")
     Call<JsonObject> getAllProductsList();
 
 }
