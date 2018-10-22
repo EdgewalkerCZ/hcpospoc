@@ -35,7 +35,7 @@ public class SplashActivity extends AppCompatActivity
                     overridePendingTransition(R.anim.animation_enter,R.anim.animation_leave);
                 }
                 else
-                {
+                {   //ToDo: LoginActivity
                     Intent intent = new Intent(SplashActivity.this, SelectProductActivity.class);
                     SplashActivity.this.startActivity(intent);
                     overridePendingTransition(R.anim.animation_enter,R.anim.animation_leave);
