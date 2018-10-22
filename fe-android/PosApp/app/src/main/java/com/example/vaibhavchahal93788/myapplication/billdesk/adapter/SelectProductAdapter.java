@@ -1,6 +1,8 @@
 package com.example.vaibhavchahal93788.myapplication.billdesk.adapter;
 
+import android.content.Context;
 import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -17,6 +19,7 @@ import android.widget.TextView;
 import com.example.vaibhavchahal93788.myapplication.R;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.AllProduct;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductListModel;
+import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Utility;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,14 +27,12 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class SelectProductAdapter extends RecyclerView.Adapter<SelectProductAdapter.ViewHolder> {
 
+    private Context context;
     private List<AllProduct> productList;
-    private String[] arrColors = new String[] {"#FFE4C4",
-            "#0000FF",
-            "#A52A2A",
-            "#FF7F50"};
     private OnItemClickListener onItemClickListener;
 
-    public SelectProductAdapter(List<AllProduct> products, OnItemClickListener onItemClickListener) {
+    public SelectProductAdapter(Context context, List<AllProduct> products, OnItemClickListener onItemClickListener) {
+        this.context = context;
         this.productList = products;
         this.onItemClickListener = onItemClickListener;
     }
@@ -46,6 +47,7 @@ public class SelectProductAdapter extends RecyclerView.Adapter<SelectProductAdap
         TextView txtPrice;
         TextView txtQuantity;
         TextView txtProductSymbol;
+        TextView txtIncGST;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -57,6 +59,7 @@ public class SelectProductAdapter extends RecyclerView.Adapter<SelectProductAdap
             txtPrice = itemView.findViewById(R.id.txt_price);
             txtQuantity = itemView.findViewById(R.id.txt_quantity);
             txtProductSymbol = itemView.findViewById(R.id.txt_product_symbol);
+            txtIncGST = itemView.findViewById(R.id.txt_inc_gst);
         }
     }
 
@@ -67,7 +70,7 @@ public class SelectProductAdapter extends RecyclerView.Adapter<SelectProductAdap
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         final AllProduct product = productList.get(position);
         holder.txtProductName.setText(product.getName());
         holder.txtPrice.setText("₹"+product.getPrice());
@@ -75,11 +78,14 @@ public class SelectProductAdapter extends RecyclerView.Adapter<SelectProductAdap
         holder.txtQuantity.setText("QTY: "+product.getQuantity());
 
         if(product.isSelected()) {
-            holder.cardProductImg.setCardBackgroundColor(Color.parseColor("#FF0000"));
+            holder.cardProductImg.setCardBackgroundColor(Color.parseColor("#666666"));
+            holder.cardViewMain.setCardBackgroundColor(Color.parseColor("#90c0c0c0"));
+            holder.imvProduct.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_checked));
+            holder.imvProduct.setVisibility(View.VISIBLE);
+            holder.txtProductSymbol.setVisibility(View.GONE);
         } else {
-            int randomNum = 0 + (int)(Math.random() * ((3 - 0) + 1));
-            Log.e("random", ""+randomNum);
-            holder.cardProductImg.setCardBackgroundColor(Color.parseColor(arrColors[randomNum]));
+            holder.cardViewMain.setCardBackgroundColor(Color.parseColor("#ffffff"));
+            holder.cardProductImg.setCardBackgroundColor(Color.parseColor(Utility.getColorForIndex(position)));
             if(TextUtils.isEmpty(product.getImg())) {
                 holder.imvProduct.setVisibility(View.GONE);
                 holder.txtProductSymbol.setVisibility(View.VISIBLE);
@@ -95,10 +101,16 @@ public class SelectProductAdapter extends RecyclerView.Adapter<SelectProductAdap
             }
         }
 
+        if(product.getGst() == 1) {
+            holder.txtIncGST.setVisibility(View.VISIBLE);
+        } else {
+            holder.txtIncGST.setVisibility(View.GONE);
+        }
+
         holder.cardViewMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //onItemClickListener.onItemClick(position);
+                onItemClickListener.onItemClick(position);
             }
         });
     }
@@ -119,11 +131,11 @@ public class SelectProductAdapter extends RecyclerView.Adapter<SelectProductAdap
         return position;
     }
 
-    public List<AllProduct> getAllProducts() {
+    public List<AllProduct> getData() {
         return productList;
     }
 
-    public void addProducts(List<AllProduct> list) {
+    public void addData(List<AllProduct> list) {
         productList.clear();
         if(list != null) {
             productList.addAll(list);

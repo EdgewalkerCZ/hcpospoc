@@ -309,6 +309,9 @@ in the hands of those who demand more</string>
 
     <string name="search">Search</string>
     <string name="_contitue">Continue</string>
+
+    <string name="inc_gst">Inc. GST</string>
+
     <string name="search_customer_hint">Enter phone no / Name</string>
     <string name="search_customer_header">Search Custumer</string>
     <string name="add_customer">ADD NEW CUSTOMER</string>
@@ -324,7 +327,7 @@ in the hands of those who demand more</string>
 
 
 
-=======
+
     <string name="weight">Weight*</string>
->>>>>>> 3dd5ed5415316249635318afa5150036c74975ca
+
 </resources>
