@@ -1,0 +1,4 @@
+FROM axelor/aio-base
+
+COPY ./build/libs/*.war $CATALINA_BASE/webapps/ROOT.war
+
