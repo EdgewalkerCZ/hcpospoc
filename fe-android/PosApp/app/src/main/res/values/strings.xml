@@ -52,7 +52,7 @@
 
     <string-array name="product_categories">
         <item>Categories*</item>
-        <item>Mobile</item>
+        <item>Mobile </item>
         <item>Mobile Accessories</item>
         <item>Home Appliances</item>
     </string-array>
@@ -85,7 +85,7 @@
     </string-array>
 
     <string-array name="refregerator_capacity">
-        <item>Capacity</item>
+        <item>Capacity *</item>
         <item>190 L</item>
         <item>250 L</item>
         <item>300 L</item>
@@ -100,23 +100,23 @@
 
     <string-array name="product_sub_categories">
         <item>Sub Categories*</item>
-       <!-- <item>Phone</item>
-        <item>Tablet</item>
-        <item>iPad</item>
-        <item>iPhone</item>
-        <item>Fablet</item>-->
+        <!-- <item>Phone</item>
+         <item>Tablet</item>
+         <item>iPad</item>
+         <item>iPhone</item>
+         <item>Fablet</item>-->
     </string-array>
 
     <string-array name="product_sub_categories_mobile">
         <item>Sub Categories*</item>
-        <item>Mobile</item>
-      <!--  <item>Samsung</item>
-        <item>Iphone</item>
-        <item>Oppo</item>
-        <item>Xiaomi</item>
-        <item>Nokia</item>
-        <item>Huawei</item>
-        <item>Asus</item>-->
+        <item>Mobile Phones</item>
+        <!--  <item>Samsung</item>
+          <item>Iphone</item>
+          <item>Oppo</item>
+          <item>Xiaomi</item>
+          <item>Nokia</item>
+          <item>Huawei</item>
+          <item>Asus</item>-->
     </string-array>
 
     <string-array name="product_sub_categories_mobile_accessories">
@@ -135,7 +135,7 @@
 
     <string-array name="product_sub_categories_home_appliances">
         <item>Sub Categories*</item>
-       <!-- <item>Washing Machine</item>-->
+        <!-- <item>Washing Machine</item>-->
         <!--<item>Micro Wave</item>
         <item>Air Conditioner</item>-->
         <item>Televisions</item>
@@ -199,6 +199,15 @@
         <item>Blue</item>
     </string-array>
 
+    <string-array name="star_rate">
+        <item>Start Rating *</item>
+        <item>1 Star</item>
+        <item>2 Star</item>
+        <item>3 Star</item>
+        <item>4 Star</item>
+        <item>5 Star</item>
+    </string-array>
+
     <string-array name="product_type">
         <item>Product Type *</item>
         <item>Store</item>
@@ -212,6 +221,20 @@
         <item>Motorola</item>
         <item>Apple</item>
         <item>Sony</item>
+    </string-array>
+
+
+    <string-array name="tele_type">
+        <item>Type *</item>
+        <item>LED</item>
+        <item>PLASMA</item>
+        <item>LCD</item>
+    </string-array>
+
+    <string-array name="refre_type">
+        <item>Type *</item>
+        <item>Top freezer</item>
+        <item>Bottom freezer</item>
     </string-array>
 
 
@@ -299,11 +322,34 @@
     <string name="restock_return">Restock Return</string>
 
 
-
     <string name="minus">-</string>
 
     <string name="description_text">Oppo F9 has always put powerful technology
 in the hands of those who demand more</string>
     <string name="profile">Profile</string>
     <string name="weight">Weight*</string>
+    <string name="model">Model *</string>
+    <string name="special_feature">Special Feature</string>
+    <string name="brand_name">Brand Name *</string>
+    <string name="product_dimensions">Product Dimensions</string>
+    <string name="final_price_for_customer">Final Price for customer</string>
+    <string name="symble">-</string>
+    <string name="included_component">Included Component</string>
+    <string name="error_product_type">Please Select Product Type</string>
+    <string name="error_categories">Please Select Categories</string>
+    <string name="error_sub_categories">Please Select Sub Categories</string>
+    <string name="error_model">Model should not blank</string>
+    <string name="error_brand_name">Brand name should not empty</string>
+    <string name="error_empty"> should not empty</string>
+    <string name="error_quantity">Quantity should not empty</string>
+    <string name="error_description">Description should not empty</string>
+    <string name="error_variant">Please select variant</string>
+    <string name="error_color">Please select color</string>
+    <string name="error_camera_pixel">Please select camera pixel</string>
+    <string name="error_weight">Weight should not empty</string>
+    <string name="error_battery_mah">Please select battery mAh</string>
+    <string name="error_compatible">Please select battery compatible</string>
+    <string name="error_star_rating">Please select star rating</string>
+    <string name="error_capacity">Please select capacity</string>
+    <string name="error_type">Please select type</string>
 </resources>
