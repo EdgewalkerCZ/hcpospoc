@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -69,10 +70,10 @@ public class AddNewCustomerActivity extends AppCompatActivity {
 
     private void getToolbar() {
 
+
         getSupportActionBar().setHomeButtonEnabled(true);
-        // getSupportActionBar().setHomeAsUpIndicator(R.drawable.rupee_icon);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setIcon(R.drawable.ic_icon_pos);
+//        getSupportActionBar().setIcon(R.drawable.ic_icon_pos);
         getSupportActionBar().setTitle(getResources().getString(R.string.add_new_customer));
 
     }
@@ -104,6 +105,20 @@ public class AddNewCustomerActivity extends AppCompatActivity {
                     break;
             }
         }
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()){
+            case android.R.id.home:
+
+                finish();
+
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public void submitform(){

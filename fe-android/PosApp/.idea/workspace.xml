@@ -7,7 +7,8 @@
   </component>
   <component name="AndroidLogFilters">
     <option name="TOOL_WINDOW_LOG_LEVEL" value="verbose" />
-    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="No Filters" />
+    <option name="TOOL_WINDOW_REGEXP_FILTER" value="false" />
   </component>
   <component name="CMakeSettings">
     <configurations>
@@ -16,67 +17,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="844568cb-49a9-4ee8-a6b5-da302badfe5a" name="Default" comment="*added Validation, Utility and animation">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/api/LoginApiHelper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/api/loginApi.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/model/LoginBodyModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/model/LoginModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/model/profile/ProfileResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/preferences/AppPreferences.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/preferences/PreferenceID.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/hc_logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/history.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/logo_red.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/hc_logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/history.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/logo_red.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/hc_logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/history.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/logo_red.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/hc_logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/history.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/logo_red.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/hc_logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/history.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/logo_red.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/background_circle_blue.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/background_circle_history.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/editext_border.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_history.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/login_rounded_background_disable.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/values-hi/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/AddNewProduct.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/AddNewProduct.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/AddProductSubmit.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/AddProductSubmit.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/HomeActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/HomeActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/LoginActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/LoginActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/StockDetailActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/StockDetailActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/UserProfileActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/UserProfileActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/ViewProductActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/ViewProductActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/api/ProductApiHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/api/ProductApiHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/api/productApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/api/productApi.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/network/ResponseHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/network/ResponseHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/utility/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/utility/Constants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/utility/Utility.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/utility/Utility.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_stock.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_stock.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/login_rounded_background.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/login_rounded_background_enable.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_add_product_submit.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_add_product_submit.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_delete_product.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_delete_product.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_home.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_home.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_splash.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_splash.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_user_profile.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_user_profile.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_view_product.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_view_product.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/SplashActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/SplashActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/adapter/CustomerListAdaptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/adapter/CustomerListAdaptor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/payment/AddNewCustomerActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/payment/AddNewCustomerActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/payment/CustomerSearchActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/payment/CustomerSearchActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/payment/ViewCustomerDetailActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/payment/ViewCustomerDetailActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_add_new_customer.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_add_new_customer.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_customer_search.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_customer_search.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_view_customer.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_view_customer.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/list_items_customers.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/list_items_customers.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -137,101 +89,23 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="450">
-      <file leaf-file-name="AddNewCustomerActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/payment/AddNewCustomerActivity.java">
+      <file leaf-file-name="CustomerSearchActivity.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/payment/CustomerSearchActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="36" column="46" selection-start-line="36" selection-start-column="46" selection-end-line="36" selection-end-column="46" />
+            <state relative-caret-position="375">
+              <caret line="166" column="28" selection-start-line="166" selection-start-column="28" selection-end-line="166" selection-end-column="28" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CustomerListAdaptor.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/adapter/CustomerListAdaptor.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="401">
+              <caret line="81" selection-start-line="81" selection-end-line="81" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="activity_add_new_customer.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_add_new_customer.xml">
-          <provider editor-type-id="android-designer2">
-            <state />
-          </provider>
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="297">
-              <caret line="78" column="51" selection-start-line="78" selection-start-column="51" selection-end-line="78" selection-end-column="51" />
-              <folding>
-                <element signature="e#3517#3543#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="loginApi.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/api/loginApi.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="17" column="17" selection-start-line="17" selection-start-column="17" selection-end-line="17" selection-end-column="17" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="productApi.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/api/productApi.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-180">
-              <caret line="20" column="26" selection-start-line="20" selection-start-column="26" selection-end-line="20" selection-end-column="26" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Constants.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/utility/Constants.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="15" column="51" selection-start-line="15" selection-start-column="51" selection-end-line="15" selection-end-column="51" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/build.gradle">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="201">
-              <caret line="29" column="1" lean-forward="true" selection-start-line="29" selection-start-column="1" selection-end-line="29" selection-end-column="1" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="styles.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/values/styles.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="24" selection-start-line="24" selection-end-line="24" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ProductApiHelper.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/api/ProductApiHelper.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
-              <caret line="58" column="5" selection-start-line="58" selection-start-column="5" selection-end-line="58" selection-end-column="5" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="IApiRequestComplete.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/network/IApiRequestComplete.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="3" column="17" selection-start-line="3" selection-start-column="17" selection-end-line="3" selection-end-column="17" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="strings.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="11" column="49" selection-start-line="11" selection-start-column="49" selection-end-line="11" selection-end-column="49" />
             </state>
           </provider>
         </entry>
@@ -266,6 +140,12 @@
       <find>progressBar</find>
       <find>bt_add</find>
       <find>hide</find>
+      <find>fil</find>
+      <find>filterList\\\</find>
+      <find>txt_product_symbol</find>
+      <find>filer</find>
+      <find>filterList</find>
+      <find>customerSets</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -2336,26 +2216,26 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_select_product.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/payment/api/ApiClient.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/list_item_products.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/SplashActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/HomeActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/adapter/CustomerListAdaptor.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/list_items_customers.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/payment/api/ApiInterface.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/payment/AddNewCustomerActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_customer_search.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/model/JsonCustomer.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/utility/KeyValue.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/payment/ViewCustomerDetailActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/utility/Utility.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/payment/CustomerSearchActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_view_customer.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_add_new_customer.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/api/productApi.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/api/ProductApiHelper.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/utility/Constants.java" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/utility/Constants.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/list_items_customers.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/payment/AddNewCustomerActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/adapter/CustomerListAdaptor.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_customer_search.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/SplashActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/payment/ViewCustomerDetailActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_add_new_customer.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_view_customer.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/payment/CustomerSearchActivity.java" />
       </list>
     </option>
   </component>
@@ -2415,6 +2295,16 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="billdesk" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="PosApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="PosApp" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="billdesk" type="462c0819:PsiDirectoryNode" />
+              <item name="activity" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="PosApp" type="b2602c69:ProjectViewProjectNode" />
@@ -2509,7 +2399,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="DEBUGGABLE_DEVICE" value="Pixel_XL_API_27 [emulator-5554]" />
+    <property name="DEBUGGABLE_DEVICE" value="vivo-vivo_1601-N7FYBY9T99999999" />
     <property name="DEBUGGABLE_PROCESS" value="com.example.vaibhavchahal93788.myapplication" />
     <property name="DEBUGGER_ID" value="Auto" />
     <property name="Git.Branch.Popup.ShowAllRemotes" value="true" />
@@ -2518,7 +2408,7 @@
     <property name="android.project.structure.last.selected" value="app" />
     <property name="android.project.structure.proportion" value="0.15" />
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
-    <property name="device.picker.selection" value="Pixel_XL_API_27" />
+    <property name="device.picker.selection" value="N7FYBY9T99999999" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="instant.run" />
     <property name="show.do.not.ask.upgrade.gradle.plugin" value="3.1.4" />
@@ -2738,7 +2628,14 @@
       <option name="project" value="LOCAL" />
       <updated>1540215273739</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Base URL for Mock API">
+      <created>1540269774409</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1540269774409</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TodoView">
@@ -2757,28 +2654,28 @@
       <window_info anchor="bottom" id="Android Profiler" order="7" weight="0.32869855" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32920355" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
-      <window_info id="Image Layers" order="2" />
-      <window_info id="Build Variants" order="2" sideWeight="0.5067797" side_tool="true" weight="0.25642964" />
+      <window_info id="Image Layers" order="7" />
+      <window_info id="Build Variants" order="3" sideWeight="0.5067797" side_tool="true" weight="0.25642964" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
-      <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="right" id="Preview" order="6" weight="0.32064778" />
-      <window_info anchor="bottom" id="Version Control" order="9" weight="0.32389382" />
+      <window_info anchor="bottom" id="Version Control" order="10" weight="0.40884957" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32743362" />
-      <window_info anchor="bottom" id="Terminal" order="10" weight="0.32743362" />
-      <window_info active="true" anchor="bottom" id="Logcat" order="12" visible="true" weight="0.32389382" />
-      <window_info id="Captures" order="2" weight="0.25" />
-      <window_info id="Capture Tool" order="2" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.32743362" />
+      <window_info anchor="bottom" id="Logcat" order="13" weight="0.4761062" />
+      <window_info id="Captures" order="4" weight="0.25" />
+      <window_info id="Capture Tool" order="6" />
       <window_info id="Designer" order="2" />
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49322033" visible="true" weight="0.27044535" />
-      <window_info anchor="bottom" id="Build" order="11" weight="0.43539822" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49322033" visible="true" weight="0.27044535" />
+      <window_info anchor="bottom" id="Build" order="12" weight="0.43539822" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32819906" />
-      <window_info anchor="right" id="Gradle" order="8" visible="true" weight="0.17165992" />
+      <window_info anchor="right" id="Gradle" order="8" weight="0.17165992" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Device File Explorer" order="7" side_tool="true" weight="0.32980332" />
       <window_info anchor="right" id="Theme Preview" order="5" />
-      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info id="Favorites" order="5" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39823008" />
-      <window_info anchor="bottom" id="Messages" order="7" weight="0.3293979" />
+      <window_info anchor="bottom" id="Messages" order="8" weight="0.3293979" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
@@ -2790,25 +2687,25 @@
       <window_info anchor="bottom" id="Build" order="12" weight="0.43539822" />
       <window_info id="Designer" order="2" />
       <window_info id="Build Variants" order="3" sideWeight="0.5067797" side_tool="true" weight="0.25642964" />
-      <window_info id="Image Layers" order="4" />
+      <window_info id="Image Layers" order="7" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32743362" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Android Profiler" order="7" weight="0.32869855" />
       <window_info id="Favorites" order="5" side_tool="true" />
-      <window_info id="Captures" order="6" weight="0.25" />
-      <window_info id="Capture Tool" order="7" />
+      <window_info id="Captures" order="4" weight="0.25" />
+      <window_info id="Capture Tool" order="6" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="right" id="Preview" order="6" weight="0.32064778" />
+      <window_info active="true" anchor="right" id="Preview" order="6" visible="true" weight="0.32064778" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Device File Explorer" order="7" side_tool="true" weight="0.32980332" />
-      <window_info anchor="bottom" id="Logcat" order="13" weight="0.31150442" />
-      <window_info anchor="bottom" id="Version Control" order="10" weight="0.32389382" />
-      <window_info anchor="bottom" id="Terminal" order="11" visible="true" weight="0.32743362" />
-      <window_info anchor="right" id="Gradle" order="8" weight="0.32955465" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49322033" visible="true" weight="0.27044535" />
+      <window_info anchor="bottom" id="Logcat" order="13" weight="0.4761062" />
+      <window_info anchor="bottom" id="Version Control" order="10" weight="0.40884957" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.32743362" />
+      <window_info anchor="right" id="Gradle" order="8" weight="0.17165992" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49322033" visible="true" weight="0.27044535" />
       <window_info anchor="bottom" id="Messages" order="8" weight="0.3293979" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32920355" />
@@ -2832,6 +2729,12 @@
               <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
                 <collection />
               </option>
+              <option name="COLUMN_WIDTH">
+                <map>
+                  <entry key="2" value="143" />
+                  <entry key="3" value="96" />
+                </map>
+              </option>
               <option name="COLUMN_ORDER">
                 <list>
                   <option value="0" />
@@ -2852,7 +2755,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="created xml of add product, available stock list." />
     <MESSAGE value="Payment Module : Add new customers through Mock API..." />
-    <option name="LAST_COMMIT_MESSAGE" value="Payment Module : Add new customers through Mock API..." />
+    <MESSAGE value="Base URL for Mock API" />
+    <option name="LAST_COMMIT_MESSAGE" value="Base URL for Mock API" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2877,33 +2781,39 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/payment/CustomerSearchActivity.java</url>
-          <line>70</line>
-          <properties />
-          <option name="timeStamp" value="11" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/payment/CustomerSearchActivity.java</url>
-          <line>92</line>
+          <line>93</line>
           <properties />
           <option name="timeStamp" value="13" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/adapter/CustomerListAdaptor.java</url>
-          <line>75</line>
-          <properties />
-          <option name="timeStamp" value="15" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/payment/CustomerSearchActivity.java</url>
-          <line>145</line>
+          <line>146</line>
           <properties />
           <option name="timeStamp" value="16" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/payment/CustomerSearchActivity.java</url>
+          <line>154</line>
+          <properties />
+          <option name="timeStamp" value="18" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="17" />
+      <option name="time" value="19" />
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="Remote">
+        <watch expression="object.getName()" language="JAVA" />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="debuggerHistoryManager">
+    <expressions id="watch">
+      <expression>
+        <expression-string>object.getName()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+    </expressions>
     <expressions id="evaluateExpression">
       <expression>
         <expression-string>product.getName().subSequence(0, 0)</expression-string>
@@ -2943,33 +2853,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/payment/api/ApiClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="107">
-          <caret line="42" column="25" selection-start-line="42" selection-start-column="25" selection-end-line="42" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/list_item_products.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="349">
-          <caret line="49" column="41" selection-start-line="49" selection-start-column="41" selection-end-line="49" selection-end-column="41" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-      <provider editor-type-id="android-manifest">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="104" column="62" selection-start-line="104" selection-start-column="62" selection-end-line="104" selection-end-column="62" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/payment/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
@@ -2977,23 +2860,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/adapter/ProductHistoryListAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-136">
-          <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/proguard-rules.pro">
       <provider selected="true" editor-type-id="text-editor">
         <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/adapter/HistoryPagerAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="11" column="22" selection-start-line="11" selection-start-column="22" selection-end-line="11" selection-end-column="22" />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/TransactionHistoryActivity.java">
@@ -3041,16 +2910,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/adapter/CustomerListAdaptor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="106">
-          <caret line="64" column="59" lean-forward="true" selection-start-line="64" selection-start-column="59" selection-end-line="64" selection-end-column="59" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/AppData/Local/Android/Sdk/sources/android-27/android/widget/TextView.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="53">
@@ -3069,29 +2928,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
           <caret line="19" column="35" selection-start-line="19" selection-start-column="35" selection-end-line="19" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/list_items_customers.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="23" column="20" selection-start-line="23" selection-start-column="20" selection-end-line="23" selection-end-column="20" />
-          <folding>
-            <element signature="e#1395#1408#0" expanded="true" />
-            <element signature="e#1504#1517#0" expanded="true" />
-            <element signature="e#1863#1876#0" expanded="true" />
-            <element signature="e#2452#2465#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/adapter/SelectProductAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="85" column="53" selection-start-line="85" selection-start-column="46" selection-end-line="85" selection-end-column="53" />
         </state>
       </provider>
     </entry>
@@ -3163,24 +2999,10 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/SplashActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="33" column="62" selection-start-line="33" selection-start-column="62" selection-end-line="33" selection-end-column="62" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/HomeActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
           <caret line="37" column="84" selection-start-line="37" selection-start-column="84" selection-end-line="37" selection-end-column="84" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/ProductDetailactivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="57" column="50" selection-start-line="57" selection-start-column="50" selection-end-line="57" selection-end-column="50" />
         </state>
       </provider>
     </entry>
@@ -3199,19 +3021,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
           <caret line="23" column="35" selection-start-line="23" selection-start-column="21" selection-end-line="23" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_customer_search.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="4" lean-forward="true" selection-start-line="2" selection-start-column="4" selection-end-line="2" selection-end-column="55" />
-          <folding>
-            <element signature="e#2681#2703#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3242,13 +3051,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/utility/KeyValue.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="18" column="36" selection-start-line="18" selection-start-column="31" selection-end-line="18" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/payment/SelectProductActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="142">
@@ -3260,58 +3062,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
           <caret line="67" column="35" selection-start-line="67" selection-start-column="23" selection-end-line="67" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/payment/CustomerSearchActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="259">
-          <caret line="99" column="82" selection-start-line="99" selection-start-column="82" selection-end-line="99" selection-end-column="82" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/payment/ViewCustomerDetailActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="86">
-          <caret line="19" column="42" selection-start-line="19" selection-start-column="42" selection-end-line="19" selection-end-column="42" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1741#1891#0" expanded="true" />
-            <element signature="e#1890#1891#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_view_customer.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="263">
-          <caret line="182" column="31" selection-start-line="182" selection-start-column="31" selection-end-line="182" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/payment/AddNewCustomerActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="36" column="46" selection-start-line="36" selection-start-column="46" selection-end-line="36" selection-end-column="46" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_add_new_customer.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="78" column="51" selection-start-line="78" selection-start-column="51" selection-end-line="78" selection-end-column="51" />
-          <folding>
-            <element signature="e#3517#3543#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3343,13 +3093,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/utility/Constants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="51" selection-start-line="15" selection-start-column="51" selection-end-line="15" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/styles.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
@@ -3357,17 +3100,185 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="49" selection-start-line="11" selection-start-column="49" selection-end-line="11" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="201">
-          <caret line="29" column="1" lean-forward="true" selection-start-line="29" selection-start-column="1" selection-end-line="29" selection-end-column="1" />
+          <caret line="29" column="1" selection-start-line="29" selection-start-column="1" selection-end-line="29" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/utility/KeyValue.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="262">
+          <caret line="22" column="45" selection-start-line="22" selection-start-column="45" selection-end-line="22" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/utility/Constants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/UserProfileActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="188">
+          <caret line="110" column="62" selection-start-line="109" selection-start-column="6" selection-end-line="110" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/list_item_products.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="26" column="11" selection-start-line="26" selection-start-column="11" selection-end-line="56" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/adapter/SelectProductAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="310">
+          <caret line="103" column="5" selection-start-line="103" selection-start-column="5" selection-end-line="103" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/list_items_customers.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="127">
+          <caret line="31" column="70" selection-start-line="31" selection-start-column="58" selection-end-line="31" selection-end-column="70" />
+          <folding>
+            <element signature="e#2998#3011#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="255" column="34" selection-start-line="255" selection-start-column="18" selection-end-line="255" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/adapter/HistoryPagerAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-234">
+          <caret line="11" column="22" selection-start-line="11" selection-start-column="22" selection-end-line="11" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/adapter/ProductHistoryListAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/ProductDetailactivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="143">
+          <caret line="143" column="7" lean-forward="true" selection-start-line="143" selection-start-column="7" selection-end-line="143" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/adapter/ProductListAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="132" column="4" selection-start-line="132" selection-start-column="4" selection-end-line="135" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_customer_search.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="365">
+          <caret line="32" column="32" selection-start-line="32" selection-start-column="32" selection-end-line="32" selection-end-column="32" />
+          <folding>
+            <element signature="e#1204#1217#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/activity/SplashActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="265">
+          <caret line="38" column="80" selection-start-line="38" selection-start-column="80" selection-end-line="38" selection-end-column="80" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/payment/ViewCustomerDetailActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="21" column="47" selection-start-line="21" selection-start-column="47" selection-end-line="21" selection-end-column="47" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_add_new_customer.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="263">
+          <caret line="24" column="35" selection-start-line="24" selection-start-column="35" selection-end-line="24" selection-end-column="35" />
+          <folding>
+            <element signature="e#956#969#0" expanded="true" />
+            <element signature="e#1722#1735#0" expanded="true" />
+            <element signature="e#2367#2380#0" expanded="true" />
+            <element signature="e#2978#2991#0" expanded="true" />
+            <element signature="e#3490#3516#0" expanded="true" />
+            <element signature="e#3578#3591#0" expanded="true" />
+            <element signature="e#4181#4194#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_view_customer.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="176" column="47" lean-forward="true" selection-start-line="176" selection-start-column="47" selection-end-line="176" selection-end-column="47" />
+          <folding>
+            <element signature="e#1462#1475#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/payment/AddNewCustomerActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="37" column="52" selection-start-line="37" selection-start-column="52" selection-end-line="37" selection-end-column="52" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/adapter/CustomerListAdaptor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="401">
+          <caret line="81" selection-start-line="81" selection-end-line="81" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vaibhavchahal93788/myapplication/billdesk/payment/CustomerSearchActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="166" column="28" selection-start-line="166" selection-start-column="28" selection-end-line="166" selection-end-column="28" />
         </state>
       </provider>
     </entry>
