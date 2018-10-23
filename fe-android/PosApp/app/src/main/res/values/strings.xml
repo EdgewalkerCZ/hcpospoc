@@ -331,4 +331,8 @@ in the hands of those who demand more</string>
 
     <string name="weight">Weight*</string>
 
+    <!--New Added String-->
+    <string name="payment_mode_heading">Payment Mode</string>
+    <string name="text_billing_estimated_price"><b>%1$d</b> items\n<b>\u20B9 %2$d</b>\nIncl of all Taxes</string>
+    <string name="text_email">Email</string>
 </resources>

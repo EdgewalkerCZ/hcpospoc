@@ -77,5 +77,28 @@ public class ProductListModel implements Serializable {
     public String getFinalPrice() {
         return finalPrice;
     }
-    
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public void setTaxPercentage(String taxPercentage) {
+        this.taxPercentage = taxPercentage;
+    }
+
+    public void setFinalPrice(String finalPrice) {
+        this.finalPrice = finalPrice;
+    }
 }

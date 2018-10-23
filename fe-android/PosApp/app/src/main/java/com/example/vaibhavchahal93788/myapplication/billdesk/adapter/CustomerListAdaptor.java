@@ -1,6 +1,8 @@
 package com.example.vaibhavchahal93788.myapplication.billdesk.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -13,6 +15,7 @@ import com.example.vaibhavchahal93788.myapplication.R;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.JsonCustomer;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.JsonCustomerSet;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductListModel;
+import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Utility;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +43,7 @@ public class CustomerListAdaptor extends
         // Todo Butterknife bindings
         TextView mCustomerName,mCustomeremail,mCustomerphone,mCustomerNameSymbol;
         ImageView mCustomerImage;
+        CardView mCustomerNameHeader;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -48,6 +52,7 @@ public class CustomerListAdaptor extends
             mCustomerphone=itemView.findViewById(R.id.customer_phone_number);
             mCustomerNameSymbol=itemView.findViewById(R.id.txt_product_symbol);
             mCustomerImage=itemView.findViewById(R.id.customer_image);
+            mCustomerNameHeader=itemView.findViewById(R.id.customer_image_layout);
 //            ButterKnife.bind(this, itemView);
 
         }
@@ -97,6 +102,7 @@ public class CustomerListAdaptor extends
             if(!TextUtils.isEmpty(item.getName())) {
                 String initial = item.getName().subSequence(0, 1).toString().toUpperCase();
                 holder.mCustomerNameSymbol.setText(initial);
+                holder.mCustomerNameHeader.setCardBackgroundColor(Color.parseColor(Utility.getColorForIndex(position)));
             }
         } else {
             //ToDo: set image from web url

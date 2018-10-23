@@ -85,4 +85,6 @@
     <dimen name="margin_left">20dp</dimen>
 
     <dimen name="margin_right">20dp</dimen>
+    //
+    <dimen name="textsize_medium_billing">13sp</dimen>
 </resources>
