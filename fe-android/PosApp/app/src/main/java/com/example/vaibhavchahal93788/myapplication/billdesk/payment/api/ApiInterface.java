@@ -27,6 +27,9 @@ public interface ApiInterface {
     @POST("mobiles")
     Call<JsonObject> getProductListByCategory(@Body SearchProductRequestModel searchProductRequestModel);
 
+    @POST("brand")
+    Call<JsonObject> getProductByBrand(@Body SearchProductRequestModel searchProductRequestModel);
+
     // list all customers
 
     @GET("customer")

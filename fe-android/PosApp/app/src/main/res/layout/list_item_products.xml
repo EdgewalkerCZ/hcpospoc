@@ -12,15 +12,17 @@
         card_view:cardBackgroundColor="#ffffff"
         card_view:cardCornerRadius="8dp"
         card_view:cardElevation="4dp"
-        card_view:cardUseCompatPadding="true"
-        card_view:contentPaddingBottom="10dp"
-        card_view:contentPaddingLeft="8dp"
-        card_view:contentPaddingRight="8dp"
-        card_view:contentPaddingTop="10dp">
+        card_view:cardUseCompatPadding="true">
         
         <LinearLayout
+            android:id="@+id/ll_main"
             android:layout_width="match_parent"
-            android:layout_height="66dp"
+            android:layout_height="wrap_content"
+            android:background="#ffffff"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 

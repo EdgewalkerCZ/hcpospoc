@@ -9,20 +9,25 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.vaibhavchahal93788.myapplication.R;
+import com.example.vaibhavchahal93788.myapplication.billdesk.activity.BillDetailActivity;
 import com.example.vaibhavchahal93788.myapplication.billdesk.adapter.SelectProductAdapter;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.AllProduct;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductListModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.SearchProductRequestModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.payment.api.ApiClient;
 import com.example.vaibhavchahal93788.myapplication.billdesk.payment.api.ApiInterface;
 import com.example.vaibhavchahal93788.myapplication.billdesk.payment.api.ApiUtils;
+import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Utility;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
@@ -33,7 +38,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import retrofit2.Call;
@@ -47,6 +51,7 @@ public class SelectProductActivity extends AppCompatActivity
     private SelectProductAdapter mAdapterSelectProduct;
     private ProgressBar progreeBar;
     private TextView txtActionBarRight;
+    private EditText etxtSearch;
     private Set<AllProduct> mDataSelected = new HashSet<>();
     private boolean isSearchingProduct;
 
@@ -65,6 +70,7 @@ public class SelectProductActivity extends AppCompatActivity
     private void init() {
         recyclerView = findViewById(R.id.recyclerView);
         progreeBar = findViewById(R.id.progress_bar);
+        etxtSearch = findViewById(R.id.etxt_search);
 
         mAdapterSelectProduct = new SelectProductAdapter(this, new ArrayList<AllProduct>(), this);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
@@ -74,6 +80,7 @@ public class SelectProductActivity extends AppCompatActivity
 
         findViewById(R.id.txt_category).setOnClickListener(this);
         findViewById(R.id.btn_continue).setOnClickListener(this);
+        findViewById(R.id.imv_search).setOnClickListener(this);
     }
 
 
@@ -96,7 +103,7 @@ public class SelectProductActivity extends AppCompatActivity
                         Set<AllProduct> set = new Gson().fromJson(jsonArray.toString(), new TypeToken<Set<AllProduct>>() {
                         }.getType());
                         if(set != null) {
-                            mAdapterSelectProduct.addData(new ArrayList<>(getDataWithSeletedItems(set, mDataSelected)));
+                            mAdapterSelectProduct.addData(new ArrayList<>(getDataWithSelectedItems(set, mDataSelected)));
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -126,23 +133,28 @@ public class SelectProductActivity extends AppCompatActivity
 
 
     @Override
+    public void onBackPressed() {
+        if(isSearchingProduct) {
+            etxtSearch.setText("");
+            fetchProductsList();
+        } else if(mDataSelected.size() > 0) {
+            if(mAdapterSelectProduct.getData() != null) {
+                for(AllProduct product : mAdapterSelectProduct.getData()) {
+                    product.setSelected(false);
+                }
+                mDataSelected.clear();
+                mAdapterSelectProduct.notifyDataSetChanged();
+            }
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
-                /*if(isSearchingProduct) {
-                    fetchProductsList();
-                } else if(mDataSelected.size() > 0) {
-                    if(mAdapterSelectProduct.getData() != null) {
-                        for(AllProduct product : mAdapterSelectProduct.getData()) {
-                            product.setSelected(false);
-                        }
-                        mDataSelected.clear();
-                        mAdapterSelectProduct.notifyDataSetChanged();
-                    }
-                } else {
-                    onBackPressed();
-                }*/
                 return true;
 
             default:
@@ -157,28 +169,19 @@ public class SelectProductActivity extends AppCompatActivity
 
         if(product.isSelected()) {
             mDataSelected.add(product);
+        } else {
+            mDataSelected.remove(product);
         }
 
         mAdapterSelectProduct.notifyDataSetChanged();
-        int count = getSelectedProductsCount();
         txtActionBarRight.setText(mDataSelected.size() + (mDataSelected.size() > 1 ? " items" : " item"));
-        if (count > 0) {
+        if (mDataSelected.size() > 0) {
             findViewById(R.id.ll_bottom_bar).setVisibility(View.VISIBLE);
         } else {
             findViewById(R.id.ll_bottom_bar).setVisibility(View.GONE);
         }
     }
 
-
-    private int getSelectedProductsCount() {
-        int count = 0;
-        if (mAdapterSelectProduct.getData() != null) {
-            for (AllProduct product : mAdapterSelectProduct.getData()) {
-                if (product.isSelected()) count++;
-            }
-        }
-        return count;
-    }
 
 
     @Override
@@ -188,18 +191,28 @@ public class SelectProductActivity extends AppCompatActivity
             switch (requestCode) {
                 case REQ_CODE_SELECT_CATEGORY:
                     //Toast.makeText(SelectProductActivity.this, data.getStringExtra("subcategory"), Toast.LENGTH_LONG).show();
-                    fetchProductByCategory(data.getStringExtra("subcategory"));
+                    fetchProductByCategory(data.getStringExtra("subcategory"), data.getStringExtra("search"));
+                    if(!TextUtils.isEmpty(data.getStringExtra("search"))) {
+                        etxtSearch.setText(data.getStringExtra("search"));
+                    }
                     break;
             }
         }
     }
 
 
-    private void fetchProductByCategory(String subCategory) {
+    private void fetchProductByCategory(String subCategory, String brand) {
         progreeBar.setVisibility(View.VISIBLE);
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
 
-        Call<JsonObject> call = apiService.getProductListByCategory(new SearchProductRequestModel("mobile"));
+        Call<JsonObject> call = null;
+
+        if(!TextUtils.isEmpty(brand)) {
+            call = apiService.getProductByBrand(new SearchProductRequestModel("samsung"));
+        } else {
+            call = apiService.getProductListByCategory(new SearchProductRequestModel("mobile"));
+        }
+
         Log.e("request", call.request().url().toString());
         call.enqueue(new Callback<JsonObject>() {
             @Override
@@ -213,7 +226,7 @@ public class SelectProductActivity extends AppCompatActivity
                         Set<AllProduct> set = new Gson().fromJson(jsonArray.toString(), new TypeToken<Set<AllProduct>>() {
                         }.getType());
                         isSearchingProduct = true;
-                        mAdapterSelectProduct.addData(new ArrayList<>(getDataWithSeletedItems(set, mDataSelected)));
+                        mAdapterSelectProduct.addData(new ArrayList<>(getDataWithSelectedItems(set, mDataSelected)));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -233,20 +246,65 @@ public class SelectProductActivity extends AppCompatActivity
         switch (v.getId()) {
             case R.id.txt_category:
                 Intent intent = new Intent(SelectProductActivity.this, SelectCategoryActivity.class);
-                intent.putExtra("item_select_count", getSelectedProductsCount());
+                intent.putExtra("item_select_count", mDataSelected.size());
                 startActivityForResult(intent, REQ_CODE_SELECT_CATEGORY);
                 break;
 
             case R.id.btn_continue:
-                //ToDo: send selected list of products to new screen.
+                if(mDataSelected.size() == 0) {
+                    Toast.makeText(SelectProductActivity.this, "Please select product", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                startActivity(getBillDetailActivityIntent());
+                break;
+
+            case R.id.imv_search:
+                if(TextUtils.isEmpty(etxtSearch.getText().toString().trim())) {
+                    Toast.makeText(SelectProductActivity.this, "Please enter search text", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                Utility.hideKeyboard(SelectProductActivity.this);
+                fetchProductByCategory(null, etxtSearch.getText().toString().trim());
                 break;
         }
     }
 
 
-    private Set<AllProduct> getDataWithSeletedItems(Set<AllProduct> setAllData, Set<AllProduct> setSelectedData) {
+    /**
+     * Method to send data to bill details activity
+     * @return
+     */
+    private Intent getBillDetailActivityIntent() {
+        ArrayList<ProductListModel> list = new ArrayList<>();
+        int totalPrice = 0;
+        int totalQuantity = mDataSelected.size();
+        for(AllProduct item : mDataSelected) {
+            ProductListModel product = new ProductListModel();
+            product.setQuantity(1);
+            product.setDescription(item.getDesc());
+            //product.setPrice(""+item.getPrice());
+            product.setFinalPrice(""+item.getPrice());
+            product.setId(""+item.getId());
+            product.setLabel(item.getName());
+            product.setTaxPercentage(item.getGstPercent());
+            list.add(product);
+
+            totalPrice += item.getPrice();
+        }
+
+        Intent intent = new Intent(SelectProductActivity.this, BillDetailActivity.class);
+        intent.putExtra("selectedItemList", list);
+        intent.putExtra("totalItems", totalQuantity);
+        intent.putExtra("totalPrice", totalPrice);
+
+        return intent;
+    }
+
+
+    private Set<AllProduct> getDataWithSelectedItems(Set<AllProduct> setAllData, Set<AllProduct> setSelectedData) {
         Set<AllProduct> set = new HashSet<>(setSelectedData);
         set.retainAll(setAllData);
+        set.addAll(setAllData);
         return set;
     }
 }
