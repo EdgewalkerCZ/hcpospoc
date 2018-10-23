@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -157,22 +158,29 @@ public class CustomerSearchActivity extends AppCompatActivity {
                 //adding the element to filtered list
                 filterdNames.add(object);
             }
+            else if(object.getPhone().toLowerCase().contains(input.toLowerCase())){
+                filterdNames.add(object);
+            }
         }
-        filterList(filterdNames);
+        JsonCustomerSet filterset=new JsonCustomerSet();
+        filterset.setCustomers(filterdNames);
+        setAdapter(filterset);
     }
-
-    public void filterList(ArrayList<JsonCustomer> filterdNames) {
-        this.filtercustomername = filterdNames;
-        customerListAdaptor.notifyDataSetChanged();
-    }
-
     private void getToolbar() {
-
         getSupportActionBar().setHomeButtonEnabled(true);
-        // getSupportActionBar().setHomeAsUpIndicator(R.drawable.rupee_icon);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        getSupportActionBar().setIcon(R.drawable.ic_icon_pos);
         getSupportActionBar().setTitle(getResources().getString(R.string.search_customer_header));
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

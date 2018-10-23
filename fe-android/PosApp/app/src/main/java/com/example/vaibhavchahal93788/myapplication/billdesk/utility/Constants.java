@@ -7,7 +7,7 @@ public class Constants {
     public static final String APIARY_BASE_URL = "https://private-83b6be-durgesh1.apiary-mock.com/";
 
     //public static final String SERVER_BASE_URL = "http://52.172.136.166:80/api/index.php/";
-    public static final String SERVER_BASE_URL = "https://private-30489e-hcinpospoc.apiary-mock.com/";
+    public static final String SERVER_BASE_URL = "https://private-b2ba4a-hcinpospoc.apiary-mock.com/";
 
     public static final String API_KEY = "6QIh6Pm2m1L6TV7l6rY9RXxZmd69nKvs";
     public static final String DELETE_FLAG = "deleteflag";
@@ -19,3 +19,6 @@ public class Constants {
     public static final String DOMAIN="https://private-b2ba4a-hcinpospoc.apiary-mock.com/";
 
 }
+
+//https://private-b2ba4a-hcinpospoc.apiary-mock.com/
+//https://private-14bc25-hcinpospoc.apiary-mock.com
