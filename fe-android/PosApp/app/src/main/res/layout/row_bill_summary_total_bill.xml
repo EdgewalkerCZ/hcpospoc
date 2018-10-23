@@ -7,29 +7,62 @@
     android:paddingLeft="12dp"
     android:paddingRight="14dp">
 
-    <View
-        android:id="@+id/upper_divider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_alignParentTop="true"
-        android:background="@color/black_color" />
 
-    <TextView
-        android:id="@+id/product_name"
+
+    <RelativeLayout
+        android:id="@+id/discount_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="5dp"
-        android:text="@string/dummy_text_coffee"
-        android:textColor="@color/black_color"
-        android:textSize="16dp" />
+        >
 
-    <TextView
-        android:id="@+id/product_price"
+        <TextView
+            android:id="@+id/discount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:text="Discount"
+            android:textColor="@color/black_color"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/discount_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:paddingTop="5dp"
+            android:text="180"
+            android:textColor="@color/black_color"
+            android:textSize="16dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_below="@+id/discount_layout"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:paddingTop="5dp"
-        android:text="80"
-        android:textColor="@color/black_color"
-        android:textSize="16dp" />
+        android:layout_height="wrap_content">
+        <View
+            android:id="@+id/upper_divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentTop="true"
+            android:background="@color/black_color" />
+
+        <TextView
+            android:id="@+id/product_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:text="@string/dummy_text_coffee"
+            android:textColor="@color/black_color"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/product_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:paddingTop="5dp"
+            android:text="80"
+            android:textColor="@color/black_color"
+            android:textSize="16dp" />
+    </RelativeLayout>
 </RelativeLayout>

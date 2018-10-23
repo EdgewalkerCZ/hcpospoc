@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/rl_main"
     android:layout_width="match_parent"
+    android:background="@color/white_color"
     android:layout_height="match_parent">
 
     <android.support.v7.widget.RecyclerView
@@ -9,8 +10,51 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/rl_bottom"
+        android:layout_marginLeft="@dimen/dp15"
+        android:layout_marginRight="@dimen/dp15"
         android:layout_alignParentTop="true"
-        android:background="@color/white_color" />
+
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="0dp"
+        />
+
+    <LinearLayout
+        android:id="@+id/viewemaillayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/rl_bottom"
+        android:layout_marginTop="10dp"
+        android:paddingBottom="10dp"
+        android:layout_marginLeft="@dimen/dp15"
+        android:layout_marginRight="@dimen/dp15"
+        android:weightSum="2">
+
+
+        <Button
+            android:id="@+id/btn_view_bill"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/red_stroke_background"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="@string/text_view_bill"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16dp" />
+
+        <Button
+            android:id="@+id/btn_email"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/red_stroke_background"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="@string/text_email"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16dp" />
+    </LinearLayout>
 
     <RelativeLayout
         android:id="@+id/rl_bottom"
@@ -28,28 +72,44 @@
             android:background="@drawable/add_product_background"
             android:text="@string/text_connect_printer"
             android:textColor="@color/white_color"
-            android:visibility="gone"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:visibility="gone" />
+
 
         <LinearLayout
             android:id="@+id/bottom_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/btn_find_printer"
-            android:layout_marginTop="8dp"
+            android:layout_below="@+id/viewemaillayout"
+            android:layout_marginTop="2dp"
             android:weightSum="2">
 
-            <Button
-                android:id="@+id/btn_view_bill"
-                android:layout_width="0dp"
+
+            <TextView
+                android:id="@+id/tv_billing_est_price"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:layout_weight="1"
-                android:background="@drawable/red_stroke_background"
                 android:paddingBottom="10dp"
-                android:paddingTop="10dp"
-                android:text="@string/text_view_bill"
-                android:textColor="@color/colorPrimary"
+                android:text="@string/text_billing_estimated_price"
+                android:textColor="@color/black_color"
                 android:textSize="16dp" />
+
+            <!--<Button-->
+            <!--android:id="@+id/btn_view_bill"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center_vertical"-->
+            <!--android:layout_marginLeft="5dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:background="@drawable/print_bill_background"-->
+            <!--android:paddingTop="10dp"-->
+            <!--android:paddingBottom="10dp"-->
+            <!--android:text="@string/text_view_bill"-->
+            <!--android:textColor="@color/white_color"-->
+            <!--android:textSize="16dp" />-->
+
 
             <Button
                 android:id="@+id/btn_print_bill"
@@ -58,11 +118,13 @@
                 android:layout_marginLeft="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/print_bill_background"
-                android:paddingBottom="10dp"
                 android:paddingTop="10dp"
+                android:layout_gravity="center_vertical"
+                android:paddingBottom="10dp"
                 android:text="@string/text_print_bill"
                 android:textColor="@color/white_color"
-                android:textSize="16dp" />
+                android:textSize="16dp"
+                android:visibility="visible" />
         </LinearLayout>
     </RelativeLayout>
 </RelativeLayout>

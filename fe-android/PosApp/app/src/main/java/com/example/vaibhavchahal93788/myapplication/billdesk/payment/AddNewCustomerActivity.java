@@ -1,6 +1,7 @@
 package com.example.vaibhavchahal93788.myapplication.billdesk.payment;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
@@ -17,6 +18,7 @@ import com.example.vaibhavchahal93788.myapplication.R;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.JsonCustomerSet;
 import com.example.vaibhavchahal93788.myapplication.billdesk.payment.api.ApiClient;
 import com.example.vaibhavchahal93788.myapplication.billdesk.payment.api.ApiInterface;
+import com.example.vaibhavchahal93788.myapplication.billdesk.utility.KeyValue;
 import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Validation;
 
 import org.json.JSONArray;
@@ -95,13 +97,13 @@ public class AddNewCustomerActivity extends AppCompatActivity {
         public void afterTextChanged(Editable editable) {
             switch (view.getId()) {
                 case R.id.add_customer_name:
-                   Validation.isTextEmpty(mCustomerNameEDT.getText().toString());
+                    Validation.isValidName(mCustomerNameEDT.getText().toString());
                     break;
                 case R.id.add_customer_email:
                     Validation.isValidEmail(mCustomeremailEDT.getText().toString());
                     break;
                 case R.id.add_customer_phone:
-                   Validation.isValidMobile(mCustomerphoneEDT.getText().toString()) ;
+                    Validation.isValidMobile(mCustomerphoneEDT.getText().toString()) ;
                     break;
             }
         }
@@ -129,24 +131,24 @@ public class AddNewCustomerActivity extends AppCompatActivity {
         mCustomerdob=mCustomerdobEDT.getText().toString();
         mCustomerNote=mCustomerNoteEDT.getText().toString();
 
-         if(!Validation.isValidPassword(mCustomerName)){
-             mCustomerNameEDT.setError("Please enter the customer name");
-         }
-         else if(!Validation.isValidEmail(mCustomeremail)){
-             mCustomeremailEDT.setError("Please enter the Valid Email");
+        if(!Validation.isValidName(mCustomerName)){
+            mCustomerNameEDT.setError("Please enter the customer name");
+        }
+        else if(!Validation.isValidEmail(mCustomeremail)){
+            mCustomeremailEDT.setError("Please enter the Valid Email");
         }
         else if(!Validation.isValidMobile(mCustomerphone)){
-             mCustomerphoneEDT.setError("Please enter the Valid Phone Number");
+            mCustomerphoneEDT.setError("Please enter the Valid Phone Number");
         }
         else{
-             try {
-                 submitcustomerserver();
-             }catch (Exception e){
-                 e.printStackTrace();
-             }
+            try {
+                submitcustomerserver();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
 
 
-         }
+        }
 
 
 
@@ -168,19 +170,43 @@ public class AddNewCustomerActivity extends AppCompatActivity {
 
         ApiInterface apiService =
                 ApiClient.getClient().create(ApiInterface.class);
+        Intent in=new Intent(AddNewCustomerActivity.this,ViewCustomerDetailActivity.class);
+        in.putExtra(KeyValue.NAME,mCustomerName);
+        in.putExtra(KeyValue.EMAIL,mCustomeremail);
+        in.putExtra(KeyValue.PHONE,mCustomerphone);
+        in.putExtra(KeyValue.ADDRESS,mCustomeraddress);
+        in.putExtra(KeyValue.DOB,mCustomerdob);
+        in.putExtra(KeyValue.NOTE,mCustomerNote);
+        startActivity(in);
 
-        Call<JSONObject> call = apiService.addnewcustomer(baseArray.toString());
-        call.enqueue(new Callback<JSONObject>() {
-            @Override
-            public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {
-                Log.e("Response",response.toString());
-
-            }
-
-            @Override
-            public void onFailure(Call<JSONObject> call, Throwable t) {
-
-            }
-        });
+//        Call<JSONObject> call = apiService.addnewcustomer(baseArray.toString());
+//        call.enqueue(new Callback<JSONObject>() {
+//            @Override
+//            public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {
+//                Log.e("Response",response.toString());
+//
+//                Intent in=new Intent(AddNewCustomerActivity.this,ViewCustomerDetailActivity.class);
+//                in.putExtra(KeyValue.NAME,mCustomerName);
+//                in.putExtra(KeyValue.EMAIL,mCustomeremail);
+//                in.putExtra(KeyValue.PHONE,mCustomerphone);
+//                in.putExtra(KeyValue.ADDRESS,mCustomeraddress);
+//                in.putExtra(KeyValue.DOB,mCustomerdob);
+//                in.putExtra(KeyValue.NOTE,mCustomerNote);
+//                startActivity(in);
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<JSONObject> call, Throwable t) {
+//                Intent in=new Intent(AddNewCustomerActivity.this,ViewCustomerDetailActivity.class);
+//                in.putExtra(KeyValue.NAME,mCustomerName);
+//                in.putExtra(KeyValue.EMAIL,mCustomeremail);
+//                in.putExtra(KeyValue.PHONE,mCustomerphone);
+//                in.putExtra(KeyValue.ADDRESS,mCustomeraddress);
+//                in.putExtra(KeyValue.DOB,mCustomerdob);
+//                in.putExtra(KeyValue.NOTE,mCustomerNote);
+//                startActivity(in);
+//            }
+//        });
     }
 }
