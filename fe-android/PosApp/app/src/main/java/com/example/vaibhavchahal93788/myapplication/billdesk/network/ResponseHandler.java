@@ -38,6 +38,7 @@ public class ResponseHandler<T> implements Callback<T> {
 
     @Override
     public void onFailure(Call<T> call, Throwable t) {
+        t.printStackTrace();
         if (t instanceof IOException) {
             iApiRequestComplete.onFailure("Check Your Internet Connection")
             ;
