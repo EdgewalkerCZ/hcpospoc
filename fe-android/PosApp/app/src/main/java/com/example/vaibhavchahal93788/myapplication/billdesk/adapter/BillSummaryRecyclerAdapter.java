@@ -19,6 +19,7 @@ import com.example.vaibhavchahal93788.myapplication.billdesk.model.PaymentMode;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.SelectedProduct;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.SponceredModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.TotalBillDetail;
+import com.example.vaibhavchahal93788.myapplication.billdesk.utility.KeyValue;
 
 
 import java.text.SimpleDateFormat;
@@ -74,12 +75,15 @@ public class BillSummaryRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         switch (getItemViewType(position)) {
+
             case TYPE_ITEM_SHOP_DETAIL:
                 ViewHolderItem1 holderSeletedItem = (ViewHolderItem1) holder;
                 String uniqueID = UUID.randomUUID().toString();
                 holderSeletedItem.tvInVoiceNumber.setText("Invoice No - " + uniqueID.substring(0, 11));
                 String currentDate = new SimpleDateFormat("dd MMM, yyyy HH:mm", Locale.getDefault()).format(new Date());
                 holderSeletedItem.tvDate.setText("Date -" + currentDate);
+                holderSeletedItem.tv_customer_name.setText(KeyValue.getString(context,KeyValue.NAME));
+                holderSeletedItem.tv_customer_email.setText(KeyValue.getString(context,KeyValue.PHONE)+"\n Email : "+KeyValue.getString(context,KeyValue.EMAIL));
                 break;
             case TYPE_ITEM_BILL_PRODUCT:
                 ViewHolderBillProduct holderBillProduct = (ViewHolderBillProduct) holder;
@@ -164,11 +168,14 @@ public class BillSummaryRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
     public class ViewHolderItem1 extends RecyclerView.ViewHolder {
 
         public TextView tvDate, tvInVoiceNumber;
+        public TextView tv_customer_name, tv_customer_email;
 
         public ViewHolderItem1(View itemView) {
             super(itemView);
             tvDate = (TextView) itemView.findViewById(R.id.tv_date);
             tvInVoiceNumber = (TextView) itemView.findViewById(R.id.tv_invoice_number);
+            tv_customer_name =  itemView.findViewById(R.id.tv_customer_name);
+            tv_customer_email =  itemView.findViewById(R.id.tv_phone);
         }
     }
 

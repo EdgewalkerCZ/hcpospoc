@@ -65,13 +65,33 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/tv_customer_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_supply_heading"
+            android:layout_marginTop="20dp"
+            android:text="Name :Ashish Singh"
+            android:layout_alignParentLeft="true"
+            android:textColor="@color/black_color"
+            android:textSize="16dp" />
+        <TextView
             android:id="@+id/tv_invoice_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_supply_heading"
             android:layout_marginTop="20dp"
             android:text="Invoice No - 01df0339f"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/black_color"
+            android:textSize="16dp" />
 
+        <TextView
+            android:id="@+id/tv_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/tv_invoice_number"
+            android:text="Date - 29 Aug, 2018 20:17"
             android:textColor="@color/black_color"
             android:textSize="16dp" />
 
@@ -79,6 +99,7 @@
             android:id="@+id/tv_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
             android:layout_below="@+id/tv_invoice_number"
             android:text="Date - 29 Aug, 2018 20:17"
             android:textColor="@color/black_color"
@@ -90,7 +111,7 @@
             android:layout_height="1dp"
             android:layout_below="@+id/tv_date"
             android:layout_marginBottom="5dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="30dp"
             android:background="@color/black_color" />
 
         <TextView
