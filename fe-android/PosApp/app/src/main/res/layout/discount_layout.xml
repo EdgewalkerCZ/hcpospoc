@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white_color"
+    android:paddingBottom="10dp"
+    android:paddingLeft="12dp"
+    android:paddingRight="14dp"
+    android:id="@+id/x1"
+    android:paddingTop="10dp">
+    <LinearLayout
+        android:id="@+id/discountid"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        >
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight=".5"
+            android:textColor="@color/color_product_name"
+            android:textSize="@dimen/textsize_normal"
+            android:text="Discount"/>
+        <EditText
+            android:id="@+id/product_qty"
+            android:layout_width="fill_parent"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:layout_below="@id/imgIs"
+            android:layout_marginTop="20px"
+            android:background="@drawable/rectangle"
+            android:drawableLeft="@drawable/rupee_icon"
+            android:drawablePadding="-6dp"
+
+            android:inputType="number"
+            android:paddingLeft="12dp"
+
+            android:textColor="#000000" />
+
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view_id"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/discountid"
+        android:layout_marginTop="5dp"
+        android:background="@color/color_D0D0D0" />
+
+
+
+
+
+</RelativeLayout>

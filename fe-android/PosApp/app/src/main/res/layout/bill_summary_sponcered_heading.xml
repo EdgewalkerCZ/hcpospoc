@@ -14,7 +14,7 @@
         android:layout_centerInParent="true"
         android:gravity="center_horizontal"
         android:text="@string/text_powered_by_home_credit_india"
-        android:textColor="@color/color_DA1A32"
+        android:textColor="@color/view_power_by_color"
         android:textSize="16dp" />
 
 </RelativeLayout>

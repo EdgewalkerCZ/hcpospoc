@@ -5,6 +5,7 @@
     android:background="#FFFFFF"
     android:paddingBottom="8dp"
     android:paddingLeft="12dp"
+    android:visibility="visible"
     android:paddingTop="8dp">
 
     <TextView

@@ -31,5 +31,6 @@
     <color name="color_verified">#33a470</color>
     <color name="add_product">#f1efef</color>
     <color name="view_color">#afaeae</color>
+    <color name="view_power_by_color">#787878</color>
 
 </resources>

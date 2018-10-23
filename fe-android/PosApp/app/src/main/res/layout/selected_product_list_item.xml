@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white_color">
+    >
 
     <RelativeLayout
         android:id="@+id/rl_top_view"
@@ -17,16 +17,18 @@
             android:id="@+id/rl_product_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true">
+
+            >
 
             <TextView
                 android:id="@+id/tv_product_name"
-                android:layout_width="100dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLength="25"
                 android:textColor="@color/black_color"
-                android:textSize="16dp"
+                android:text="Oppo F9|white"
+                android:textSize="@dimen/textsize_normal"
                 android:textStyle="bold" />
 
             <TextView
@@ -35,9 +37,34 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_product_name"
                 android:text="100 items"
+                android:layout_marginTop="20px"
+                android:textSize="@dimen/textsize_medium_billing"
+                android:textColor="@color/black_color" />
+            <TextView
+                android:id="@+id/tv_base_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_quantity_available"
+                android:textSize="@dimen/textsize_medium_billing"
+                android:ellipsize="end"
+                android:layout_marginTop="20px"
+                android:text="24000(Incl. GST)"
+
                 android:textColor="@color/black_color" />
         </RelativeLayout>
+<LinearLayout
+    android:id="@+id/imgIs"
+    android:layout_width="wrap_content"
+    android:layout_alignParentRight="true"
+    android:orientation="vertical"
+    android:gravity="center_vertical"
 
+    android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/imgbtn"
+            android:layout_width="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_height="wrap_content">
         <ImageButton
             android:id="@+id/btn_add"
             android:layout_width="45dp"
@@ -67,28 +94,51 @@
             android:layout_toLeftOf="@+id/btn_count"
             android:background="@drawable/left_rectangle"
             android:src="@drawable/ic_remove_black_24dp" />
+        </LinearLayout>
+
+    <!--<EditText-->
+        <!--android:id="@+id/product_price"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="40dp"-->
+        <!--android:layout_below="@id/imgIs"-->
+
+        <!--android:layout_marginTop="20px"-->
+        <!--android:background="@drawable/rectangle"-->
+        <!--android:drawableLeft="@drawable/rupee_icon"-->
+        <!--android:drawablePadding="-6dp"-->
+
+        <!--android:inputType="number"-->
+        <!--android:paddingLeft="12dp"-->
+
+        <!--android:textColor="#000000" />-->
+    <TextView
+        android:id="@+id/product_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imgIs"
+
+       android:layout_marginTop="40px"
+
+        android:drawableLeft="@drawable/rupee_icon"
+        android:text="2464"
+
+        android:paddingLeft="12dp"
+        android:textSize="@dimen/textsize_large"
+        android:textStyle="bold"
+        android:textColor="#000000" />
+</LinearLayout>
 
 
-        <EditText
-            android:id="@+id/product_price"
-            android:layout_width="70dp"
-            android:layout_height="40dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="15dp"
-            android:background="@drawable/rectangle"
-            android:drawableLeft="@drawable/rupee_icon"
-            android:drawablePadding="-6dp"
-            android:gravity="center"
-            android:inputType="number"
-            android:paddingLeft="12dp"
-            android:textColor="#000000" />
 
     </RelativeLayout>
 
     <View
+        android:id="@+id/view_id"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@+id/rl_top_view"
         android:background="@color/color_E0E0E0" />
-</RelativeLayout>
+
+
+
+    </RelativeLayout>
