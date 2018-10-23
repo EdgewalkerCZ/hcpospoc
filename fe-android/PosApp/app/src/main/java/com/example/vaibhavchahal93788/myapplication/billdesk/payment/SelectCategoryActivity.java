@@ -9,11 +9,14 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.vaibhavchahal93788.myapplication.R;
 import com.example.vaibhavchahal93788.myapplication.billdesk.adapter.SelectCategoryAdapter;
@@ -21,6 +24,7 @@ import com.example.vaibhavchahal93788.myapplication.billdesk.model.AllCategory;
 import com.example.vaibhavchahal93788.myapplication.billdesk.payment.api.ApiClient;
 import com.example.vaibhavchahal93788.myapplication.billdesk.payment.api.ApiInterface;
 import com.example.vaibhavchahal93788.myapplication.billdesk.payment.api.ApiUtils;
+import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Utility;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
@@ -40,6 +44,7 @@ public class SelectCategoryActivity extends AppCompatActivity implements SelectC
     private RecyclerView recyclerView;
     private SelectCategoryAdapter mAdapterSelectCategory;
     private ProgressBar progreeBar;
+    private EditText etxtSearch;
     private TextView txtActionBarRight;
     private int itemSelectCount;
 
@@ -58,6 +63,7 @@ public class SelectCategoryActivity extends AppCompatActivity implements SelectC
 
         recyclerView = findViewById(R.id.recyclerView);
         progreeBar = findViewById(R.id.progress_bar);
+        etxtSearch = findViewById(R.id.etxt_search);
 
         mAdapterSelectCategory = new SelectCategoryAdapter(this, new ArrayList<AllCategory>(), this);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
@@ -66,6 +72,21 @@ public class SelectCategoryActivity extends AppCompatActivity implements SelectC
         recyclerView.setAdapter(mAdapterSelectCategory);
 
         txtActionBarRight.setText(itemSelectCount + (itemSelectCount > 1 ? " items" : " item"));
+
+        findViewById(R.id.imv_search).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(TextUtils.isEmpty(etxtSearch.getText().toString().trim())) {
+                    Toast.makeText(SelectCategoryActivity.this, "Please enter search text", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                Utility.hideKeyboard(SelectCategoryActivity.this);
+                Intent intent = new Intent();
+                intent.putExtra("search", etxtSearch.getText().toString().trim());
+                setResult(Activity.RESULT_OK, intent);
+                finish();
+            }
+        });
     }
 
 

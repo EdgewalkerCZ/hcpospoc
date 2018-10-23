@@ -94,11 +94,13 @@ public class Utility {
 
 
     public static String getColorForIndex(int position) {
-        String[] arrColors = new String[] {"#FFE4C4",
-                "#0000FF",
+        String[] arrColors = new String[] {
+                "#65afcb",
+                "#33a470",
                 "#A52A2A",
                 "#FF7F50",
-                "#ddb24b"};
+                "#ddb24b"
+        };
         return arrColors[position%arrColors.length];
     }
 
