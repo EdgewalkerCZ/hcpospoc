@@ -282,7 +282,7 @@ public class SelectProductActivity extends AppCompatActivity
             ProductListModel product = new ProductListModel();
             product.setQuantity(1);
             product.setDescription(item.getDesc());
-            //product.setPrice(""+item.getPrice());
+            product.setPrice(""+item.getPrice());
             product.setFinalPrice(""+item.getPrice());
             product.setId(""+item.getId());
             product.setLabel(item.getName());

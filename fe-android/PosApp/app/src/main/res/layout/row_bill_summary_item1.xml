@@ -14,6 +14,7 @@
             android:id="@+id/tv_invoice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:text="@string/text_invoice_3_inch"
             android:textSize="16dp" />
 
@@ -23,6 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_invoice"
             android:text="@string/text_print_preview"
+            android:visibility="gone"
             android:textColor="@color/black_color"
             android:textSize="18dp" />
 
@@ -30,9 +32,9 @@
             android:id="@+id/tv_merchant_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/print_preview"
+            android:layout_alignTop="@+id/tv_merchant_name"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="0dp"
             android:text="Home Credit Store"
             android:textColor="@color/black_color"
             android:textSize="16dp"
@@ -69,6 +71,7 @@
             android:layout_below="@+id/tv_supply_heading"
             android:layout_marginTop="20dp"
             android:text="Invoice No - 01df0339f"
+
             android:textColor="@color/black_color"
             android:textSize="16dp" />
 
