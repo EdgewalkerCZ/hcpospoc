@@ -28,17 +28,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import com.example.vaibhavchahal93788.myapplication.R;
 import com.example.vaibhavchahal93788.myapplication.billdesk.adapter.BillDetailRecyclerAdapter;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.BillProduct;
-import com.example.vaibhavchahal93788.myapplication.billdesk.model.HeadingBillSummary;
-import com.example.vaibhavchahal93788.myapplication.billdesk.model.HeadingPaymentMode;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.DiscountModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.PaymentMode;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductListModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.SelectedProduct;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.TotalBillDetail;
-import com.example.vaibhavchahal93788.myapplication.billdesk.model.DiscountModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.printing.DeviceListActivity;
 import com.example.vaibhavchahal93788.myapplication.billdesk.printing.PrinterCommands;
 import com.example.vaibhavchahal93788.myapplication.billdesk.printing.Utils;
@@ -53,7 +50,8 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.UUID;
 
-import static com.example.vaibhavchahal93788.myapplication.billdesk.model.discountModel.getInstance;
+import static com.example.vaibhavchahal93788.myapplication.billdesk.model.DiscountModel.getInstance;
+
 
 public class BillDetailActivity extends AppCompatActivity implements BillDetailRecyclerAdapter.OnDataChangeListener, View.OnClickListener, Runnable {
     private List<Object> list = new ArrayList();
@@ -63,7 +61,7 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
     private Button btnConnectPrinter, btnPrint, btnViewBill,btnEmail;
     private TextView textBillingPrice;
 
-    private discountModel discountModelIs=getInstance();
+    private DiscountModel discountModelIs= getInstance();
 
 
     protected static final String TAG = "TAG";
