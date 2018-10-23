@@ -12,13 +12,14 @@ import android.widget.TextView;
 import com.example.vaibhavchahal93788.myapplication.R;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.BillProduct;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.BillSummaryHeaderModel;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.DiscountModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.HeadingBillSummary;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.HeadingPaymentMode;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.PaymentMode;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.SelectedProduct;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.SponceredModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.TotalBillDetail;
-import com.example.vaibhavchahal93788.myapplication.billdesk.model.discountModel;
+
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -26,7 +27,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
-import static com.example.vaibhavchahal93788.myapplication.billdesk.model.discountModel.getInstance;
+
 
 public class BillSummaryRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -102,7 +103,7 @@ public class BillSummaryRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
             case TYPE_ITEM_TOTAL_DETAIL:
                 ViewHolderTotalBill holderTotalBill = (ViewHolderTotalBill) holder;
                 TotalBillDetail totalBillDetail = (TotalBillDetail) itemsList.get(position);
-                discountModel discountModelIs=getInstance();
+                DiscountModel discountModelIs=DiscountModel.getInstance();
                 holderTotalBill.name.setText(totalBillDetail.getTitle());
                 if (totalBillDetail.getTitle().equalsIgnoreCase("Cash")) {
                     holderTotalBill.divider.setVisibility(View.GONE);

@@ -30,6 +30,7 @@
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
                 android:background="#00000000"
+                android:textSize="15sp"
                 android:layout_alignParentLeft="true"
                 android:layout_toLeftOf="@+id/imv_search"
                 android:hint="@string/text_search_products"/>
