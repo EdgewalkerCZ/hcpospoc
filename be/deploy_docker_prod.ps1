@@ -1,6 +1,9 @@
 Write-Host "Starting docker-machine for good measure"
 docker-machine start
 
+Write-Host "Login to acr"
+az acr login --name hcpospoc
+
 Write-Host "Pushing the docker image to Azure"
 docker push hcpospoc.azurecr.io/hcpospoc:test
 

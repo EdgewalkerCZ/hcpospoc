@@ -3,7 +3,7 @@ for i in 10; do
 done
 echo "#####################"
 echo "DOCKER IS RUNNING ON:"
-echo `docker-machinedocker ip`
+echo `docker-machine ip`
 echo "#####################"
 for i in 10; do
     echo "###"
