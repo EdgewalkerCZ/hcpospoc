@@ -19,3 +19,6 @@ public class Constants {
     public static final String DOMAIN="https://private-b2ba4a-hcinpospoc.apiary-mock.com/";
 
 }
+
+//https://private-b2ba4a-hcinpospoc.apiary-mock.com/
+//https://private-14bc25-hcinpospoc.apiary-mock.com
