@@ -47,10 +47,6 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
 
-
-
-
-
         <activity
             android:name=".billdesk.activity.StockDetailActivity"
             android:screenOrientation="portrait"
@@ -102,9 +98,16 @@
             android:name=".billdesk.payment.SelectProductActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:screenOrientation="portrait"/>
+
+
+        <activity
+            android:name=".billdesk.payment.SelectCategoryActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity android:name=".billdesk.payment.CustomerSearchActivity" />
         <activity android:name=".billdesk.payment.AddNewCustomerActivity" />
         <activity android:name=".billdesk.payment.ViewCustomerDetailActivity" />
+
     </application>
 
 

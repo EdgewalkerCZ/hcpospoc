@@ -32,13 +32,16 @@ public class SplashActivity extends AppCompatActivity
                 {
                     Intent intent = new Intent(SplashActivity.this, HomeActivity.class);
                     SplashActivity.this.startActivity(intent);
-                    overridePendingTransition(R.anim.animation_enter,R.anim.animation_leave);
+//                    overridePendingTransition(R.anim.animation_enter,R.anim.animation_leave);
                 }
                 else
+
+
                 {
                     Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+
                     SplashActivity.this.startActivity(intent);
-                    overridePendingTransition(R.anim.animation_enter,R.anim.animation_leave);
+//                    overridePendingTransition(R.anim.animation_enter,R.anim.animation_leave);
                 }
                 finish();
 

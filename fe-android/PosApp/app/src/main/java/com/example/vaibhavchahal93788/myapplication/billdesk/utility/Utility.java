@@ -93,7 +93,14 @@ public class Utility {
     }
 
 
-
+    public static String getColorForIndex(int position) {
+        String[] arrColors = new String[] {"#FFE4C4",
+                "#0000FF",
+                "#A52A2A",
+                "#FF7F50",
+                "#ddb24b"};
+        return arrColors[position%arrColors.length];
+    }
 
 
     public static void tintMenuIcon(Context context, MenuItem item, @ColorRes int color) {
