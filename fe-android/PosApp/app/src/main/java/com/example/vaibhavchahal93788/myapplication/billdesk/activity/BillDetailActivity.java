@@ -30,12 +30,18 @@ import android.widget.Toast;
 import com.example.vaibhavchahal93788.myapplication.R;
 import com.example.vaibhavchahal93788.myapplication.billdesk.adapter.BillDetailRecyclerAdapter;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.BillProduct;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.DiscountModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.HeadingBillSummary;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.HeadingPaymentMode;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.PaymentMode;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductListModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.SelectedProduct;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.TotalBillDetail;
+<<<<<<< HEAD
+=======
+
+import com.example.vaibhavchahal93788.myapplication.billdesk.printing.DeviceListActivity;
+>>>>>>> 6b87e2e59edaf22dbcc16b200da3f803e49cfe25
 import com.example.vaibhavchahal93788.myapplication.billdesk.printing.PrinterCommands;
 import com.example.vaibhavchahal93788.myapplication.billdesk.printing.Utils;
 
@@ -49,12 +55,25 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.UUID;
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 6b87e2e59edaf22dbcc16b200da3f803e49cfe25
 public class BillDetailActivity extends AppCompatActivity implements BillDetailRecyclerAdapter.OnDataChangeListener, View.OnClickListener, Runnable {
     private List<Object> list = new ArrayList();
     private RecyclerView recyclerView;
     private BillDetailRecyclerAdapter adapter;
     private ArrayList<ProductListModel> selectedItemList;
+<<<<<<< HEAD
     private Button btnConnectPrinter, btnPrint, btnViewBill;
+=======
+    private Button btnConnectPrinter, btnPrint, btnViewBill,btnEmail;
+    private TextView textBillingPrice;
+
+    private DiscountModel discountModelIs=DiscountModel.getInstance();
+
+>>>>>>> 6b87e2e59edaf22dbcc16b200da3f803e49cfe25
 
     protected static final String TAG = "TAG";
     private static final int REQUEST_CONNECT_DEVICE = 1;
@@ -192,17 +211,51 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
             totalPrice = totalPrice + ((BillProduct) list.get(i)).getFinalPrice() * ((BillProduct) list.get(i)).getQuantity();
         }
         totalBillDetail.setTitle("Total Amount" + " (" + totalItems + " items)");
+<<<<<<< HEAD
+=======
+
+        discountModelIs = DiscountModel.getInstance();
+        discountModelIs.setFinalPrice(totalPrice);
+        discountModelIs.setQuantity(totalItems);
+        Log.e("=getQuantity=>",discountModelIs.getQuantity()+"");
+
+>>>>>>> 6b87e2e59edaf22dbcc16b200da3f803e49cfe25
         totalBillDetail.setTotalPrice(totalPrice);
 
         adapter.notifyItemChanged(index);
         adapter.notifyItemChanged(totalBillIndex);
     }
 
+<<<<<<< HEAD
+=======
+    @Override
+    public void onDiscount(int discount)
+    {
+        Log.e("DY discount==>","=="+discount);
+        int updatedPrice=0;
+        int totalItems=0;
+        discountModelIs = DiscountModel.getInstance();
+
+        if (discountModelIs.getFinalPrice() > 0) {
+            updatedPrice = discountModelIs.getFinalPrice() - discount;
+            totalItems = discountModelIs.getQuantity();
+            textBillingPrice.setText(String.format(getString(R.string.text_billing_estimated_price), totalItems, updatedPrice));
+            discountModelIs.setDiscountedPrice(updatedPrice);
+        }
+        Log.e("DY Final==>","=="+discountModelIs.getFinalPrice());
+
+//
+    }
+>>>>>>> 6b87e2e59edaf22dbcc16b200da3f803e49cfe25
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_view_bill:
+<<<<<<< HEAD
+=======
+                discountModelIs=DiscountModel.getInstance();
+>>>>>>> 6b87e2e59edaf22dbcc16b200da3f803e49cfe25
                 Intent intent = new Intent(BillDetailActivity.this, BillSummaryActivity.class);
                 ArrayList<BillProduct> billProducts = getBillProductsList();
                 intent.putParcelableArrayListExtra("billProductsList", billProducts);
