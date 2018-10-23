@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Html;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -20,34 +18,8 @@ public class ViewCustomerDetailActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_customer);
-        getToolbar();
         bindView();
 
-    }
-
-    private void getToolbar() {
-
-
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        getSupportActionBar().setIcon(R.drawable.ic_icon_pos);
-        getSupportActionBar().setTitle(getResources().getString(R.string.customer_details));
-
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch (item.getItemId()){
-            case android.R.id.home:
-
-                finish();
-
-                break;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-        return super.onOptionsItemSelected(item);
     }
     public void bindView(){
         view_name_value=findViewById(R.id.view_name_value);
@@ -71,7 +43,7 @@ public class ViewCustomerDetailActivity extends AppCompatActivity {
         view_email_value.setText(view_email_str);
         view_address_value.setText(view_address_str);
         view_dob_value.setText(view_dob_str);
-        view_note_value.setText(Html.fromHtml(view_note_str+" "+""));
+        view_note_value.setText(view_note_str);
 
         findViewById(R.id.view_customer_countinue).setOnClickListener(new View.OnClickListener() {
             @Override

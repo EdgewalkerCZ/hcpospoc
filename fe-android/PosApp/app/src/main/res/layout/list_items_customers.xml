@@ -16,90 +16,48 @@
             card_view:cardUseCompatPadding="true">
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            <!--    <ImageView
+                android:layout_height="match_parent">
+                <ImageView
                     android:layout_width="wrap_content"
                     android:src="@mipmap/ic_launcher_round"
 
                     android:id="@+id/customer_image"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"/>-->
-                <android.support.v7.widget.CardView
-                    android:id="@+id/customer_image_layout"
-                      android:layout_centerVertical="true"
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
-                    card_view:cardBackgroundColor="@color/colorPrimary"
-                    card_view:cardCornerRadius="28dp"
-                    android:layout_marginLeft="@dimen/dp20"
-                    card_view:cardUseCompatPadding="false"
-                    card_view:contentPadding="6dp"
-                    android:elevation="2dp">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <ImageView
-                            android:id="@+id/customer_image"
-
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_centerInParent="true"/>
-
-                        <TextView
-                            android:id="@+id/txt_product_symbol"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:textSize="20sp"
-                            android:textStyle="bold"
-                            android:textColor="@color/white_color"/>
-                    </RelativeLayout>
-
-                </android.support.v7.widget.CardView>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_centerInParent="true"
-                    android:padding="@dimen/dp10"
-                    android:layout_marginLeft="@dimen/dp10"
-                    android:layout_toRightOf="@+id/customer_image_layout"
-                    android:layout_height="wrap_content">
+                    android:padding="10dp"/>
                 <TextView
                     android:id="@+id/customer_name_txt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Ashish Singh"
-
+                    android:layout_marginTop="@dimen/dp10"
                     android:textStyle="bold"
-
-                    android:textSize="16sp"
-                     />
+                    android:layout_marginLeft="@dimen/dp10"
+                    android:textSize="20sp"
+                    android:layout_toRightOf="@+id/customer_image"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="+91-000000"
-
+                    android:layout_marginLeft="@dimen/dp10"
 
                     android:textStyle="normal"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:id="@+id/customer_phone_number"
-
+                    android:layout_toRightOf="@+id/customer_image"
                     android:layout_below="@+id/customer_name_txt"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="demo@homecredit.co.in"
-
+                    android:layout_marginLeft="@dimen/dp10"
 
                     android:textStyle="normal"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:id="@+id/customer_email_txt"
-
+                    android:layout_toRightOf="@+id/customer_image"
                     android:layout_below="@+id/customer_phone_number"/>
-                </RelativeLayout>>
             </RelativeLayout>
 
         </android.support.v7.widget.CardView>

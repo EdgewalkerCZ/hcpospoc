@@ -2,19 +2,15 @@ package com.example.vaibhavchahal93788.myapplication.billdesk.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.vaibhavchahal93788.myapplication.R;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.JsonCustomer;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.JsonCustomerSet;
-import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductListModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -38,16 +34,13 @@ public class CustomerListAdaptor extends
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // Todo Butterknife bindings
-        TextView mCustomerName,mCustomeremail,mCustomerphone,mCustomerNameSymbol;
-        ImageView mCustomerImage;
+        TextView mCustomerName,mCustomeremail,mCustomerphone;
 
         public ViewHolder(View itemView) {
             super(itemView);
             mCustomerName=itemView.findViewById(R.id.customer_name_txt);
             mCustomeremail=itemView.findViewById(R.id.customer_email_txt);
             mCustomerphone=itemView.findViewById(R.id.customer_phone_number);
-            mCustomerNameSymbol=itemView.findViewById(R.id.txt_product_symbol);
-            mCustomerImage=itemView.findViewById(R.id.customer_image);
 //            ButterKnife.bind(this, itemView);
 
         }
@@ -76,34 +69,17 @@ public class CustomerListAdaptor extends
 
         return viewHolder;
     }
-    public void filterList(ArrayList<JsonCustomer> filterdNames) {
 
-        list.setCustomers(filterdNames);
-
-        notifyDataSetChanged();
-    }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         JsonCustomer item = list.getCustomers().get(position);
+
+        //Todo: Setup viewholder for item 
         holder.bind(item, onItemClickListener);
         holder.mCustomerName.setText(item.getName());
         holder.mCustomeremail.setText(item.getName());
         holder.mCustomerphone.setText(item.getPhone());
-
-        if(TextUtils.isEmpty(item.getImg())) {
-            holder.mCustomerImage.setVisibility(View.GONE);
-            holder.mCustomerNameSymbol.setVisibility(View.VISIBLE);
-            if(!TextUtils.isEmpty(item.getName())) {
-                String initial = item.getName().subSequence(0, 1).toString().toUpperCase();
-                holder.mCustomerNameSymbol.setText(initial);
-            }
-        } else {
-            //ToDo: set image from web url
-            holder.mCustomerImage.setVisibility(View.VISIBLE);
-            holder.mCustomerNameSymbol.setVisibility(View.GONE);
-            holder.mCustomerNameSymbol.setText("");
-        }
     }
 
 

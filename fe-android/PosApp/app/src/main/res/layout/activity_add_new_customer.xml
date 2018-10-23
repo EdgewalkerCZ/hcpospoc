@@ -4,12 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-<android.support.v4.widget.NestedScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:gravity="center_horizontal"
+        android:padding="@dimen/dp20"
         android:layout_marginTop="@dimen/dp10"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -21,11 +20,10 @@
             android:id="@+id/add_customer_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/dp20"
-            android:textSize="16sp"
+            android:layout_marginTop="@dimen/dp10"
             android:hint="@string/add_customer_name"
             android:maxLines="1"
-            />
+            android:padding="@dimen/dp10" />
         </android.support.design.widget.TextInputLayout>
         <android.support.design.widget.TextInputLayout
             android:id="@+id/input_layout_email"
@@ -37,10 +35,9 @@
             android:inputType="textEmailAddress"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp10"
-            android:textSize="16sp"
             android:hint="@string/add_customer_email"
             android:maxLines="1"
-            android:padding="@dimen/dp20" />
+            android:padding="@dimen/dp10" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -53,10 +50,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp10"
             android:hint="@string/add_customer_phone"
-            android:textSize="16sp"
             android:inputType="phone"
             android:maxLines="1"
-            android:padding="@dimen/dp20"/>
+            android:padding="@dimen/dp10" />
         </android.support.design.widget.TextInputLayout>
         <android.support.design.widget.TextInputLayout
             android:id="@+id/input_layout_address"
@@ -68,9 +64,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp10"
             android:hint="@string/add_customer_address"
-            android:textSize="16sp"
             android:maxLines="1"
-            android:padding="@dimen/dp20" />
+            android:padding="@dimen/dp10" />
         </android.support.design.widget.TextInputLayout>
         <android.support.design.widget.TextInputLayout
             android:id="@+id/input_layout_dob"
@@ -83,8 +78,7 @@
             android:layout_marginTop="@dimen/dp10"
             android:hint="@string/add_customer_dob"
             android:maxLines="1"
-            android:textSize="16sp"
-            android:padding="@dimen/dp20" />
+            android:padding="@dimen/dp10" />
         </android.support.design.widget.TextInputLayout>
         <android.support.design.widget.TextInputLayout
             android:id="@+id/input_layout_note"
@@ -97,12 +91,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp10"
             android:hint="@string/add_customer_note"
-            android:textSize="16sp"
-            android:padding="@dimen/dp20" />
+            android:padding="@dimen/dp10" />
         </android.support.design.widget.TextInputLayout>
 
     </LinearLayout>
-</android.support.v4.widget.NestedScrollView>
+
 
     <Button
         android:id="@+id/add_customer_btn"
