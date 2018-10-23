@@ -9,7 +9,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -25,7 +24,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -38,8 +36,6 @@ import com.example.vaibhavchahal93788.myapplication.billdesk.model.PaymentMode;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductListModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.SelectedProduct;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.TotalBillDetail;
-import com.example.vaibhavchahal93788.myapplication.billdesk.model.discountModel;
-import com.example.vaibhavchahal93788.myapplication.billdesk.printing.DeviceListActivity;
 import com.example.vaibhavchahal93788.myapplication.billdesk.printing.PrinterCommands;
 import com.example.vaibhavchahal93788.myapplication.billdesk.printing.Utils;
 
@@ -53,18 +49,12 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.UUID;
 
-import static com.example.vaibhavchahal93788.myapplication.billdesk.model.discountModel.getInstance;
-
 public class BillDetailActivity extends AppCompatActivity implements BillDetailRecyclerAdapter.OnDataChangeListener, View.OnClickListener, Runnable {
     private List<Object> list = new ArrayList();
     private RecyclerView recyclerView;
     private BillDetailRecyclerAdapter adapter;
     private ArrayList<ProductListModel> selectedItemList;
-    private Button btnConnectPrinter, btnPrint, btnViewBill,btnEmail;
-    private TextView textBillingPrice;
-
-    private discountModel discountModelIs=getInstance();
-
+    private Button btnConnectPrinter, btnPrint, btnViewBill;
 
     protected static final String TAG = "TAG";
     private static final int REQUEST_CONNECT_DEVICE = 1;
@@ -80,8 +70,6 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
     byte FONT_TYPE;
     private EditText message;
     private boolean isBluetoothConnected = false;
-    private int totalItems;
-    private int totalPrice;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -96,11 +84,8 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
 
     private void populateList() {
         selectedItemList = (ArrayList<ProductListModel>) getIntent().getSerializableExtra("selectedItemList");
-        totalItems = getIntent().getIntExtra("totalItems", 1);
-        totalPrice = getIntent().getIntExtra("totalPrice", 0);
-
-
-        Log.e("=DY total Item price==>", totalItems + "<>" + totalPrice);
+        int totalItems = getIntent().getIntExtra("totalItems", 0);
+        int totalPrice = getIntent().getIntExtra("totalPrice", 0);
 
         list = new ArrayList<>();
 
@@ -108,8 +93,8 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
             SelectedProduct selectedProduct = new SelectedProduct(listModel.getLabel(), listModel.getQuantity(), Math.round(Float.valueOf(listModel.getPrice())), Math.round(Float.valueOf(listModel.getFinalPrice())));
             list.add(selectedProduct);
         }
-        list.add(new PaymentMode());
-        //  list.add(new HeadingBillSummary("Bill Summary"));
+
+        list.add(new HeadingBillSummary("Bill Summary"));
 
         for (ProductListModel listModel : selectedItemList) {
             BillProduct billProduct = new BillProduct(listModel.getLabel(), listModel.getQuantity(), Math.round(Float.valueOf(listModel.getPrice())), Math.round(Float.valueOf(listModel.getTaxPercentage())), Math.round(Float.valueOf(listModel.getFinalPrice())));
@@ -119,8 +104,8 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         TotalBillDetail totalBillDetail = new TotalBillDetail("Total Amount" + " (" + totalItems + " items)", totalPrice);
         list.add(totalBillDetail);
 
-        //list.add(new HeadingPaymentMode("Payment Mode"));
-
+        list.add(new HeadingPaymentMode("Payment Mode"));
+        list.add(new PaymentMode());
 
     }
 
@@ -143,21 +128,6 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
 
         btnPrint = findViewById(R.id.btn_print_bill);
         btnPrint.setOnClickListener(this);
-
-        btnEmail=findViewById(R.id.btn_email);
-        btnEmail.setOnClickListener(this);
-
-        textBillingPrice = findViewById(R.id.tv_billing_est_price);
-        //Set Total Price and Item
-
-        if (totalItems!=0 && totalPrice!=0)
-        {
-            textBillingPrice.setText(String.format(getString(R.string.text_billing_estimated_price), totalItems, totalPrice));
-
-            // discountModelIs = getInstance();
-            discountModelIs.setFinalPrice(totalPrice);
-            discountModelIs.setQuantity(totalItems);
-        }
     }
 
 
@@ -202,10 +172,6 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
 
     @Override
     public void onDataChanged(int quantity, int position, int price) {
-
-        Log.d("Array Size====>",""+selectedItemList.size());
-
-
         int index = selectedItemList.size() + 1 + position;
         BillProduct billProduct = (BillProduct) list.get(index);
         billProduct.setQuantity(quantity);
@@ -223,87 +189,32 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         int totalItems = 0, totalPrice = 0;
         for (int i = startIndex; i < endIndex; i++) {
             totalItems = totalItems + ((BillProduct) list.get(i)).getQuantity();
-            // totalPrice = totalPrice + ((BillProduct) list.get(i)).getFinalPrice() * ((BillProduct) list.get(i)).getQuantity();
-            totalPrice = totalPrice + ((BillProduct) list.get(i)).getFinalPrice();
+            totalPrice = totalPrice + ((BillProduct) list.get(i)).getFinalPrice() * ((BillProduct) list.get(i)).getQuantity();
         }
         totalBillDetail.setTitle("Total Amount" + " (" + totalItems + " items)");
-
-        discountModelIs = getInstance();
-        discountModelIs.setFinalPrice(totalPrice);
-        discountModelIs.setQuantity(totalItems);
-        Log.e("=getQuantity=>",discountModelIs.getQuantity()+"");
-
         totalBillDetail.setTotalPrice(totalPrice);
-
-        textBillingPrice.setText(String.format(getString(R.string.text_billing_estimated_price), totalItems, totalPrice));
-
 
         adapter.notifyItemChanged(index);
         adapter.notifyItemChanged(totalBillIndex);
     }
 
-    @Override
-    public void onDiscount(int discount)
-    {
-        Log.e("DY discount==>","=="+discount);
-        int updatedPrice=0;
-        int totalItems=0;
-        discountModelIs = getInstance();
-
-        if (discountModelIs.getFinalPrice() > 0) {
-            updatedPrice = discountModelIs.getFinalPrice() - discount;
-            totalItems = discountModelIs.getQuantity();
-            textBillingPrice.setText(String.format(getString(R.string.text_billing_estimated_price), totalItems, updatedPrice));
-            discountModelIs.setDiscountedPrice(updatedPrice);
-        }
-        Log.e("DY Final==>","=="+discountModelIs.getFinalPrice());
-
-//
-    }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_view_bill:
-                discountModelIs=getInstance();
                 Intent intent = new Intent(BillDetailActivity.this, BillSummaryActivity.class);
                 ArrayList<BillProduct> billProducts = getBillProductsList();
                 intent.putParcelableArrayListExtra("billProductsList", billProducts);
-                Log.e("DY===>",discountModelIs.getDiscount()+"");
-                intent.putExtra("discount",discountModelIs.getDiscount());
                 startActivity(intent);
                 break;
 
             case R.id.btn_print_bill:
                 connectPrinter();
                 break;
-            case R.id.btn_email:
-                //Send Email
-                sendEmail();
+
             default:
                 break;
-        }
-    }
-
-
-    protected void sendEmail() {
-        Log.i("Send email", "");
-        String TO = "daya20oct@gmail.com";
-
-        Intent emailIntent = new Intent(Intent.ACTION_SEND);
-
-        emailIntent.setData(Uri.parse("mailto:"));
-        emailIntent.setType("text/plain");
-        emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Invoice");
-        emailIntent.putExtra(Intent.EXTRA_TEXT, "Invoice Is");
-
-        try {
-            startActivity(Intent.createChooser(emailIntent, "Send mail..."));
-            // finish();
-            Log.i("Finished sending email.", "");
-        } catch (android.content.ActivityNotFoundException ex) {
-            Toast.makeText(this, "There is no email client installed.", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -320,7 +231,6 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
     }
 
     private void printBill() {
-        Log.e("printBill",":init");
         Thread t = new Thread() {
             public void run() {
                 try {
@@ -490,7 +400,6 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
     }
 
     private void connectPrinter() {
-        Log.e("connect printer",":sddfd");
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if (mBluetoothAdapter == null) {
             Toast.makeText(BillDetailActivity.this, "Message1", Toast.LENGTH_SHORT).show();
@@ -504,9 +413,8 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
             } else {
                 if (!isBluetoothConnected)
                     connectBluetooth();
-                Log.e("initPrinting",":init");
                 initPrinting();
-                //               ListPairedDevices();
+//                ListPairedDevices();
 //                Intent connectIntent = new Intent(BillDetailActivity.this,
 //                        DeviceListActivity.class);
 //                startActivityForResult(connectIntent,
@@ -528,10 +436,6 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
     private void connectBluetooth() {
         if (getFirstConnectedDevice().isEmpty()) {
             Toast.makeText(this, "No device paired, please paired a device!", Toast.LENGTH_LONG).show();
-            Intent connectIntent = new Intent(BillDetailActivity.this,
-                    DeviceListActivity.class);
-            startActivityForResult(connectIntent,
-                    REQUEST_CONNECT_DEVICE);
         } else {
             mBluetoothDevice = mBluetoothAdapter
                     .getRemoteDevice(getFirstConnectedDevice());
