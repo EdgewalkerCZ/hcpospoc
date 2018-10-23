@@ -2,6 +2,7 @@ package com.example.vaibhavchahal93788.myapplication.billdesk.api;
 
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.AddProductModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.CategoryModel;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductCategoryModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductListModel;
 
 import java.util.List;
@@ -28,11 +29,18 @@ public interface productApi {
     @POST("products")
     Call<ResponseBody> addNewProduct(@Header("DOLAPIKEY") String dolApiKey, @Body AddProductModel addProductModel);
 
-    @GET("categories")
+  /*  @GET("categories")
     Call<List<CategoryModel>> getCategoryList(@Header("DOLAPIKEY") String dolApiKey, @Query("sortfield") String sortfield, @Query("sortorder") String sortorder,
-                                              @Query("limit") long limit, @Query("type") String type);
+                                              @Query("limit") long limit, @Query("type") String type);*/
 
     @PUT("products/{id}")
     Call<ResponseBody> updateProduct(@Header("DOLAPIKEY") String dolApiKey, @Path("id") String id, @Body AddProductModel addProductModel);
 
+
+    @GET("categories")
+    Call<List<CategoryModel>> getCategoryList(@Header("DOLAPIKEY") String dolApiKey, @Query("sortfield") String sortfield, @Query("sortorder") String sortorder,
+                                              @Query("limit") long limit, @Query("type") String type);
+
+    @GET("category")
+    Call<ProductCategoryModel> getCategoryList();
 }

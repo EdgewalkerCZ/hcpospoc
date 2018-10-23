@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/pull_to_refresh"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
     <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/rl_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -71,7 +67,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:backgroundTint="@color/color_DA1A32"
-                app:fabCustomSize="73dp" />
+                app:fabCustomSize="70dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -79,10 +75,10 @@
                 android:layout_gravity="center"
                 android:elevation="16dp"
                 android:gravity="center"
-                android:text="@string/add_product"
-                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="+"
+                android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@android:color/white"
-                android:textSize="15dp" />
+                android:textSize="40sp" />
 
         </FrameLayout>
 
@@ -92,7 +88,4 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:visibility="gone" />
-
-
     </RelativeLayout>
-</android.support.v4.widget.SwipeRefreshLayout>

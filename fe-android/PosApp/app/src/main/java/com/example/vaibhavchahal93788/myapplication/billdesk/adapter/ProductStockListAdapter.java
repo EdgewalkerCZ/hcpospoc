@@ -84,4 +84,6 @@ public class ProductStockListAdapter extends RecyclerView.Adapter<ProductStockLi
     public interface OnItemClickListener {
         void onItemClick(int position);
     }
+
+
 }

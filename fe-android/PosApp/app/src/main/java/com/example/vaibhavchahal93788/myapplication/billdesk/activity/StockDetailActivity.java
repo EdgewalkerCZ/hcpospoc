@@ -49,7 +49,6 @@ public class StockDetailActivity extends AppCompatActivity implements ProductSto
     private HashMap<String, String> hashMapCategoriesTax = new HashMap<>();
     private ArrayList<String> categoriesList;
     private SwipeRefreshLayout pullToRefresh;
-    private boolean delProductFlag = false;
     MenuItem crossmenu;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +59,6 @@ public class StockDetailActivity extends AppCompatActivity implements ProductSto
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        updateFlag();
         initViews();
 
         actionEditSearch();
@@ -68,12 +66,6 @@ public class StockDetailActivity extends AppCompatActivity implements ProductSto
         actionCategorySelection();
     }
 
-    /*
-     manage the delete product flow
-     */
-    private void updateFlag() {
-        delProductFlag = getIntent().getBooleanExtra(Constants.DELETE_FLAG,false);
-    }
 
     private void initViews() {
         recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
@@ -165,7 +157,7 @@ public class StockDetailActivity extends AppCompatActivity implements ProductSto
             }
         });
     }
-
+ /* searching the data */
     private void filter(String text) {
         //new array list that will hold the filtered data
         ArrayList<ProductListModel> filterdNames = new ArrayList<>();
@@ -180,15 +172,13 @@ public class StockDetailActivity extends AppCompatActivity implements ProductSto
         }
 
         //calling a method of the adapter class and passing the filtered list
-        if(delProductFlag){
+
             int size = filterdNames.size();
             setTitle(filterdNames.size()+" item found");
             if(size==1)
                 relativeHeader.setVisibility(View.GONE);
             else relativeHeader.setVisibility(View.VISIBLE);
             crossmenu.setVisible(true);
-
-        }
 
         adapter.filterList(filterdNames);
     }
@@ -283,16 +273,9 @@ public class StockDetailActivity extends AppCompatActivity implements ProductSto
 
     @Override
     public void onItemClick(int position) {
-
-        if(delProductFlag){
-
-        }else {
-            Intent intent = new Intent(StockDetailActivity.this, AddProductActivity.class);
-            intent.putStringArrayListExtra("listCategories", categoriesList);
-            intent.putExtra("CategoriesIdMap", hashMapCategories);
-            intent.putExtra("CategoriesTaxMap", hashMapCategoriesTax);
-            intent.putExtra("productModel", productsList.get(position));
-            startActivityForResult(intent, REQUEST_CODE);
-        }
+        Intent intent = new Intent(StockDetailActivity.this, ViewProductActivity.class);
+        intent.putExtra(Constants.STOCK_DATA, productsList.get(position));
+        startActivity(intent);
     }
+
 }
