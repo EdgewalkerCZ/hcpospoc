@@ -12,15 +12,15 @@
         android:orientation="horizontal"
         android:layout_height="wrap_content">
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="70dp"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
+            android:textSize="14sp"
              android:id="@+id/view_name"
             android:text="Name"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:id="@+id/view_name_value"
             android:textStyle="bold"
             android:layout_marginLeft="@dimen/dp30"
@@ -43,15 +43,15 @@
         android:orientation="horizontal"
         android:layout_height="wrap_content">
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="70dp"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
+            android:textSize="14sp"
             android:id="@+id/view_email"
             android:text="Email"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:id="@+id/view_email_value"
             android:textStyle="bold"
             android:layout_marginLeft="@dimen/dp30"
@@ -74,15 +74,15 @@
         android:orientation="horizontal"
         android:layout_height="wrap_content">
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="70dp"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
+            android:textSize="14sp"
             android:id="@+id/view_phone"
             android:text="Phone"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:id="@+id/view_phone_value"
             android:textStyle="bold"
             android:maxLength="13"
@@ -106,15 +106,15 @@
         android:orientation="horizontal"
         android:layout_height="wrap_content">
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="70dp"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
+            android:textSize="14sp"
             android:id="@+id/view_address"
             android:text="Address"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:id="@+id/view_address_value"
             android:textStyle="bold"
             android:maxLines="2"
@@ -139,15 +139,16 @@
         android:orientation="horizontal"
         android:layout_height="wrap_content">
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="70dp"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
+            android:textSize="14sp"
+            android:maxLines="1"
             android:id="@+id/view_dob"
-            android:text="Date of Birth"/>
+            android:text="DOB"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:id="@+id/view_dob_value"
             android:textStyle="bold"
             android:maxLines="1"
@@ -172,15 +173,15 @@
         android:orientation="horizontal"
         android:layout_height="wrap_content">
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="70dp"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
+            android:textSize="14sp"
             android:id="@+id/view_note"
             android:text="Note"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:id="@+id/view_note_value"
             android:textStyle="bold"
             android:maxLines="1"

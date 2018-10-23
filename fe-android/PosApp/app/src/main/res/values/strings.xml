@@ -253,6 +253,7 @@
     <string name="sub_category">Sub Category</string>
     <string name="add_product_new">Add Product</string>
     <string name="add_new_customer">Add New Customer</string>
+    <string name="customer_details">Customer details</string>
     <string name="store">Store</string>
     <string name="product_name">Product Name *</string>
     <string name="quantity">Quantity *</string>
