@@ -13,4 +13,5 @@ public class Constants {
     public static final String ENGLISH_LOCALE = "en_US";
 
 
+    public static final String STOCK_DATA = "stock_data";
 }

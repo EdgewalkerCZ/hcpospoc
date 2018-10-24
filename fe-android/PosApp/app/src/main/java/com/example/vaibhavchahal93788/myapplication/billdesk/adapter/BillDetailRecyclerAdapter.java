@@ -1,7 +1,6 @@
 package com.example.vaibhavchahal93788.myapplication.billdesk.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -14,20 +13,18 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-
 import com.example.vaibhavchahal93788.myapplication.R;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.BillProduct;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.DiscountModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.HeadingBillSummary;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.HeadingPaymentMode;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.PaymentMode;
-import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductListModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.SelectedProduct;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.TotalBillDetail;
-import com.example.vaibhavchahal93788.myapplication.billdesk.model.discountModel;
 
 import java.util.List;
 
-import static com.example.vaibhavchahal93788.myapplication.billdesk.model.discountModel.getInstance;
+
 
 public class BillDetailRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -41,7 +38,7 @@ public class BillDetailRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
 
     private final List<Object> itemsList;
     private OnDataChangeListener onDataChangeListener;
-    private discountModel discountModelIs = getInstance();
+    private DiscountModel discountModelIs = DiscountModel.getInstance();
 
     private Context context;
     private String textBeforeChanged;
@@ -352,4 +349,3 @@ public class BillDetailRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
     }
 
 }
-
