@@ -483,7 +483,7 @@ public class AddProductSubmit extends AppCompatActivity implements AdapterView.O
     private boolean powerBankValidation() {
         boolean status = false;
         if (sp_power_mah.getSelectedItemPosition() != 0) {
-            if (sp_compatible.getSelectedItemPosition() != 0) {
+            if (sp_power_compatible.getSelectedItemPosition() != 0) {
                 if (!Validation.isTextEmpty(et_weight_battery.getText().toString().trim())) {
 
                     return true;
@@ -592,6 +592,8 @@ public class AddProductSubmit extends AppCompatActivity implements AdapterView.O
             total_price=base_price+gst_price;
             tv_est_price.setText(total_price+" "+"Rs.");
 
+        }else if (et_weight_battery.getText().hashCode()==s.hashCode()&&Validation.isTextEmpty(et_weight_battery.getText().toString().trim())){
+            til_weight_battery.setError(null);
         }
     }
 
