@@ -11,11 +11,12 @@ public class Product {
     private String code;
     private String name;
     private String productCategory;
-    private String category;
     private String productFamily;
+    private Integer productCategoryId;
+    private Integer productFamilyId;
     private Integer quantity;
     private String description;
-    private String price;
+    private String salePrice;
     private Boolean isGst;
     private Boolean isSellable;
     
@@ -23,7 +24,7 @@ public class Product {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -51,12 +52,20 @@ public class Product {
 		this.productCategory = productCategory;
 	}
 
-	public String getCategory() {
-		return category;
+	public Integer getProductCategoryId() {
+		return productCategoryId;
 	}
 
-	public void setCategory(String category) {
-		this.category = category;
+	public void setProductCategoryId(Integer productCategoryId) {
+		this.productCategoryId = productCategoryId;
+	}
+
+	public Integer getProductFamilyId() {
+		return productFamilyId;
+	}
+
+	public void setProductFamilyId(Integer productFamilyId) {
+		this.productFamilyId = productFamilyId;
 	}
 
 	public String getProductFamily() {
@@ -83,12 +92,12 @@ public class Product {
 		this.description = description;
 	}
 	
-	public String getPrice() {
-		return price;
+	public String getSalePrice() {
+		return salePrice;
 	}
 	
-	public void setPrice(String price) {
-		this.price = price;
+	public void setSalePrice(String price) {
+		this.salePrice = price;
 	}
 	
 	public Boolean getIsGst() {
