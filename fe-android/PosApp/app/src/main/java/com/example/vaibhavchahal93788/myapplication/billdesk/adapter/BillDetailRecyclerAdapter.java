@@ -326,7 +326,7 @@ public class BillDetailRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
             @Override
             public void onClick(View view) {
                 model.setQuantity(model.getQuantity() + 1);
-                model.setFinalPrice(model.getFinalPrice() * model.getQuantity());
+                model.setFinalPrice(model.getPrice() * model.getQuantity());
                 holder.quantity.setText(String.valueOf(model.getQuantity()));
                 Log.e("=Plus ISISIS=>", model.getFinalPrice() + "");
                 holder.price.setText(String.valueOf(model.getFinalPrice()));

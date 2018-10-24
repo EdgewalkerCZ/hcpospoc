@@ -3,6 +3,9 @@ package com.example.vaibhavchahal93788.myapplication.billdesk.adapter;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,15 +16,10 @@ import com.example.vaibhavchahal93788.myapplication.R;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.BillProduct;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.BillSummaryHeaderModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.DiscountModel;
-import com.example.vaibhavchahal93788.myapplication.billdesk.model.HeadingBillSummary;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.HeadingPaymentMode;
-import com.example.vaibhavchahal93788.myapplication.billdesk.model.PaymentMode;
-import com.example.vaibhavchahal93788.myapplication.billdesk.model.SelectedProduct;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.SponceredModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.TotalBillDetail;
 import com.example.vaibhavchahal93788.myapplication.billdesk.utility.KeyValue;
-
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -82,8 +80,13 @@ public class BillSummaryRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
                 holderSeletedItem.tvInVoiceNumber.setText("Invoice No - " + uniqueID.substring(0, 11));
                 String currentDate = new SimpleDateFormat("dd MMM, yyyy HH:mm", Locale.getDefault()).format(new Date());
                 holderSeletedItem.tvDate.setText("Date -" + currentDate);
-                holderSeletedItem.tv_customer_name.setText(KeyValue.getString(context,KeyValue.NAME));
-                holderSeletedItem.tv_customer_email.setText(KeyValue.getString(context,KeyValue.PHONE)+"\n Email : "+KeyValue.getString(context,KeyValue.EMAIL));
+//                holderSeletedItem.tv_customer_name.setText(KeyValue.getString(context,KeyValue.NAME));
+                SpannableStringBuilder mobileStr = appendString("Mob:",KeyValue.getString(context,KeyValue.PHONE));
+                SpannableStringBuilder emailStr = appendString("Email:",KeyValue.getString(context,KeyValue.EMAIL));
+                SpannableStringBuilder nameStr = appendString("Name:",KeyValue.getString(context,KeyValue.NAME));
+                holderSeletedItem.tv_customer_phone.setText(mobileStr, TextView.BufferType.SPANNABLE);
+                holderSeletedItem.tv_customer_email.setText(emailStr, TextView.BufferType.SPANNABLE);
+                holderSeletedItem.tv_customer_name.setText(nameStr, TextView.BufferType.SPANNABLE);
                 break;
             case TYPE_ITEM_BILL_PRODUCT:
                 ViewHolderBillProduct holderBillProduct = (ViewHolderBillProduct) holder;
@@ -142,6 +145,17 @@ public class BillSummaryRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
         }
     }
 
+    //
+    private SpannableStringBuilder appendString(String str, String value)
+    {
+        SpannableStringBuilder builder = new SpannableStringBuilder();
+        SpannableString greySpannable= new SpannableString(str);
+        greySpannable.setSpan(new ForegroundColorSpan(context.getResources().getColor(R.color.color_configuration)), 0, str.length(), 0);
+        builder.append(greySpannable);
+        builder.append(value);
+        return builder;
+    }
+
     @Override
     public int getItemViewType(int position) {
         Object object = itemsList.get(position);
@@ -168,14 +182,15 @@ public class BillSummaryRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
     public class ViewHolderItem1 extends RecyclerView.ViewHolder {
 
         public TextView tvDate, tvInVoiceNumber;
-        public TextView tv_customer_name, tv_customer_email;
+        public TextView tv_customer_name, tv_customer_email,tv_customer_phone;
 
         public ViewHolderItem1(View itemView) {
             super(itemView);
             tvDate = (TextView) itemView.findViewById(R.id.tv_date);
             tvInVoiceNumber = (TextView) itemView.findViewById(R.id.tv_invoice_number);
             tv_customer_name =  itemView.findViewById(R.id.tv_customer_name);
-            tv_customer_email =  itemView.findViewById(R.id.tv_phone);
+            tv_customer_phone =  itemView.findViewById(R.id.tv_phone);
+            tv_customer_email =  itemView.findViewById(R.id.tv_email);
         }
     }
 
