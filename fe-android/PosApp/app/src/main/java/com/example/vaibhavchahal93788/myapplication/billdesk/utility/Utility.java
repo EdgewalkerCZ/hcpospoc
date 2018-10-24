@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -19,6 +20,8 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.vaibhavchahal93788.myapplication.R;
 
 
 public class Utility {
@@ -120,5 +123,11 @@ public class Utility {
 
         item.setBackground(wrapDrawable);
 
+    }
+
+    public static void launchActivity(Context mContext , Class<?> cls)
+    {
+        Intent _intent = new Intent(mContext, cls);
+        mContext.startActivity(_intent);
     }
 }

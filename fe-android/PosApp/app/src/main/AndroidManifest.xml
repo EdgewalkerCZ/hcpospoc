@@ -81,7 +81,8 @@
         <activity
             android:name=".billdesk.activity.DeleteProductActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden" />
+            android:windowSoftInputMode="stateAlwaysHidden"
+            />
         <activity
             android:name=".billdesk.activity.ViewProductActivity"
             android:screenOrientation="portrait"

@@ -1,6 +1,7 @@
 package com.example.vaibhavchahal93788.myapplication.billdesk.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
@@ -16,6 +17,7 @@ import com.example.vaibhavchahal93788.myapplication.billdesk.model.AllProductMod
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductCategoryModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.network.IApiRequestComplete;
 import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Constants;
+import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Utility;
 
 public class DeleteProductActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -128,9 +130,7 @@ public class DeleteProductActivity extends AppCompatActivity implements View.OnC
     /* increment and decrement functionality */
     @Override
     public void onClick(View view) {
-
         switch (view.getId()){
-
             case R.id.btn_store_de:
                 int counterDe = --storeCounter;
                 if(counterDe>=0){
@@ -157,7 +157,6 @@ public class DeleteProductActivity extends AppCompatActivity implements View.OnC
                         btnDamagedecrement.setBackgroundColor(getResources().getColor(R.color.light_green));
                         btnDamagedecrement.setClickable(false);
                     }
-
                 }
                 updateQuantity();
                 break;
@@ -179,7 +178,6 @@ public class DeleteProductActivity extends AppCompatActivity implements View.OnC
                         btnTheftdecrement.setBackgroundColor(getResources().getColor(R.color.light_green));
                         btnTheftdecrement.setClickable(false);
                     }
-
                 }
                 updateQuantity();
                 break;
@@ -198,7 +196,6 @@ public class DeleteProductActivity extends AppCompatActivity implements View.OnC
                         btnLossdecrement.setBackgroundColor(getResources().getColor(R.color.light_green));
                         btnLossdecrement.setClickable(false);
                     }
-
                 }
                 updateQuantity();
                 break;
@@ -216,7 +213,6 @@ public class DeleteProductActivity extends AppCompatActivity implements View.OnC
                         btnRestockdecrement.setBackgroundColor(getResources().getColor(R.color.light_green));
                         btnRestockdecrement.setClickable(false);
                     }
-
                     edtRestock.setText(recounterDe+"");
                 }
                 updateQuantity();
@@ -231,8 +227,13 @@ public class DeleteProductActivity extends AppCompatActivity implements View.OnC
 
 
             case R.id.btn_update:
-                if(updatedTotalQuantity!=0)
-                Toast.makeText(context,R.string.successfully_message,Toast.LENGTH_LONG).show();
+                if(updatedTotalQuantity!=0){
+                    Toast.makeText(context,R.string.successfully_message,Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(context, StockViewProductActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    finish();
+                }
               //  deleteProduct();
                 break;
 
