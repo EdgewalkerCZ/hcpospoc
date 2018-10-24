@@ -384,4 +384,23 @@ in the hands of those who demand more</string>
     <string name="error_star_rating">Please select star rating</string>
     <string name="error_capacity">Please select capacity</string>
     <string name="error_type">Please select type</string>
+
+
+    <!--New Strings-->
+    <string name="selectDate">Select Date</string>
+    <string name="selectDateRange">Select Date Range</string>
+    <string name="paymentMode">Payment Mode</string>
+    <string name="today">Today</string>
+    <string name="todayDate">TODAY:</string>
+    <string name="sevenDays">7 DAYS</string>
+    <string name="thirtyDays">30 DAYS</string>
+    <string name="customDate">CUSTOM</string>
+    <string name="cash">Cash</string>
+    <string name="card">Card</string>
+    <string name="applyFilter">Apply</string>
+    <string name="downloadOption">Choose Your Download Option</string>
+    <string name="downloadMessage">Only displayed result will be downloaded or sent</string>
+    <string name="downloadPDF">Download As PDF</string>
+    <string name="sendMail">Send Mail</string>
+    <string name="downloadOrMail">Download OR EMail</string>
 </resources>
