@@ -4,6 +4,7 @@ import com.example.vaibhavchahal93788.myapplication.billdesk.model.AddProductMod
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.CategoryModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductCategoryModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductListModel;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.productsuccess.AddProductResponse;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.profile.ProfileResponse;
 import com.example.vaibhavchahal93788.myapplication.billdesk.network.IApiRequestComplete;
 import com.example.vaibhavchahal93788.myapplication.billdesk.network.ResponseHandler;
@@ -67,6 +68,12 @@ public class ProductApiHelper {
 
         Call<ProfileResponse> profileResponseCall = productApi.getProfileDetails();
         profileResponseCall.enqueue(new ResponseHandler<ProfileResponse>(successInterface));
+
+    }
+
+    public void addProduct(String body, IApiRequestComplete successInterface){
+        Call<AddProductResponse> addProductResponseCall=productApi.postAddProduct(body);
+        addProductResponseCall.enqueue(new ResponseHandler<AddProductResponse>(successInterface));
 
     }
 }
