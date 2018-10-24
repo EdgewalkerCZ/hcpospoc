@@ -24,7 +24,7 @@ import java.util.Locale;
 public class FilterHistoryActivity extends AppCompatActivity implements View.OnClickListener{
 
     TextView tvFromDate, tvToDate, tvToday, tvSevenDays, tvThirtyDays, tvCustomDateFilter;
-    Button btnCash, btnCard;
+    Button btnCash, btnCard, btApply;
     LinearLayout llCustomDateFilter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +48,10 @@ public class FilterHistoryActivity extends AppCompatActivity implements View.OnC
         tvThirtyDays = findViewById(R.id.tvThirtyDaysFilter);
         tvCustomDateFilter = findViewById(R.id.tvCustomDateFilter);
         llCustomDateFilter = findViewById(R.id.llCustomDateFilter);
+        btApply = findViewById(R.id.bt_apply);
         btnCash = findViewById(R.id.btnCash);
         btnCard = findViewById(R.id.btnCard);
+        btApply.setOnClickListener(this);
         btnCash.setOnClickListener(this);
         btnCard.setOnClickListener(this);
         tvFromDate.setOnClickListener(this);
@@ -92,6 +94,9 @@ public class FilterHistoryActivity extends AppCompatActivity implements View.OnC
             case R.id.tvThirtyDaysFilter:
             case R.id.tvCustomDateFilter:
                 selectDate((TextView)view);
+                break;
+            case R.id.bt_apply:
+                finish();
                 break;
             case R.id.btnCash:
             case R.id.btnCard:
