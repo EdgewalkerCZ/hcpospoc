@@ -137,6 +137,7 @@
         android:id="@+id/view_dob_layout"
         android:layout_below="@+id/view_address_layout"
         android:orientation="horizontal"
+        android:visibility="gone"
         android:layout_height="wrap_content">
         <TextView
             android:layout_width="70dp"
