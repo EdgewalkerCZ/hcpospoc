@@ -1,0 +1,10 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.vaibhavchahal93788.sampleapp.payu.MainActivity">
+    <item
+        android:id="@+id/action_clear"
+        android:title="Clear All"
+        app:showAsAction="always" />
+
+</menu>

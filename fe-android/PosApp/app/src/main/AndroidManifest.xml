@@ -96,6 +96,9 @@
 
         <activity android:name=".billdesk.activity.DeleteProductActivity" />
         <activity android:name=".billdesk.activity.ViewProductActivity"></activity>
+
+        <activity android:name=".billdesk.activity.TransactionHistoryActivityNew" />
+        <activity android:name=".billdesk.activity.FilterHistoryActivity" />
     </application>
 
 
