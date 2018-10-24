@@ -13,9 +13,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.vaibhavchahal93788.myapplication.R;
 import com.example.vaibhavchahal93788.myapplication.billdesk.api.ProductApiHelper;
@@ -42,8 +44,10 @@ public class AddProductSubmit extends AppCompatActivity implements AdapterView.O
             et_special_feature_refri, et_special_feature, et_weight_battery, et_include_components, et_product_dimention, et_mobile_weight;
     private Button bt_add_submit;
     private TextView tv_price_lebel, tv_est_price;
+    private ImageView im_scan;
 
     private double gst_percent;
+    private int REQUEST_CODE = 11;
 
 
     public static void startActivity(Activity activity) {
@@ -69,6 +73,7 @@ public class AddProductSubmit extends AppCompatActivity implements AdapterView.O
         sp_sub_category.setOnItemSelectedListener(this);
         sp_type.setOnItemSelectedListener(this);
         bt_add_submit.setOnClickListener(this);
+        im_scan.setOnClickListener(this);
 
         et_model.addTextChangedListener(this);
         et_brand_name.addTextChangedListener(this);
@@ -148,6 +153,8 @@ public class AddProductSubmit extends AppCompatActivity implements AdapterView.O
         bt_add_submit = findViewById(R.id.bt_add_submit);
         tv_price_lebel = findViewById(R.id.tv_price_lebel);
         tv_est_price = findViewById(R.id.tv_est_price);
+
+        im_scan=findViewById(R.id.im_scan);
 
 
     }
@@ -386,6 +393,21 @@ public class AddProductSubmit extends AppCompatActivity implements AdapterView.O
                 }
 
                 break;
+            case R.id.im_scan:
+                    Intent scanIntent = new Intent(AddProductSubmit.this,ScanActivity.class);
+                    startActivityForResult(scanIntent,REQUEST_CODE);
+                break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == REQUEST_CODE){
+            if(resultCode == RESULT_OK){
+                String requiredValue = data.getStringExtra("Key");
+                et_serial_number.setText(requiredValue);
+            }
         }
     }
 
