@@ -39,7 +39,9 @@ import com.example.vaibhavchahal93788.myapplication.billdesk.model.TotalBillDeta
 import com.example.vaibhavchahal93788.myapplication.billdesk.printing.DeviceListActivity;
 import com.example.vaibhavchahal93788.myapplication.billdesk.printing.PrinterCommands;
 import com.example.vaibhavchahal93788.myapplication.billdesk.printing.Utils;
+import com.example.vaibhavchahal93788.myapplication.billdesk.utility.KeyValue;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
@@ -90,6 +92,7 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         populateList();
         initViews();
+
     }
 
     private void populateList() {
@@ -283,17 +286,50 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         }
     }
 
+    private String printEmailContent() {
+        String str;
+        String uniqueID = UUID.randomUUID().toString();
+        StringBuilder builder =new StringBuilder();
+        builder.append("Home credit Store\n");
+        builder.append("10A, Dlf Phase 2\n\n");
+        builder.append("Invoice No - " + uniqueID.substring(0, 11)+"\n");
+        builder.append("Item Name : Gst   Price  Qty  Total\n");
+        builder.append("--------------------------------\n");
+
+
+        str = builder.toString();
+
+
+        return str;
+    }
+//    printContent();
+//    printNewLine();
 
     protected void sendEmail() {
+        //print title
+        printContent();
+        printNewLine();
         Log.i("Send email", "");
-        String TO = "daya20oct@gmail.com";
+
+        String mailto = KeyValue.getString(BillDetailActivity.this,KeyValue.USER_EMAIL);
+        ArrayList<BillProduct> all_product=  getBillProductsList();
+        int totalPrice = 0;
+        for (int i = 0; i < all_product.size(); i++) {
+            BillProduct billProduct = ((BillProduct) all_product.get(i));
+
+            totalPrice = billProduct.getFinalPrice();
+            Log.i("DY fiinal Price==>",billProduct.getFinalPrice()+"");
+            Log.i("DY fiinal Qty==>",billProduct.getQuantity()+"");
+
+
+        }
 
         Intent emailIntent = new Intent(Intent.ACTION_SEND);
 
         emailIntent.setData(Uri.parse("mailto:"));
         emailIntent.setType("text/plain");
-        emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Invoice");
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, mailto);
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Invoice details ");
         emailIntent.putExtra(Intent.EXTRA_TEXT, "Invoice Is");
 
         try {
@@ -685,6 +721,12 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
     //print custom
     private void printCustom(String msg, int size, int align) {
         //Print config "mode"
+        try{
+            os = new FileOutputStream("test.txt");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
         byte[] cc = new byte[]{0x1B, 0x21, 0x03};  // 0- normal size text
         byte[] cc1 = new byte[]{0x1B, 0x21, 0x00};  // 0- normal size text
         byte[] bb = new byte[]{0x1B, 0x21, 0x08};  // 1- only bold text

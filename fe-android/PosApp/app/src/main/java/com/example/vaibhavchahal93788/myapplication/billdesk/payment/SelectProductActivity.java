@@ -9,7 +9,9 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -54,6 +56,7 @@ public class SelectProductActivity extends AppCompatActivity
     private EditText etxtSearch;
     private Set<AllProduct> mDataSelected = new HashSet<>();
     private boolean isSearchingProduct;
+    Set<AllProduct> set;
 
     public static final int REQ_CODE_SELECT_CATEGORY = 1;
 
@@ -81,13 +84,40 @@ public class SelectProductActivity extends AppCompatActivity
         findViewById(R.id.txt_category).setOnClickListener(this);
         findViewById(R.id.btn_continue).setOnClickListener(this);
         findViewById(R.id.imv_search).setOnClickListener(this);
+        etxtSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                datafilter(s.toString());
+            }
+        });
+    }
+
+    public void datafilter(String input){
+            ArrayList<AllProduct> allProducts=new ArrayList<>();
+            for(AllProduct object :set){
+                if (object.getName().toLowerCase().contains(input.toLowerCase())) {
+                    //adding the element to filtered list
+                    allProducts.add(object);
+                }
+            }
+        mAdapterSelectProduct.addData(allProducts);
+
     }
 
 
     private void fetchProductsList() {
         progreeBar.setVisibility(View.VISIBLE);
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-
         Call<JsonObject> call = apiService.getAllProductsList();
         Log.e("request", call.request().url().toString());
         call.enqueue(new Callback<JsonObject>() {
@@ -104,6 +134,7 @@ public class SelectProductActivity extends AppCompatActivity
                         }.getType());
                         if(set != null) {
                             mAdapterSelectProduct.addData(new ArrayList<>(getDataWithSelectedItems(set, mDataSelected)));
+
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -302,7 +333,7 @@ public class SelectProductActivity extends AppCompatActivity
 
 
     private Set<AllProduct> getDataWithSelectedItems(Set<AllProduct> setAllData, Set<AllProduct> setSelectedData) {
-        Set<AllProduct> set = new HashSet<>(setSelectedData);
+        set = new HashSet<>(setSelectedData);
         set.retainAll(setAllData);
         set.addAll(setAllData);
         return set;

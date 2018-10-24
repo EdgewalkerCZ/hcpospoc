@@ -52,33 +52,24 @@ public class CustomerSearchActivity extends AppCompatActivity {
         getToolbar();
         bindView();
         fetchCustomerList();
-        Utility.hideKeyboard(this);
-
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         Utility.hideKeyboard(CustomerSearchActivity.this,mCustomerSearchEdtTxt);
-
-//        fetchCustomerList();
     }
 
     public void fetchCustomerList() {
         progressBar.setVisibility(View.VISIBLE);
-        ApiInterface apiService =
-                ApiClient.getClient().create(ApiInterface.class);
-
+        ApiInterface apiService =ApiClient.getClient().create(ApiInterface.class);
         Call<JsonCustomerSet> call = apiService.getallCustomers();
-        Log.e("request", call.request().url().toString());
         call.enqueue(new Callback<JsonCustomerSet>() {
             @Override
             public void onResponse(Call<JsonCustomerSet> call, Response<JsonCustomerSet> response) {
                 customerSets = response.body();
                 setAdapter(customerSets);
                 progressBar.setVisibility(View.GONE);
-
-
             }
 
             @Override
@@ -157,6 +148,7 @@ public class CustomerSearchActivity extends AppCompatActivity {
             if (object.getName().toLowerCase().contains(input.toLowerCase())) {
                 //adding the element to filtered list
                 filterdNames.add(object);
+
             }
             else if(object.getPhone().toLowerCase().contains(input.toLowerCase())){
                 filterdNames.add(object);
