@@ -120,6 +120,9 @@
         <activity android:name=".billdesk.payment.AddNewCustomerActivity" />
         <activity android:name=".billdesk.payment.ViewCustomerDetailActivity" />
 
+
+        <activity android:name=".billdesk.activity.TransactionHistoryActivityNew" />
+        <activity android:name=".billdesk.activity.FilterHistoryActivity" />
     </application>
 
 

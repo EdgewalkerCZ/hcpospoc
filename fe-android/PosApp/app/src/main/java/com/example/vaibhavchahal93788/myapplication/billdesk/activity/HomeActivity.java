@@ -54,7 +54,7 @@ public class HomeActivity extends AppCompatActivity {
         findViewById(R.id.cardHistory).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(HomeActivity.this, TransactionHistoryActivity.class);
+                Intent intent = new Intent(HomeActivity.this, TransactionHistoryActivityNew.class);
                 startActivity(intent);
             }
         });
