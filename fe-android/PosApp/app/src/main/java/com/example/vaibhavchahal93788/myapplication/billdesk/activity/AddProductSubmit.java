@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +30,9 @@ import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Validation;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import libs.mjn.prettydialog.PrettyDialog;
+import libs.mjn.prettydialog.PrettyDialogCallback;
 
 
 public class AddProductSubmit extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener, TextWatcher {
@@ -48,6 +52,8 @@ public class AddProductSubmit extends AppCompatActivity implements AdapterView.O
 
     private double gst_percent;
     private int REQUEST_CODE = 11;
+    private PrettyDialog dialog;
+    private ProgressBar pb_dialogue;
 
 
     public static void startActivity(Activity activity) {
@@ -61,6 +67,7 @@ public class AddProductSubmit extends AppCompatActivity implements AdapterView.O
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_product_submit);
+        dialog = new PrettyDialog(this);
         getToolbar();
         iniView();
         iniListner();
@@ -154,7 +161,8 @@ public class AddProductSubmit extends AppCompatActivity implements AdapterView.O
         tv_price_lebel = findViewById(R.id.tv_price_lebel);
         tv_est_price = findViewById(R.id.tv_est_price);
 
-        im_scan=findViewById(R.id.im_scan);
+        im_scan = findViewById(R.id.im_scan);
+        pb_dialogue = findViewById(R.id.pb_dialogue);
 
 
     }
@@ -259,8 +267,8 @@ public class AddProductSubmit extends AppCompatActivity implements AdapterView.O
                     ll_ac_tv.setVisibility(View.VISIBLE);
                     ll_ac_tv.setWeightSum(1);
                     sp_type.setVisibility(View.GONE);
-                    gst_percent=18;
-                    et_gst.setText(gst_percent+"");
+                    gst_percent = 18;
+                    et_gst.setText(gst_percent + "");
 
                 } else if (position == 1 && sp_sub_category.getSelectedItem().equals("Mobile Phones")) {
                     ll_mobile.setVisibility(View.VISIBLE);
@@ -272,8 +280,8 @@ public class AddProductSubmit extends AppCompatActivity implements AdapterView.O
                     ll_ac_tv.setVisibility(View.VISIBLE);
                     ll_ac_tv.setWeightSum(1);
                     sp_type.setVisibility(View.GONE);
-                    gst_percent=12;
-                    et_gst.setText(gst_percent+"");
+                    gst_percent = 12;
+                    et_gst.setText(gst_percent + "");
 
                 } else if (position == 2 && sp_sub_category.getSelectedItem().equals("Wired Ear Phones")) {
                     ll_mobile.setVisibility(View.GONE);
@@ -287,8 +295,8 @@ public class AddProductSubmit extends AppCompatActivity implements AdapterView.O
                     ll_ac_tv.setWeightSum(1);
                     sp_type.setVisibility(View.GONE);
 
-                    gst_percent=18;
-                    et_gst.setText(gst_percent+"");
+                    gst_percent = 18;
+                    et_gst.setText(gst_percent + "");
 
                 } else if (position == 1 && sp_sub_category.getSelectedItem().equals("Televisions")) {
                     ll_mobile.setVisibility(View.GONE);
@@ -299,8 +307,8 @@ public class AddProductSubmit extends AppCompatActivity implements AdapterView.O
                     ll_ac_tv.setVisibility(View.VISIBLE);
                     ll_ac_tv.setWeightSum(2);
                     sp_type.setVisibility(View.VISIBLE);
-                    gst_percent=18;
-                    et_gst.setText(gst_percent+"");
+                    gst_percent = 18;
+                    et_gst.setText(gst_percent + "");
 
                     ArrayAdapter<CharSequence> dataAdapter = ArrayAdapter.createFromResource(this,
                             R.array.tele_type, android.R.layout.simple_spinner_item);
@@ -326,8 +334,8 @@ public class AddProductSubmit extends AppCompatActivity implements AdapterView.O
                     dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     // attaching data adapter to spinner
                     sp_type.setAdapter(dataAdapter);
-                    gst_percent=18;
-                    et_gst.setText(gst_percent+"");
+                    gst_percent = 18;
+                    et_gst.setText(gst_percent + "");
 
                 } else {
                     hideAndResetAllVariantValues();
@@ -379,12 +387,12 @@ public class AddProductSubmit extends AppCompatActivity implements AdapterView.O
                         }
 
                     } else if (ll_wired_ear_phones.isShown()) {
-                        if (wiredEarPhoneValidation()){
+                        if (wiredEarPhoneValidation()) {
                             addProductList(postValues());
                         }
 
                     } else if (ll_television.isShown()) {
-                        if (televisionValidation()){
+                        if (televisionValidation()) {
                             addProductList(postValues());
                         }
 
@@ -394,8 +402,8 @@ public class AddProductSubmit extends AppCompatActivity implements AdapterView.O
 
                 break;
             case R.id.im_scan:
-                    Intent scanIntent = new Intent(AddProductSubmit.this,ScanActivity.class);
-                    startActivityForResult(scanIntent,REQUEST_CODE);
+                Intent scanIntent = new Intent(AddProductSubmit.this, ScanActivity.class);
+                startActivityForResult(scanIntent, REQUEST_CODE);
                 break;
         }
     }
@@ -403,8 +411,8 @@ public class AddProductSubmit extends AppCompatActivity implements AdapterView.O
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == REQUEST_CODE){
-            if(resultCode == RESULT_OK){
+        if (requestCode == REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
                 String requiredValue = data.getStringExtra("Key");
                 et_serial_number.setText(requiredValue);
             }
@@ -412,19 +420,42 @@ public class AddProductSubmit extends AppCompatActivity implements AdapterView.O
     }
 
     private void addProductList(String data) {
-
+        pb_dialogue.setVisibility(View.VISIBLE);
         new ProductApiHelper().addProduct(data, new IApiRequestComplete<AddProductResponse>() {
             @Override
             public void onSuccess(AddProductResponse response) {
-                if (response!=null){
+                if (response != null) {
                     clearAllEditField();
                     hideAndResetAllVariantValues();
-                    Utility.showToast(getApplicationContext(),response.getMessage());
+                    pb_dialogue.setVisibility(View.GONE);
+                    // Utility.showToast(getApplicationContext(),response.getMessage());
+
+                    dialog.setIcon(R.drawable.pdlg_icon_success, R.color.pdlg_color_green,null)   // Icon resource
+                            .setTitle(getResources().getString(R.string.success))
+                            .setMessage(response.getMessage())
+                            .addButton(getResources().getString(R.string.ok), R.color.pdlg_color_white, R.color.pdlg_color_green, new PrettyDialogCallback() {
+                                @Override
+                                public void onClick() {
+                                    dialog.dismiss();
+                                }
+                            });
+                    dialog.show();
                 }
             }
 
             @Override
             public void onFailure(String message) {
+                pb_dialogue.setVisibility(View.GONE);
+                dialog.setIcon(R.drawable.pdlg_icon_info, R.color.pdlg_color_green,null)
+                        .setTitle(getResources().getString(R.string.error))
+                        .setMessage(message)
+                        .addButton(getResources().getString(R.string.ok), R.color.pdlg_color_white, R.color.pdlg_color_green, new PrettyDialogCallback() {
+                            @Override
+                            public void onClick() {
+                                dialog.dismiss();
+                            }
+                        });
+                dialog.show();
 
             }
         });
@@ -432,28 +463,28 @@ public class AddProductSubmit extends AppCompatActivity implements AdapterView.O
     }
 
     private boolean televisionValidation() {
-        boolean status=false;
-        if (sp_type.getSelectedItemPosition()!=0){
-            if (sp_television_star.getSelectedItemPosition()!=0){
+        boolean status = false;
+        if (sp_type.getSelectedItemPosition() != 0) {
+            if (sp_television_star.getSelectedItemPosition() != 0) {
                 return true;
 
-            }else {
-                Utility.showToast(getApplicationContext(),getResources().getString(R.string.error_star_rating));
+            } else {
+                Utility.showToast(getApplicationContext(), getResources().getString(R.string.error_star_rating));
             }
 
-        }else {
-            Utility.showToast(getApplicationContext(),getResources().getString(R.string.error_type));
+        } else {
+            Utility.showToast(getApplicationContext(), getResources().getString(R.string.error_type));
         }
 
         return status;
     }
 
     private boolean wiredEarPhoneValidation() {
-        boolean status= false;
-        if (sp_wire_phone_color.getSelectedItemPosition()!=0){
+        boolean status = false;
+        if (sp_wire_phone_color.getSelectedItemPosition() != 0) {
             return true;
-        }else {
-            Utility.showToast(getApplicationContext(),getResources().getString(R.string.error_color));
+        } else {
+            Utility.showToast(getApplicationContext(), getResources().getString(R.string.error_color));
         }
         return status;
     }
@@ -483,7 +514,7 @@ public class AddProductSubmit extends AppCompatActivity implements AdapterView.O
     private boolean powerBankValidation() {
         boolean status = false;
         if (sp_power_mah.getSelectedItemPosition() != 0) {
-            if (sp_compatible.getSelectedItemPosition() != 0) {
+            if (sp_power_compatible.getSelectedItemPosition() != 0) {
                 if (!Validation.isTextEmpty(et_weight_battery.getText().toString().trim())) {
 
                     return true;
@@ -584,13 +615,13 @@ public class AddProductSubmit extends AppCompatActivity implements AdapterView.O
             til_quantity.setError(null);
         } else if (et_description.getText().hashCode() == s.hashCode() && !Validation.isTextEmpty(et_description.getText().toString().trim())) {
             til_description.setError(null);
-        }else if (et_excl_gst.getText().hashCode()==s.hashCode()&&!Validation.isTextEmpty(et_excl_gst.getText().toString().trim())){
+        } else if (et_excl_gst.getText().hashCode() == s.hashCode() && !Validation.isTextEmpty(et_excl_gst.getText().toString().trim())) {
 
-            double gst_price,base_price,total_price=0.0;
-            base_price=Double.parseDouble(et_excl_gst.getText().toString());
-            gst_price=base_price*gst_percent/100;
-            total_price=base_price+gst_price;
-            tv_est_price.setText(total_price+" "+"Rs.");
+            double gst_price, base_price, total_price = 0.0;
+            base_price = Double.parseDouble(et_excl_gst.getText().toString());
+            gst_price = base_price * gst_percent / 100;
+            total_price = base_price + gst_price;
+            tv_est_price.setText(total_price + " " + "Rs.");
 
         }
     }
@@ -617,18 +648,18 @@ public class AddProductSubmit extends AppCompatActivity implements AdapterView.O
         tv_est_price.setText("-");
     }
 
-    private String postValues(){
-        JSONObject jsonObject= new JSONObject();
+    private String postValues() {
+        JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("product_name","Samsung");
-            jsonObject.put("product_description","Smart Inverter AC 1.5");
-            jsonObject.put("product_quantity",20);
-            jsonObject.put("product_price",29048);
-            jsonObject.put("product_category","Home Appliances");
-            jsonObject.put("product_sub_category","AC");
-            jsonObject.put("product_category_id",12);
-            jsonObject.put("product_sub_category_id",2);
-            jsonObject.put("product_image_url","");
+            jsonObject.put("product_name", "Samsung");
+            jsonObject.put("product_description", "Smart Inverter AC 1.5");
+            jsonObject.put("product_quantity", 20);
+            jsonObject.put("product_price", 29048);
+            jsonObject.put("product_category", "Home Appliances");
+            jsonObject.put("product_sub_category", "AC");
+            jsonObject.put("product_category_id", 12);
+            jsonObject.put("product_sub_category_id", 2);
+            jsonObject.put("product_image_url", "");
         } catch (JSONException e) {
             e.printStackTrace();
         }

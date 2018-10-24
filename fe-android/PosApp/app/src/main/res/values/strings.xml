@@ -399,4 +399,6 @@ in the hands of those who demand more</string>
     <string name="downloadPDF">Download As PDF</string>
     <string name="sendMail">Send Mail</string>
     <string name="downloadOrMail">Download OR EMail</string>
+    <string name="success">Success</string>
+    <string name="error">Oops !</string>
 </resources>
