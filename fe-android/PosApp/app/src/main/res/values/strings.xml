@@ -326,6 +326,9 @@ in the hands of those who demand more</string>
     <string name="add_customer_dob">Date of Birth</string>
     <string name="add_customer_note">Note</string>
 
+    <string name="successfully_message">Product deleted</string>
+    <string name="update_message">Product updated </string>
+
 
 
 

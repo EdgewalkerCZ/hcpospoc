@@ -4,14 +4,10 @@ import com.example.vaibhavchahal93788.myapplication.billdesk.model.AddProductMod
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.CategoryModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductCategoryModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductListModel;
-
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.profile.ProfileResponse;
 import com.google.gson.JsonObject;
 
-import com.example.vaibhavchahal93788.myapplication.billdesk.model.profile.ProfileResponse;
-
-
 import java.util.List;
-import java.util.Map;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -58,4 +54,10 @@ public interface productApi {
 
     @GET("category")
     Call<ProductCategoryModel> getCategoryList();
+
+    @GET("removeProduct")
+    Call<ProductCategoryModel> removeProduct(@Query("id") long id,@Query("updateStock") String updatestock);
+
+    @GET("updateProduct")
+    Call<ProductCategoryModel> updateProduct(@Query("id") long id,@Query("updateStock") String updatestock);
 }
