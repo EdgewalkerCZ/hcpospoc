@@ -63,6 +63,7 @@ public class BillSummaryActivity extends AppCompatActivity implements Runnable{
             .fromString("00001101-0000-1000-8000-00805F9B34FB");
     private ArrayList<ProductListModel> selectedItemList;
     int billDiscount;
+    String paymentMode;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -84,9 +85,9 @@ public class BillSummaryActivity extends AppCompatActivity implements Runnable{
             billDiscount= 0;
         } else {
             billDiscount= extras.getInt("discount");
+            paymentMode = extras.getString("paymentMode");
         }
 
-        Log.e("DY DIscount==>",billDiscount+"");
 
         list = new ArrayList<>();
 
@@ -102,8 +103,7 @@ public class BillSummaryActivity extends AppCompatActivity implements Runnable{
 //            int priceAfterGst = billProduct.getFinalPrice() * billProduct.getQuantity();
 //            totalPrice = totalPrice + priceAfterGst;
             totalPrice = billProduct.getFinalPrice();
-            Log.i("DY fiinal Price==>",billProduct.getFinalPrice()+"");
-            Log.i("DY fiinal Qty==>",billProduct.getQuantity()+"");
+
 
 
         }
@@ -111,8 +111,8 @@ public class BillSummaryActivity extends AppCompatActivity implements Runnable{
         TotalBillDetail totalBillDetail = new TotalBillDetail("Net Amount", totalPrice);
         list.add(totalBillDetail);
 
-        list.add(new HeadingPaymentMode("Payment Mode"));
-        TotalBillDetail paymentSummary = new TotalBillDetail("Cash", totalPrice);
+        //list.add(new HeadingPaymentMode("Payment Mode"));
+        TotalBillDetail paymentSummary = new TotalBillDetail(paymentMode, 0);
         list.add(paymentSummary);
 
         list.add(new SponceredModel());
@@ -541,38 +541,40 @@ public class BillSummaryActivity extends AppCompatActivity implements Runnable{
     }
 
     private int getFinalPriceMaxLength(int startIndex, int endIndex) {
-        int maxLength = 0;
-        for (int i = startIndex; i < endIndex; i++) {
-            BillProduct billProduct = ((BillProduct) list.get(i));
-            int currentLength = String.valueOf(billProduct.getFinalPrice() * billProduct.getQuantity()).length();
-            if (currentLength > maxLength) {
-                maxLength = currentLength;
-            }
-        }
+        int maxLength = 3;
+//        for (int i = startIndex; i < endIndex; i++) {
+//
+//            BillProduct billProduct = ((BillProduct) list.get(i));
+//            int currentLength = String.valueOf(billProduct.getFinalPrice() * billProduct.getQuantity()).length();
+//            if (currentLength > maxLength) {
+//                maxLength = currentLength;
+//            }
+//        }
+
         return maxLength;
     }
 
     private int getBasePriceMaxLength(int startIndex, int endIndex) {
-        int maxLength = 0;
-        for (int i = startIndex; i < endIndex; i++) {
-            BillProduct billProduct = ((BillProduct) list.get(i));
-            int currentLength = String.valueOf(billProduct.getPrice()).length();
-            if (currentLength > maxLength) {
-                maxLength = currentLength;
-            }
-        }
+        int maxLength = 3;
+//        for (int i = startIndex; i < endIndex; i++) {
+//            BillProduct billProduct = ((BillProduct) list.get(i));
+//            int currentLength = String.valueOf(billProduct.getPrice()).length();
+//            if (currentLength > maxLength) {
+//                maxLength = currentLength;
+//            }
+//        }
         return maxLength;
     }
 
     private int getQtyMaxLength(int startIndex, int endIndex) {
-        int maxLength = 0;
-        for (int i = startIndex; i < endIndex; i++) {
-            BillProduct billProduct = ((BillProduct) list.get(i));
-            int currentLength = String.valueOf(billProduct.getQuantity()).length();
-            if (currentLength > maxLength) {
-                maxLength = currentLength;
-            }
-        }
+        int maxLength = 3;
+//        for (int i = startIndex; i < endIndex; i++) {
+//            BillProduct billProduct = ((BillProduct) list.get(i));
+//            int currentLength = String.valueOf(billProduct.getQuantity()).length();
+//            if (currentLength > maxLength) {
+//                maxLength = currentLength;
+//            }
+//        }
         return maxLength;
     }
 

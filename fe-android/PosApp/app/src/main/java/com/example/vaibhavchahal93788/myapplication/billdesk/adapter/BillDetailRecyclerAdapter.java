@@ -9,8 +9,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.vaibhavchahal93788.myapplication.R;
@@ -24,6 +26,7 @@ import com.example.vaibhavchahal93788.myapplication.billdesk.model.TotalBillDeta
 
 import java.util.List;
 
+import butterknife.OnItemSelected;
 
 
 public class BillDetailRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -159,6 +162,8 @@ public class BillDetailRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
                 int discount = Math.round(Float.parseFloat(s.toString()));
                 discountModelIs.setDiscount(discount);
                 onDataChangeListener.onDiscount(discount);
+
+
             }
 
             @Override
@@ -166,6 +171,26 @@ public class BillDetailRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
 
             }
         });
+
+
+        holder.paymentMode.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id)
+            {
+                String selected = parentView.getItemAtPosition(position).toString();
+                Log.e("====>",position+""+"=Selected=>"+selected);
+                onDataChangeListener.seletedPaymentMode(selected);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+        });
+
+
+
     }
 
     @Override
@@ -236,11 +261,12 @@ public class BillDetailRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
     public class ViewHolderPaymentMode extends RecyclerView.ViewHolder {
         public TextView heading;
         public EditText discount;
-
+        public Spinner paymentMode;
         public ViewHolderPaymentMode(View itemView) {
 
             super(itemView);
             discount = (EditText) itemView.findViewById(R.id.product_discount);
+            paymentMode=(Spinner)itemView.findViewById(R.id.payment_mode);
         }
     }
 
@@ -341,6 +367,7 @@ public class BillDetailRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
         void onDataChanged(int quantity, int position, int price);
 
         void onDiscount(int discount);
+        void seletedPaymentMode(String paymentMode);
     }
 
     @Override

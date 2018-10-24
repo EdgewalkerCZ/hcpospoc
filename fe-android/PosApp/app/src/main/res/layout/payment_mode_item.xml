@@ -12,8 +12,8 @@
         android:id="@+id/discountid"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20px"
-        android:layout_marginBottom="20px"
+
+
         android:paddingLeft="12dp"
         android:paddingTop="12dp"
         android:paddingRight="12dp">
@@ -79,7 +79,7 @@
         android:layout_marginTop="5dp"
         android:background="@color/color_D0D0D0" />
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/view_id"
@@ -90,8 +90,10 @@
 
         <TextView
             android:id="@+id/tv_heading"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
             android:text="@string/payment_mode_heading"
             android:textSize="19dp" />
 
@@ -99,12 +101,14 @@
             android:id="@+id/payment_mode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_heading"
+
+            android:layout_gravity="center"
             android:layout_marginTop="12px"
+            android:layout_weight="1"
             android:entries="@array/payment_modes" />
 
 
-    </RelativeLayout>
+    </LinearLayout>
 
 
 </RelativeLayout>

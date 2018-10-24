@@ -48,7 +48,8 @@
 
     <string-array name="payment_modes">
         <item>Cash</item>
-    </string-array>
+        <item>Card</item>
+        </string-array>
 
     <string-array name="product_categories">
         <item>Categories*</item>

@@ -57,10 +57,10 @@ public class BillSummaryRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
             View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_bill_summary_total_bill, parent, false);
             return new ViewHolderTotalBill(v);
         } else if (viewType == TYPE_ITEM_HEADING_PAYMENT_MODE) {
-            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.bill_item_heading, parent, false);
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.payment_mode_summery, parent, false);
             return new ViewHolderHeadingPaymentMode(v);
         } else if (viewType == TYPE_ITEM_HEADING_PAYMENT_MODE) {
-            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.bill_item_heading, parent, false);
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.payment_mode_summery, parent, false);
             v.setVisibility(View.GONE);
             return new ViewHolderHeadingPaymentMode(v);
         } else if (viewType == TYPE_ITEM_HEADING_SPONCERED_BY) {
