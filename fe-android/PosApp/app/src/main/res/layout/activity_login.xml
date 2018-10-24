@@ -38,6 +38,7 @@
         android:textSize="18sp"
         android:textColorHint="#666666"
         android:textColor="#333333"
+        android:imeOptions="actionNext"
         android:singleLine="true"/>
 
     <EditText
@@ -53,6 +54,7 @@
         android:fontFamily="sans-serif"
         android:textSize="18sp"
         android:textColorHint="#666666"
+        android:imeOptions="actionDone"
         android:textColor="#333333"
         android:inputType="textPassword"/>
 
