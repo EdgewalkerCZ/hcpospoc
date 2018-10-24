@@ -14,6 +14,7 @@ public class BaseResource {
 	protected static final String OFFSET = "offset";
 	protected static final String TOTAL = "total";
 	protected static final String DATA = "data";
+	protected static final String ID = "id";
 
     protected static URI getBaseURI() {
         return UriBuilder.fromUri("http://localhost:8080/").build();

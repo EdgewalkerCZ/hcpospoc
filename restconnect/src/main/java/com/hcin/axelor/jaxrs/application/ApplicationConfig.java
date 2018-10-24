@@ -29,6 +29,9 @@ public class ApplicationConfig extends Application {
         resources.add(com.hcin.axelor.jaxrs.provider.MyJacksonJsonProvider.class);
         resources.add(com.hcin.axelor.jaxrs.resource.LoginResource.class);
         resources.add(com.hcin.axelor.jaxrs.resource.CategoryResource.class);
+        resources.add(com.hcin.axelor.jaxrs.resource.AddressResource.class);
+        resources.add(com.hcin.axelor.jaxrs.resource.PartnerAddressResource.class);
+        resources.add(com.hcin.axelor.jaxrs.resource.EmailAddressResource.class);
         resources.add(com.hcin.axelor.jaxrs.resource.CustomerResource.class);
         resources.add(com.hcin.axelor.jaxrs.resource.ProductResource.class);
         //==> we could also choose packages, see below getProperties()
