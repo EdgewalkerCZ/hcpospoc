@@ -1,10 +1,9 @@
 package com.example.vaibhavchahal93788.myapplication.billdesk.activity;
 
 import android.content.Intent;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -25,13 +24,10 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.vaibhavchahal93788.myapplication.R;
-import com.example.vaibhavchahal93788.myapplication.billdesk.adapter.ProductStockListAdapter;
 import com.example.vaibhavchahal93788.myapplication.billdesk.adapter.StockViewAdapter;
 import com.example.vaibhavchahal93788.myapplication.billdesk.api.ProductApiHelper;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.AllProductModel;
-import com.example.vaibhavchahal93788.myapplication.billdesk.model.CategoryModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductCategoryModel;
-import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductListModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.network.IApiRequestComplete;
 import com.example.vaibhavchahal93788.myapplication.billdesk.utility.ApiClient;
 import com.example.vaibhavchahal93788.myapplication.billdesk.utility.ApiInterface;
@@ -189,7 +185,7 @@ public class StockViewProductActivity extends AppCompatActivity implements  Stoc
     }
 
 
-    public void getCategoriesList() {
+    private void getCategoriesList() {
         new ProductApiHelper().getCategoryList( new IApiRequestComplete<ProductCategoryModel>() {
 
             @Override
@@ -338,9 +334,12 @@ public class StockViewProductActivity extends AppCompatActivity implements  Stoc
         if(load_category_id!=null && !load_category_id.equalsIgnoreCase("0")){
             for (AllProductModel object : productsList) {
                 //if the existing elements contains the search input
-                if (object.getCategoryID().equalsIgnoreCase(load_category_id)) {
-                    //adding the element to filtered list
-                    filterdNames.add(object);
+
+                if(object.getCategoryID()!=null){
+                    if (object.getCategoryID().equalsIgnoreCase(load_category_id)) {
+                        //adding the element to filtered list
+                        filterdNames.add(object);
+                    }
                 }
             }
             adapter.filterList(filterdNames);
