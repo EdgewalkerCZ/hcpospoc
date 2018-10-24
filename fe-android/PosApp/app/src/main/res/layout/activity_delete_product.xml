@@ -20,12 +20,12 @@
 
             <TextView
                 android:id="@+id/tv_product_tag"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
                 android:layout_marginTop="@dimen/dp32"
-                android:background="@drawable/circle_shape"
-                android:padding="15dp"
+                android:background="@drawable/background_circle_blue"
                 android:text="@string/dummy_tag_A"
+                android:gravity="center"
                 android:textColor="#FFFFFF"
                 android:textStyle="bold" />
 
@@ -276,6 +276,7 @@
                             android:textSize="@dimen/sp14" />
 
                         <LinearLayout
+                            android:id="@+id/lytStore"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/dp27"
@@ -283,30 +284,38 @@
                             android:orientation="horizontal">
 
                             <Button
+                                android:id="@+id/btn_store_de"
                                 android:layout_width="@dimen/dp32"
-                                android:layout_height="@dimen/dp25"
+                                android:layout_height="@dimen/dp28"
                                 android:layout_weight="3"
-                                android:background="@color/color_add_button"
+                                android:background="@color/light_green"
                                 android:text="@string/minus"
+                                android:clickable="false"
+                                android:gravity="center"
                                 android:textColor="@color/white_color"
-                                android:textSize="@dimen/sp13" />
+                                android:textSize="@dimen/sp18" />
 
                             <EditText
+                                android:id="@+id/edt_store"
                                 android:layout_width="@dimen/dp52"
-                                android:layout_height="@dimen/dp25"
+                                android:layout_height="@dimen/dp28"
                                 android:layout_weight="4"
+                                android:text="@string/zero"
+                                android:focusable="false"
                                 android:background="@drawable/editext_border"
                                 android:gravity="center"
                                 android:inputType="number" />
 
                             <Button
+                                android:id="@+id/btn_store_in"
                                 android:layout_width="@dimen/dp32"
-                                android:layout_height="@dimen/dp25"
+                                android:layout_height="@dimen/dp28"
                                 android:layout_weight="3"
                                 android:background="@color/color_add_button"
                                 android:text="+"
+                                android:gravity="center"
                                 android:textColor="@color/white_color"
-                                android:textSize="@dimen/sp13" />
+                                android:textSize="@dimen/sp18" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -335,30 +344,38 @@
                             android:orientation="horizontal">
 
                             <Button
+                                android:id="@+id/btn_damage_de"
                                 android:layout_width="@dimen/dp32"
-                                android:layout_height="@dimen/dp25"
+                                android:layout_height="@dimen/dp28"
                                 android:layout_weight="3"
-                                android:background="@color/color_add_button"
+                                android:background="@color/light_green"
                                 android:text="@string/minus"
+                                android:clickable="false"
+                                android:gravity="center"
                                 android:textColor="@color/white_color"
-                                android:textSize="@dimen/sp13" />
+                                android:textSize="@dimen/sp18" />
 
                             <EditText
+                                android:id="@+id/edt_damage"
                                 android:layout_width="@dimen/dp52"
-                                android:layout_height="@dimen/dp25"
+                                android:layout_height="@dimen/dp28"
                                 android:layout_weight="4"
                                 android:background="@drawable/editext_border"
                                 android:gravity="center"
+                                android:text="@string/zero"
+                                android:focusable="false"
                                 android:inputType="number" />
 
                             <Button
+                                android:id="@+id/btn_damage_in"
                                 android:layout_width="@dimen/dp32"
-                                android:layout_height="@dimen/dp25"
+                                android:layout_height="@dimen/dp28"
                                 android:layout_weight="3"
                                 android:background="@color/color_add_button"
                                 android:text="+"
+                                android:gravity="center"
                                 android:textColor="@color/white_color"
-                                android:textSize="@dimen/sp13" />
+                                android:textSize="@dimen/sp18" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -386,25 +403,32 @@
                             android:orientation="horizontal">
 
                             <Button
+                                android:id="@+id/btn_theft_de"
                                 android:layout_width="@dimen/dp32"
-                                android:layout_height="@dimen/dp25"
+                                android:layout_height="@dimen/dp28"
                                 android:layout_weight="3"
-                                android:background="@color/color_add_button"
+                                android:background="@color/light_green"
                                 android:text="@string/minus"
+                                android:clickable="false"
+                                android:gravity="center"
                                 android:textColor="@color/white_color"
-                                android:textSize="@dimen/sp13" />
+                                android:textSize="@dimen/sp18" />
 
                             <EditText
+                                android:id="@+id/edt_theft"
                                 android:layout_width="@dimen/dp52"
-                                android:layout_height="@dimen/dp25"
+                                android:layout_height="@dimen/dp28"
                                 android:layout_weight="4"
                                 android:background="@drawable/editext_border"
                                 android:gravity="center"
+                                android:text="@string/zero"
+                                android:focusable="false"
                                 android:inputType="number" />
 
                             <Button
+                                android:id="@+id/btn_theft_in"
                                 android:layout_width="@dimen/dp32"
-                                android:layout_height="@dimen/dp25"
+                                android:layout_height="@dimen/dp28"
                                 android:layout_weight="3"
                                 android:background="@color/color_add_button"
                                 android:text="+"
@@ -437,30 +461,38 @@
                             android:orientation="horizontal">
 
                             <Button
+                                android:id="@+id/btn_loss_de"
                                 android:layout_width="@dimen/dp32"
-                                android:layout_height="@dimen/dp25"
+                                android:layout_height="@dimen/dp28"
                                 android:layout_weight="3"
-                                android:background="@color/color_add_button"
+                                android:background="@color/light_green"
                                 android:text="@string/minus"
+                                android:clickable="false"
+                                android:gravity="center"
                                 android:textColor="@color/white_color"
-                                android:textSize="@dimen/sp13" />
+                                android:textSize="@dimen/sp18" />
 
                             <EditText
+                                android:id="@+id/edt_loss"
                                 android:layout_width="@dimen/dp52"
-                                android:layout_height="@dimen/dp25"
+                                android:layout_height="@dimen/dp28"
                                 android:layout_weight="4"
                                 android:background="@drawable/editext_border"
                                 android:gravity="center"
+                                android:text="@string/zero"
+                                android:focusable="false"
                                 android:inputType="number" />
 
                             <Button
+                                android:id="@+id/btn_loss_in"
                                 android:layout_width="@dimen/dp32"
-                                android:layout_height="@dimen/dp25"
+                                android:layout_height="@dimen/dp28"
                                 android:layout_weight="3"
                                 android:background="@color/color_add_button"
                                 android:text="+"
+                                android:gravity="center"
                                 android:textColor="@color/white_color"
-                                android:textSize="@dimen/sp13" />
+                                android:textSize="@dimen/sp18" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -488,30 +520,38 @@
                             android:orientation="horizontal">
 
                             <Button
+                                android:id="@+id/btn_restock_de"
                                 android:layout_width="@dimen/dp32"
-                                android:layout_height="@dimen/dp25"
+                                android:layout_height="@dimen/dp28"
                                 android:layout_weight="3"
-                                android:background="@color/color_add_button"
+                                android:background="@color/light_green"
                                 android:text="@string/minus"
+                                android:clickable="false"
+                                android:gravity="center"
                                 android:textColor="@color/white_color"
-                                android:textSize="@dimen/sp13" />
+                                android:textSize="@dimen/sp18" />
 
                             <EditText
+                                android:id="@+id/edt_restock"
                                 android:layout_width="@dimen/dp52"
-                                android:layout_height="@dimen/dp25"
+                                android:layout_height="@dimen/dp28"
                                 android:layout_weight="4"
                                 android:background="@drawable/editext_border"
                                 android:gravity="center"
+                                android:text="@string/zero"
+                                android:focusable="false"
                                 android:inputType="number" />
 
                             <Button
+                                android:id="@+id/btn_restock_in"
                                 android:layout_width="@dimen/dp32"
-                                android:layout_height="@dimen/dp25"
+                                android:layout_height="@dimen/dp28"
                                 android:layout_weight="3"
                                 android:background="@color/color_add_button"
                                 android:text="+"
+                                android:gravity="center"
                                 android:textColor="@color/white_color"
-                                android:textSize="@dimen/sp13" />
+                                android:textSize="@dimen/sp18" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -620,10 +660,10 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp46"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/dp23"
+        android:layout_marginBottom="@dimen/dp25"
         android:layout_marginLeft="@dimen/dp25"
         android:layout_marginRight="@dimen/dp25"
-        android:background="@color/color_DA1A32"
+        android:background="@color/color_configuration"
         android:text="@string/update"
         android:textColor="@color/white_color"
         android:textSize="@dimen/sp16" />

@@ -46,7 +46,7 @@ public class HomeActivity extends AppCompatActivity {
         findViewById(R.id.cardStock).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(HomeActivity.this, StockDetailActivity.class);
+                Intent intent = new Intent(HomeActivity.this, StockViewProductActivity.class);
                 startActivity(intent);
             }
         });
@@ -56,8 +56,6 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(HomeActivity.this, TransactionHistoryActivity.class);
                 startActivity(intent);
-
-
             }
         });
     }

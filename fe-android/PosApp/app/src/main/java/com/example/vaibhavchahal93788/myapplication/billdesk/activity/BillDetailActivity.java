@@ -28,18 +28,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import com.example.vaibhavchahal93788.myapplication.R;
 import com.example.vaibhavchahal93788.myapplication.billdesk.adapter.BillDetailRecyclerAdapter;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.BillProduct;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.DiscountModel;
-import com.example.vaibhavchahal93788.myapplication.billdesk.model.HeadingBillSummary;
-import com.example.vaibhavchahal93788.myapplication.billdesk.model.HeadingPaymentMode;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.PaymentMode;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductListModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.SelectedProduct;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.TotalBillDetail;
-
 import com.example.vaibhavchahal93788.myapplication.billdesk.printing.DeviceListActivity;
 import com.example.vaibhavchahal93788.myapplication.billdesk.printing.PrinterCommands;
 import com.example.vaibhavchahal93788.myapplication.billdesk.printing.Utils;
@@ -54,6 +50,7 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.UUID;
 
+import static com.example.vaibhavchahal93788.myapplication.billdesk.model.DiscountModel.getInstance;
 
 
 public class BillDetailActivity extends AppCompatActivity implements BillDetailRecyclerAdapter.OnDataChangeListener, View.OnClickListener, Runnable {
@@ -64,7 +61,7 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
     private Button btnConnectPrinter, btnPrint, btnViewBill,btnEmail;
     private TextView textBillingPrice;
 
-    private DiscountModel discountModelIs=DiscountModel.getInstance();
+    private DiscountModel discountModelIs= getInstance();
 
 
     protected static final String TAG = "TAG";
@@ -229,7 +226,7 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         }
         totalBillDetail.setTitle("Total Amount" + " (" + totalItems + " items)");
 
-        discountModelIs = DiscountModel.getInstance();
+        discountModelIs = getInstance();
         discountModelIs.setFinalPrice(totalPrice);
         discountModelIs.setQuantity(totalItems);
         Log.e("=getQuantity=>",discountModelIs.getQuantity()+"");
@@ -249,7 +246,7 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         Log.e("DY discount==>","=="+discount);
         int updatedPrice=0;
         int totalItems=0;
-        discountModelIs = DiscountModel.getInstance();
+        discountModelIs = getInstance();
 
         if (discountModelIs.getFinalPrice() > 0) {
             updatedPrice = discountModelIs.getFinalPrice() - discount;
@@ -266,7 +263,7 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_view_bill:
-                discountModelIs=DiscountModel.getInstance();
+                discountModelIs=getInstance();
                 Intent intent = new Intent(BillDetailActivity.this, BillSummaryActivity.class);
                 ArrayList<BillProduct> billProducts = getBillProductsList();
                 intent.putParcelableArrayListExtra("billProductsList", billProducts);

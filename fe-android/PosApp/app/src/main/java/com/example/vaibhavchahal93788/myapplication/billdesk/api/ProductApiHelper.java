@@ -2,7 +2,9 @@ package com.example.vaibhavchahal93788.myapplication.billdesk.api;
 
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.AddProductModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.CategoryModel;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductCategoryModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductListModel;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.productsuccess.AddProductResponse;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.profile.ProfileResponse;
 import com.example.vaibhavchahal93788.myapplication.billdesk.network.IApiRequestComplete;
 import com.example.vaibhavchahal93788.myapplication.billdesk.network.ResponseHandler;
@@ -45,6 +47,17 @@ public class ProductApiHelper {
     }
 
 
+    public void getCategoryList(String sortfield, String sortorder, long limit, String type, final IApiRequestComplete successInterface) {
+        Call<List<CategoryModel>> categoryApiResponseCall = productApi.getCategoryList(Constants.API_KEY, sortfield, sortorder, limit, type);
+        categoryApiResponseCall.enqueue(new ResponseHandler<List<CategoryModel>>(successInterface));
+    }
+
+    public void getCategoryList(final IApiRequestComplete successInterface) {
+        Call<ProductCategoryModel> categoryApiResponseCall = productApi.getCategoryList();
+        categoryApiResponseCall.enqueue(new ResponseHandler<ProductCategoryModel>(successInterface));
+    }
+
+
     public void getAllProductList(String category, String subCategory, final IApiRequestComplete successInterface) {
         Call<JsonObject> productsApiResponseCall = productApi.getAllProductList();
         productsApiResponseCall.enqueue(new ResponseHandler<JsonObject>(successInterface));
@@ -55,6 +68,12 @@ public class ProductApiHelper {
 
         Call<ProfileResponse> profileResponseCall = productApi.getProfileDetails();
         profileResponseCall.enqueue(new ResponseHandler<ProfileResponse>(successInterface));
+
+    }
+
+    public void addProduct(String body, IApiRequestComplete successInterface){
+        Call<AddProductResponse> addProductResponseCall=productApi.postAddProduct(body);
+        addProductResponseCall.enqueue(new ResponseHandler<AddProductResponse>(successInterface));
 
     }
 }
