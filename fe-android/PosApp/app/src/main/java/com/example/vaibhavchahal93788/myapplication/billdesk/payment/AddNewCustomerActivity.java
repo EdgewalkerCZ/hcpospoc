@@ -31,7 +31,7 @@ import retrofit2.Response;
 public class AddNewCustomerActivity extends AppCompatActivity {
     private TextInputLayout mInputCustomerName,mInputCustomerphone,mInputCustomeremail,mInputCustomeraddress,mInputCustomerdob,mInputCustomerNote;
     private String mCustomerName,mCustomerphone,mCustomeremail,mCustomeraddress,mCustomerdob,mCustomerNote;
-    private EditText mCustomerNameEDT,mCustomerphoneEDT,mCustomeremailEDT,mCustomeraddressEDT,mCustomerdobEDT,mCustomerNoteEDT;
+    private EditText mCustomerNameEDT,mCustomerphoneEDT,mCustomeremailEDT,mCustomeraddressEDT,mCustomerNoteEDT;
     private Button mSaveBTN;
 
     @Override
@@ -47,7 +47,7 @@ public class AddNewCustomerActivity extends AppCompatActivity {
         mCustomerphoneEDT=findViewById(R.id.add_customer_phone);
         mCustomeremailEDT=findViewById(R.id.add_customer_email);
         mCustomeraddressEDT=findViewById(R.id.add_customer_address);
-        mCustomerdobEDT=findViewById(R.id.add_customer_dob);
+//        mCustomerdobEDT=findViewById(R.id.add_customer_dob);
         mCustomerNoteEDT=findViewById(R.id.add_customer_note);
 
         mInputCustomerName=findViewById(R.id.input_layout_name);
@@ -128,7 +128,7 @@ public class AddNewCustomerActivity extends AppCompatActivity {
         mCustomerphone=mCustomerphoneEDT.getText().toString();
         mCustomeremail=mCustomeremailEDT.getText().toString();
         mCustomeraddress=mCustomeraddressEDT.getText().toString();
-        mCustomerdob=mCustomerdobEDT.getText().toString();
+//        mCustomerdob=mCustomerdobEDT.getText().toString();
         mCustomerNote=mCustomerNoteEDT.getText().toString();
 
         if(!Validation.isValidName(mCustomerName)){
@@ -164,7 +164,7 @@ public class AddNewCustomerActivity extends AppCompatActivity {
         object.put("email",mCustomeremail);
         object.put("phone",mCustomerphone);
         object.put("address",mCustomeraddress);
-        object.put("dob",mCustomerdob);
+//        object.put("dob",mCustomerdob);
         object.put("note",mCustomerNote);
         baseArray.put(object);
 
@@ -175,7 +175,7 @@ public class AddNewCustomerActivity extends AppCompatActivity {
         in.putExtra(KeyValue.EMAIL,mCustomeremail);
         in.putExtra(KeyValue.PHONE,mCustomerphone);
         in.putExtra(KeyValue.ADDRESS,mCustomeraddress);
-        in.putExtra(KeyValue.DOB,mCustomerdob);
+//        in.putExtra(KeyValue.DOB,mCustomerdob);
         in.putExtra(KeyValue.NOTE,mCustomerNote);
         startActivity(in);
 
