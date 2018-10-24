@@ -76,4 +76,16 @@ public class ProductApiHelper {
         addProductResponseCall.enqueue(new ResponseHandler<AddProductResponse>(successInterface));
 
     }
+
+    /* remove product */
+
+    public void removeProduct(long productId,String updatedstock ,final IApiRequestComplete successInterface) {
+        Call<ProductCategoryModel> categoryApiResponseCall = productApi.removeProduct(productId,updatedstock);
+        categoryApiResponseCall.enqueue(new ResponseHandler<ProductCategoryModel>(successInterface));
+    }
+
+    public void updateProduct(long productId,String product,final IApiRequestComplete successInterface) {
+        Call<ProductCategoryModel> categoryApiResponseCall = productApi.updateProduct(productId,product);
+        categoryApiResponseCall.enqueue(new ResponseHandler<ProductCategoryModel>(successInterface));
+    }
 }

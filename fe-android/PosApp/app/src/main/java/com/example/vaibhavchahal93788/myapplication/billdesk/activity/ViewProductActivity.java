@@ -2,9 +2,8 @@ package com.example.vaibhavchahal93788.myapplication.billdesk.activity;
 
 
 import android.content.Intent;
-
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -12,10 +11,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.vaibhavchahal93788.myapplication.R;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.AllProductModel;
-import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductListModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Constants;
 
 public class ViewProductActivity extends AppCompatActivity implements View.OnClickListener{
@@ -130,7 +129,23 @@ public class ViewProductActivity extends AppCompatActivity implements View.OnCli
                 break;
 
             case R.id.btn_update:
+                Toast.makeText(this,R.string.update_message,Toast.LENGTH_LONG).show();
+             //   updateProduct();
                 break;
         }
     }
-}
+
+  /*  private void updateProduct() {
+        new ProductApiHelper().updateProduct(productListModel.getId(),edtQuantity.getText().toString(),new IApiRequestComplete<ProductCategoryModel>() {
+
+            @Override
+            public void onSuccess(ProductCategoryModel categoryList) {
+
+            }
+
+            @Override
+            public void onFailure(String message) {
+                Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+            }
+        });*/
+    }

@@ -9,10 +9,9 @@ import com.google.gson.JsonObject;
 
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.productsuccess.AddProductResponse;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.profile.ProfileResponse;
-
+import com.google.gson.JsonObject;
 
 import java.util.List;
-import java.util.Map;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -29,7 +28,6 @@ import retrofit2.http.Query;
 public interface productApi {
     //http://52.172.129.14:80/api/index.php/products?sortfield=t.ref&sortorder=ASC&limit=100
 ///products/{id}
-
     @GET("products")
     Call<List<ProductListModel>> getProductList(@Header("DOLAPIKEY") String dolApiKey, @Query("sortfield") String sortfield, @Query("sortorder") String sortorder,
                                                 @Query("limit") long limit, @Query("category") String category);
@@ -65,4 +63,10 @@ public interface productApi {
 
     @GET("category")
     Call<ProductCategoryModel> getCategoryList();
+
+    @GET("removeProduct")
+    Call<ProductCategoryModel> removeProduct(@Query("id") long id,@Query("updateStock") String updatestock);
+
+    @GET("updateProduct")
+    Call<ProductCategoryModel> updateProduct(@Query("id") long id,@Query("updateStock") String updatestock);
 }
