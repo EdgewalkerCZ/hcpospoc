@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,6 +19,7 @@ import android.text.style.StyleSpan;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -198,20 +200,35 @@ public class TransactionHistoryActivityNew extends BaseActivity {
      * Custom Dialog for Download Options
      **/
     public void showDialog(final Context ctx) {
-        dialogDownloadOrMail.setVisibility(View.VISIBLE);
-        btnDownloadOrMailHistory.setVisibility(View.GONE);
-        ImageView ivClose =  findViewById(R.id.ivClose);
-        final TextView tvDownloadPDF = findViewById(R.id.tvDownloadPDFDialog);
-        TextView tvSendMail = findViewById(R.id.tvSendMailDialog);
-
-
+        //dialogDownloadOrMail.setVisibility(View.VISIBLE);
+        //btnDownloadOrMailHistory.setVisibility(View.GONE);
+        final BottomSheetDialog dialog = new BottomSheetDialog(ctx);
+        View view = getLayoutInflater().inflate(R.layout.dialog_download_history, null);
+        ImageView ivClose=view.findViewById(R.id.ivClose);
+        TextView tvDownloadPDF =view. findViewById(R.id.tvDownloadPDFDialog);
+        TextView tvSendMail = view.findViewById(R.id.tvSendMailDialog);
         ivClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+
+
+
+
+        //ImageView ivClose =  findViewById(R.id.ivClose);
+
+
+
+       /* ivClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialogDownloadOrMail.setVisibility(View.GONE);
                 btnDownloadOrMailHistory.setVisibility(View.VISIBLE);
             }
-        });
+        });*/
         tvDownloadPDF.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -224,11 +241,16 @@ public class TransactionHistoryActivityNew extends BaseActivity {
             @Override
             public void onClick(View v) {
                 sendMail();
-                dialogDownloadOrMail.setVisibility(View.GONE);
-                btnDownloadOrMailHistory.setVisibility(View.VISIBLE);
+                //$$$$$$$$$$$$$$$$
+
+                //dialogDownloadOrMail.setVisibility(View.GONE);
+                //btnDownloadOrMailHistory.setVisibility(View.VISIBLE);
 
             }
         });
+
+        dialog.setContentView(view);
+        dialog.show();
     }
 
     /*Download PDF*/
