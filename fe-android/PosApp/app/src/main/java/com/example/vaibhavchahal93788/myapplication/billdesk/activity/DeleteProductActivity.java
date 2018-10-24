@@ -178,6 +178,7 @@ public class DeleteProductActivity extends AppCompatActivity implements View.OnC
                         btnTheftdecrement.setBackgroundColor(getResources().getColor(R.color.light_green));
                         btnTheftdecrement.setClickable(false);
                     }
+
                 }
                 updateQuantity();
                 break;
@@ -196,6 +197,7 @@ public class DeleteProductActivity extends AppCompatActivity implements View.OnC
                         btnLossdecrement.setBackgroundColor(getResources().getColor(R.color.light_green));
                         btnLossdecrement.setClickable(false);
                     }
+
                 }
                 updateQuantity();
                 break;
@@ -213,6 +215,7 @@ public class DeleteProductActivity extends AppCompatActivity implements View.OnC
                         btnRestockdecrement.setBackgroundColor(getResources().getColor(R.color.light_green));
                         btnRestockdecrement.setClickable(false);
                     }
+
                     edtRestock.setText(recounterDe+"");
                 }
                 updateQuantity();
