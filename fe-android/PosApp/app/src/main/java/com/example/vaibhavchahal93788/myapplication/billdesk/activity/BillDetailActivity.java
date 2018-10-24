@@ -39,9 +39,7 @@ import com.example.vaibhavchahal93788.myapplication.billdesk.model.TotalBillDeta
 import com.example.vaibhavchahal93788.myapplication.billdesk.printing.DeviceListActivity;
 import com.example.vaibhavchahal93788.myapplication.billdesk.printing.PrinterCommands;
 import com.example.vaibhavchahal93788.myapplication.billdesk.printing.Utils;
-import com.example.vaibhavchahal93788.myapplication.billdesk.utility.KeyValue;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
@@ -82,7 +80,7 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
     private boolean isBluetoothConnected = false;
     private int totalItems;
     private int totalPrice;
-
+    private String seletedPaymentMode;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,9 +96,6 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         selectedItemList = (ArrayList<ProductListModel>) getIntent().getSerializableExtra("selectedItemList");
         totalItems = getIntent().getIntExtra("totalItems", 1);
         totalPrice = getIntent().getIntExtra("totalPrice", 0);
-
-
-        Log.e("=DY total Item price==>", totalItems + "<>" + totalPrice);
 
         list = new ArrayList<>();
 
@@ -157,6 +152,7 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
             // discountModelIs = getInstance();
             discountModelIs.setFinalPrice(totalPrice);
             discountModelIs.setQuantity(totalItems);
+            discountModelIs.setDiscountedPrice(totalPrice);
         }
     }
 
@@ -202,10 +198,6 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
 
     @Override
     public void onDataChanged(int quantity, int position, int price) {
-
-        Log.d("Array Size====>",""+selectedItemList.size());
-
-
         int index = selectedItemList.size() + 1 + position;
         BillProduct billProduct = (BillProduct) list.get(index);
         billProduct.setQuantity(quantity);
@@ -231,8 +223,6 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         discountModelIs = getInstance();
         discountModelIs.setFinalPrice(totalPrice);
         discountModelIs.setQuantity(totalItems);
-        Log.e("=getQuantity=>",discountModelIs.getQuantity()+"");
-
         totalBillDetail.setTotalPrice(totalPrice);
 
         textBillingPrice.setText(String.format(getString(R.string.text_billing_estimated_price), totalItems, totalPrice));
@@ -245,7 +235,6 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
     @Override
     public void onDiscount(int discount)
     {
-        Log.e("DY discount==>","=="+discount);
         int updatedPrice=0;
         int totalItems=0;
         discountModelIs = getInstance();
@@ -256,9 +245,15 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
             textBillingPrice.setText(String.format(getString(R.string.text_billing_estimated_price), totalItems, updatedPrice));
             discountModelIs.setDiscountedPrice(updatedPrice);
         }
-        Log.e("DY Final==>","=="+discountModelIs.getFinalPrice());
+        //
+    }
 
-//
+
+    @Override
+    public void seletedPaymentMode(String mode)
+    {
+        if(!mode.equals(""))
+            seletedPaymentMode = mode;
     }
 
     @Override
@@ -269,8 +264,10 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
                 Intent intent = new Intent(BillDetailActivity.this, BillSummaryActivity.class);
                 ArrayList<BillProduct> billProducts = getBillProductsList();
                 intent.putParcelableArrayListExtra("billProductsList", billProducts);
-                Log.e("DY===>",discountModelIs.getDiscount()+"");
+
                 intent.putExtra("discount",discountModelIs.getDiscount());
+                intent.putExtra("paymentMode",seletedPaymentMode);
+
                 startActivity(intent);
                 break;
 
@@ -287,23 +284,8 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
 
 
     protected void sendEmail() {
-        //print title
-        printContent();
-        printNewLine();
-        Log.i("Send email", "");
 
-        String mailto = KeyValue.getString(BillDetailActivity.this,KeyValue.USER_EMAIL);
-        ArrayList<BillProduct> all_product=  getBillProductsList();
-        int totalPrice = 0;
-        for (int i = 0; i < all_product.size(); i++) {
-            BillProduct billProduct = ((BillProduct) all_product.get(i));
-
-            totalPrice = billProduct.getFinalPrice();
-            Log.i("DY fiinal Price==>",billProduct.getFinalPrice()+"");
-            Log.i("DY fiinal Qty==>",billProduct.getQuantity()+"");
-
-
-        }
+        String TO = "xyz@gmail.com";
 
         Intent emailIntent = new Intent(Intent.ACTION_SEND);
 
@@ -335,7 +317,6 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
     }
 
     private void printBill() {
-        Log.e("printBill",":init");
         Thread t = new Thread() {
             public void run() {
                 try {
