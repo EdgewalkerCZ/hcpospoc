@@ -1,6 +1,7 @@
 package com.example.vaibhavchahal93788.myapplication.billdesk.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.vaibhavchahal93788.myapplication.R;
+import com.example.vaibhavchahal93788.myapplication.billdesk.activity.BillDetailHistory;
+import com.example.vaibhavchahal93788.myapplication.billdesk.activity.TransactionHistoryActivityNew;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.TranHistoryNew;
 
 import java.util.ArrayList;
@@ -24,7 +27,9 @@ public class TransactionHistoryAdapterNew extends RecyclerView.Adapter<Transacti
         this.ctx = ctx;
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+
+
+    class ViewHolder extends RecyclerView.ViewHolder{
 
         TextView tvProductName, tvDate, tvPrice, tvAvailableItems;
         ImageView ivProductImage;
@@ -37,6 +42,11 @@ public class TransactionHistoryAdapterNew extends RecyclerView.Adapter<Transacti
             ivProductImage = itemView.findViewById(R.id.ivProductImage);
             tvAvailableItems = itemView.findViewById(R.id.tvAvailableItems);
         }
+//        @Override
+//        public void onClick(View v) {
+//            ctx.startActivity(new Intent(ctx, BillDetailHistory.class));
+//        }
+
     }
     @Override
     public int getItemCount() {
@@ -49,6 +59,13 @@ public class TransactionHistoryAdapterNew extends RecyclerView.Adapter<Transacti
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.list_item_history, parent, false);
+
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ctx.startActivity(new Intent(ctx, BillDetailHistory.class));
+            }
+        });
         return new ViewHolder(v);
     }
 
@@ -60,10 +77,12 @@ public class TransactionHistoryAdapterNew extends RecyclerView.Adapter<Transacti
         holder.tvPrice.setText("\u20B9 "+tranHistoryNewList.get(position).getPrice());
         if(position%2==0)
             holder.ivProductImage.setBackground(ctx.getResources().getDrawable(R.drawable.cash_back));
+
     }
 
     public void filterList(List<TranHistoryNew> tranHistoryNewList) {
         this.tranHistoryNewList = tranHistoryNewList;
         notifyDataSetChanged();
     }
+
 }
