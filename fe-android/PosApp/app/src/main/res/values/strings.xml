@@ -100,7 +100,7 @@
 
     <string-array name="product_sub_categories">
         <item>Sub Categories*</item>
-       <!-- <item>Phone</item>
+        <!-- <item>Phone</item>
         <item>Tablet</item>
         <item>iPad</item>
         <item>iPhone</item>
@@ -135,7 +135,7 @@
 
     <string-array name="product_sub_categories_home_appliances">
         <item>Sub Categories*</item>
-       <!-- <item>Washing Machine</item>-->
+        <!-- <item>Washing Machine</item>-->
         <!--<item>Micro Wave</item>
         <item>Air Conditioner</item>-->
         <item>Televisions</item>
@@ -324,7 +324,6 @@
     <string name="restock_return">Restock Return</string>
 
 
-
     <string name="minus">-</string>
 
     <string name="zero">0</string>
@@ -351,10 +350,7 @@ in the hands of those who demand more</string>
     <string name="add_customer_note">Note</string>
 
 
-
-
-
-    <string name="weight">Weight*</string>
+    <string name="weight">Weight(in Grams)*</string>
 
     <!--New Added String-->
     <string name="payment_mode_heading">Payment Mode</string>
