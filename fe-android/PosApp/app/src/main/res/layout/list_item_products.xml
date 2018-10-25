@@ -10,8 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         card_view:cardBackgroundColor="#ffffff"
-        card_view:cardCornerRadius="8dp"
-        card_view:cardElevation="4dp"
+        card_view:cardCornerRadius="5dp"
+        card_view:cardElevation="2dp"
         card_view:cardUseCompatPadding="true">
         
         <LinearLayout
@@ -19,8 +19,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#ffffff"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:gravity="center_vertical"

@@ -98,12 +98,12 @@
             android:name=".billdesk.payment.SelectCategoryActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".billdesk.payment.CustomerSearchActivity" />
-        <activity android:name=".billdesk.payment.AddNewCustomerActivity" />
-        <activity android:name=".billdesk.payment.ViewCustomerDetailActivity" />
-        <activity android:name=".billdesk.activity.TransactionHistoryActivityNew" />
-        <activity android:name=".billdesk.activity.FilterHistoryActivity" />
-        <activity android:name=".billdesk.activity.ScanActivity" />
+        <activity android:name=".billdesk.payment.CustomerSearchActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name=".billdesk.payment.AddNewCustomerActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name=".billdesk.payment.ViewCustomerDetailActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name=".billdesk.activity.TransactionHistoryActivityNew" android:screenOrientation="portrait"></activity>
+        <activity android:name=".billdesk.activity.FilterHistoryActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name=".billdesk.activity.ScanActivity" android:screenOrientation="portrait"></activity>
         <activity android:name=".billdesk.activity.BillDetailHistory"
 
             android:screenOrientation="portrait"></activity>
