@@ -27,7 +27,6 @@ import org.glassfish.jersey.client.ClientConfig;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.hcin.axelor.model.Customer;
 import com.hcin.axelor.model.Product;
 
 @Path("/product")
@@ -111,9 +110,12 @@ public class ProductResource extends BaseResource {
     
     private JsonObject processAxelorResponse(JsonObject jsonAxelorResponse) throws JsonProcessingException {
     	JsonObjectBuilder jsonHcinResponse = Json.createObjectBuilder();
-
-    	if(jsonAxelorResponse.containsKey(STATUS))
+    	boolean statusOk = true;
+    	
+    	if(jsonAxelorResponse.containsKey(STATUS)) {
     		jsonHcinResponse.add(STATUS, jsonAxelorResponse.get(STATUS));
+    		statusOk = jsonAxelorResponse.getInt(STATUS) == 0;
+    	}
 
     	if(jsonAxelorResponse.containsKey(OFFSET))
     		jsonHcinResponse.add(OFFSET, jsonAxelorResponse.get(OFFSET));
@@ -122,19 +124,22 @@ public class ProductResource extends BaseResource {
     		jsonHcinResponse.add(TOTAL, jsonAxelorResponse.get(TOTAL));
 
     	if(jsonAxelorResponse.containsKey(DATA)) {
-    		JsonArray jsonDataArray = jsonAxelorResponse.getJsonArray(DATA);
-    		JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
-    		ObjectMapper objectMapper = new ObjectMapper();
-    		
-    		for (int i = 0; i < jsonDataArray.size(); i++) {
-    			Product product = mapAxelorJson(jsonDataArray.getJsonObject(i));
-    			String jsonInString = objectMapper.writeValueAsString(product);
-    			JsonReader jsonReader = Json.createReader(new StringReader(jsonInString));
-        		jsonArrayBuilder.add(jsonReader.readObject());
-    			jsonReader.close();
-    		}
-    		
-    		jsonHcinResponse.add(DATA, jsonArrayBuilder);
+    		if(statusOk) {
+    			JsonArray jsonDataArray = jsonAxelorResponse.getJsonArray(DATA);
+    			JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
+    			ObjectMapper objectMapper = new ObjectMapper();
+
+    			for (int i = 0; i < jsonDataArray.size(); i++) {
+    				Product product = mapAxelorJson(jsonDataArray.getJsonObject(i));
+    				String jsonInString = objectMapper.writeValueAsString(product);
+    				JsonReader jsonReader = Json.createReader(new StringReader(jsonInString));
+    				jsonArrayBuilder.add(jsonReader.readObject());
+    				jsonReader.close();
+    			}
+
+    			jsonHcinResponse.add(DATA, jsonArrayBuilder);
+    		} else
+        		jsonHcinResponse.add(DATA, jsonAxelorResponse.get(DATA));
     	}
 
     	return jsonHcinResponse.build();
@@ -167,6 +172,8 @@ public class ProductResource extends BaseResource {
 
     private static JsonObject produceAxelorJson(Product product) throws Exception {
     	JsonObjectBuilder builder = Json.createObjectBuilder();
+    	
+    	builder.add("productTypeSelect", "storable");
 
     	if(product.getCode() != null) builder.add("code", product.getCode());
     	if(product.getName() != null) builder.add("name", product.getName());
