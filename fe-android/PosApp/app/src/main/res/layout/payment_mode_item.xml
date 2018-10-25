@@ -101,10 +101,11 @@
             android:id="@+id/payment_mode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
+            style="@style/Widget.AppCompat.Spinner.Underlined"
             android:layout_gravity="center"
             android:layout_marginTop="12px"
             android:layout_weight="1"
+            android:dropDownVerticalOffset="50dp"
             android:entries="@array/payment_modes" />
 
 
