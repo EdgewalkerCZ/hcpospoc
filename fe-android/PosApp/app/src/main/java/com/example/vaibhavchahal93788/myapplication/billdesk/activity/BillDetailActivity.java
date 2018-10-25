@@ -39,6 +39,7 @@ import com.example.vaibhavchahal93788.myapplication.billdesk.model.TotalBillDeta
 import com.example.vaibhavchahal93788.myapplication.billdesk.printing.DeviceListActivity;
 import com.example.vaibhavchahal93788.myapplication.billdesk.printing.PrinterCommands;
 import com.example.vaibhavchahal93788.myapplication.billdesk.printing.Utils;
+import com.example.vaibhavchahal93788.myapplication.billdesk.utility.KeyValue;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -61,7 +62,7 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
     private Button btnConnectPrinter, btnPrint, btnViewBill,btnEmail;
     private TextView textBillingPrice;
 
-    private DiscountModel discountModelIs= getInstance();
+    private DiscountModel discountModelIs= DiscountModel.getInstance();
 
 
     protected static final String TAG = "TAG";
@@ -81,6 +82,7 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
     private int totalItems;
     private int totalPrice;
     private String seletedPaymentMode;
+    private String userPhone,userName,userEmail;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,6 +92,11 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         populateList();
         initViews();
+        //Get preference values of user
+        userPhone = KeyValue.getString(this,KeyValue.PHONE);
+        userName = KeyValue.getString(this,KeyValue.NAME);
+        userEmail = KeyValue.getString(this,KeyValue.EMAIL);
+
     }
 
     private void populateList() {
@@ -220,7 +227,7 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         }
         totalBillDetail.setTitle("Total Amount" + " (" + totalItems + " items)");
 
-        discountModelIs = getInstance();
+        discountModelIs = DiscountModel.getInstance();
         discountModelIs.setFinalPrice(totalPrice);
         discountModelIs.setQuantity(totalItems);
         totalBillDetail.setTotalPrice(totalPrice);
@@ -237,7 +244,7 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
     {
         int updatedPrice=0;
         int totalItems=0;
-        discountModelIs = getInstance();
+        discountModelIs = DiscountModel.getInstance();
 
         if (discountModelIs.getFinalPrice() > 0) {
             updatedPrice = discountModelIs.getFinalPrice() - discount;
@@ -260,7 +267,7 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_view_bill:
-                discountModelIs=getInstance();
+                discountModelIs=DiscountModel.getInstance();
                 Intent intent = new Intent(BillDetailActivity.this, BillSummaryActivity.class);
                 ArrayList<BillProduct> billProducts = getBillProductsList();
                 intent.putParcelableArrayListExtra("billProductsList", billProducts);
@@ -359,56 +366,132 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         t.start();
     }
 
+
     private void printContent() {
-        //print normal text
-        printCustom("Invoice 3 Inch", 0, 0);
-        printNewLine();
-        printNewLine();
-        printCustom("Home credit Store", 1, 1);
-        printNewLine();
-        printCustom("10A, Dlf Phase 2,", 0, 1);
-        printNewLine();
-        printCustom("Gurgaon(Haryana) - 122001", 0, 1);
-        printNewLine();
-        printCustom("Email - care@homecredit.co.in", 0, 1);
-        printNewLine();
-        printCustom("Supply of Goods", 1, 1);
-        printNewLine();
-        printNewLine();
-
         String uniqueID = UUID.randomUUID().toString();
-
-        printCustom("Invoice No - " + uniqueID.substring(0, 11), 0, 0);
-        printNewLine();
         String date_n = new SimpleDateFormat("dd MMM, yyyy HH:mm", Locale.getDefault()).format(new Date());
 
-        printCustom("Date -" + date_n, 0, 0);
+        Log.e("=userName=>",userName+"==>"+userPhone+"=="+userEmail);
+        //print normal text
+        printNewLine();
+        printCustom("Alpha Store", 1, 1);
+        printNewLine();
+        printCustom("Dlf Phase 3,Gurgaon - 122002", 0, 1);
+        printNewLine();
+        printCustom("Billing To", 0, 0);
+        printNewLine();
+//        printCustom(userName, 0, 0);
+//        printCustom("Invoice No:"+uniqueID.substring(0, 11), 0, 1);
+//        printNewLine();
+        printTextNormal(userName+"        Invoice No:"+uniqueID.substring(0, 11));
+        makTextNormal();
+        printNewLine();
+        printTextNormal(userPhone+"        "+date_n);
+        makTextNormal();
+        printNewLine();
+
+        printCustom(userEmail, 0, 0);
+        printNewLine();
+
         printNewLine();
         printCustom("--------------------------------", 1, 0);
         makTextNormal();
-        printTextNormal("Item Name : Gst   Price  Qty  Total");
+
+        printCustom("Invoice", 1, 1);
+        printNewLine();
+        printNewLine();
+        printTextNormal("Item Name  Gst%   Price  Qty  Total");
         makTextNormal();
         printNewLine();
         printCustom("--------------------------------", 1, 0);
         makTextNormal();
         printNewLine();
+
         int totalPrice = getIndividualBill();
         printCustom("--------------------------------", 1, 0);
         makTextNormal();
-        printTextNormal("Net Amount : " + "Rs " + totalPrice);
+        printTextNormal("Total  : " + "Rs " + totalPrice);
         printNewLine();
         printNewLine();
-        printTextNormal("Payment Summary");
-        printNewLine();
-        printTextNormal("Cash : " + "Rs " + totalPrice + ".00");
 
+        int discount = discountModelIs.getDiscount();
+        printCustom("--------------------------------", 1, 0);
+        makTextNormal();
+        printTextNormal("Discount  :   " + "Rs " + discount);
+        printNewLine();
+        printNewLine();
+
+        int netAmount = discountModelIs.getDiscountedPrice();
+        printCustom("--------------------------------", 1, 0);
+        makTextNormal();
+        printTextNormal("Net Amount  :   " + "Rs" + netAmount);
+        printNewLine();
+        printNewLine();
+
+        printTextNormal("Payment Mode  :   " + seletedPaymentMode);
+        printNewLine();
+        printNewLine();
+        printCustom("--------------------------------", 1, 0);
+        makTextNormal();
         //resetPrint(); //reset printer
         printNewLine();
         printNewLine();
-        printCustom("  Powered by Home Credit India.   1800 121 6660", 1, 1);
+        printCustom("  Powered by. Home Credit India.   1800 121 6660", 1, 1);
         printNewLine();
         printNewLine();
     }
+
+
+//    private void printContent() {
+//        //print normal text
+//        printCustom("Invoice 3 Inch", 0, 0);
+//        printNewLine();
+//        printNewLine();
+//        printCustom("Home credit Store", 1, 1);
+//        printNewLine();
+//        printCustom("10A, Dlf Phase 2,", 0, 1);
+//        printNewLine();
+//        printCustom("Gurgaon(Haryana) - 122001", 0, 1);
+//        printNewLine();
+//        printCustom("Email - care@homecredit.co.in", 0, 1);
+//        printNewLine();
+//        printCustom("Supply of Goods", 1, 1);
+//        printNewLine();
+//        printNewLine();
+//
+//        String uniqueID = UUID.randomUUID().toString();
+//
+//        printCustom("Invoice No - " + uniqueID.substring(0, 11), 0, 0);
+//        printNewLine();
+//        String date_n = new SimpleDateFormat("dd MMM, yyyy HH:mm", Locale.getDefault()).format(new Date());
+//
+//        printCustom("Date -" + date_n, 0, 0);
+//        printNewLine();
+//        printCustom("--------------------------------", 1, 0);
+//        makTextNormal();
+//        printTextNormal("Item Name : Gst   Price  Qty  Total");
+//        makTextNormal();
+//        printNewLine();
+//        printCustom("--------------------------------", 1, 0);
+//        makTextNormal();
+//        printNewLine();
+//        int totalPrice = getIndividualBill();
+//        printCustom("--------------------------------", 1, 0);
+//        makTextNormal();
+//        printTextNormal("Net Amount : " + "Rs " + totalPrice);
+//        printNewLine();
+//        printNewLine();
+//        printTextNormal("Payment Summary");
+//        printNewLine();
+//        printTextNormal("Cash : " + "Rs " + totalPrice + ".00");
+//
+//        //resetPrint(); //reset printer
+//        printNewLine();
+//        printNewLine();
+//        printCustom("  Powered by Home Credit India.   1800 121 6660", 1, 1);
+//        printNewLine();
+//        printNewLine();
+//    }
 
     private void makTextNormal() {
         byte[] cc = new byte[]{0x1B, 0x21, 0x03};  // 0- normal size text
@@ -417,6 +500,12 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private int getDiscount()
+    {
+        int discount = discountModelIs.getDiscount();
+        return discount;
     }
 
     private int getIndividualBill() {
@@ -430,8 +519,9 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         int totalPrice = 0;
         for (int i = startIndex; i < endIndex; i++) {
             BillProduct billProduct = ((BillProduct) list.get(i));
-            int priceAfterGst = billProduct.getFinalPrice() * billProduct.getQuantity();
-
+            // int priceAfterGst = billProduct.getFinalPrice() * billProduct.getQuantity();
+            //
+            int priceAfterGst = billProduct.getPrice() * billProduct.getQuantity();
             printTextNormal(billProduct.getName() + " : " + billProduct.getGstTax() + "%" + "    " + spacingRequired(maxLengthBasePrice, billProduct.getPrice()) + billProduct.getPrice() + "    " + spacingRequired(maxLengthQty, billProduct.getQuantity()) + billProduct.getQuantity() + "   " + spacingRequired(maxLengthFinalPrice, priceAfterGst) + (priceAfterGst));
 
             printNewLine();
