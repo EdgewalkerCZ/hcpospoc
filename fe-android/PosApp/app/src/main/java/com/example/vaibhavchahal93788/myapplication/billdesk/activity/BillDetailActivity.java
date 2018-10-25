@@ -436,7 +436,11 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         //resetPrint(); //reset printer
         printNewLine();
         printNewLine();
-        printCustom("  Powered by. Home Credit India.   1800 121 6660", 1, 1);
+//        printCustom("  Powered by. Home Credit India.   1800 121 6660", 1, 1);
+//        printNewLine();
+        printCustom("      Powered by   ", 1, 1);
+        printNewLine();
+        printCustom("      HOMECREDIT INDIA   ", 1, 1);
         printNewLine();
         printNewLine();
     }

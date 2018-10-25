@@ -7,6 +7,8 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -26,11 +28,15 @@ import com.example.vaibhavchahal93788.myapplication.R;
 import com.example.vaibhavchahal93788.myapplication.billdesk.adapter.BillSummaryRecyclerAdapter;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.BillProduct;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.BillSummaryHeaderModel;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.DiscountModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.HeadingPaymentMode;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductListModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.SponceredModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.TotalBillDetail;
+import com.example.vaibhavchahal93788.myapplication.billdesk.printing.DeviceListActivity;
 import com.example.vaibhavchahal93788.myapplication.billdesk.printing.PrinterCommands;
+import com.example.vaibhavchahal93788.myapplication.billdesk.printing.Utils;
+import com.example.vaibhavchahal93788.myapplication.billdesk.utility.KeyValue;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -54,17 +60,21 @@ public class BillSummaryActivity extends AppCompatActivity implements Runnable{
     BluetoothDevice mBluetoothDevice;
     private OutputStream os;
     byte FONT_TYPE;
+    protected static final String TAG = "TAG";
+    private static final int REQUEST_CONNECT_DEVICE = 1;
+
     private EditText message;
     private boolean isBluetoothConnected = false;
     BluetoothAdapter mBluetoothAdapter;
     private static final int REQUEST_ENABLE_BT = 2;
-    protected static final String TAG = "TAG";
+
     private UUID applicationUUID = UUID
             .fromString("00001101-0000-1000-8000-00805F9B34FB");
     private ArrayList<ProductListModel> selectedItemList;
     int billDiscount;
     String paymentMode;
-
+    private String userPhone,userName,userEmail;
+    private DiscountModel discountModelIs= DiscountModel.getInstance();
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +83,11 @@ public class BillSummaryActivity extends AppCompatActivity implements Runnable{
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         populateList();
         initViews();
+
+        //Get preference values of user
+        userPhone = KeyValue.getString(this,KeyValue.PHONE);
+        userName = KeyValue.getString(this,KeyValue.NAME);
+        userEmail = KeyValue.getString(this,KeyValue.EMAIL);
     }
 
     private void populateList() {
@@ -163,12 +178,132 @@ public class BillSummaryActivity extends AppCompatActivity implements Runnable{
      * Function for print
      */
 
+    private void printBill() {
+        Thread t = new Thread() {
+            public void run() {
+                try {
+                    os = mBluetoothSocket
+                            .getOutputStream();
+                    OutputStream opstream = null;
+                    try {
+                        opstream = mBluetoothSocket.getOutputStream();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    os = opstream;
+
+                    //print command
+                    try {
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        os = mBluetoothSocket.getOutputStream();
+
+                        byte[] printformat = {0x1B, 0 * 21, FONT_TYPE};
+                        //outputStream.write(printformat);
+
+                        //print title
+                        printContent();
+                        printNewLine();
+
+                        os.flush();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                } catch (Exception e) {
+                    Log.e("MainActivity", "Exe ", e);
+                }
+            }
+        };
+        t.start();
+    }
+
+
+    private void printContent() {
+        String uniqueID = UUID.randomUUID().toString();
+        String date_n = new SimpleDateFormat("dd MMM, yyyy HH:mm", Locale.getDefault()).format(new Date());
+
+        Log.e("=userName=>",userName+"==>"+userPhone+"=="+userEmail);
+        //print normal text
+        printNewLine();
+        printCustom("Alpha Store", 1, 1);
+        printNewLine();
+        printCustom("Dlf Phase 3,Gurgaon - 122002", 0, 1);
+        printNewLine();
+        printCustom("Billing To", 0, 0);
+        printNewLine();
+//        printCustom(userName, 0, 0);
+//        printCustom("Invoice No:"+uniqueID.substring(0, 11), 0, 1);
+//        printNewLine();
+        printTextNormal(userName+"        Invoice No:"+uniqueID.substring(0, 11));
+        makTextNormal();
+        printNewLine();
+        printTextNormal(userPhone+"        "+date_n);
+        makTextNormal();
+        printNewLine();
+
+        printCustom(userEmail, 0, 0);
+        printNewLine();
+
+        printNewLine();
+        printCustom("--------------------------------", 1, 0);
+        makTextNormal();
+
+        printCustom("Invoice", 1, 1);
+        printNewLine();
+        printNewLine();
+        printTextNormal("Item Name  Gst%   Price  Qty  Total");
+        makTextNormal();
+        printNewLine();
+        printCustom("--------------------------------", 1, 0);
+        makTextNormal();
+        printNewLine();
+
+        int totalPrice = getIndividualBill();
+        printCustom("--------------------------------", 1, 0);
+        makTextNormal();
+        printTextNormal("Total  : " + "Rs " + totalPrice);
+        printNewLine();
+        printNewLine();
+
+        int discount = discountModelIs.getDiscount();
+        printCustom("--------------------------------", 1, 0);
+        makTextNormal();
+        printTextNormal("Discount  :   " + "Rs " + discount);
+        printNewLine();
+        printNewLine();
+
+        int netAmount = discountModelIs.getDiscountedPrice();
+        printCustom("--------------------------------", 1, 0);
+        makTextNormal();
+        printTextNormal("Net Amount  :   " + "Rs" + netAmount);
+        printNewLine();
+        printNewLine();
+
+        printTextNormal("Payment Mode  :   " + paymentMode);
+        printNewLine();
+        printNewLine();
+        printCustom("--------------------------------", 1, 0);
+        makTextNormal();
+        //resetPrint(); //reset printer
+        printNewLine();
+        printNewLine();
+       // printCustom("  Powered by. Home Credit India.   1800 121 6660", 1, 1);
+        printCustom("      Powered by   ", 1, 1);
+        printNewLine();
+        printCustom("      HOMECREDIT INDIA   ", 1, 1);
+        printNewLine();
+        printNewLine();
+    }
 
     private void connectPrinter() {
-        Log.e("Connect Printer","12345");
+        Log.e("connect printer",":sddfd");
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if (mBluetoothAdapter == null) {
-            Toast.makeText(this, "Message1", Toast.LENGTH_SHORT).show();
+            Toast.makeText(BillSummaryActivity.this, "Message1", Toast.LENGTH_SHORT).show();
         } else {
             if (!mBluetoothAdapter.isEnabled()) {
                 isBluetoothConnected = false;
@@ -179,8 +314,9 @@ public class BillSummaryActivity extends AppCompatActivity implements Runnable{
             } else {
                 if (!isBluetoothConnected)
                     connectBluetooth();
+                Log.e("initPrinting",":init");
                 initPrinting();
-//                ListPairedDevices();
+                //               ListPairedDevices();
 //                Intent connectIntent = new Intent(BillDetailActivity.this,
 //                        DeviceListActivity.class);
 //                startActivityForResult(connectIntent,
@@ -202,6 +338,10 @@ public class BillSummaryActivity extends AppCompatActivity implements Runnable{
     private void connectBluetooth() {
         if (getFirstConnectedDevice().isEmpty()) {
             Toast.makeText(this, "No device paired, please paired a device!", Toast.LENGTH_LONG).show();
+            Intent connectIntent = new Intent(BillSummaryActivity.this,
+                    DeviceListActivity.class);
+            startActivityForResult(connectIntent,
+                    REQUEST_CONNECT_DEVICE);
         } else {
             mBluetoothDevice = mBluetoothAdapter
                     .getRemoteDevice(getFirstConnectedDevice());
@@ -250,7 +390,7 @@ public class BillSummaryActivity extends AppCompatActivity implements Runnable{
                         connectBluetooth();
                     initPrinting();
                 } else {
-                    Toast.makeText(this, "Message", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BillSummaryActivity.this, "Message", Toast.LENGTH_SHORT).show();
                 }
                 break;
         }
@@ -409,101 +549,24 @@ public class BillSummaryActivity extends AppCompatActivity implements Runnable{
         }
 
     }
-    private void printBill() {
-        Thread t = new Thread() {
-            public void run() {
-                try {
-                    os = mBluetoothSocket
-                            .getOutputStream();
-                    OutputStream opstream = null;
-                    try {
-                        opstream = mBluetoothSocket.getOutputStream();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    os = opstream;
 
-                    //print command
-                    try {
-                        try {
-                            Thread.sleep(1000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        os = mBluetoothSocket.getOutputStream();
-
-                        byte[] printformat = {0x1B, 0 * 21, FONT_TYPE};
-                        //outputStream.write(printformat);
-
-                        //print title
-                        printContent();
-                        printNewLine();
-
-                        os.flush();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-                } catch (Exception e) {
-                    Log.e("MainActivity", "Exe ", e);
-                }
+    //print photo
+    public void printPhoto(int img) {
+        try {
+            Bitmap bmp = BitmapFactory.decodeResource(getResources(),
+                    img);
+            if (bmp != null) {
+                byte[] command = Utils.decodeBitmap(bmp);
+                os.write(PrinterCommands.ESC_ALIGN_CENTER);
+                printText(command);
+            } else {
+                Log.e("Print Photo error", "the file isn't exists");
             }
-        };
-        t.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e("PrintTools", "the file isn't exists");
+        }
     }
-
-    private void printContent() {
-        //print normal text
-        printCustom("Invoice 3 Inch", 0, 0);
-        printNewLine();
-        printNewLine();
-        printCustom("Home credit Store", 1, 1);
-        printNewLine();
-        printCustom("10A, Dlf Phase 2,", 0, 1);
-        printNewLine();
-        printCustom("Gurgaon(Haryana) - 122001", 0, 1);
-        printNewLine();
-        printCustom("Email - care@homecredit.co.in", 0, 1);
-        printNewLine();
-        printCustom("Supply of Goods", 1, 1);
-        printNewLine();
-        printNewLine();
-
-        String uniqueID = UUID.randomUUID().toString();
-
-        printCustom("Invoice No - " + uniqueID.substring(0, 11), 0, 0);
-        printNewLine();
-        String date_n = new SimpleDateFormat("dd MMM, yyyy HH:mm", Locale.getDefault()).format(new Date());
-
-        printCustom("Date -" + date_n, 0, 0);
-        printNewLine();
-        printCustom("--------------------------------", 1, 0);
-        makTextNormal();
-        printTextNormal("Item Name : Gst   Price  Qty  Total");
-        makTextNormal();
-        printNewLine();
-        printCustom("--------------------------------", 1, 0);
-        makTextNormal();
-        printNewLine();
-        int totalPrice = getIndividualBill();
-        printCustom("--------------------------------", 1, 0);
-        makTextNormal();
-        printTextNormal("Net Amount : " + "Rs " + totalPrice);
-        printNewLine();
-        printNewLine();
-        printTextNormal("Payment Summary");
-        printNewLine();
-        printTextNormal("Cash : " + "Rs " + totalPrice + ".00");
-
-        //resetPrint(); //reset printer
-        printNewLine();
-        printNewLine();
-        printCustom("  Powered by Home Credit India.   1800 121 6660", 1, 1);
-        printNewLine();
-        printNewLine();
-    }
-
-
     private void makTextNormal() {
         byte[] cc = new byte[]{0x1B, 0x21, 0x03};  // 0- normal size text
         try {
@@ -513,63 +576,71 @@ public class BillSummaryActivity extends AppCompatActivity implements Runnable{
         }
     }
 
-
     private int getIndividualBill() {
-        int startIndex = (billProductsList.size() + 1);
-        int endIndex = (billProductsList.size() * 2) + 1;
 
-        int maxLengthFinalPrice = getFinalPriceMaxLength(startIndex, endIndex);
-        int maxLengthBasePrice = getBasePriceMaxLength(startIndex, endIndex);
-        int maxLengthQty = getQtyMaxLength(startIndex, endIndex);
+        //Daya
+        // int startIndex = (selectedItemList.size() + 1);
+        // int endIndex = (selectedItemList.size() * 2) + 1;
+
+        int maxLengthFinalPrice = 4;//getFinalPriceMaxLength(startIndex, endIndex);
+        int maxLengthBasePrice = 4; //getBasePriceMaxLength(startIndex, endIndex);
+        int maxLengthQty = 4;//getQtyMaxLength(startIndex, endIndex);
 
         int totalPrice = 0;
-        for (int i = startIndex; i < endIndex; i++) {
-            BillProduct billProduct = ((BillProduct) list.get(i));
-            int priceAfterGst = billProduct.getFinalPrice() * billProduct.getQuantity();
+        Log.e("=billProductsList==>",billProductsList.size()+"");
 
+        for (int i = 0; i < billProductsList.size(); i++) {
+            BillProduct billProduct = ((BillProduct) billProductsList.get(i));
+
+            Log.e("=Summery totalPrice==>",totalPrice+"");
+            Log.e("=Summery Price==>",billProduct.getPrice()+"");
+            Log.e("=Summery Quantity==>",billProduct.getQuantity()+"");
+
+            int priceAfterGst = billProduct.getPrice() * billProduct.getQuantity();
             printTextNormal(billProduct.getName() + " : " + billProduct.getGstTax() + "%" + "    " + spacingRequired(maxLengthBasePrice, billProduct.getPrice()) + billProduct.getPrice() + "    " + spacingRequired(maxLengthQty, billProduct.getQuantity()) + billProduct.getQuantity() + "   " + spacingRequired(maxLengthFinalPrice, priceAfterGst) + (priceAfterGst));
 
             printNewLine();
             totalPrice = totalPrice + priceAfterGst;
+            Log.e("=Summery total N==>",totalPrice+"");
+
         }
+
         return totalPrice;
     }
 
     private int getFinalPriceMaxLength(int startIndex, int endIndex) {
-        int maxLength = 3;
-//        for (int i = startIndex; i < endIndex; i++) {
-//
-//            BillProduct billProduct = ((BillProduct) list.get(i));
-//            int currentLength = String.valueOf(billProduct.getFinalPrice() * billProduct.getQuantity()).length();
-//            if (currentLength > maxLength) {
-//                maxLength = currentLength;
-//            }
-//        }
-
+        int maxLength = 0;
+        for (int i = startIndex; i < endIndex; i++) {
+            BillProduct billProduct = ((BillProduct) list.get(i));
+            int currentLength = String.valueOf(billProduct.getFinalPrice() * billProduct.getQuantity()).length();
+            if (currentLength > maxLength) {
+                maxLength = currentLength;
+            }
+        }
         return maxLength;
     }
 
     private int getBasePriceMaxLength(int startIndex, int endIndex) {
-        int maxLength = 3;
-//        for (int i = startIndex; i < endIndex; i++) {
-//            BillProduct billProduct = ((BillProduct) list.get(i));
-//            int currentLength = String.valueOf(billProduct.getPrice()).length();
-//            if (currentLength > maxLength) {
-//                maxLength = currentLength;
-//            }
-//        }
+        int maxLength = 0;
+        for (int i = startIndex; i < endIndex; i++) {
+            BillProduct billProduct = ((BillProduct) list.get(i));
+            int currentLength = String.valueOf(billProduct.getPrice()).length();
+            if (currentLength > maxLength) {
+                maxLength = currentLength;
+            }
+        }
         return maxLength;
     }
 
     private int getQtyMaxLength(int startIndex, int endIndex) {
-        int maxLength = 3;
-//        for (int i = startIndex; i < endIndex; i++) {
-//            BillProduct billProduct = ((BillProduct) list.get(i));
-//            int currentLength = String.valueOf(billProduct.getQuantity()).length();
-//            if (currentLength > maxLength) {
-//                maxLength = currentLength;
-//            }
-//        }
+        int maxLength = 0;
+        for (int i = startIndex; i < endIndex; i++) {
+            BillProduct billProduct = ((BillProduct) list.get(i));
+            int currentLength = String.valueOf(billProduct.getQuantity()).length();
+            if (currentLength > maxLength) {
+                maxLength = currentLength;
+            }
+        }
         return maxLength;
     }
 
