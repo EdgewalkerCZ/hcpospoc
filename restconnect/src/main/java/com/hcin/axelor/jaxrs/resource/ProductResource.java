@@ -30,39 +30,24 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hcin.axelor.model.Product;
 
 @Path("/product")
-public class ProductResource extends BaseResource {
+public class ProductResource extends BaseResourceRead {
     
+	@Override
+	protected String getService() {
+		return "com.axelor.apps.base.db.Product";
+	}
+
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public JsonObject getProducts(@HeaderParam(JSESSIONID) String token) throws Exception {
-    	ClientConfig config = new ClientConfig();
-
-    	Client client = ClientBuilder.newClient(config);
-
-    	WebTarget target = client.target(getBaseURI()).path(WS).path(REST).path("com.axelor.apps.base.db.Product");
-    	Builder request = target.request().accept(MediaType.APPLICATION_JSON).header("Cookie", JSESSIONID + "=" + token);
-    	JsonObject jsonAxelorResponse = request.get(JsonObject.class);
-
-    	return processAxelorResponse(jsonAxelorResponse);
+    	return getObjects(token);
     }
     
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public JsonObject getProduct(@PathParam("id") String id, @HeaderParam(JSESSIONID) String token) throws Exception {
-        if((id == null) || id.isEmpty()) {
-            return Json.createObjectBuilder().add(STATUS, 200).build();
-        }
-        
-    	ClientConfig config = new ClientConfig();
-
-    	Client client = ClientBuilder.newClient(config);
-
-    	WebTarget target = client.target(getBaseURI()).path(WS).path(REST).path("com.axelor.apps.base.db.Product").path(id);
-    	Builder request = target.request().accept(MediaType.APPLICATION_JSON).header("Cookie", JSESSIONID + "=" + token);
-    	JsonObject jsonAxelorResponse = request.get(JsonObject.class);
-
-    	return processAxelorResponse(jsonAxelorResponse);
+    	return getObject(id, token);
     }
     
     @PUT
@@ -81,7 +66,7 @@ public class ProductResource extends BaseResource {
     	Builder request = target.request().accept(MediaType.APPLICATION_JSON).header("Cookie", JSESSIONID + "=" + token);
     	JsonObject jsonAxelorResponse = request.put(Entity.entity(produceAxelorJson(product), MediaType.APPLICATION_JSON), JsonObject.class);
 
-    	return processAxelorResponse(jsonAxelorResponse);
+    	return processAxelorResponse(jsonAxelorResponse, token);
     }
     
     @POST
@@ -105,10 +90,10 @@ public class ProductResource extends BaseResource {
     	Builder request = target.request().accept(MediaType.APPLICATION_JSON).header("Cookie", JSESSIONID + "=" + token);
     	JsonObject jsonAxelorResponse = request.post(Entity.entity(product, MediaType.APPLICATION_JSON), JsonObject.class);
 
-    	return processAxelorResponse(jsonAxelorResponse);
+    	return processAxelorResponse(jsonAxelorResponse, token);
     }
     
-    private JsonObject processAxelorResponse(JsonObject jsonAxelorResponse) throws JsonProcessingException {
+    private JsonObject processAxelorResponse(JsonObject jsonAxelorResponse, String token) throws JsonProcessingException {
     	JsonObjectBuilder jsonHcinResponse = Json.createObjectBuilder();
     	boolean statusOk = true;
     	
@@ -130,7 +115,7 @@ public class ProductResource extends BaseResource {
     			ObjectMapper objectMapper = new ObjectMapper();
 
     			for (int i = 0; i < jsonDataArray.size(); i++) {
-    				Product product = mapAxelorJson(jsonDataArray.getJsonObject(i));
+    				Product product = mapAxelorJson(jsonDataArray.getJsonObject(i), token);
     				String jsonInString = objectMapper.writeValueAsString(product);
     				JsonReader jsonReader = Json.createReader(new StringReader(jsonInString));
     				jsonArrayBuilder.add(jsonReader.readObject());
@@ -145,7 +130,7 @@ public class ProductResource extends BaseResource {
     	return jsonHcinResponse.build();
     }
 
-    private static Product mapAxelorJson(JsonObject jsonProduct) {
+    public Product mapAxelorJson(JsonObject jsonProduct, String token) {
     	Product product = new Product();
 
     	product.setId(jsonProduct.getInt("id"));

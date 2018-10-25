@@ -1,22 +1,24 @@
 package com.hcin.axelor.model;
 
-public class EmailAddress {
-    private Integer id;
-    private String name;
+public class EmailAddress extends BaseEntity {
     private String address;
     private Integer partnerId;
-    
-	public Integer getId() {
-		return id;
-	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
+	private String fullName;
+	private String name;
+
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getFullName() {
+		return fullName;
+	}
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
 	}
 	public String getAddress() {
 		return address;

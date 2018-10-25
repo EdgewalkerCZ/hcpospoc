@@ -5,11 +5,9 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @JsonInclude(Include.NON_EMPTY)
 //@XmlRootElement       //only needed if we also want to generate XML
-public class Product {
+public class Product extends BaseEntity {
 
-    private Integer id;
     private String code;
-    private String name;
     private String productCategory;
     private String productFamily;
     private Integer productCategoryId;
@@ -19,13 +17,13 @@ public class Product {
     private String salePrice;
     private Boolean isGst;
     private Boolean isSellable;
-    
-	public Integer getId() {
-		return id;
-	}
+	private String name;
 
-	public void setId(Integer id) {
-		this.id = id;
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getCode() {
@@ -36,14 +34,6 @@ public class Product {
 		this.code = code;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-	
 	public String getProductCategory() {
 		return productCategory;
 	}

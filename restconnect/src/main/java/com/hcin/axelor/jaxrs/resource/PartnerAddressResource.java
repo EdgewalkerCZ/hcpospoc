@@ -30,39 +30,24 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hcin.axelor.model.PartnerAddress;
 
 @Path("/partnerAddress")
-public class PartnerAddressResource extends BaseResource {
+public class PartnerAddressResource extends BaseResourceRead {
     
+	@Override
+	protected String getService() {
+		return "com.axelor.apps.base.db.PartnerAddress";
+	}
+
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public JsonObject getAddresses(@HeaderParam(JSESSIONID) String token) throws Exception {
-    	ClientConfig config = new ClientConfig();
-
-    	Client client = ClientBuilder.newClient(config);
-
-    	WebTarget target = client.target(getBaseURI()).path(WS).path(REST).path("com.axelor.apps.base.db.PartnerAddress");
-    	Builder request = target.request().accept(MediaType.APPLICATION_JSON).header("Cookie", JSESSIONID + "=" + token);
-    	JsonObject jsonAxelorResponse = request.get(JsonObject.class);
-
-    	return processAxelorResponse(jsonAxelorResponse, token);
+    	return getObjects(token);
     }
     
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public JsonObject getAddress(@PathParam("id") String id, @HeaderParam(JSESSIONID) String token) throws Exception {
-        if((id == null) || id.isEmpty()) {
-            return Json.createObjectBuilder().add(STATUS, 200).build();
-        }
-        
-    	ClientConfig config = new ClientConfig();
-
-    	Client client = ClientBuilder.newClient(config);
-
-    	WebTarget target = client.target(getBaseURI()).path(WS).path(REST).path("com.axelor.apps.base.db.PartnerAddress").path(id);
-    	Builder request = target.request().accept(MediaType.APPLICATION_JSON).header("Cookie", JSESSIONID + "=" + token);
-    	JsonObject jsonAxelorResponse = request.get(JsonObject.class);
-
-    	return processAxelorResponse(jsonAxelorResponse, token);
+    	return getObject(id, token);
     }
     
     @PUT
@@ -77,7 +62,7 @@ public class PartnerAddressResource extends BaseResource {
 
     	Client client = ClientBuilder.newClient(config);
 
-    	WebTarget target = client.target(getBaseURI()).path(WS).path(REST).path("com.axelor.apps.base.db.PartnerAddress");
+    	WebTarget target = client.target(getBaseURI()).path(WS).path(REST).path(getService());
     	Builder request = target.request().accept(MediaType.APPLICATION_JSON).header("Cookie", JSESSIONID + "=" + token);
     	JsonObject jsonAxelorResponse = request.put(Entity.entity(produceAxelorJson(address), MediaType.APPLICATION_JSON), JsonObject.class);
 
@@ -101,7 +86,7 @@ public class PartnerAddressResource extends BaseResource {
     		ObjectMapper objectMapper = new ObjectMapper();
 
     		for (int i = 0; i < jsonDataArray.size(); i++) {
-    			PartnerAddress address = mapAxelorJson(jsonDataArray.getJsonObject(i));
+    			PartnerAddress address = mapAxelorJson(jsonDataArray.getJsonObject(i), token);
     			String jsonInString = objectMapper.writeValueAsString(address);
     			JsonReader jsonReader = Json.createReader(new StringReader(jsonInString));
     			jsonArrayBuilder.add(jsonReader.readObject());
@@ -118,7 +103,7 @@ public class PartnerAddressResource extends BaseResource {
     	return jsonHcinResponse.build();
     }
 
-    public PartnerAddress mapAxelorJson(JsonObject jsonAddress) {
+    public PartnerAddress mapAxelorJson(JsonObject jsonAddress, String token) {
     	PartnerAddress address = new PartnerAddress();
 
     	address.setId(jsonAddress.getInt("id"));

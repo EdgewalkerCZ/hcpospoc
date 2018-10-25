@@ -8,6 +8,10 @@ import java.util.Set;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
+import org.reflections.Reflections;
+
+import com.hcin.axelor.jaxrs.resource.BaseResourceRead;
+
 @ApplicationPath("/service")
 public class ApplicationConfig extends Application {
 
@@ -24,17 +28,18 @@ public class ApplicationConfig extends Application {
         //we could also use this:
         //resources.add(com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider.class);
         
-        
-        //instead let's do it manually:
         resources.add(com.hcin.axelor.jaxrs.provider.MyJacksonJsonProvider.class);
-        resources.add(com.hcin.axelor.jaxrs.resource.LoginResource.class);
-        resources.add(com.hcin.axelor.jaxrs.resource.CategoryResource.class);
-        resources.add(com.hcin.axelor.jaxrs.resource.AddressResource.class);
-        resources.add(com.hcin.axelor.jaxrs.resource.PartnerAddressResource.class);
-        resources.add(com.hcin.axelor.jaxrs.resource.EmailAddressResource.class);
-        resources.add(com.hcin.axelor.jaxrs.resource.CustomerResource.class);
-        resources.add(com.hcin.axelor.jaxrs.resource.ProductResource.class);
-        //==> we could also choose packages, see below getProperties()
+        
+        //instead let's do it by reflection:
+        Reflections reflections = new Reflections("com.hcin.axelor.jaxrs.resource");    
+        Set<Class<? extends BaseResourceRead>> classes = reflections.getSubTypesOf(BaseResourceRead.class);
+
+        System.out.println("Classes to be registered:");            
+        for (Class<? extends BaseResourceRead> clazz : classes) {
+            System.out.println("    " + clazz.getCanonicalName());            
+		}
+
+        resources.addAll(classes);
         
         System.out.println("REST configuration ended successfully.");
         

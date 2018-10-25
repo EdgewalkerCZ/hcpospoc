@@ -1,16 +1,9 @@
 package com.hcin.axelor.model;
 
-public class PartnerAddress {
-    private Integer id;
+public class PartnerAddress extends BaseEntity {
     private Integer addressId;
     private Integer partnerId;
 
-	public Integer getId() {
-		return id;
-	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
 	public Integer getAddressId() {
 		return addressId;
 	}
