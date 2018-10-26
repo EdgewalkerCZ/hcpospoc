@@ -20,12 +20,12 @@ import com.example.vaibhavchahal93788.myapplication.billdesk.model.HeadingPaymen
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.SponceredModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.TotalBillDetail;
 import com.example.vaibhavchahal93788.myapplication.billdesk.utility.KeyValue;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
-
 
 
 public class BillSummaryRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -39,9 +39,11 @@ public class BillSummaryRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
     private final List<Object> itemsList;
 
     private Context context;
+    String paymentMode="";
 
-    public BillSummaryRecyclerAdapter(List<Object> list) {
+    public BillSummaryRecyclerAdapter(List<Object> list, String mode) {
         itemsList = list;
+        paymentMode = mode;
     }
 
     @Override
@@ -81,9 +83,9 @@ public class BillSummaryRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
                 String currentDate = new SimpleDateFormat("dd MMM, yyyy HH:mm", Locale.getDefault()).format(new Date());
                 holderSeletedItem.tvDate.setText("Date -" + currentDate);
 //                holderSeletedItem.tv_customer_name.setText(KeyValue.getString(context,KeyValue.NAME));
-                SpannableStringBuilder mobileStr = appendString("Mob:",KeyValue.getString(context,KeyValue.PHONE));
-                SpannableStringBuilder emailStr = appendString("Email:",KeyValue.getString(context,KeyValue.EMAIL));
-                SpannableStringBuilder nameStr = appendString("Name:",KeyValue.getString(context,KeyValue.NAME));
+                SpannableStringBuilder mobileStr = appendString("Mob:", KeyValue.getString(context, KeyValue.PHONE));
+                SpannableStringBuilder emailStr = appendString("Email:", KeyValue.getString(context, KeyValue.EMAIL));
+                SpannableStringBuilder nameStr = appendString("", KeyValue.getString(context, KeyValue.NAME));
                 holderSeletedItem.tv_customer_phone.setText(mobileStr, TextView.BufferType.SPANNABLE);
                 holderSeletedItem.tv_customer_email.setText(emailStr, TextView.BufferType.SPANNABLE);
                 holderSeletedItem.tv_customer_name.setText(nameStr, TextView.BufferType.SPANNABLE);
@@ -97,20 +99,19 @@ public class BillSummaryRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
                 holderBillProduct.tvQty.setText("" + billProduct.getQuantity());
                 holderBillProduct.tvTotalPrice.setText("" + billProduct.getFinalPrice());
 
-                Log.i("CHK Name==>",billProduct.getName()+"");
-                Log.i("CHK Price==>",billProduct.getPrice()+"");
-                Log.i("CHK GST==>",billProduct.getGstTax()+"");
-                Log.i("CHK Quantity==>",billProduct.getQuantity()+"");
-                Log.i("CHK Final Price==>",billProduct.getFinalPrice()+"");
-                Log.i("CHK Total Price==>",billProduct.getFinalPrice()* billProduct.getQuantity()+"");
-
+                Log.i("CHK Name==>", billProduct.getName() + "");
+                Log.i("CHK Price==>", billProduct.getPrice() + "");
+                Log.i("CHK GST==>", billProduct.getGstTax() + "");
+                Log.i("CHK Quantity==>", billProduct.getQuantity() + "");
+                Log.i("CHK Final Price==>", billProduct.getFinalPrice() + "");
+                Log.i("CHK Total Price==>", billProduct.getFinalPrice() * billProduct.getQuantity() + "");
 
 
                 break;
             case TYPE_ITEM_TOTAL_DETAIL:
                 ViewHolderTotalBill holderTotalBill = (ViewHolderTotalBill) holder;
                 TotalBillDetail totalBillDetail = (TotalBillDetail) itemsList.get(position);
-                DiscountModel discountModelIs=DiscountModel.getInstance();
+                DiscountModel discountModelIs = DiscountModel.getInstance();
                 holderTotalBill.name.setText(totalBillDetail.getTitle());
                 if (totalBillDetail.getTitle().equalsIgnoreCase("Cash")) {
                     holderTotalBill.divider.setVisibility(View.GONE);
@@ -127,6 +128,7 @@ public class BillSummaryRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
                 //Set Discount
                 // Log.e("DYY ==>",discountModelIs.getDiscountedPrice()+"");
                 holderTotalBill.discount.setText(holderTotalBill.name.getContext().getString(R.string.rupee_symbol) + discountModelIs.getDiscount());
+                holderTotalBill.paymentMode.setText(paymentMode);
                 break;
             case TYPE_ITEM_HEADING_PAYMENT_MODE:
                 //CHK
@@ -146,10 +148,9 @@ public class BillSummaryRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
     }
 
     //
-    private SpannableStringBuilder appendString(String str, String value)
-    {
+    private SpannableStringBuilder appendString(String str, String value) {
         SpannableStringBuilder builder = new SpannableStringBuilder();
-        SpannableString greySpannable= new SpannableString(str);
+        SpannableString greySpannable = new SpannableString(str);
         greySpannable.setSpan(new ForegroundColorSpan(context.getResources().getColor(R.color.color_configuration)), 0, str.length(), 0);
         builder.append(greySpannable);
         builder.append(value);
@@ -182,15 +183,15 @@ public class BillSummaryRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
     public class ViewHolderItem1 extends RecyclerView.ViewHolder {
 
         public TextView tvDate, tvInVoiceNumber;
-        public TextView tv_customer_name, tv_customer_email,tv_customer_phone;
+        public TextView tv_customer_name, tv_customer_email, tv_customer_phone;
 
         public ViewHolderItem1(View itemView) {
             super(itemView);
             tvDate = (TextView) itemView.findViewById(R.id.tv_date);
             tvInVoiceNumber = (TextView) itemView.findViewById(R.id.tv_invoice_number);
-            tv_customer_name =  itemView.findViewById(R.id.tv_customer_name);
-            tv_customer_phone =  itemView.findViewById(R.id.tv_phone);
-            tv_customer_email =  itemView.findViewById(R.id.tv_email);
+            tv_customer_name = itemView.findViewById(R.id.tv_customer_name);
+            tv_customer_phone = itemView.findViewById(R.id.tv_phone);
+            tv_customer_email = itemView.findViewById(R.id.tv_email);
         }
     }
 
@@ -240,7 +241,7 @@ public class BillSummaryRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
 
     public class ViewHolderTotalBill extends RecyclerView.ViewHolder {
 
-        public TextView name, price,discount;
+        public TextView name, price, discount, paymentMode;
         public View divider;
 
         public ViewHolderTotalBill(View itemView) {
@@ -248,7 +249,8 @@ public class BillSummaryRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
             name = (TextView) itemView.findViewById(R.id.product_name);
             price = (TextView) itemView.findViewById(R.id.product_price);
             divider = (View) itemView.findViewById(R.id.upper_divider);
-            discount=(TextView)itemView.findViewById(R.id.discount_id);
+            discount = (TextView) itemView.findViewById(R.id.discount_id);
+            paymentMode = (TextView) itemView.findViewById(R.id.tv_mode);
 
         }
     }
