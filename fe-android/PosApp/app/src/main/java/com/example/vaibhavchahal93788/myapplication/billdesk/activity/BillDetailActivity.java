@@ -372,8 +372,9 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         String date_n = new SimpleDateFormat("dd MMM, yyyy HH:mm", Locale.getDefault()).format(new Date());
 
         Log.e("=userName=>",userName+"==>"+userPhone+"=="+userEmail);
+        printPhoto(R.drawable.alphanew);
         //print normal text
-        printNewLine();
+       // printNewLine();
         printCustom("Alpha Store", 1, 1);
         printNewLine();
         printCustom("Dlf Phase 3,Gurgaon - 122002", 0, 1);
@@ -830,13 +831,34 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
 
     }
 
+
     //print photo
     public void printPhoto(int img) {
         try {
             Bitmap bmp = BitmapFactory.decodeResource(getResources(),
                     img);
+            if(bmp!=null){
+                byte[] command = Utils.decodeBitmap(bmp);
+                Log.e("======>command",command+"");
+                os.write(PrinterCommands.ESC_ALIGN_CENTER);
+                printText(command);
+            }else{
+                Log.e("Print Photo error", "the file isn't exists");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e("PrintTools", "the file isn't exists");
+        }
+    }
+
+    //print photo
+    public void printPhoto1(int img) {
+        try {
+            Bitmap bmp = BitmapFactory.decodeResource(getResources(),
+                    img);
             if (bmp != null) {
                 byte[] command = Utils.decodeBitmap(bmp);
+                Log.e("======>command",command+"");
                 os.write(PrinterCommands.ESC_ALIGN_CENTER);
                 printText(command);
             } else {

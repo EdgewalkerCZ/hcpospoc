@@ -127,10 +127,10 @@ public class BillSummaryActivity extends AppCompatActivity implements Runnable{
         list.add(totalBillDetail);
 
         //list.add(new HeadingPaymentMode("Payment Mode"));
-        TotalBillDetail paymentSummary = new TotalBillDetail(paymentMode, 0);
-        list.add(paymentSummary);
+//        TotalBillDetail paymentSummary = new TotalBillDetail(paymentMode, 0);
+//        list.add(paymentSummary);
 
-        list.add(new SponceredModel());
+        //list.add(new SponceredModel());
 
     }
 
@@ -140,7 +140,7 @@ public class BillSummaryActivity extends AppCompatActivity implements Runnable{
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        adapter = new BillSummaryRecyclerAdapter(list);
+        adapter = new BillSummaryRecyclerAdapter(list,paymentMode);
 
         recyclerView.setAdapter(adapter);
 
@@ -228,7 +228,8 @@ public class BillSummaryActivity extends AppCompatActivity implements Runnable{
 
         Log.e("=userName=>",userName+"==>"+userPhone+"=="+userEmail);
         //print normal text
-        printNewLine();
+       // printNewLine();
+        printPhoto(R.drawable.alphanew);
         printCustom("Alpha Store", 1, 1);
         printNewLine();
         printCustom("Dlf Phase 3,Gurgaon - 122002", 0, 1);
