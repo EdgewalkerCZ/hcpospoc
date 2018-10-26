@@ -104,9 +104,11 @@
         <activity android:name=".billdesk.activity.TransactionHistoryActivityNew" android:screenOrientation="portrait"></activity>
         <activity android:name=".billdesk.activity.FilterHistoryActivity" android:screenOrientation="portrait"></activity>
         <activity android:name=".billdesk.activity.ScanActivity" android:screenOrientation="portrait"></activity>
-        <activity android:name=".billdesk.activity.BillDetailHistory"
-
-            android:screenOrientation="portrait"></activity>
+        <activity android:name=".billdesk.activity.BillDetailHistory" android:screenOrientation="portrait"></activity>
+        <activity android:name=".billdesk.crm.CRMActivity" />
+        <activity android:name=".billdesk.crm.CRMAddCustomerActivity" />
+        <activity android:name=".billdesk.crm.CRMCustomerSearchActivity" />
+        <activity android:name=".billdesk.crm.CRMViewCustomerActivity" />
     </application>
 
 </manifest>

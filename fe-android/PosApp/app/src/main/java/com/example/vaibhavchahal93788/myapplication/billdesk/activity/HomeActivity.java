@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.vaibhavchahal93788.myapplication.R;
+import com.example.vaibhavchahal93788.myapplication.billdesk.crm.CRMActivity;
 import com.example.vaibhavchahal93788.myapplication.billdesk.payment.CustomerSearchActivity;
 
 
@@ -50,14 +51,15 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        findViewById(R.id.cardHistory).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.cardcustomerrelation).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(HomeActivity.this, TransactionHistoryActivityNew.class);
+                Intent intent = new Intent(HomeActivity.this, CRMActivity.class);
                 startActivity(intent);
             }
         });
+
+
     }
 
 

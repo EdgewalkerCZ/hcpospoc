@@ -334,7 +334,10 @@ in the hands of those who demand more</string>
     <string name="profile">Profile</string>
 
     <string name="search">Search</string>
+    <string name="delete_str">Delete</string>
+    <string name="edit_str">Edit</string>
     <string name="_contitue">Continue</string>
+    <string name="customer_relation">Customer Relation</string>
 
     <string name="inc_gst">Inc. GST</string>
 
@@ -349,6 +352,7 @@ in the hands of those who demand more</string>
     <string name="add_customer_address">Address</string>
     <string name="add_customer_dob">Date of Birth</string>
     <string name="add_customer_note">Note</string>
+    <string name="customer_delete_msg">Customer Delete</string>
 
     <string name="successfully_message">Product deleted</string>
     <string name="update_message">Product updated </string>
