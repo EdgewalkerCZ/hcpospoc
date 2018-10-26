@@ -13,7 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitClient {
 
     private static Retrofit retrofit = null;
-    private static final long REQUEST_TIMEOUT = 12000;
+    private static final long REQUEST_TIMEOUT = 30000;
 
     private RetrofitClient() {
     }
@@ -21,7 +21,7 @@ public class RetrofitClient {
     public static Retrofit getInstance() {
         if (retrofit == null) {
             retrofit = new Retrofit.Builder()
-                    .baseUrl(Constants.SERVER_BASE_URL)
+                    .baseUrl(Constants.SERVER_BASE_URL_)
                     .addConverterFactory(GsonConverterFactory.create())
                     .client(getHttpClient())
                     .build();

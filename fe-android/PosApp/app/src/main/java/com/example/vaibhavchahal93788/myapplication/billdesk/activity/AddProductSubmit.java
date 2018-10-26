@@ -87,6 +87,7 @@ public class AddProductSubmit extends AppCompatActivity implements AdapterView.O
         et_quantity.addTextChangedListener(this);
         et_description.addTextChangedListener(this);
         et_excl_gst.addTextChangedListener(this);
+        et_weight_battery.addTextChangedListener(this);
     }
 
     private void iniView() {
