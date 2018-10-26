@@ -147,19 +147,19 @@ public class InvoiceResource extends BaseResourceRead {
     	}
 
     	if(jsonObject.getJsonObject("paymentCondition") != null) {
-    		invoice.setCompanyId(jsonObject.getJsonObject("paymentCondition").getInt(ID));
+    		invoice.setPaymentConditionId(jsonObject.getJsonObject("paymentCondition").getInt(ID));
     	}
 
     	if(jsonObject.getJsonObject("partner") != null) {
-    		invoice.setCompanyId(jsonObject.getJsonObject("partner").getInt(ID));
+    		invoice.setCustomerId(jsonObject.getJsonObject("partner").getInt(ID));
     	}
 
     	if(jsonObject.getJsonObject("paymentMode") != null) {
-    		invoice.setCompanyId(jsonObject.getJsonObject("paymentMode").getInt(ID));
+    		invoice.setPaymentModeId(jsonObject.getJsonObject("paymentMode").getInt(ID));
     	}
 
     	if(jsonObject.getJsonObject("currency") != null) {
-    		invoice.setCompanyId(jsonObject.getJsonObject("currency").getInt(ID));
+    		invoice.setCurrencyId(jsonObject.getJsonObject("currency").getInt(ID));
     	}
 
     	JsonArray jsonArray = jsonObject.getJsonArray("invoiceLineList");
@@ -204,7 +204,7 @@ public class InvoiceResource extends BaseResourceRead {
     	if(invoice.getDueDate() != null) builder.add("dueDate", invoice.getDueDate());
 
     	if (invoice.getCompanyId() != null)
-    		builder.add("companyId", Json.createObjectBuilder().add("id", invoice.getCompanyId()));
+    		builder.add("company", Json.createObjectBuilder().add("id", invoice.getCompanyId()));
 
     	if (invoice.getPaymentConditionId() != null)
     		builder.add("paymentCondition", Json.createObjectBuilder().add("id", invoice.getPaymentConditionId()));

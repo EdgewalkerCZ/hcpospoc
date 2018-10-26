@@ -12,8 +12,6 @@ public class Invoice extends BaseEntity {
     private Integer paymentConditionId;
     private Integer customerId;
     private Integer paymentModeId;
-    private Integer operationTypeSelect;
-    private Integer statusSelect;
     private List<Integer> invoiceLineIdList;
     private Integer currencyId;
     private BigDecimal companyExTaxTotal;
@@ -70,18 +68,6 @@ public class Invoice extends BaseEntity {
 	}
 	public void setPaymentModeId(Integer paymentModeId) {
 		this.paymentModeId = paymentModeId;
-	}
-	public Integer getOperationTypeSelect() {
-		return operationTypeSelect;
-	}
-	public void setOperationTypeSelect(Integer operationTypeSelect) {
-		this.operationTypeSelect = operationTypeSelect;
-	}
-	public Integer getStatusSelect() {
-		return statusSelect;
-	}
-	public void setStatusSelect(Integer statusSelect) {
-		this.statusSelect = statusSelect;
 	}
 	public List<Integer> getInvoiceLineIdList() {
 		return invoiceLineIdList;
