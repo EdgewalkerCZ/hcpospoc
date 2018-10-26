@@ -139,12 +139,10 @@ public class ProductResource extends BaseResourceRead {
 
     	JsonObject jsonObject = jsonProduct.getJsonObject("productCategory");
     	
-    	product.setProductCategory(jsonObject.getString("name"));
     	product.setProductCategoryId(jsonObject.getInt("id"));
 
     	jsonObject = jsonProduct.getJsonObject("productFamily");
 
-    	product.setProductFamily(jsonProduct.getString("name"));
     	product.setProductFamilyId(jsonProduct.getInt("id"));
 
     	product.setDescription(jsonProduct.get("description").toString());
@@ -160,6 +158,7 @@ public class ProductResource extends BaseResourceRead {
     	
     	builder.add("productTypeSelect", "storable");
 
+    	if(product.getId() != null) builder.add("id", product.getId());
     	if(product.getCode() != null) builder.add("code", product.getCode());
     	if(product.getName() != null) builder.add("name", product.getName());
     	if(product.getDescription() != null) builder.add("description", product.getDescription());

@@ -1,6 +1,10 @@
 package com.hcin.axelor.jaxrs.resource;
 
 import java.io.StringReader;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.util.List;
 
 import javax.json.Json;
 import javax.json.JsonArray;
@@ -27,7 +31,7 @@ import org.glassfish.jersey.client.ClientConfig;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.hcin.axelor.model.Product;
+import com.hcin.axelor.model.Invoice;
 
 @Path("/invoice")
 public class InvoiceResource extends BaseResourceRead {
@@ -53,8 +57,8 @@ public class InvoiceResource extends BaseResourceRead {
     @PUT
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
-    public JsonObject createProduct(@HeaderParam(JSESSIONID) String token, Product product) throws Exception {
-        if(product == null) {
+    public JsonObject createProduct(@HeaderParam(JSESSIONID) String token, Invoice invoice) throws Exception {
+        if(invoice == null) {
             return Json.createObjectBuilder().add(STATUS, 404).build();
         }
 
@@ -64,7 +68,7 @@ public class InvoiceResource extends BaseResourceRead {
 
     	WebTarget target = client.target(getBaseURI()).path(WS).path(REST).path(getService());
     	Builder request = target.request().accept(MediaType.APPLICATION_JSON).header("Cookie", JSESSIONID + "=" + token);
-    	JsonObject jsonAxelorResponse = request.put(Entity.entity(produceAxelorJson(product), MediaType.APPLICATION_JSON), JsonObject.class);
+    	JsonObject jsonAxelorResponse = request.put(Entity.entity(produceAxelorJson(invoice), MediaType.APPLICATION_JSON), JsonObject.class);
 
     	return processAxelorResponse(jsonAxelorResponse, token);
     }
@@ -73,12 +77,12 @@ public class InvoiceResource extends BaseResourceRead {
     @Path("/{id}")
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
-    public JsonObject updateProduct(@PathParam("id") String id, @HeaderParam(JSESSIONID) String token, Product product) throws Exception {
+    public JsonObject updateProduct(@PathParam("id") String id, @HeaderParam(JSESSIONID) String token, Invoice invoice) throws Exception {
         if((id == null) || id.isEmpty()) {
             return Json.createObjectBuilder().add(STATUS, 200).build();
         }
 
-        if((product == null) || (product.getId() == null) || !id.equals(String.valueOf(product.getId()))) {
+        if((invoice == null) || (invoice.getId() == null) || !id.equals(String.valueOf(invoice.getId()))) {
             return Json.createObjectBuilder().add(STATUS, 404).build();
         }
 
@@ -88,7 +92,7 @@ public class InvoiceResource extends BaseResourceRead {
 
     	WebTarget target = client.target(getBaseURI()).path(WS).path(REST).path(getService()).path(id);
     	Builder request = target.request().accept(MediaType.APPLICATION_JSON).header("Cookie", JSESSIONID + "=" + token);
-    	JsonObject jsonAxelorResponse = request.post(Entity.entity(product, MediaType.APPLICATION_JSON), JsonObject.class);
+    	JsonObject jsonAxelorResponse = request.post(Entity.entity(invoice, MediaType.APPLICATION_JSON), JsonObject.class);
 
     	return processAxelorResponse(jsonAxelorResponse, token);
     }
@@ -115,8 +119,8 @@ public class InvoiceResource extends BaseResourceRead {
     			ObjectMapper objectMapper = new ObjectMapper();
 
     			for (int i = 0; i < jsonDataArray.size(); i++) {
-    				Product product = mapAxelorJson(jsonDataArray.getJsonObject(i), token);
-    				String jsonInString = objectMapper.writeValueAsString(product);
+    				Invoice invoice = mapAxelorJson(jsonDataArray.getJsonObject(i), token);
+    				String jsonInString = objectMapper.writeValueAsString(invoice);
     				JsonReader jsonReader = Json.createReader(new StringReader(jsonInString));
     				jsonArrayBuilder.add(jsonReader.readObject());
     				jsonReader.close();
@@ -130,48 +134,112 @@ public class InvoiceResource extends BaseResourceRead {
     	return jsonHcinResponse.build();
     }
 
-    public Product mapAxelorJson(JsonObject jsonProduct, String token) {
-    	Product product = new Product();
+    public Invoice mapAxelorJson(JsonObject jsonObject, String token) {
+    	Invoice invoice = new Invoice();
 
-    	product.setId(jsonProduct.getInt("id"));
-    	product.setCode(jsonProduct.getString("code"));
-    	product.setName(jsonProduct.getString("name"));
+    	invoice.setId(jsonObject.getInt("id"));
+    	invoice.setInvoiceId(jsonObject.getString("invoiceId"));
+    	invoice.setInvoiceDate(jsonObject.getString("invoiceDate"));
+    	invoice.setDueDate(jsonObject.getString("dueDate"));
 
-    	JsonObject jsonObject = jsonProduct.getJsonObject("productCategory");
+    	if(jsonObject.getJsonObject("company") != null) {
+    		invoice.setCompanyId(jsonObject.getJsonObject("company").getInt(ID));
+    	}
+
+    	if(jsonObject.getJsonObject("paymentCondition") != null) {
+    		invoice.setCompanyId(jsonObject.getJsonObject("paymentCondition").getInt(ID));
+    	}
+
+    	if(jsonObject.getJsonObject("partner") != null) {
+    		invoice.setCompanyId(jsonObject.getJsonObject("partner").getInt(ID));
+    	}
+
+    	if(jsonObject.getJsonObject("paymentMode") != null) {
+    		invoice.setCompanyId(jsonObject.getJsonObject("paymentMode").getInt(ID));
+    	}
+
+    	if(jsonObject.getJsonObject("currency") != null) {
+    		invoice.setCompanyId(jsonObject.getJsonObject("currency").getInt(ID));
+    	}
+
+    	JsonArray jsonArray = jsonObject.getJsonArray("invoiceLineList");
+    	List<Integer> invoiceLineIdList = invoice.getInvoiceLineIdList();
+    	invoiceLineIdList.clear();
     	
-    	product.setProductCategory(jsonObject.getString("name"));
-    	product.setProductCategoryId(jsonObject.getInt("id"));
+    	for (int i = 0; i < jsonArray.size(); i++) {
+			JsonObject arrayObject = jsonArray.getJsonObject(i);
+			invoiceLineIdList.add(arrayObject.getInt(ID));
+		}
+    	
+		invoice.setCompanyExTaxTotal(getBigDecimalValue(jsonObject, "companyExTaxTotal"));
+    	invoice.setCompanyTaxTotal(getBigDecimalValue(jsonObject, "companyTaxTotal"));
+    	invoice.setAmountRemaining(getBigDecimalValue(jsonObject, "amountRemaining"));
+    	invoice.setAmountPaid(getBigDecimalValue(jsonObject, "amountPaid"));
+    	invoice.setCompanyInTaxTotalRemaining(getBigDecimalValue(jsonObject, "companyInTaxTotalRemaining"));
+    	invoice.setAmountRejected(getBigDecimalValue(jsonObject, "amountRejected"));
+    	invoice.setExTaxTotal(getBigDecimalValue(jsonObject, "exTaxTotal"));
+    	invoice.setDirectDebitAmount(getBigDecimalValue(jsonObject, "directDebitAmount"));
 
-    	jsonObject = jsonProduct.getJsonObject("productFamily");
-
-    	product.setProductFamily(jsonProduct.getString("name"));
-    	product.setProductFamilyId(jsonProduct.getInt("id"));
-
-    	product.setDescription(jsonProduct.get("description").toString());
-        product.setSalePrice(jsonProduct.getString("salePrice"));
-        product.setIsGst(jsonProduct.getBoolean("blockExpenseTax"));
-        product.setIsSellable(jsonProduct.getBoolean("sellable"));
-
-    	return product;
+    	return invoice;
     }
 
-    private static JsonObject produceAxelorJson(Product product) throws Exception {
+    private BigDecimal getBigDecimalValue(JsonObject jsonObject, String key) {
+    	DecimalFormat decimalFormat = new DecimalFormat("0.00");
+    	decimalFormat.setParseBigDecimal(true);
+    	
+    	try {
+			return (BigDecimal)decimalFormat.parse(jsonObject.getString(key));
+		} catch (ParseException e) {
+			return BigDecimal.ZERO;
+		}
+    }
+    
+    private static JsonObject produceAxelorJson(Invoice invoice) throws Exception {
     	JsonObjectBuilder builder = Json.createObjectBuilder();
     	
-    	builder.add("productTypeSelect", "storable");
+    	if(invoice.getId() != null) builder.add("id", invoice.getId());
 
-    	if(product.getCode() != null) builder.add("code", product.getCode());
-    	if(product.getName() != null) builder.add("name", product.getName());
-    	if(product.getDescription() != null) builder.add("description", product.getDescription());
-    	if(product.getSalePrice() != null) builder.add("salePrice", product.getSalePrice());
+    	if(invoice.getInvoiceId() != null) builder.add("invoiceId", invoice.getInvoiceId());
+    	if(invoice.getInvoiceDate() != null) builder.add("invoiceDate", invoice.getInvoiceDate());
+    	if(invoice.getDueDate() != null) builder.add("dueDate", invoice.getDueDate());
 
-    	if (product.getProductCategoryId() != null)
-    		builder.add("productCategory", Json.createObjectBuilder().add("id", product.getProductCategoryId()));
+    	if (invoice.getCompanyId() != null)
+    		builder.add("companyId", Json.createObjectBuilder().add("id", invoice.getCompanyId()));
 
-    	if (product.getProductFamilyId() != null)
-    		builder.add("productFamily", Json.createObjectBuilder().add("id", product.getProductFamilyId()));
+    	if (invoice.getPaymentConditionId() != null)
+    		builder.add("paymentCondition", Json.createObjectBuilder().add("id", invoice.getPaymentConditionId()));
 
-    	return Json.createObjectBuilder().add(DATA, builder).build();
+    	if (invoice.getCurrencyId() != null)
+    		builder.add("partner", Json.createObjectBuilder().add("id", invoice.getCustomerId()));
+
+    	if (invoice.getPaymentModeId() != null)
+    		builder.add("paymentMode", Json.createObjectBuilder().add("id", invoice.getPaymentModeId()));
+
+    	builder.add("operationTypeSelect", 3);
+    	builder.add("statusSelect", 3);
+
+        List<Integer> invoiceLineIdList = invoice.getInvoiceLineIdList();
+        JsonArrayBuilder jsonArray = Json.createArrayBuilder();
+        
+        for(int i = 0; i < invoiceLineIdList.size(); i++) {
+        	jsonArray.add(Json.createObjectBuilder().add(ID, invoiceLineIdList.get(i)).build());
+        }
+
+        builder.add("invoiceLineList", jsonArray.build());
+
+    	if (invoice.getCurrencyId() != null)
+    		builder.add("currency", Json.createObjectBuilder().add("id", invoice.getCurrencyId()));
+
+    	if(invoice.getCompanyExTaxTotal() != null) builder.add("companyExTaxTotal", invoice.getCompanyExTaxTotal());
+    	if(invoice.getCompanyTaxTotal() != null) builder.add("companyTaxTotal", invoice.getCompanyTaxTotal());
+    	if(invoice.getAmountRemaining() != null) builder.add("amountRemaining", invoice.getAmountRemaining());
+    	if(invoice.getAmountPaid() != null) builder.add("amountPaid", invoice.getAmountPaid());
+    	if(invoice.getCompanyInTaxTotalRemaining() != null) builder.add("companyInTaxTotalRemaining", invoice.getCompanyInTaxTotalRemaining());
+    	if(invoice.getAmountRejected() != null) builder.add("amountRejected", invoice.getAmountRejected());
+    	if(invoice.getExTaxTotal() != null) builder.add("exTaxTotal", invoice.getExTaxTotal());
+    	if(invoice.getDirectDebitAmount()!= null) builder.add("directDebitAmount", invoice.getDirectDebitAmount());
+        
+        return Json.createObjectBuilder().add(DATA, builder).build();
     }
     
 }

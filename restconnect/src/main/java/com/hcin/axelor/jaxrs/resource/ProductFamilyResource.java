@@ -8,14 +8,14 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.hcin.axelor.model.Category;
+import com.hcin.axelor.model.ProductFamily;
 
-@Path("/category")
-public class CategoryResource extends BaseResourceRead {
+@Path("/productFamily")
+public class ProductFamilyResource extends BaseResourceRead {
     
 	@Override
 	protected String getService() {
-		return "com.axelor.apps.base.db.ProductCategory";
+		return "com.axelor.apps.base.db.ProductFamily";
 	}
 
     @GET
@@ -31,13 +31,13 @@ public class CategoryResource extends BaseResourceRead {
     	return getObject(id, token);
     }
     
-    public Category mapAxelorJson(JsonObject jsonCategory, String token) {
-    	Category category = new Category();
+    public ProductFamily mapAxelorJson(JsonObject jsonObject, String token) {
+    	ProductFamily family = new ProductFamily();
 
-    	category.setId(jsonCategory.getInt("id"));
-    	category.setCode(jsonCategory.getString("code"));
-    	category.setName(jsonCategory.getString("name"));
+    	family.setId(jsonObject.getInt("id"));
+    	family.setCode(jsonObject.getString("code"));
+    	family.setName(jsonObject.getString("name"));
 
-    	return category;
+    	return family;
     }
 }

@@ -1,8 +1,9 @@
 package com.hcin.axelor.model;
 
-public class Category extends BaseEntity {
+public class ProductCategory extends BaseEntity {
     private String code;
 	private String name;
+	private Integer productFamilyId;
 
 	public String getName() {
 		return name;
@@ -17,4 +18,12 @@ public class Category extends BaseEntity {
 	public void setCode(String code) {
 		this.code = code;
 	}
+	public Integer getProductFamilyId() {
+		return productFamilyId;
+	}
+	public void setProductFamilyId(Integer productFamilyId) {
+		this.productFamilyId = productFamilyId;
+	}
+	
+	
 }

@@ -226,6 +226,7 @@ public class CustomerResource extends BaseResourceRead {
     	builder.add("isSupplier", false);
     	builder.add("isCustomer", true);
     	
+    	if(customer.getId() != null) builder.add("id", customer.getId());
     	if(customer.getPhone() != null) builder.add("fixedPhone", customer.getPhone());
     	if(customer.getFirstName() != null) builder.add("firstName", customer.getFirstName());
     	if(customer.getName() != null) builder.add("name", customer.getName());

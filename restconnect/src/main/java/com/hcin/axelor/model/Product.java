@@ -8,8 +8,6 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 public class Product extends BaseEntity {
 
     private String code;
-    private String productCategory;
-    private String productFamily;
     private Integer productCategoryId;
     private Integer productFamilyId;
     private Integer quantity;
@@ -34,14 +32,6 @@ public class Product extends BaseEntity {
 		this.code = code;
 	}
 
-	public String getProductCategory() {
-		return productCategory;
-	}
-	
-	public void setProductCategory(String productCategory) {
-		this.productCategory = productCategory;
-	}
-
 	public Integer getProductCategoryId() {
 		return productCategoryId;
 	}
@@ -56,14 +46,6 @@ public class Product extends BaseEntity {
 
 	public void setProductFamilyId(Integer productFamilyId) {
 		this.productFamilyId = productFamilyId;
-	}
-
-	public String getProductFamily() {
-		return productFamily;
-	}
-
-	public void setProductFamily(String productFamily) {
-		this.productFamily = productFamily;
 	}
 
 	public Integer getQuantity() {
