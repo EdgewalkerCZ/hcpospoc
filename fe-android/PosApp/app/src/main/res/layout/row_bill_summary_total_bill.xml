@@ -13,6 +13,8 @@
         android:id="@+id/discount_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         >
 
         <TextView
@@ -35,10 +37,15 @@
             android:textSize="16dp" />
     </RelativeLayout>
 
+
     <RelativeLayout
+        android:id="@+id/total_id"
         android:layout_below="@+id/discount_layout"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        >
         <View
             android:id="@+id/upper_divider"
             android:layout_width="match_parent"
@@ -50,6 +57,8 @@
             android:id="@+id/product_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+
+            android:layout_marginTop="10dp"
             android:paddingTop="5dp"
             android:text="@string/dummy_text_coffee"
             android:textColor="@color/black_color"
@@ -60,9 +69,73 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp"
             android:paddingTop="5dp"
             android:text="80"
             android:textColor="@color/black_color"
             android:textSize="16dp" />
     </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/payment_layout"
+        android:layout_below="@+id/total_id"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        >
+        <View
+            android:id="@+id/lower_divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentTop="true"
+            android:background="@color/black_color" />
+        <TextView
+            android:id="@+id/tv_heading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:text="Payment Mode"
+            android:textSize="19dp" />
+
+        <TextView
+            android:id="@+id/tv_mode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/black_color"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            android:layout_marginTop="20dp"
+
+            />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/sponcered_layout"
+        android:layout_below="@+id/payment_layout"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="8dp"
+
+        android:paddingLeft="12dp"
+        android:paddingTop="15dp"
+        >
+        <TextView
+            android:id="@+id/tv_sponcered"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center_horizontal"
+            android:text="@string/text_powered_by_home_credit_india"
+            android:textColor="@color/color_configuration"
+            android:textSize="16dp" />
+    </RelativeLayout>
+
+
 </RelativeLayout>
