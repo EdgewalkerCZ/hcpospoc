@@ -2,10 +2,13 @@ package com.example.vaibhavchahal93788.myapplication.billdesk.api;
 
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.AddProductModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.CategoryModel;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.LoginBodyModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductCategoryModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductListModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.productsuccess.AddProductResponse;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.profile.ProfileResponse;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.userlogin.LoginSuccessResponse;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.userlogin.UserLoginModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.network.IApiRequestComplete;
 import com.example.vaibhavchahal93788.myapplication.billdesk.network.ResponseHandler;
 import com.example.vaibhavchahal93788.myapplication.billdesk.network.RetrofitClient;
@@ -68,6 +71,18 @@ public class ProductApiHelper {
 
         Call<ProfileResponse> profileResponseCall = productApi.getProfileDetails();
         profileResponseCall.enqueue(new ResponseHandler<ProfileResponse>(successInterface));
+
+    }
+//    public void userLogin (String user_data ,IApiRequestComplete successInterface){
+//
+//        Call<UserLoginModel> userLoginModelCall = productApi.UserLogin(user_data);
+//        userLoginModelCall.enqueue(new ResponseHandler<UserLoginModel>(successInterface));
+//
+//    }
+public void userLogin (LoginBodyModel user_data , IApiRequestComplete successInterface){
+
+        Call<LoginSuccessResponse> userLoginModelCall = productApi.UserLogin(user_data);
+        userLoginModelCall.enqueue(new ResponseHandler<LoginSuccessResponse>(successInterface));
 
     }
 
