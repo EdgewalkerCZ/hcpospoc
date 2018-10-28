@@ -86,7 +86,7 @@ RUN set -ex \
 ## end of builder stage
 
 FROM debian:stretch
-LABEL maintainer="Axelor <support@axelor.com>"
+
 
 RUN set -ex \
 	&& DEBIAN_FRONTEND=noninteractive apt-get update \
@@ -170,6 +170,7 @@ COPY nginx.conf /etc/nginx/conf.d.templates/
 COPY nginx-ssl.conf /etc/nginx/conf.d.templates/
 
 VOLUME ["/var/lib/tomcat", "/var/lib/postgresql", "/var/log/tomcat", "/var/log/postgresql"]
+
 
 EXPOSE 80 443 8080 8081
 

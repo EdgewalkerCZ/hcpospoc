@@ -1,4 +1,11 @@
 #!/bin/bash
+
+
+DOCKER_IMAGE_TAG="hcpospoc.azurecr.io/hcpospocaxelor"
+
+
+
+
 echo ""
 echo ""
 echo ""
@@ -42,7 +49,7 @@ echo "###############################"
 echo ""
 echo ""
 echo ""
-docker build -t hcpospoc.azurecr.io/hcpospoc:test .
+docker build -t $DOCKER_IMAGE_TAG .
 
 echo ""
 echo ""
