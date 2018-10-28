@@ -1,9 +1,7 @@
 package com.hcin.axelor.model;
 
-public class Customer {
-    private Integer id;
+public class Customer extends BaseEntity {
     private String firstName;
-    private String name;
     private String phone;
     private String email;
     private String address;
@@ -11,13 +9,9 @@ public class Customer {
     private Integer partnerCategoryId;
     private Integer emailAddressId;
     private Integer partnerAddressId;
+	private String name;
+	private Boolean isCustomer;
 
-	public Integer getId() {
-		return id;
-	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
 	public String getName() {
 		return name;
 	}
@@ -29,6 +23,12 @@ public class Customer {
 	}
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
+	}
+	public Boolean getIsCustomer() {
+		return isCustomer;
+	}
+	public void setIsCustomer(Boolean isCustomer) {
+		this.isCustomer = isCustomer;
 	}
 	public String getFullName() {
 		String fullName = name;

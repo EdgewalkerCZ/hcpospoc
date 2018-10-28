@@ -19,12 +19,18 @@ import javax.ws.rs.core.Response;
 
 import org.glassfish.jersey.client.ClientConfig;
 
+import com.hcin.axelor.model.BaseEntity;
 import com.hcin.axelor.model.Credentials;
 
 
 @Path("/login")
-public class LoginResource extends BaseResource {
+public class LoginResource extends BaseResourceRead {
     
+	@Override
+	protected String getService() {
+		return "login.jsp";
+	}
+
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
@@ -33,7 +39,7 @@ public class LoginResource extends BaseResource {
 
         Client client = ClientBuilder.newClient(config);
 
-        WebTarget target = client.target(getBaseURI()).path("login.jsp");
+        WebTarget target = client.target(getBaseURI()).path(getService());
         Builder request = target.request().accept(MediaType.APPLICATION_JSON);
         Response response = request.post(Entity.entity(credentials, MediaType.APPLICATION_JSON));
 
@@ -45,5 +51,11 @@ public class LoginResource extends BaseResource {
         
         return Json.createObjectBuilder().add("error", response.toString()).build();
     }
+
+	@Override
+	public BaseEntity mapAxelorJson(JsonObject jsonObject, String token) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

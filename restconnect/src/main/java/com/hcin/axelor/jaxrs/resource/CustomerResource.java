@@ -8,6 +8,7 @@ import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import javax.json.JsonReader;
+import javax.json.JsonValue;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
@@ -27,44 +28,30 @@ import org.glassfish.jersey.client.ClientConfig;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hcin.axelor.model.Address;
+import com.hcin.axelor.model.BaseEntity;
 import com.hcin.axelor.model.Customer;
 import com.hcin.axelor.model.EmailAddress;
 import com.hcin.axelor.model.PartnerAddress;
 
 @Path("/customer")
-public class CustomerResource extends BaseResource {
+public class CustomerResource extends BaseResourceRead {
     
+	@Override
+	protected String getService() {
+		return "com.axelor.apps.base.db.Partner";
+	}
+
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public JsonObject getCustomers(@HeaderParam(JSESSIONID) String token) throws Exception {
-    	ClientConfig config = new ClientConfig();
-
-    	Client client = ClientBuilder.newClient(config);
-
-    	WebTarget target = client.target(getBaseURI()).path(WS).path(REST).path("com.axelor.apps.base.db.Partner");
-    	Builder request = target.request().accept(MediaType.APPLICATION_JSON).header("Cookie", JSESSIONID + "=" + token);
-    	JsonObject jsonAxelorResponse = request.get(JsonObject.class);
-
-    	return processAxelorResponse(jsonAxelorResponse, token);
+    	return getObjects(token);
     }
     
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public JsonObject getProduct(@PathParam("id") String id, @HeaderParam(JSESSIONID) String token) throws Exception {
-        if((id == null) || id.isEmpty()) {
-            return Json.createObjectBuilder().add(STATUS, 200).build();
-        }
-        
-    	ClientConfig config = new ClientConfig();
-
-    	Client client = ClientBuilder.newClient(config);
-
-    	WebTarget target = client.target(getBaseURI()).path(WS).path(REST).path("com.axelor.apps.base.db.Partner").path(id);
-    	Builder request = target.request().accept(MediaType.APPLICATION_JSON).header("Cookie", JSESSIONID + "=" + token);
-    	JsonObject jsonAxelorResponse = request.get(JsonObject.class);
-
-    	return processAxelorResponse(jsonAxelorResponse, token);
+    	return getObject(id, token);
     }
     
     @PUT
@@ -79,7 +66,7 @@ public class CustomerResource extends BaseResource {
 
     	Client client = ClientBuilder.newClient(config);
 
-    	WebTarget target = client.target(getBaseURI()).path(WS).path(REST).path("com.axelor.apps.base.db.Partner");
+    	WebTarget target = client.target(getBaseURI()).path(WS).path(REST).path(getService());
     	Builder request = target.request().accept(MediaType.APPLICATION_JSON).header("Cookie", JSESSIONID + "=" + token);
     	JsonObject jsonAxelorResponse = request.put(Entity.entity(produceAxelorJson(customer, token), MediaType.APPLICATION_JSON), JsonObject.class);
 
@@ -103,7 +90,7 @@ public class CustomerResource extends BaseResource {
 
     	Client client = ClientBuilder.newClient(config);
 
-    	WebTarget target = client.target(getBaseURI()).path(WS).path(REST).path("com.axelor.apps.base.db.Partner").path(id);
+    	WebTarget target = client.target(getBaseURI()).path(WS).path(REST).path(getService()).path(id);
     	Builder request = target.request().accept(MediaType.APPLICATION_JSON).header("Cookie", JSESSIONID + "=" + token);
     	JsonObject jsonAxelorResponse = request.post(Entity.entity(produceAxelorJson(customer, token), MediaType.APPLICATION_JSON), JsonObject.class);
 
@@ -128,7 +115,7 @@ public class CustomerResource extends BaseResource {
     		
     		for (int i = 0; i < jsonDataArray.size(); i++) {
     			if(jsonDataArray.getJsonObject(i).getBoolean("isCustomer")) { 
-    				Customer customer = mapAxelorJson(jsonDataArray.getJsonObject(i), token);
+    				Customer customer = (Customer) mapAxelorJson(jsonDataArray.getJsonObject(i), token);
     				String jsonInString = objectMapper.writeValueAsString(customer);
     				JsonReader jsonReader = Json.createReader(new StringReader(jsonInString));
     				jsonArrayBuilder.add(jsonReader.readObject());
@@ -146,7 +133,14 @@ public class CustomerResource extends BaseResource {
     	return jsonHcinResponse.build();
     }
 
-    private Customer mapAxelorJson(JsonObject jsonCustomer, String token) throws Exception {
+    
+	@Override
+	protected boolean filter(BaseEntity entity) {
+		return ((Customer)entity).getIsCustomer();
+	}
+
+	@Override
+	public BaseEntity mapAxelorJson(JsonObject jsonCustomer, String token) throws Exception {
     	Customer customer = new Customer();
 
     	customer.setId(jsonCustomer.getInt("id"));
@@ -154,7 +148,11 @@ public class CustomerResource extends BaseResource {
     	customer.setName(jsonCustomer.getString("name", null));
     	customer.setPhone(jsonCustomer.getString("fixedPhone", null));
     	customer.setDescription(jsonCustomer.getString("description", null));
-    	customer.setPartnerCategoryId(jsonCustomer.getJsonObject("partnerCategory").getInt(ID));
+    	customer.setIsCustomer(jsonCustomer.getBoolean("isCustomer"));
+    	
+    	if(jsonCustomer.containsKey("partnerCategory") && !jsonCustomer.get("partnerCategory").equals(JsonValue.NULL)) {
+    		customer.setPartnerCategoryId(jsonCustomer.getJsonObject("partnerCategory").getInt(ID));
+    	}
 
     	if(jsonCustomer.getJsonObject("emailAddress") != null) {
         	customer.setEmail(getEmail(jsonCustomer.getJsonObject("emailAddress")));
@@ -178,7 +176,8 @@ public class CustomerResource extends BaseResource {
     		return "";
     	
     	String name = jsonEmail.getString("name", null);
-    	name = name.substring(name.indexOf("[") + 1, name.indexOf("]"));
+    	if(name.indexOf("[") >= 0)
+    		name = name.substring(name.indexOf("[") + 1, name.indexOf("]"));
 
     	return name;
     }
@@ -197,7 +196,7 @@ public class CustomerResource extends BaseResource {
     		JsonArray jsonDataArray = jsonObject.getJsonArray(DATA);
     		
     		if(jsonDataArray.size() > 0) {
-    	        PartnerAddress partnerAddress = partnerAddressResource.mapAxelorJson(jsonDataArray.getJsonObject(0));
+    	        PartnerAddress partnerAddress = partnerAddressResource.mapAxelorJson(jsonDataArray.getJsonObject(0), token);
 
     	        AddressResource addressResource = new AddressResource();
     	        JsonObject jsonObjectAdr = addressResource.getAddress(String.valueOf(partnerAddress.getAddressId()), token);
@@ -206,7 +205,7 @@ public class CustomerResource extends BaseResource {
     	    		JsonArray jsonDataArrayAddr = jsonObjectAdr.getJsonArray(DATA);
     	    		
     	    		if(jsonDataArray.size() > 0) {
-    	    	        Address address = addressResource.mapAxelorJson(jsonDataArrayAddr.getJsonObject(0));
+    	    	        Address address = (Address) addressResource.mapAxelorJson(jsonDataArrayAddr.getJsonObject(0), token);
 
     	    	        return address;
     	    		}
@@ -217,12 +216,17 @@ public class CustomerResource extends BaseResource {
         return null;
     }
 
-    private JsonObject produceAxelorJson(Customer customer, String token) throws Exception {
+    public JsonObject produceAxelorJson(Customer customer) throws Exception {
+    	return produceAxelorJson(customer, null);
+    }
+    
+    public JsonObject produceAxelorJson(Customer customer, String token) throws Exception {
     	JsonObjectBuilder builder = Json.createObjectBuilder();
 
     	builder.add("isSupplier", false);
     	builder.add("isCustomer", true);
     	
+    	if(customer.getId() != null) builder.add("id", customer.getId());
     	if(customer.getPhone() != null) builder.add("fixedPhone", customer.getPhone());
     	if(customer.getFirstName() != null) builder.add("firstName", customer.getFirstName());
     	if(customer.getName() != null) builder.add("name", customer.getName());
@@ -296,4 +300,5 @@ public class CustomerResource extends BaseResource {
 
     	throw new Exception("Address has not been created in the system.");
     }
+
 }

@@ -1,21 +1,21 @@
 package com.hcin.axelor.model;
 
-public class Category {
-    private Integer id;
-    private String name;
+public class Currency extends BaseEntity {
+    private String symbol;
     private String code;
-    
-	public Integer getId() {
-		return id;
-	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
+	private String name;
+
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public String getSymbol() {
+		return symbol;
+	}
+	public void setSymbol(String symbol) {
+		this.symbol = symbol;
 	}
 	public String getCode() {
 		return code;

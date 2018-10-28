@@ -30,39 +30,24 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hcin.axelor.model.EmailAddress;
 
 @Path("/emailAddress")
-public class EmailAddressResource extends BaseResource {
+public class EmailAddressResource extends BaseResourceRead {
     
+	@Override
+	protected String getService() {
+		return "com.axelor.apps.message.db.EmailAddress";
+	}
+
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public JsonObject getAddresses(@HeaderParam(JSESSIONID) String token) throws Exception {
-    	ClientConfig config = new ClientConfig();
-
-    	Client client = ClientBuilder.newClient(config);
-
-    	WebTarget target = client.target(getBaseURI()).path(WS).path(REST).path("com.axelor.apps.message.db.EmailAddress");
-    	Builder request = target.request().accept(MediaType.APPLICATION_JSON).header("Cookie", JSESSIONID + "=" + token);
-    	JsonObject jsonAxelorResponse = request.get(JsonObject.class);
-
-    	return processAxelorResponse(jsonAxelorResponse, token);
+    	return getObjects(token);
     }
     
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public JsonObject getAddress(@PathParam("id") String id, @HeaderParam(JSESSIONID) String token) throws Exception {
-        if((id == null) || id.isEmpty()) {
-            return Json.createObjectBuilder().add(STATUS, 200).build();
-        }
-        
-    	ClientConfig config = new ClientConfig();
-
-    	Client client = ClientBuilder.newClient(config);
-
-    	WebTarget target = client.target(getBaseURI()).path(WS).path(REST).path("com.axelor.apps.message.db.EmailAddress").path(id);
-    	Builder request = target.request().accept(MediaType.APPLICATION_JSON).header("Cookie", JSESSIONID + "=" + token);
-    	JsonObject jsonAxelorResponse = request.get(JsonObject.class);
-
-    	return processAxelorResponse(jsonAxelorResponse, token);
+    	return getObject(id, token);
     }
     
     @PUT
@@ -77,7 +62,7 @@ public class EmailAddressResource extends BaseResource {
 
     	Client client = ClientBuilder.newClient(config);
 
-    	WebTarget target = client.target(getBaseURI()).path(WS).path(REST).path("com.axelor.apps.message.db.EmailAddress");
+    	WebTarget target = client.target(getBaseURI()).path(WS).path(REST).path(getService());
     	Builder request = target.request().accept(MediaType.APPLICATION_JSON).header("Cookie", JSESSIONID + "=" + token);
     	JsonObject jsonAxelorResponse = request.put(Entity.entity(produceAxelorJson(emailAddress), MediaType.APPLICATION_JSON), JsonObject.class);
 
@@ -101,7 +86,7 @@ public class EmailAddressResource extends BaseResource {
     		ObjectMapper objectMapper = new ObjectMapper();
 
     		for (int i = 0; i < jsonDataArray.size(); i++) {
-    			EmailAddress emailAddress = mapAxelorJson(jsonDataArray.getJsonObject(i));
+    			EmailAddress emailAddress = mapAxelorJson(jsonDataArray.getJsonObject(i), token);
     			String jsonInString = objectMapper.writeValueAsString(emailAddress);
     			JsonReader jsonReader = Json.createReader(new StringReader(jsonInString));
     			jsonArrayBuilder.add(jsonReader.readObject());
@@ -118,7 +103,7 @@ public class EmailAddressResource extends BaseResource {
     	return jsonHcinResponse.build();
     }
 
-    public EmailAddress mapAxelorJson(JsonObject jsonAddress) {
+    public EmailAddress mapAxelorJson(JsonObject jsonAddress, String token) {
     	EmailAddress address = new EmailAddress();
 
     	address.setId(jsonAddress.getInt("id"));
