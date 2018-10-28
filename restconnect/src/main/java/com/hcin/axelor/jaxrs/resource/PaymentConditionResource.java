@@ -1,8 +1,6 @@
 package com.hcin.axelor.jaxrs.resource;
 
-import javax.json.JsonNumber;
 import javax.json.JsonObject;
-import javax.json.JsonValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
 import javax.ws.rs.Path;
@@ -14,7 +12,7 @@ import com.hcin.axelor.model.BaseEntity;
 import com.hcin.axelor.model.PaymentCondition;
 
 @Path("/paymentCondition")
-public class PaymentConditionResource extends BaseResourceRead {
+public class PaymentConditionResource extends BaseResourceRead<PaymentCondition> {
     
 	@Override
 	protected String getService() {
@@ -34,10 +32,15 @@ public class PaymentConditionResource extends BaseResourceRead {
     	return getObject(id, token);
     }
     
-    public BaseEntity mapAxelorJson(JsonObject jsonObject, String token) {
-    	PaymentCondition paymentCondition = new PaymentCondition();
+    @Override
+    protected PaymentCondition createEntity() {
+    	return new PaymentCondition();
+    }
+    
+    @Override
+    public PaymentCondition mapAxelorJson(JsonObject jsonObject, String token) throws Exception {
+    	PaymentCondition paymentCondition = super.mapAxelorJson(jsonObject, token);
 
-    	paymentCondition.setId(jsonObject.getInt("id"));
     	paymentCondition.setCode(jsonObject.getString("code"));
     	paymentCondition.setName(jsonObject.getString("name"));
   		paymentCondition.setDaySelect(jsonObject.getInt("daySelect"));

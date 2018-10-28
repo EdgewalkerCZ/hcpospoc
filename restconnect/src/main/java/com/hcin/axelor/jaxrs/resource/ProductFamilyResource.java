@@ -11,7 +11,7 @@ import javax.ws.rs.core.MediaType;
 import com.hcin.axelor.model.ProductFamily;
 
 @Path("/productFamily")
-public class ProductFamilyResource extends BaseResourceRead {
+public class ProductFamilyResource extends BaseResourceRead<ProductFamily> {
     
 	@Override
 	protected String getService() {
@@ -31,10 +31,15 @@ public class ProductFamilyResource extends BaseResourceRead {
     	return getObject(id, token);
     }
     
-    public ProductFamily mapAxelorJson(JsonObject jsonObject, String token) {
-    	ProductFamily family = new ProductFamily();
+    @Override
+    protected ProductFamily createEntity() {
+    	return new ProductFamily();
+    }
 
-    	family.setId(jsonObject.getInt("id"));
+    @Override
+    public ProductFamily mapAxelorJson(JsonObject jsonObject, String token) throws Exception {
+    	ProductFamily family = super.mapAxelorJson(jsonObject, token);
+
     	family.setCode(jsonObject.getString("code"));
     	family.setName(jsonObject.getString("name"));
 
