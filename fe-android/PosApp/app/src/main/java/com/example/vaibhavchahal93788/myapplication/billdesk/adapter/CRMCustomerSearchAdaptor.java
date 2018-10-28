@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.vaibhavchahal93788.myapplication.R;
-import com.example.vaibhavchahal93788.myapplication.billdesk.model.JSONCRMCustomerSet;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.customer.JSONCustomerResponse;
 
 import java.util.List;
 
@@ -20,10 +20,10 @@ public class CRMCustomerSearchAdaptor extends
     private static final String TAG = CRMCustomerSearchAdaptor.class.getSimpleName();
 
     private Context context;
-    private List<JSONCRMCustomerSet> list;
+    private JSONCustomerResponse list;
     private OnItemClickListener onItemClickListener;
 
-    public CRMCustomerSearchAdaptor(Context context, List<JSONCRMCustomerSet> list,
+    public CRMCustomerSearchAdaptor(Context context, JSONCustomerResponse list,
                                     OnItemClickListener onItemClickListener) {
         this.context = context;
         this.list = list;
@@ -50,7 +50,7 @@ public class CRMCustomerSearchAdaptor extends
 
         }
 
-        public void bind(final JSONCRMCustomerSet model,
+        public void bind(final JSONCustomerResponse model,
                          final OnItemClickListener listener) {
 
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -76,7 +76,7 @@ public class CRMCustomerSearchAdaptor extends
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        JSONCRMCustomerSet item = list.get(position);
+        JSONCustomerResponse item = list;
         //Todo: Setup viewholder for item
         holder.bind(item, onItemClickListener);
     }
@@ -84,7 +84,7 @@ public class CRMCustomerSearchAdaptor extends
 
     @Override
     public int getItemCount() {
-        return list.size();
+        return list.getData().size();
     }
 
     public interface OnItemClickListener {

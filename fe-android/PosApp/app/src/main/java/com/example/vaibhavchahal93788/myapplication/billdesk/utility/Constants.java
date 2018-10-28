@@ -13,6 +13,13 @@ public class Constants {
     public static final String HINDI_LOCALE = "hi";
     public static final String ENGLISH_LOCALE = "en_US";
 
+    // customer APIs methods server
+    public static final String GET_ALL_CUSTOMER = "customer";
+
+
+    // customer APIs Constants
+    public static final String SESSION_ID = "JSESSTIONID";
+
 
     public static final String STOCK_DATA = "stock_data";
 }

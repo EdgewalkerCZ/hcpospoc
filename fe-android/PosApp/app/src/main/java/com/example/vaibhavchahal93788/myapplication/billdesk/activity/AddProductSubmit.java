@@ -22,7 +22,7 @@ import android.widget.Toast;
 
 import com.example.vaibhavchahal93788.myapplication.R;
 import com.example.vaibhavchahal93788.myapplication.billdesk.api.ProductApiHelper;
-import com.example.vaibhavchahal93788.myapplication.billdesk.model.addproduct.PostAddProduct;
+//import com.example.vaibhavchahal93788.myapplication.billdesk.model.addproduct.PostAddProduct;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.productsuccess.AddProductResponse;
 import com.example.vaibhavchahal93788.myapplication.billdesk.network.IApiRequestComplete;
 import com.example.vaibhavchahal93788.myapplication.billdesk.preferences.AppPreferences;
@@ -58,7 +58,7 @@ public class AddProductSubmit extends AppCompatActivity implements AdapterView.O
     private ProgressBar pb_dialogue;
 
     private AppPreferences mAppPreferences;
-    private PostAddProduct postAddProduct;
+//    private PostAddProduct postAddProduct;
 
     public static void startActivity(Activity activity) {
         Intent intent = new Intent(activity, AddProductSubmit.class);
@@ -72,7 +72,7 @@ public class AddProductSubmit extends AppCompatActivity implements AdapterView.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_product_submit);
         mAppPreferences=AppPreferences.getInstance(this);
-        postAddProduct= new PostAddProduct();
+//        postAddProduct= new PostAddProduct();
         dialog = new PrettyDialog(this);
         getToolbar();
         iniView();

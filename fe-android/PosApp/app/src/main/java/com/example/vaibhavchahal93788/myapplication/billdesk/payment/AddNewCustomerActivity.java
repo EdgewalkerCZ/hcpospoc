@@ -30,8 +30,8 @@ import retrofit2.Response;
 
 public class AddNewCustomerActivity extends AppCompatActivity {
     private TextInputLayout mInputCustomerName,mInputCustomerphone,mInputCustomeremail,mInputCustomeraddress,mInputCustomerdob,mInputCustomerNote;
-    private String mCustomerName,mCustomerphone,mCustomeremail,mCustomeraddress,mCustomerdob,mCustomerNote;
-    private EditText mCustomerNameEDT,mCustomerphoneEDT,mCustomeremailEDT,mCustomeraddressEDT,mCustomerNoteEDT;
+    private String mCustomerfirstName,mCustomerlastName,mCustomerphone,mCustomeremail,mCustomeraddress,mCustomerdob,mCustomerNote;
+    private EditText mCustomerfirstNameEDT,mCustomerlastNameEDT,mCustomerphoneEDT,mCustomeremailEDT,mCustomeraddressEDT,mCustomerNoteEDT;
     private Button mSaveBTN;
 
     @Override
@@ -43,14 +43,15 @@ public class AddNewCustomerActivity extends AppCompatActivity {
     }
 
     private void bindView() {
-        mCustomerNameEDT=findViewById(R.id.add_customer_name);
+        mCustomerfirstNameEDT=findViewById(R.id.add_customer_firstname);
+        mCustomerlastNameEDT=findViewById(R.id.add_customer_lastname);
         mCustomerphoneEDT=findViewById(R.id.add_customer_phone);
         mCustomeremailEDT=findViewById(R.id.add_customer_email);
         mCustomeraddressEDT=findViewById(R.id.add_customer_address);
 //        mCustomerdobEDT=findViewById(R.id.add_customer_dob);
         mCustomerNoteEDT=findViewById(R.id.add_customer_note);
 
-        mInputCustomerName=findViewById(R.id.input_layout_name);
+        mInputCustomerName=findViewById(R.id.input_layout_firstname);
         mInputCustomeremail=findViewById(R.id.input_layout_email);
         mInputCustomerphone=findViewById(R.id.input_layout_phone);
         mInputCustomerdob=findViewById(R.id.input_layout_dob);
@@ -58,7 +59,8 @@ public class AddNewCustomerActivity extends AppCompatActivity {
         mInputCustomerNote=findViewById(R.id.input_layout_note);
         mSaveBTN=findViewById(R.id.add_customer_btn);
 
-        mCustomerNameEDT.addTextChangedListener(new MyTextWatcher(mCustomerNameEDT));
+        mCustomerfirstNameEDT.addTextChangedListener(new MyTextWatcher(mCustomerfirstNameEDT));
+        mCustomerlastNameEDT.addTextChangedListener(new MyTextWatcher(mCustomerlastNameEDT));
         mCustomeremailEDT.addTextChangedListener(new MyTextWatcher(mCustomeremailEDT));
         mCustomerphoneEDT.addTextChangedListener(new MyTextWatcher(mCustomerphoneEDT));
 
@@ -96,8 +98,11 @@ public class AddNewCustomerActivity extends AppCompatActivity {
 
         public void afterTextChanged(Editable editable) {
             switch (view.getId()) {
-                case R.id.add_customer_name:
-                    Validation.isValidName(mCustomerNameEDT.getText().toString());
+                case R.id.add_customer_firstname:
+                    Validation.isValidName(mCustomerfirstNameEDT.getText().toString());
+                    break;
+                case R.id.add_customer_lastname:
+                    Validation.isValidName(mCustomerlastNameEDT.getText().toString());
                     break;
                 case R.id.add_customer_email:
                     Validation.isValidEmail(mCustomeremailEDT.getText().toString());
@@ -124,15 +129,15 @@ public class AddNewCustomerActivity extends AppCompatActivity {
     }
 
     public void submitform(){
-        mCustomerName=mCustomerNameEDT.getText().toString();
+        mCustomerfirstName=mCustomerfirstNameEDT.getText().toString();
         mCustomerphone=mCustomerphoneEDT.getText().toString();
         mCustomeremail=mCustomeremailEDT.getText().toString();
         mCustomeraddress=mCustomeraddressEDT.getText().toString();
 //        mCustomerdob=mCustomerdobEDT.getText().toString();
         mCustomerNote=mCustomerNoteEDT.getText().toString();
 
-        if(!Validation.isValidName(mCustomerName)){
-            mCustomerNameEDT.setError("Please enter the customer name");
+        if(!Validation.isValidName(mCustomerfirstName)){
+            mCustomerfirstNameEDT.setError("Please enter the customer name");
         }
         else if(!Validation.isValidEmail(mCustomeremail)){
             mCustomeremailEDT.setError("Please enter the Valid Email");
@@ -160,7 +165,7 @@ public class AddNewCustomerActivity extends AppCompatActivity {
     public void submitcustomerserver() throws Exception{
         JSONArray baseArray=new JSONArray();
         JSONObject object=new JSONObject();
-        object.put("name",mCustomerName);
+        object.put("name",mCustomerfirstName);
         object.put("email",mCustomeremail);
         object.put("phone",mCustomerphone);
         object.put("address",mCustomeraddress);
@@ -171,7 +176,7 @@ public class AddNewCustomerActivity extends AppCompatActivity {
         ApiInterface apiService =
                 ApiClient.getClient().create(ApiInterface.class);
         Intent in=new Intent(AddNewCustomerActivity.this,ViewCustomerDetailActivity.class);
-        in.putExtra(KeyValue.NAME,mCustomerName);
+        in.putExtra(KeyValue.NAME,mCustomerfirstName);
         in.putExtra(KeyValue.EMAIL,mCustomeremail);
         in.putExtra(KeyValue.PHONE,mCustomerphone);
         in.putExtra(KeyValue.ADDRESS,mCustomeraddress);

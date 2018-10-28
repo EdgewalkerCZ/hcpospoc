@@ -346,7 +346,8 @@ in the hands of those who demand more</string>
     <string name="add_customer">ADD NEW CUSTOMER</string>
     <string name="add_customer_new">ADD CUSTOMER</string>
     <string name="countinue_str">COUNTINUE</string>
-    <string name="add_customer_name">Name*</string>
+    <string name="add_customer_first_name">First Name*</string>
+    <string name="add_customer_last_name">Last Name*</string>
     <string name="add_customer_email">Email*</string>
     <string name="add_customer_phone">Phone*</string>
     <string name="add_customer_address">Address</string>

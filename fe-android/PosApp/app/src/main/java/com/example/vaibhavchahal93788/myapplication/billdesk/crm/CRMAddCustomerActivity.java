@@ -11,11 +11,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 
 import com.example.vaibhavchahal93788.myapplication.R;
 import com.example.vaibhavchahal93788.myapplication.billdesk.payment.ViewCustomerDetailActivity;
 import com.example.vaibhavchahal93788.myapplication.billdesk.payment.api.ApiClient;
 import com.example.vaibhavchahal93788.myapplication.billdesk.payment.api.ApiInterface;
+import com.example.vaibhavchahal93788.myapplication.billdesk.preferences.AppPreferences;
 import com.example.vaibhavchahal93788.myapplication.billdesk.utility.KeyValue;
 import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Validation;
 
@@ -24,9 +26,12 @@ import org.json.JSONObject;
 
 public class CRMAddCustomerActivity extends AppCompatActivity  {
     private TextInputLayout mInputCustomerName,mInputCustomerphone,mInputCustomeremail,mInputCustomeraddress,mInputCustomerdob,mInputCustomerNote;
-    private String mCustomerName,mCustomerphone,mCustomeremail,mCustomeraddress,mCustomerdob,mCustomerNote;
-    private EditText mCustomerNameEDT,mCustomerphoneEDT,mCustomeremailEDT,mCustomeraddressEDT,mCustomerNoteEDT;
+    private String mCustomerfirstName,mCustomerlastName,mCustomerphone,mCustomeremail,mCustomeraddress,mCustomerdob,mCustomerNote;
+    private EditText mCustomerfirstNameEDT,mCustomerlastNameEDT,mCustomerphoneEDT,mCustomeremailEDT,mCustomeraddressEDT,mCustomerNoteEDT;
     private Button mSaveBTN;
+    private ProgressBar progressBar;
+    private AppPreferences mAppPreferences;
+    private String mSessionId;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,29 +41,34 @@ public class CRMAddCustomerActivity extends AppCompatActivity  {
     }
 
     private void bindView() {
-        mCustomerNameEDT=findViewById(R.id.crm_add_customer_name);
+        mCustomerfirstNameEDT=findViewById(R.id.crm_add_customer_firstname);
+        mCustomerlastNameEDT=findViewById(R.id.crm_add_customer_lastname);
         mCustomerphoneEDT=findViewById(R.id.crm_add_customer_phone);
         mCustomeremailEDT=findViewById(R.id.crm_add_customer_email);
         mCustomeraddressEDT=findViewById(R.id.crm_add_customer_address);
 //        mCustomerdobEDT=findViewById(R.id.add_customer_dob);
         mCustomerNoteEDT=findViewById(R.id.crm_add_customer_note);
 
-        mInputCustomerName=findViewById(R.id.input_layout_name);
-        mInputCustomeremail=findViewById(R.id.input_layout_email);
-        mInputCustomerphone=findViewById(R.id.input_layout_phone);
-        mInputCustomerdob=findViewById(R.id.input_layout_dob);
-        mInputCustomeraddress=findViewById(R.id.input_layout_address);
-        mInputCustomerNote=findViewById(R.id.input_layout_note);
+//        mInputCustomerName=findViewById(R.id.input_layout_firstname);
+//        mInputCustomeremail=findViewById(R.id.input_layout_email);
+//        mInputCustomerphone=findViewById(R.id.input_layout_phone);
+//        mInputCustomerdob=findViewById(R.id.input_layout_dob);
+//        mInputCustomeraddress=findViewById(R.id.input_layout_address);
+//        mInputCustomerNote=findViewById(R.id.input_layout_note);
         mSaveBTN=findViewById(R.id.crm_add_customer_btn);
+        mAppPreferences = AppPreferences.getInstance(this);
+        progressBar = findViewById(R.id.progress_bar);
 
-        mCustomerNameEDT.addTextChangedListener(new MyTextWatcher(mCustomerNameEDT));
+        mSessionId=mAppPreferences.getJsessionId();
+        mCustomerfirstNameEDT.addTextChangedListener(new MyTextWatcher(mCustomerfirstNameEDT));
+        mCustomerlastNameEDT.addTextChangedListener(new MyTextWatcher(mCustomerlastNameEDT));
         mCustomeremailEDT.addTextChangedListener(new MyTextWatcher(mCustomeremailEDT));
         mCustomerphoneEDT.addTextChangedListener(new MyTextWatcher(mCustomerphoneEDT));
 
         Intent in=getIntent();
         String name=in.getStringExtra(KeyValue.NAME);
         if(name!=null){
-            mCustomerNameEDT.setText(name);
+            mCustomerfirstNameEDT.setText(name);
             mCustomerphoneEDT.setText(in.getStringExtra(KeyValue.PHONE));
             mCustomeremailEDT.setText(in.getStringExtra(KeyValue.EMAIL));
             mCustomeraddressEDT.setText(in.getStringExtra(KeyValue.ADDRESS));
@@ -86,15 +96,15 @@ public class CRMAddCustomerActivity extends AppCompatActivity  {
         return super.onOptionsItemSelected(item);
     }
     public void submitform(){
-        mCustomerName=mCustomerNameEDT.getText().toString();
+        mCustomerfirstName=mCustomerfirstNameEDT.getText().toString();
         mCustomerphone=mCustomerphoneEDT.getText().toString();
         mCustomeremail=mCustomeremailEDT.getText().toString();
         mCustomeraddress=mCustomeraddressEDT.getText().toString();
 //        mCustomerdob=mCustomerdobEDT.getText().toString();
         mCustomerNote=mCustomerNoteEDT.getText().toString();
 
-        if(!Validation.isValidName(mCustomerName)){
-            mCustomerNameEDT.setError("Please enter the customer name");
+        if(!Validation.isValidName(mCustomerfirstName)){
+            mCustomerfirstNameEDT.setError("Please enter the customer name");
         }
         else if(!Validation.isValidEmail(mCustomeremail)){
             mCustomeremailEDT.setError("Please enter the Valid Email");
@@ -122,7 +132,7 @@ public class CRMAddCustomerActivity extends AppCompatActivity  {
     public void submitcustomerserver() throws Exception{
         JSONArray baseArray=new JSONArray();
         JSONObject object=new JSONObject();
-        object.put("name",mCustomerName);
+        object.put("name",mCustomerfirstName);
         object.put("email",mCustomeremail);
         object.put("phone",mCustomerphone);
         object.put("address",mCustomeraddress);
@@ -133,7 +143,7 @@ public class CRMAddCustomerActivity extends AppCompatActivity  {
         ApiInterface apiService =
                 ApiClient.getClient().create(ApiInterface.class);
         Intent in=new Intent(CRMAddCustomerActivity.this,CRMViewCustomerActivity.class);
-        in.putExtra(KeyValue.NAME,mCustomerName);
+        in.putExtra(KeyValue.NAME,mCustomerfirstName);
         in.putExtra(KeyValue.EMAIL,mCustomeremail);
         in.putExtra(KeyValue.PHONE,mCustomerphone);
         in.putExtra(KeyValue.ADDRESS,mCustomeraddress);
@@ -190,13 +200,16 @@ public class CRMAddCustomerActivity extends AppCompatActivity  {
 
         public void afterTextChanged(Editable editable) {
             switch (view.getId()) {
-                case R.id.add_customer_name:
-                    Validation.isValidName(mCustomerNameEDT.getText().toString());
+                case R.id.crm_add_customer_firstname:
+                    Validation.isValidName(mCustomerfirstNameEDT.getText().toString());
                     break;
-                case R.id.add_customer_email:
+                    case R.id.crm_add_customer_lastname:
+                    Validation.isValidName(mCustomerlastNameEDT.getText().toString());
+                    break;
+                case R.id.crm_add_customer_email:
                     Validation.isValidEmail(mCustomeremailEDT.getText().toString());
                     break;
-                case R.id.add_customer_phone:
+                case R.id.crm_add_customer_phone:
                     Validation.isValidMobile(mCustomerphoneEDT.getText().toString()) ;
                     break;
             }

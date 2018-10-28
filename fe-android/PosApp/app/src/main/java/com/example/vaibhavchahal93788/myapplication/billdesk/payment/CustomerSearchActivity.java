@@ -45,6 +45,7 @@ public class CustomerSearchActivity extends AppCompatActivity {
     ArrayList<JsonCustomer> filtercustomername;
     private ProgressBar progressBar;
 
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

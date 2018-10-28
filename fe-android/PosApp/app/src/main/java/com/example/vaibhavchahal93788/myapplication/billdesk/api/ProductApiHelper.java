@@ -5,6 +5,7 @@ import com.example.vaibhavchahal93788.myapplication.billdesk.model.CategoryModel
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.LoginBodyModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductCategoryModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductListModel;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.customer.JSONCustomerResponse;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.productsuccess.AddProductResponse;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.profile.ProfileResponse;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.userlogin.LoginSuccessResponse;
@@ -102,5 +103,12 @@ public void userLogin (LoginBodyModel user_data , IApiRequestComplete successInt
     public void updateProduct(long productId,String product,final IApiRequestComplete successInterface) {
         Call<ProductCategoryModel> categoryApiResponseCall = productApi.updateProduct(productId,product);
         categoryApiResponseCall.enqueue(new ResponseHandler<ProductCategoryModel>(successInterface));
+    }
+
+    //get customers
+    public void getCustomers(String sessionid,final IApiRequestComplete requestComplete){
+        Call<JSONCustomerResponse> customerResponseCall=productApi.getcustomers(sessionid);
+        customerResponseCall.enqueue(new ResponseHandler<JSONCustomerResponse>(requestComplete));
+
     }
 }

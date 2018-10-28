@@ -5,21 +5,20 @@ import com.example.vaibhavchahal93788.myapplication.billdesk.model.CategoryModel
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.LoginBodyModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductCategoryModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductListModel;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.customer.JSONCustomerResponse;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.productsuccess.AddProductResponse;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.profile.ProfileResponse;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.userlogin.LoginSuccessResponse;
-import com.example.vaibhavchahal93788.myapplication.billdesk.model.userlogin.UserLoginModel;
+import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Constants;
 import com.google.gson.JsonObject;
 
 import java.util.List;
-import java.util.Map;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
-import retrofit2.http.HeaderMap;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
@@ -68,4 +67,7 @@ public interface productApi {
 
     @GET("updateProduct")
     Call<ProductCategoryModel> updateProduct(@Query("id") long id,@Query("updateStock") String updatestock);
+
+    @GET(Constants.GET_ALL_CUSTOMER)
+    Call<JSONCustomerResponse> getcustomers(@Query(Constants.SESSION_ID) String sid);
 }
