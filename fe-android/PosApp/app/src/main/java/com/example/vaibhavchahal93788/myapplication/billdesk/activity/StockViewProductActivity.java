@@ -167,7 +167,7 @@ public class StockViewProductActivity extends AppCompatActivity implements  Stoc
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (categoriesList != null && !categoriesList.isEmpty()) {
+                /*if (categoriesList != null && !categoriesList.isEmpty()) {*/
 
                     AddProductSubmit.startActivity(StockViewProductActivity.this);
                   /*  Intent intent = new Intent(StockViewProductActivity.this, AddNewProduct.class);
@@ -177,9 +177,9 @@ public class StockViewProductActivity extends AppCompatActivity implements  Stoc
                     startActivityForResult(intent
                             , REQUEST_CODE);*/
                     overridePendingTransition(R.anim.animation_enter,R.anim.animation_leave);
-                } else {
+                /*} else {
                     Toast.makeText(StockViewProductActivity.this, R.string.msg_category_loading_failed, Toast.LENGTH_SHORT).show();
-                }
+                }*/
             }
         });
     }

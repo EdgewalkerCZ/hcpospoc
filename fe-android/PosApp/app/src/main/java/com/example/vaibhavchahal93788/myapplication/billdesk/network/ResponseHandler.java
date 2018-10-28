@@ -4,6 +4,7 @@ import com.example.vaibhavchahal93788.myapplication.R;
 import com.example.vaibhavchahal93788.myapplication.billdesk.Application;
 
 import java.io.IOException;
+import java.net.UnknownHostException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -39,9 +40,10 @@ public class ResponseHandler<T> implements Callback<T> {
     @Override
     public void onFailure(Call<T> call, Throwable t) {
         t.printStackTrace();
-        if (t instanceof IOException) {
-            iApiRequestComplete.onFailure("Check Your Internet Connection")
-            ;
+        if (t instanceof UnknownHostException){
+            iApiRequestComplete.onFailure("Unable to resolve host");
+        } else if (t instanceof IOException) {
+            iApiRequestComplete.onFailure(t.getMessage());
         } else {
             iApiRequestComplete.onFailure("Something went wrong, please try again");
         }

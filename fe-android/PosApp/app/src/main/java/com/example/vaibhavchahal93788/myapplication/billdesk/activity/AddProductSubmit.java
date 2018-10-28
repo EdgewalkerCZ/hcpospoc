@@ -22,8 +22,10 @@ import android.widget.Toast;
 
 import com.example.vaibhavchahal93788.myapplication.R;
 import com.example.vaibhavchahal93788.myapplication.billdesk.api.ProductApiHelper;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.addproduct.PostAddProduct;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.productsuccess.AddProductResponse;
 import com.example.vaibhavchahal93788.myapplication.billdesk.network.IApiRequestComplete;
+import com.example.vaibhavchahal93788.myapplication.billdesk.preferences.AppPreferences;
 import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Constants;
 import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Utility;
 import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Validation;
@@ -55,6 +57,8 @@ public class AddProductSubmit extends AppCompatActivity implements AdapterView.O
     private PrettyDialog dialog;
     private ProgressBar pb_dialogue;
 
+    private AppPreferences mAppPreferences;
+    private PostAddProduct postAddProduct;
 
     public static void startActivity(Activity activity) {
         Intent intent = new Intent(activity, AddProductSubmit.class);
@@ -67,6 +71,8 @@ public class AddProductSubmit extends AppCompatActivity implements AdapterView.O
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_product_submit);
+        mAppPreferences=AppPreferences.getInstance(this);
+        postAddProduct= new PostAddProduct();
         dialog = new PrettyDialog(this);
         getToolbar();
         iniView();
@@ -281,7 +287,7 @@ public class AddProductSubmit extends AppCompatActivity implements AdapterView.O
                     ll_ac_tv.setVisibility(View.VISIBLE);
                     ll_ac_tv.setWeightSum(1);
                     sp_type.setVisibility(View.GONE);
-                    gst_percent = 12;
+                    gst_percent = 18;
                     et_gst.setText(gst_percent + "");
 
                 } else if (position == 2 && sp_sub_category.getSelectedItem().equals("Wired Ear Phones")) {
@@ -568,6 +574,15 @@ public class AddProductSubmit extends AppCompatActivity implements AdapterView.O
                         if (!Validation.isTextEmpty(et_model.getText().toString().trim())) {
                             if (!Validation.isTextEmpty(et_quantity.getText().toString().trim())) {
                                 if (!Validation.isTextEmpty(et_description.getText().toString().trim())) {
+                                   /* "code": "COMP-0012",
+                                            "name": "New type of Hard Disk SATA",
+                                            "productCategoryId": 5,
+                                            "productFamilyId": 3,
+                                            "description": "\"Internal HDD 3,5'' - Capacity : 5",
+                                            "salePrice": "60.0000000000",
+                                            "isGst": false,
+                                            "isSellable": true*/
+
                                     return true;
                                 } else {
                                     til_description.setError(getResources().getString(R.string.error_description));

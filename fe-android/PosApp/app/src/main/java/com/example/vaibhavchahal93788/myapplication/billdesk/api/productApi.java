@@ -19,6 +19,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.HeaderMap;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
@@ -50,9 +51,9 @@ public interface productApi {
     @GET("profiles")
     Call<ProfileResponse> getProfileDetails();
 
-
     @GET("category")
     Call<ProductCategoryModel> getCategoryList();
+
     @Headers("Content-Type: application/json")
     @POST("products")
     Call<AddProductResponse> postAddProduct(@Body String body);
@@ -63,7 +64,7 @@ public interface productApi {
     Call<LoginSuccessResponse> UserLogin(@Body LoginBodyModel user_data);
 
     @GET("removeProduct")
-    Call<ProductCategoryModel> removeProduct(@Query("id") long id, @Query("updateStock") String updatestock);
+    Call<ProductCategoryModel> removeProduct(  @Query("id") long id, @Query("updateStock") String updatestock);
 
     @GET("updateProduct")
     Call<ProductCategoryModel> updateProduct(@Query("id") long id,@Query("updateStock") String updatestock);
