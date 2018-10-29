@@ -14,7 +14,8 @@ public class SaveHistoryDataModel {
     private Integer paymentConditionId;
     private Integer customerId;
     private Integer paymentModeId;
-    private List<Integer> invoiceLineIdList = null;
+    //private List<Integer> invoiceLineIdList = null;
+    private List<InvoiceIdModel> invoiceLineIdList = null;
     private Integer currencyId;
     private Integer companyExTaxTotal;
     private Integer companyTaxTotal;
@@ -91,11 +92,11 @@ public class SaveHistoryDataModel {
         this.paymentModeId = paymentModeId;
     }
 
-    public List<Integer> getInvoiceLineIdList() {
+    public List<InvoiceIdModel> getInvoiceLineIdList() {
         return invoiceLineIdList;
     }
 
-    public void setInvoiceLineIdList(List<Integer> invoiceLineIdList) {
+    public void setInvoiceLineIdList(List<InvoiceIdModel> invoiceLineIdList) {
         this.invoiceLineIdList = invoiceLineIdList;
     }
 
