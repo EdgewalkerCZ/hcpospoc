@@ -68,6 +68,7 @@ public class TransactionHistoryActivityNew extends BaseActivity {
         initViews();
 
         populateList();
+        populateList2();
         //showPieChart();
         drawPieGraph();
         tvTodayDAte.setText(getSystemDate());
@@ -107,6 +108,10 @@ public class TransactionHistoryActivityNew extends BaseActivity {
           dialogDownloadOrMail = findViewById(R.id.dialogDownload);
           etSearchHistory = findViewById(R.id.etSearchHistory);
       }
+
+     private void populateList2(){
+
+     }
 
     private void populateList() {
 

@@ -413,4 +413,6 @@ in the hands of those who demand more</string>
     <string name="error">Oops !</string>
     <string name="success_add_product">Product added successfully</string>
     <string name="no_data">No Data Found</string>
+    <string name="user_name">User Name</string>
+    <string name="password">Password</string>
 </resources>
