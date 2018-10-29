@@ -22,16 +22,19 @@ import android.widget.Toast;
 
 import com.example.vaibhavchahal93788.myapplication.R;
 import com.example.vaibhavchahal93788.myapplication.billdesk.api.ProductApiHelper;
-//import com.example.vaibhavchahal93788.myapplication.billdesk.model.addproduct.PostAddProduct;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.addproduct.PostAddProduct;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.productsuccess.AddProductResponse;
 import com.example.vaibhavchahal93788.myapplication.billdesk.network.IApiRequestComplete;
 import com.example.vaibhavchahal93788.myapplication.billdesk.preferences.AppPreferences;
 import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Constants;
 import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Utility;
 import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Validation;
+import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.HashMap;
 
 import libs.mjn.prettydialog.PrettyDialog;
 import libs.mjn.prettydialog.PrettyDialogCallback;
@@ -58,7 +61,10 @@ public class AddProductSubmit extends AppCompatActivity implements AdapterView.O
     private ProgressBar pb_dialogue;
 
     private AppPreferences mAppPreferences;
-//    private PostAddProduct postAddProduct;
+    private PostAddProduct postAddProduct;
+    private double finalpostprice;
+    private int categoryID;
+
 
     public static void startActivity(Activity activity) {
         Intent intent = new Intent(activity, AddProductSubmit.class);
@@ -72,8 +78,11 @@ public class AddProductSubmit extends AppCompatActivity implements AdapterView.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_product_submit);
         mAppPreferences=AppPreferences.getInstance(this);
-//        postAddProduct= new PostAddProduct();
-        dialog = new PrettyDialog(this);
+        postAddProduct= new PostAddProduct();
+
+
+
+
         getToolbar();
         iniView();
         iniListner();
@@ -276,6 +285,7 @@ public class AddProductSubmit extends AppCompatActivity implements AdapterView.O
                     sp_type.setVisibility(View.GONE);
                     gst_percent = 18;
                     et_gst.setText(gst_percent + "");
+                    categoryID=21;
 
                 } else if (position == 1 && sp_sub_category.getSelectedItem().equals("Mobile Phones")) {
                     ll_mobile.setVisibility(View.VISIBLE);
@@ -289,6 +299,7 @@ public class AddProductSubmit extends AppCompatActivity implements AdapterView.O
                     sp_type.setVisibility(View.GONE);
                     gst_percent = 18;
                     et_gst.setText(gst_percent + "");
+                    categoryID=19;
 
                 } else if (position == 2 && sp_sub_category.getSelectedItem().equals("Wired Ear Phones")) {
                     ll_mobile.setVisibility(View.GONE);
@@ -304,6 +315,7 @@ public class AddProductSubmit extends AppCompatActivity implements AdapterView.O
 
                     gst_percent = 18;
                     et_gst.setText(gst_percent + "");
+                    categoryID=22;
 
                 } else if (position == 1 && sp_sub_category.getSelectedItem().equals("Televisions")) {
                     ll_mobile.setVisibility(View.GONE);
@@ -323,6 +335,7 @@ public class AddProductSubmit extends AppCompatActivity implements AdapterView.O
                     dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     // attaching data adapter to spinner
                     sp_type.setAdapter(dataAdapter);
+                    categoryID=24;
 
 
                 } else if (position == 2 && sp_sub_category.getSelectedItem().equals("Refrigerator")) {
@@ -343,6 +356,7 @@ public class AddProductSubmit extends AppCompatActivity implements AdapterView.O
                     sp_type.setAdapter(dataAdapter);
                     gst_percent = 18;
                     et_gst.setText(gst_percent + "");
+                    categoryID=23;
 
                 } else {
                     hideAndResetAllVariantValues();
@@ -428,7 +442,11 @@ public class AddProductSubmit extends AppCompatActivity implements AdapterView.O
 
     private void addProductList(String data) {
         pb_dialogue.setVisibility(View.VISIBLE);
-        new ProductApiHelper().addProduct(data, new IApiRequestComplete<AddProductResponse>() {
+        HashMap<String,String> headerValues= new HashMap<>();
+        headerValues.put("Content-Type", "application/json");
+        headerValues.put("Accept", "application/json");
+        headerValues.put(Constants.SESSION_ID,mAppPreferences.getJsessionId());
+        new ProductApiHelper().addProduct(headerValues,postAddProduct, new IApiRequestComplete<AddProductResponse>() {
             @Override
             public void onSuccess(AddProductResponse response) {
                 if (response != null) {
@@ -436,10 +454,10 @@ public class AddProductSubmit extends AppCompatActivity implements AdapterView.O
                     hideAndResetAllVariantValues();
                     pb_dialogue.setVisibility(View.GONE);
                     // Utility.showToast(getApplicationContext(),response.getMessage());
-
+                   final PrettyDialog  dialog = new PrettyDialog(AddProductSubmit.this);
                     dialog.setIcon(R.drawable.pdlg_icon_success, R.color.pdlg_color_green,null)   // Icon resource
                             .setTitle(getResources().getString(R.string.success))
-                            .setMessage(response.getMessage())
+                            .setMessage(getResources().getString(R.string.success_add_product))
                             .addButton(getResources().getString(R.string.ok), R.color.pdlg_color_white, R.color.pdlg_color_green, new PrettyDialogCallback() {
                                 @Override
                                 public void onClick() {
@@ -453,6 +471,7 @@ public class AddProductSubmit extends AppCompatActivity implements AdapterView.O
             @Override
             public void onFailure(String message) {
                 pb_dialogue.setVisibility(View.GONE);
+                final PrettyDialog  dialog = new PrettyDialog(AddProductSubmit.this);
                 dialog.setIcon(R.drawable.pdlg_icon_info, R.color.pdlg_color_green,null)
                         .setTitle(getResources().getString(R.string.error))
                         .setMessage(message)
@@ -473,6 +492,9 @@ public class AddProductSubmit extends AppCompatActivity implements AdapterView.O
         boolean status = false;
         if (sp_type.getSelectedItemPosition() != 0) {
             if (sp_television_star.getSelectedItemPosition() != 0) {
+                postAddProduct.setDescription(postAddProduct.getDescription()+"|"+sp_type.getSelectedItem()+
+                        "|"+sp_television_star.getSelectedItem());
+                postAddProduct.setSalePrice(String.valueOf(finalpostprice));
                 return true;
 
             } else {
@@ -489,6 +511,8 @@ public class AddProductSubmit extends AppCompatActivity implements AdapterView.O
     private boolean wiredEarPhoneValidation() {
         boolean status = false;
         if (sp_wire_phone_color.getSelectedItemPosition() != 0) {
+            postAddProduct.setDescription(postAddProduct.getDescription()+"|"+sp_wire_phone_color.getSelectedItem());
+            postAddProduct.setSalePrice(String.valueOf(finalpostprice));
             return true;
         } else {
             Utility.showToast(getApplicationContext(), getResources().getString(R.string.error_color));
@@ -501,6 +525,10 @@ public class AddProductSubmit extends AppCompatActivity implements AdapterView.O
         if (sp_star_refregerator.getSelectedItemPosition() != 0) {
             if (sp_refregerator_color.getSelectedItemPosition() != 0) {
                 if (sp_refregerator_capacity.getSelectedItemPosition() != 0) {
+                    postAddProduct.setDescription(postAddProduct.getDescription()+"|"+sp_star_refregerator.getSelectedItem()
+                            +"|"+sp_refregerator_color.getSelectedItem()
+                            + "|"+sp_refregerator_capacity.getSelectedItem());
+                    postAddProduct.setSalePrice(String.valueOf(finalpostprice));
                     return true;
 
                 } else {
@@ -523,7 +551,9 @@ public class AddProductSubmit extends AppCompatActivity implements AdapterView.O
         if (sp_power_mah.getSelectedItemPosition() != 0) {
             if (sp_power_compatible.getSelectedItemPosition() != 0) {
                 if (!Validation.isTextEmpty(et_weight_battery.getText().toString().trim())) {
-
+                    postAddProduct.setDescription(postAddProduct.getDescription()+"|"+sp_power_mah.getSelectedItem()
+                            +"|"+sp_power_compatible.getSelectedItem());
+                    postAddProduct.setSalePrice(String.valueOf(finalpostprice));
                     return true;
 
                 } else {
@@ -547,7 +577,9 @@ public class AddProductSubmit extends AppCompatActivity implements AdapterView.O
         if (sp_variant.getSelectedItemPosition() != 0) {
             if (sp_color.getSelectedItemPosition() != 0) {
                 if (sp_camera_pixel.getSelectedItemPosition() != 0) {
-
+                    postAddProduct.setDescription(postAddProduct.getDescription()+"|"+postAddProduct.getDescription()+"|"+sp_variant.getSelectedItem()
+                    +"|"+sp_color.getSelectedItem()+"|"+sp_camera_pixel.getSelectedItem());
+                    postAddProduct.setSalePrice(String.valueOf(finalpostprice));
                     return true;
 
                 } else {
@@ -574,6 +606,19 @@ public class AddProductSubmit extends AppCompatActivity implements AdapterView.O
                         if (!Validation.isTextEmpty(et_model.getText().toString().trim())) {
                             if (!Validation.isTextEmpty(et_quantity.getText().toString().trim())) {
                                 if (!Validation.isTextEmpty(et_description.getText().toString().trim())) {
+                                 postAddProduct.setCode(String.valueOf(sp_product_type.getSelectedItemPosition()));
+                                 postAddProduct.setName(et_brand_name.getText().toString()+" "+et_model.getText().toString());
+                                 if (sp_category.getSelectedItemPosition()==1){
+                                     postAddProduct.setProductFamilyId(8);
+                                     }else if (sp_category.getSelectedItemPosition()==2){
+                                     postAddProduct.setProductFamilyId(9);
+                                     }else { postAddProduct.setProductFamilyId(10); }
+                                 postAddProduct.setProductCategoryId(categoryID);
+                                 postAddProduct.setDescription(et_description.getText().toString());
+                                 postAddProduct.setIsGst(true);
+                                 postAddProduct.setIsSellable(true);
+                                 postAddProduct.setQuantity(Integer.valueOf(et_quantity.getText().toString()));
+                                 postAddProduct.setWarrantyNbrOfMonths(12);
                                    /* "code": "COMP-0012",
                                             "name": "New type of Hard Disk SATA",
                                             "productCategoryId": 5,
@@ -637,6 +682,7 @@ public class AddProductSubmit extends AppCompatActivity implements AdapterView.O
             base_price = Double.parseDouble(et_excl_gst.getText().toString());
             gst_price = base_price * gst_percent / 100;
             total_price = base_price + gst_price;
+            finalpostprice=total_price;
             tv_est_price.setText(total_price + " " + "Rs.");
 
         }else if (et_weight_battery.getText().hashCode()==s.hashCode()&&Validation.isTextEmpty(et_weight_battery.getText().toString().trim())){

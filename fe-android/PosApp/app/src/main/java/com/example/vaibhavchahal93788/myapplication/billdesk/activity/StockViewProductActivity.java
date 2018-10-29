@@ -28,11 +28,15 @@ import com.example.vaibhavchahal93788.myapplication.billdesk.adapter.StockViewAd
 import com.example.vaibhavchahal93788.myapplication.billdesk.api.ProductApiHelper;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.AllProductModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductCategoryModel;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.allproduct.AllProductResponse;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.allproduct.DataItem;
 import com.example.vaibhavchahal93788.myapplication.billdesk.network.IApiRequestComplete;
+import com.example.vaibhavchahal93788.myapplication.billdesk.preferences.AppPreferences;
 import com.example.vaibhavchahal93788.myapplication.billdesk.utility.ApiClient;
 import com.example.vaibhavchahal93788.myapplication.billdesk.utility.ApiInterface;
 import com.example.vaibhavchahal93788.myapplication.billdesk.utility.ApiUtils;
 import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Constants;
+import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Utility;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
@@ -50,6 +54,8 @@ import java.util.Set;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.example.vaibhavchahal93788.myapplication.billdesk.preferences.AppPreferences.mAppPreferences;
 
 public class StockViewProductActivity extends AppCompatActivity implements  StockViewAdapter.OnItemClickListener, View.OnClickListener {
 
@@ -73,11 +79,14 @@ public class StockViewProductActivity extends AppCompatActivity implements  Stoc
     private boolean isSearchingProduct;
 
     public static final int REQ_CODE_SELECT_CATEGORY = 1;
+    private AppPreferences mAppPreferences;
+    private List<DataItem> dataItems;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stock_detail);
-
+        mAppPreferences=AppPreferences.getInstance(this);
         setTitle("Product List");
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -85,7 +94,7 @@ public class StockViewProductActivity extends AppCompatActivity implements  Stoc
         initViews();
 
         actionEditSearch();
-        getCategoriesList();
+       // getCategoriesList();
         actionCategorySelection();
 
         actionAddProduct();
@@ -96,50 +105,43 @@ public class StockViewProductActivity extends AppCompatActivity implements  Stoc
     private void fetchProductsList() {
 
         progreeBar.setVisibility(View.VISIBLE);
-        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-
-        Call<JsonObject> call = apiService.getAllProductsList();
-        Log.e("request", call.request().url().toString());
-        call.enqueue(new Callback<JsonObject>() {
+        HashMap<String,String> headerValues= new HashMap<>();
+        headerValues.put("Content-Type", "application/json");
+        headerValues.put("Accept", "application/json");
+        headerValues.put(Constants.SESSION_ID,mAppPreferences.getJsessionId());
+        new ProductApiHelper().getProductList(headerValues, new IApiRequestComplete<AllProductResponse>() {
             @Override
-            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+            public void onSuccess(final AllProductResponse response) {
                 isSearchingProduct = false;
                 progreeBar.setVisibility(View.GONE);
-                Log.e("response", response.body().toString());
-                if (ApiUtils.isSuccess(response.body().toString())) {
-                    try {
-                        JSONObject respObj = new JSONObject(response.body().toString());
-                        JSONArray jsonArray = respObj.getJSONArray("items");
-                        List<AllProductModel> list = new Gson().fromJson(jsonArray.toString(), new TypeToken<List<AllProductModel>>() {
-                        }.getType());
-                        productsList = list;
-
-                        setAdaptorData();
-                       /* if(set != null) {
-                            mAdapterSelectProduct.addData(new ArrayList<String>(getDataWithSeletedItems(set, mDataSelected)));
-                        }*/
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                if (response!=null){
+                    if (response.getData().size()!=0){
+                        editTextSearch.setEnabled(true);
+                        dataItems=response.getData();
+                        adapter = new StockViewAdapter(StockViewProductActivity.this, response.getData(), new StockViewAdapter.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(int position) {
+                                Intent intent = new Intent(StockViewProductActivity.this, ViewProductActivity.class);
+                                intent.putExtra(Constants.STOCK_DATA, response.getData().get(position));
+                                startActivity(intent);
+                            }
+                        });
+                        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+                        recyclerView.setLayoutManager(mLayoutManager);
+                        recyclerView.setItemAnimator(new DefaultItemAnimator());
+                        recyclerView.setAdapter(adapter);
+                    }else {
+                        Utility.showToast(getApplicationContext(),getResources().getString(R.string.no_data));
                     }
                 }
             }
 
             @Override
-            public void onFailure(Call<JsonObject> call, Throwable t) {
-                isSearchingProduct = false;
-                progreeBar.setVisibility(View.GONE);
-                Log.e("response", t.toString());
+            public void onFailure(String message) {
+
             }
         });
-    }
 
-    /* set Adaptor data */
-    private void setAdaptorData() {
-        if(productsList!=null && productsList.size()>0){
-            editTextSearch.setEnabled(true);
-            adapter = new StockViewAdapter(this, productsList, this);
-            recyclerView.setAdapter(adapter);
-        }
     }
 
     private void initViews() {
@@ -154,12 +156,6 @@ public class StockViewProductActivity extends AppCompatActivity implements  Stoc
         spinnerCategories =  findViewById(R.id.spinner_categories);
         relativeHeader = findViewById(R.id.rtl_header);
 
-
-        adapter = new StockViewAdapter(this, new ArrayList<AllProductModel>(), this);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(adapter);
     }
 
     private void actionAddProduct() {
@@ -167,25 +163,13 @@ public class StockViewProductActivity extends AppCompatActivity implements  Stoc
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*if (categoriesList != null && !categoriesList.isEmpty()) {*/
-
                     AddProductSubmit.startActivity(StockViewProductActivity.this);
-                  /*  Intent intent = new Intent(StockViewProductActivity.this, AddNewProduct.class);
-                    intent.putStringArrayListExtra("listCategories", categoriesList);
-                    intent.putExtra("CategoriesIdMap", hashMapCategories);
-                    intent.putExtra("CategoriesTaxMap", hashMapCategoriesTax);
-                    startActivityForResult(intent
-                            , REQUEST_CODE);*/
                     overridePendingTransition(R.anim.animation_enter,R.anim.animation_leave);
-                /*} else {
-                    Toast.makeText(StockViewProductActivity.this, R.string.msg_category_loading_failed, Toast.LENGTH_SHORT).show();
-                }*/
+
             }
         });
     }
-
-
-    private void getCategoriesList() {
+   /* private void getCategoriesList() {
         new ProductApiHelper().getCategoryList( new IApiRequestComplete<ProductCategoryModel>() {
 
             @Override
@@ -213,19 +197,21 @@ public class StockViewProductActivity extends AppCompatActivity implements  Stoc
             }
         });
     }
-
+*/
 
 
     private void actionCategorySelection() {
         spinnerCategories.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if (productsList != null && productsList.size() > 0) {
-                //    productsList.clear();
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+
+                if (position==1){
+                    categoryData(8);
+                }else if (position==2){
+                    categoryData(9);
+                }else if (position==3){
+                    categoryData(10);
                 }
-                load_category_id = hashMapCategories.get(spinnerCategories.getSelectedItem().toString());
-                categoryData(load_category_id);
-             //   getProductList(load_category_id);
             }
 
             @Override
@@ -275,14 +261,15 @@ public class StockViewProductActivity extends AppCompatActivity implements  Stoc
 
     private void filter(String text) {
         //new array list that will hold the filtered data
-        ArrayList<AllProductModel> filterdNames = new ArrayList<>();
+        ArrayList<DataItem> filterdNames = new ArrayList<>();
 
         //looping through existing elements
-        for (AllProductModel object : productsList) {
+        for (DataItem dataItem : dataItems) {
             //if the existing elements contains the search input
-            if (object.getName().toLowerCase().contains(text.toLowerCase())) {
+            if (dataItem.getName().toLowerCase().contains(text.toLowerCase())) {
                 //adding the element to filtered list
-                filterdNames.add(object);
+                filterdNames.add(dataItem
+                );
             }
         }
 
@@ -325,20 +312,20 @@ public class StockViewProductActivity extends AppCompatActivity implements  Stoc
 
     /* get data category wise */
 
-    private void categoryData(String load_category_id) {
+    private void categoryData(int load_category_id) {
         //new array list that will hold the filtered data
-        ArrayList<AllProductModel> filterdNames = new ArrayList<>();
+        ArrayList<DataItem> filterdNames = new ArrayList<>();
 
         //looping through existing elements
 
-        if(load_category_id!=null && !load_category_id.equalsIgnoreCase("0")){
-            for (AllProductModel object : productsList) {
+        if(load_category_id!=0){
+            for (DataItem dataItem : dataItems) {
                 //if the existing elements contains the search input
 
-                if(object.getCategoryID()!=null){
-                    if (object.getCategoryID().equalsIgnoreCase(load_category_id)) {
+                if(dataItem.getProductFamilyId()!=0){
+                    if (dataItem.getProductFamilyId()==( load_category_id)) {
                         //adding the element to filtered list
-                        filterdNames.add(object);
+                        filterdNames.add(dataItem);
                     }
                 }
             }
@@ -348,17 +335,16 @@ public class StockViewProductActivity extends AppCompatActivity implements  Stoc
             fetchProductsList();
         }
 
-        /*int size = filterdNames.size();
-        if(size!=0)
-        setTitle(filterdNames.size()+" item found");*/
-        //calling a method of the adapter class and passing the filtered list
 
-  /*      int size = filterdNames.size();
+        if(filterdNames.size()!=0)
+        setTitle(filterdNames.size()+" item found");
+        //calling a method of the adapter class and passing the filtered list
+        int size = filterdNames.size();
         setTitle(filterdNames.size()+" item found");
         if(size==1)
             relativeHeader.setVisibility(View.GONE);
         else relativeHeader.setVisibility(View.VISIBLE);
-        crossmenu.setVisible(true);*/
+        crossmenu.setVisible(true);
 
 
     }
