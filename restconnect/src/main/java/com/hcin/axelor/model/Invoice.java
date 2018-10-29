@@ -137,6 +137,21 @@ public class Invoice extends BaseEntity {
 	public static class ProductItem implements Comparable<ProductItem> {
 		private int id;
 		private Integer quantity;
+
+		public ProductItem() {
+			super();
+		}
+
+		public ProductItem(String value) {
+			super();
+
+			String idStr = value.substring(0, value.indexOf(":"));
+			String qntStr = value.substring(value.indexOf(":") + 1);
+			
+			id = Integer.parseInt(idStr);
+			quantity = Integer.parseInt(qntStr);
+		}
+
 		public int getId() {
 			return id;
 		}
@@ -154,5 +169,11 @@ public class Invoice extends BaseEntity {
 		public int compareTo(ProductItem o) {
 			return ((Integer)id).compareTo(o.getId());
 		}
+		
+		@Override
+		public String toString() {
+			return String.valueOf(id) + ":" + String.valueOf(quantity);
+		}
+	
 	}
 }

@@ -1,8 +1,6 @@
 package com.hcin.axelor.jaxrs.resource;
 
 import java.io.StringReader;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.SortedSet;
 
 import javax.json.Json;
@@ -100,30 +98,25 @@ public class InvoiceResource extends BaseResourceWrite<Invoice> {
     	
     	String quantityString = jsonObject.get("externalReference").equals(JsonValue.NULL) ? null :
     		jsonObject.getString("externalReference");
-    	List<Integer> quantity = new ArrayList<>();
 
     	if(quantityString != null) {
 			JsonReader jsonReader = Json.createReader(new StringReader(quantityString));
 			JsonArray quantityJsonArr = jsonReader.readArray();
 
 			for (int i = 0; i < quantityJsonArr.size(); i++) {
-				quantity.add(quantityJsonArr.getInt(i));
+				ProductItem productItem = new ProductItem(quantityJsonArr.getString(i));
+				invoiceLineIdList.add(productItem);
 			}
+    	} else {
+    		for (int i = 0; i < jsonArray.size(); i++) {
+    			JsonObject arrayObject = jsonArray.getJsonObject(i);
+    			ProductItem productItem = new ProductItem();
+    			productItem.setId(arrayObject.getInt(ID));
+   				productItem.setQuantity(1);
+
+    			invoiceLineIdList.add(productItem);
+    		}
     	}
-    	
-    	for (int i = 0; i < jsonArray.size(); i++) {
-			JsonObject arrayObject = jsonArray.getJsonObject(i);
-			ProductItem productItem = new ProductItem();
-			productItem.setId(arrayObject.getInt(ID));
-			
-			if(i < quantity.size()) {
-				productItem.setQuantity(quantity.get(i));
-			} else {
-				productItem.setQuantity(1);
-			}
-			
-			invoiceLineIdList.add(productItem);
-		}
     	
 		invoice.setCompanyExTaxTotal(getBigDecimalValue(jsonObject, "companyExTaxTotal"));
     	invoice.setCompanyTaxTotal(getBigDecimalValue(jsonObject, "companyTaxTotal"));
@@ -169,7 +162,7 @@ public class InvoiceResource extends BaseResourceWrite<Invoice> {
         
         for (ProductItem productItem : invoiceLineIdList) {
         	jsonArray.add(Json.createObjectBuilder().add(ID, productItem.getId()).build());
-        	jsonQuantityArr.add(productItem.getQuantity());
+        	jsonQuantityArr.add(productItem.toString());
         }
 
         builder.add("invoiceLineList", jsonArray.build());
