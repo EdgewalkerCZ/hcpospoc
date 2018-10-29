@@ -30,16 +30,24 @@ import android.widget.Toast;
 
 import com.example.vaibhavchahal93788.myapplication.R;
 import com.example.vaibhavchahal93788.myapplication.billdesk.adapter.BillDetailRecyclerAdapter;
+import com.example.vaibhavchahal93788.myapplication.billdesk.api.ProductApiHelper;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.BillProduct;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.DiscountModel;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.LoginBodyModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.PaymentMode;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductListModel;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.SaveHistorySuccessModel;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.SaveInvoiceModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.SelectedProduct;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.TotalBillDetail;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.userlogin.LoginSuccessResponse;
+import com.example.vaibhavchahal93788.myapplication.billdesk.network.IApiRequestComplete;
+import com.example.vaibhavchahal93788.myapplication.billdesk.preferences.AppPreferences;
 import com.example.vaibhavchahal93788.myapplication.billdesk.printing.DeviceListActivity;
 import com.example.vaibhavchahal93788.myapplication.billdesk.printing.PrinterCommands;
 import com.example.vaibhavchahal93788.myapplication.billdesk.printing.Utils;
 import com.example.vaibhavchahal93788.myapplication.billdesk.utility.KeyValue;
+import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Utility;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -52,6 +60,7 @@ import java.util.Set;
 import java.util.UUID;
 
 import static com.example.vaibhavchahal93788.myapplication.billdesk.model.DiscountModel.getInstance;
+import static com.example.vaibhavchahal93788.myapplication.billdesk.preferences.AppPreferences.mAppPreferences;
 
 
 public class BillDetailActivity extends AppCompatActivity implements BillDetailRecyclerAdapter.OnDataChangeListener, View.OnClickListener, Runnable {
@@ -61,6 +70,7 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
     private ArrayList<ProductListModel> selectedItemList;
     private Button btnConnectPrinter, btnPrint, btnViewBill,btnEmail;
     private TextView textBillingPrice;
+    private String mSessionId;
 
     private DiscountModel discountModelIs= DiscountModel.getInstance();
 
@@ -83,6 +93,8 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
     private int totalPrice;
     private String seletedPaymentMode;
     private String userPhone,userName,userEmail;
+    private AppPreferences mAppPreferences;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,6 +108,10 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         userPhone = KeyValue.getString(this,KeyValue.PHONE);
         userName = KeyValue.getString(this,KeyValue.NAME);
         userEmail = KeyValue.getString(this,KeyValue.EMAIL);
+
+//Get Session Id
+        mAppPreferences = AppPreferences.getInstance(this);
+        mSessionId=mAppPreferences.getJsessionId();
 
     }
 
@@ -276,6 +292,10 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
                 intent.putExtra("paymentMode",seletedPaymentMode);
 
                 startActivity(intent);
+                //Save bill history
+
+                saveBill();
+
                 break;
 
             case R.id.btn_print_bill:
@@ -374,7 +394,7 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         Log.e("=userName=>",userName+"==>"+userPhone+"=="+userEmail);
         printPhoto(R.drawable.alphanew);
         //print normal text
-       // printNewLine();
+        // printNewLine();
         printCustom("Alpha Store", 1, 1);
         printNewLine();
         printCustom("Dlf Phase 3,Gurgaon - 122002", 0, 1);
@@ -868,6 +888,56 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
             e.printStackTrace();
             Log.e("PrintTools", "the file isn't exists");
         }
+    }
+
+
+
+
+    private void saveBill()
+    {
+        List<Integer> invoideId = new ArrayList<Integer>();
+        invoideId.add(1);
+
+        String uniqueID = UUID.randomUUID().toString();
+        String date_n = new SimpleDateFormat("dd MMM, yyyy HH:mm", Locale.getDefault()).format(new Date());
+
+
+        SaveInvoiceModel invoiceMode = new SaveInvoiceModel();
+        invoiceMode.setInvoiceId("76786887");
+        invoiceMode.setInvoiceDate(date_n);
+        invoiceMode.setDueDate(date_n);
+        invoiceMode.setCompanyId(1);
+        invoiceMode.setCustomerId(30);
+        invoiceMode.setPaymentModeId(15);
+        invoiceMode.setInvoiceLineIdList(invoideId);
+        invoiceMode.setCurrencyId(148);
+        invoiceMode.setCompanyExTaxTotal(0);
+        invoiceMode.setCompanyTaxTotal(0);
+        invoiceMode.setAmountRemaining(0);
+        invoiceMode.setAmountPaid(totalPrice);
+        invoiceMode.setCompanyInTaxTotalRemaining(0);
+        invoiceMode.setAmountRejected(0);
+        invoiceMode.setExTaxTotal(3782);
+        invoiceMode.setDirectDebitAmount(0);
+        invoiceMode.setNote("Note 1");
+
+
+        new ProductApiHelper().saveHistory(mSessionId,invoiceMode, new IApiRequestComplete<SaveHistorySuccessModel>() {
+            @Override
+            public void onSuccess(SaveHistorySuccessModel response) {
+                if (response != null) {
+                    Log.e("Success","==="+response);
+
+                }
+            }
+
+            @Override
+            public void onFailure(String message) {
+                Log.e("Failure","===");
+            }
+        });
+
+
     }
 
 }
