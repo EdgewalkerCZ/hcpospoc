@@ -405,4 +405,6 @@ in the hands of those who demand more</string>
     <string name="downloadOrMail">Download OR EMail</string>
     <string name="success">Success</string>
     <string name="error">Oops !</string>
+    <string name="user_name">User Name</string>
+    <string name="password">Password</string>
 </resources>
