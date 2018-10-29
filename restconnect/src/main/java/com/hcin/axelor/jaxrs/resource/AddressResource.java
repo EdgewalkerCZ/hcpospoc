@@ -55,8 +55,8 @@ public class AddressResource extends BaseResourceWrite<Address> {
     }
 
     @Override
-    protected JsonObjectBuilder buildAxelorJson(JsonObjectBuilder builder, Address entity) throws Exception {
-    	builder = super.buildAxelorJson(builder, entity);
+    protected JsonObjectBuilder buildAxelorJson(JsonObjectBuilder builder, String token, Address entity) throws Exception {
+    	builder = super.buildAxelorJson(builder, token, entity);
 
     	builder.add("fullName", entity.getFullName());
     	builder.add("addressL4", entity.getFullName());

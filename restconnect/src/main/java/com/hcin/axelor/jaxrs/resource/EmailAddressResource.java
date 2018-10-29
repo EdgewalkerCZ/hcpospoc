@@ -66,8 +66,8 @@ public class EmailAddressResource extends BaseResourceWrite<EmailAddress> {
     }
 
     @Override
-    protected JsonObjectBuilder buildAxelorJson(JsonObjectBuilder builder, EmailAddress address) throws Exception {
-    	builder = super.buildAxelorJson(builder, address);
+    protected JsonObjectBuilder buildAxelorJson(JsonObjectBuilder builder, String token, EmailAddress address) throws Exception {
+    	builder = super.buildAxelorJson(builder, token, address);
 
     	builder.add("address", address.getAddress());
     	

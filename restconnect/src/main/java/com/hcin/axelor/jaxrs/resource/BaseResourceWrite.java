@@ -31,7 +31,7 @@ public abstract class BaseResourceWrite<T extends BaseEntity> extends BaseResour
 
     	WebTarget target = client.target(getBaseURI()).path(WS).path(REST).path(getService());
     	Builder request = target.request().accept(MediaType.APPLICATION_JSON).header("Cookie", JSESSIONID + "=" + token);
-    	JsonObject jsonAxelorResponse = request.put(Entity.entity(produceAxelorJson(buildAxelorJson(entity)), MediaType.APPLICATION_JSON), JsonObject.class);
+    	JsonObject jsonAxelorResponse = request.put(Entity.entity(produceAxelorJson(buildAxelorJson(token, entity)), MediaType.APPLICATION_JSON), JsonObject.class);
 
     	return processAxelorResponse(jsonAxelorResponse, token);
     }
@@ -70,7 +70,7 @@ public abstract class BaseResourceWrite<T extends BaseEntity> extends BaseResour
 
     			if (jsonDataArray.size() > 0) {
     				JsonObject jsonObjectData = jsonDataArray.getJsonObject(0);
-        			JsonObject jsonAxelorResponsePost = request.post(Entity.entity(produceAxelorJson(mergeEntity(jsonObjectData, entity)), MediaType.APPLICATION_JSON), JsonObject.class);
+        			JsonObject jsonAxelorResponsePost = request.post(Entity.entity(produceAxelorJson(mergeEntity(jsonObjectData, token, entity)), MediaType.APPLICATION_JSON), JsonObject.class);
 
         			return processAxelorResponse(jsonAxelorResponsePost, token);
     			}
@@ -83,11 +83,11 @@ public abstract class BaseResourceWrite<T extends BaseEntity> extends BaseResour
     	return jsonHcinResponse.build();
     }
     
-    private JsonObjectBuilder buildAxelorJson(T entity) throws Exception {
-        return buildAxelorJson(Json.createObjectBuilder(), entity);
+    private JsonObjectBuilder buildAxelorJson(String token, T entity) throws Exception {
+        return buildAxelorJson(Json.createObjectBuilder(), token, entity);
     }
     
-    protected JsonObjectBuilder buildAxelorJson(JsonObjectBuilder builder, T entity) throws Exception {
+    protected JsonObjectBuilder buildAxelorJson(JsonObjectBuilder builder, String token, T entity) throws Exception {
     	if(entity.getId() != null) builder.add(ID, entity.getId());
 
         return builder;
@@ -97,13 +97,13 @@ public abstract class BaseResourceWrite<T extends BaseEntity> extends BaseResour
         return Json.createObjectBuilder().add(DATA, builder.build()).build();
     }
     
-    private JsonObjectBuilder mergeEntity(JsonObject originObject, T entity) throws Exception {
+    private JsonObjectBuilder mergeEntity(JsonObject originObject, String token, T entity) throws Exception {
     	JsonObjectBuilder builder = Json.createObjectBuilder();
     	
     	for (Entry<String, JsonValue> entry: originObject.entrySet()) {
     		builder.add(entry.getKey(), entry.getValue());
 		}
     	
-    	return buildAxelorJson(builder, entity);
+    	return buildAxelorJson(builder, token, entity);
     }
 }

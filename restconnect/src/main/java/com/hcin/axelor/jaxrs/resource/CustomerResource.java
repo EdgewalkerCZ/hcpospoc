@@ -145,12 +145,8 @@ public class CustomerResource extends BaseResourceWrite<Customer> {
     }
 
     @Override
-    protected JsonObjectBuilder buildAxelorJson(JsonObjectBuilder builder, Customer entity) throws Exception {
-    	return buildAxelorJson(builder, entity, null);
-    }
-
-    protected JsonObjectBuilder buildAxelorJson(JsonObjectBuilder builder, Customer entity, String token) throws Exception {
-    	builder = super.buildAxelorJson(builder, entity);
+    protected JsonObjectBuilder buildAxelorJson(JsonObjectBuilder builder, String token, Customer entity) throws Exception {
+    	builder = super.buildAxelorJson(builder, token,  entity);
 
     	builder.add("isSupplier", false);
     	builder.add("isCustomer", true);

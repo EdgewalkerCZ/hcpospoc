@@ -82,8 +82,8 @@ public class ProductResource extends BaseResourceWrite<Product> {
     }
 
     @Override
-    protected JsonObjectBuilder buildAxelorJson(JsonObjectBuilder builder, Product product) throws Exception {
-    	builder = super.buildAxelorJson(builder, product);
+    protected JsonObjectBuilder buildAxelorJson(JsonObjectBuilder builder, String token, Product product) throws Exception {
+    	builder = super.buildAxelorJson(builder, token, product);
     	
     	builder.add("productTypeSelect", "storable");
 

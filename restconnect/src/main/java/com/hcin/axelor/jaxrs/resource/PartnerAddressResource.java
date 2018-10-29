@@ -72,8 +72,8 @@ public class PartnerAddressResource extends BaseResourceWrite<PartnerAddress> {
     }
     
     @Override
-    protected JsonObjectBuilder buildAxelorJson(JsonObjectBuilder builder, PartnerAddress address) throws Exception {
-    	builder = super.buildAxelorJson(builder, address);
+    protected JsonObjectBuilder buildAxelorJson(JsonObjectBuilder builder, String token, PartnerAddress address) throws Exception {
+    	builder = super.buildAxelorJson(builder, token, address);
 
     	if (address.getAddressId() != null)
     		builder.add("address", Json.createObjectBuilder().add("id", address.getAddressId()));
