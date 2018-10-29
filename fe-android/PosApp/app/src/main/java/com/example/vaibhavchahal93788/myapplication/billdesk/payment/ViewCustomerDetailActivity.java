@@ -70,9 +70,10 @@ public class ViewCustomerDetailActivity extends AppCompatActivity {
         view_phone_value.setText(view_phone_str);
         view_email_value.setText(view_email_str);
         view_address_value.setText(view_address_str);
-        view_dob_value.setText(view_dob_str);
-        view_note_value.setText(Html.fromHtml(view_note_str+" "+""));
-
+//        view_dob_value.setText(view_dob_str);
+        if(view_note_str!=null) {
+            view_note_value.setText(Html.fromHtml(view_note_str + " " + ""));
+        }
         findViewById(R.id.view_customer_countinue).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -16,20 +16,27 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.example.vaibhavchahal93788.myapplication.R;
 import com.example.vaibhavchahal93788.myapplication.billdesk.adapter.CustomerListAdaptor;
 import com.example.vaibhavchahal93788.myapplication.billdesk.adapter.ProductStockListAdapter;
+import com.example.vaibhavchahal93788.myapplication.billdesk.crm.CRMCustomerSearchActivity;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.JsonCustomer;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.JsonCustomerSet;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductListModel;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.customer.DataItem;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.customer.JSONCustomerResponse;
 import com.example.vaibhavchahal93788.myapplication.billdesk.payment.api.ApiClient;
 import com.example.vaibhavchahal93788.myapplication.billdesk.payment.api.ApiInterface;
+import com.example.vaibhavchahal93788.myapplication.billdesk.preferences.AppPreferences;
+import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Constants;
 import com.example.vaibhavchahal93788.myapplication.billdesk.utility.KeyValue;
 import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Utility;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
@@ -45,6 +52,9 @@ public class CustomerSearchActivity extends AppCompatActivity {
     ArrayList<JsonCustomer> filtercustomername;
     private ProgressBar progressBar;
 
+    private AppPreferences mAppPreferences;
+    private String mSessionId;
+    private JSONCustomerResponse customerResponse;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,39 +74,44 @@ public class CustomerSearchActivity extends AppCompatActivity {
     public void fetchCustomerList() {
         progressBar.setVisibility(View.VISIBLE);
         ApiInterface apiService =ApiClient.getClient().create(ApiInterface.class);
-        Call<JsonCustomerSet> call = apiService.getallCustomers();
-        call.enqueue(new Callback<JsonCustomerSet>() {
+        HashMap<String,String> headerkey=new HashMap<>();
+        headerkey.put("Content-Type","application/json");
+        headerkey.put("Accept","application/json");
+        headerkey.put(Constants.SESSION_ID,mSessionId);
+        Call<JSONCustomerResponse> call = apiService.getallCustomers(headerkey);
+        call.enqueue(new Callback<JSONCustomerResponse>() {
             @Override
-            public void onResponse(Call<JsonCustomerSet> call, Response<JsonCustomerSet> response) {
-                customerSets = response.body();
-                setAdapter(customerSets);
+            public void onResponse(Call<JSONCustomerResponse> call, Response<JSONCustomerResponse> response) {
+
                 progressBar.setVisibility(View.GONE);
+                if(response!=null){
+                    customerResponse= response.body();
+                    setAdapter(customerResponse);
+                }
             }
 
             @Override
-            public void onFailure(Call<JsonCustomerSet> call, Throwable t) {
+            public void onFailure(Call<JSONCustomerResponse> call, Throwable t) {
+                progressBar.setVisibility(View.GONE);
+                Toast.makeText(CustomerSearchActivity.this,t.getMessage(),Toast.LENGTH_SHORT).show();
 
             }
         });
-        try {
-            customerListAdaptor.notifyDataSetChanged();
-        } catch (Exception e) {
-
-        }
 
     }
+    //private JSONCustomerResponse customerResponse;
 
-    private void setAdapter(final JsonCustomerSet customerSets) {
+    private void setAdapter(final JSONCustomerResponse customerSets) {
         customerListAdaptor = new CustomerListAdaptor(CustomerSearchActivity.this, customerSets, new CustomerListAdaptor.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
                 Intent in=new Intent(CustomerSearchActivity.this,ViewCustomerDetailActivity.class);
-                in.putExtra(KeyValue.NAME,customerSets.getCustomers().get(position).getName());
-                in.putExtra(KeyValue.EMAIL,customerSets.getCustomers().get(position).getEmail());
-                in.putExtra(KeyValue.PHONE,customerSets.getCustomers().get(position).getPhone());
-                in.putExtra(KeyValue.ADDRESS,customerSets.getCustomers().get(position).getAddress());
-                in.putExtra(KeyValue.DOB,customerSets.getCustomers().get(position).getDob());
-                in.putExtra(KeyValue.NOTE,customerSets.getCustomers().get(position).getNote());
+                in.putExtra(KeyValue.NAME,customerSets.getData().get(position).getName());
+                in.putExtra(KeyValue.EMAIL,customerSets.getData().get(position).getEmail());
+                in.putExtra(KeyValue.PHONE,customerSets.getData().get(position).getPhone());
+                in.putExtra(KeyValue.ADDRESS,customerSets.getData().get(position).getAddress());
+//                in.putExtra(KeyValue.DOB,customerSets.getData().get(position).getDob());
+                in.putExtra(KeyValue.NOTE,customerSets.getData().get(position).getDescription());
             startActivity(in);
             }
         });
@@ -107,7 +122,8 @@ public class CustomerSearchActivity extends AppCompatActivity {
     public void bindView() {
         progressBar = findViewById(R.id.progress_bar);
         progressBar.setVisibility(View.VISIBLE);
-
+        mAppPreferences = AppPreferences.getInstance(this);
+        mSessionId=mAppPreferences.getJsessionId();
         mCustomerSearchEdtTxt = findViewById(R.id.search_customer_edt_txt);
         mCustomerSeachIcon = findViewById(R.id.search_customer_icon);
         mCustomerRecyclerList = findViewById(R.id.customer_recycler_list);
@@ -143,8 +159,8 @@ public class CustomerSearchActivity extends AppCompatActivity {
 
     private void filter(String input) {
 //looping through existing elements
-        ArrayList<JsonCustomer> filterdNames = new ArrayList<>();
-        for (JsonCustomer object : customerSets.getCustomers()) {
+        ArrayList<DataItem> filterdNames = new ArrayList<>();
+        for (DataItem object : customerResponse.getData()) {
             //if the existing elements contains the search input
             if (object.getName().toLowerCase().contains(input.toLowerCase())) {
                 //adding the element to filtered list
@@ -155,8 +171,8 @@ public class CustomerSearchActivity extends AppCompatActivity {
                 filterdNames.add(object);
             }
         }
-        JsonCustomerSet filterset=new JsonCustomerSet();
-        filterset.setCustomers(filterdNames);
+        JSONCustomerResponse filterset=new JSONCustomerResponse();
+        filterset.setData(filterdNames);
         setAdapter(filterset);
     }
     private void getToolbar() {

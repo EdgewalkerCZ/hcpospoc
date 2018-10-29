@@ -174,11 +174,11 @@
         android:orientation="horizontal"
         android:layout_height="wrap_content">
         <TextView
-            android:layout_width="70dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="14sp"
             android:id="@+id/view_note"
-            android:text="Note"/>
+            android:text="Description"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

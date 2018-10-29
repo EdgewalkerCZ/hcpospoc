@@ -15,13 +15,17 @@ public class KeyValue {
 
     public static final String SOUND = "sound";
     public static final String SOUND_PUSH = "sound_push";
-    public static final String NAME = "NAME";
+    public static final String NAME = "name";
+    public static final String FIRST_NAME = "firstName";
     public static final String EMAIL = "email";
     public static final String USER_EMAIL = "USER_EMAIL";
     public static final String PHONE = "phone";
     public static final String ADDRESS = "address";
     public static final String DOB = "dob";
     public static final String NOTE = "note";
+    public static final String DESCRIPTION = "description";
+    public static final String ISCUSTOMER = "isCustomer";
+    public static final String PARTNERCATEGORYID = "partnerCategoryId";
 
 
     public static void setInt(Context context, String key, int value) {

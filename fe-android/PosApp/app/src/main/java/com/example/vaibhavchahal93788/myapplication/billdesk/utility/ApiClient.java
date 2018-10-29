@@ -12,7 +12,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient{
-    public static final String BASE_URL = "https://private-14bc25-hcinpospoc.apiary-mock.com/";   //private-83b6be-durgesh1.apiary-mock.com   //private-14bc25-hcinpospoc.apiary-mock.com
+    public static final String BASE_URL = "http://10.55.139.0:8081/restconnect/service/";   //private-83b6be-durgesh1.apiary-mock.com   //private-14bc25-hcinpospoc.apiary-mock.com
         private static Retrofit retrofit = null;
 
         public static Retrofit getClient() {

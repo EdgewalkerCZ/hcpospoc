@@ -13,16 +13,23 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.vaibhavchahal93788.myapplication.R;
+import com.example.vaibhavchahal93788.myapplication.billdesk.crm.CRMAddCustomerActivity;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.JSONAddCustomer;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.JsonCustomerSet;
 import com.example.vaibhavchahal93788.myapplication.billdesk.payment.api.ApiClient;
 import com.example.vaibhavchahal93788.myapplication.billdesk.payment.api.ApiInterface;
+import com.example.vaibhavchahal93788.myapplication.billdesk.preferences.AppPreferences;
+import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Constants;
 import com.example.vaibhavchahal93788.myapplication.billdesk.utility.KeyValue;
 import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Validation;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.util.HashMap;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,6 +40,8 @@ public class AddNewCustomerActivity extends AppCompatActivity {
     private String mCustomerfirstName,mCustomerlastName,mCustomerphone,mCustomeremail,mCustomeraddress,mCustomerdob,mCustomerNote;
     private EditText mCustomerfirstNameEDT,mCustomerlastNameEDT,mCustomerphoneEDT,mCustomeremailEDT,mCustomeraddressEDT,mCustomerNoteEDT;
     private Button mSaveBTN;
+    private AppPreferences mAppPreferences;
+    private String mSessionId;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,7 +67,10 @@ public class AddNewCustomerActivity extends AppCompatActivity {
         mInputCustomeraddress=findViewById(R.id.input_layout_address);
         mInputCustomerNote=findViewById(R.id.input_layout_note);
         mSaveBTN=findViewById(R.id.add_customer_btn);
+        mAppPreferences = AppPreferences.getInstance(this);
 
+
+        mSessionId=mAppPreferences.getJsessionId();
         mCustomerfirstNameEDT.addTextChangedListener(new MyTextWatcher(mCustomerfirstNameEDT));
         mCustomerlastNameEDT.addTextChangedListener(new MyTextWatcher(mCustomerlastNameEDT));
         mCustomeremailEDT.addTextChangedListener(new MyTextWatcher(mCustomeremailEDT));
@@ -164,25 +176,47 @@ public class AddNewCustomerActivity extends AppCompatActivity {
 
     public void submitcustomerserver() throws Exception{
         JSONArray baseArray=new JSONArray();
-        JSONObject object=new JSONObject();
-        object.put("name",mCustomerfirstName);
-        object.put("email",mCustomeremail);
-        object.put("phone",mCustomerphone);
-        object.put("address",mCustomeraddress);
-//        object.put("dob",mCustomerdob);
-        object.put("note",mCustomerNote);
-        baseArray.put(object);
+//        JSONAddCustomer addCustomer=new JSONAddCustomer();
+//        addCustomer.setAddress(mCustomeraddress);
+//        addCustomer.setName();
+        JSONAddCustomer addCustomer=new JSONAddCustomer();
 
+        addCustomer.setName(mCustomerfirstName +" "+ mCustomerlastNameEDT.getText().toString());
+        addCustomer.setFirstName(mCustomerfirstName);
+        addCustomer.setAddress(mCustomeraddress);
+        addCustomer.setEmail(mCustomeremail);
+        addCustomer.setPhone(mCustomerphone);
+        addCustomer.setDescription(mCustomerNote);
+        addCustomer.setIsCustomer(true);
+        addCustomer.setPartnerCategoryId(1);
+        HashMap<String,String> headerkey=new HashMap<>();
+        headerkey.put("Content-Type","application/json");
+        headerkey.put("Accept","application/json");
+        headerkey.put(Constants.SESSION_ID,mSessionId);
         ApiInterface apiService =
                 ApiClient.getClient().create(ApiInterface.class);
-        Intent in=new Intent(AddNewCustomerActivity.this,ViewCustomerDetailActivity.class);
-        in.putExtra(KeyValue.NAME,mCustomerfirstName);
-        in.putExtra(KeyValue.EMAIL,mCustomeremail);
-        in.putExtra(KeyValue.PHONE,mCustomerphone);
-        in.putExtra(KeyValue.ADDRESS,mCustomeraddress);
-//        in.putExtra(KeyValue.DOB,mCustomerdob);
-        in.putExtra(KeyValue.NOTE,mCustomerNote);
-        startActivity(in);
+        Call<JSONAddCustomer> call = apiService.addnewcustomer(headerkey,addCustomer);
+        call.enqueue(new Callback<JSONAddCustomer>() {
+            @Override
+            public void onResponse(Call<JSONAddCustomer> call, Response<JSONAddCustomer> response) {
+                if(response!=null){
+                    Toast.makeText(AddNewCustomerActivity.this,"Added",Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JSONAddCustomer> call, Throwable t) {
+                Toast.makeText(AddNewCustomerActivity.this,t.getMessage(),Toast.LENGTH_SHORT).show();
+            }
+        });
+//        Intent in=new Intent(AddNewCustomerActivity.this,ViewCustomerDetailActivity.class);
+//        in.putExtra(KeyValue.NAME,mCustomerfirstName);
+//        in.putExtra(KeyValue.EMAIL,mCustomeremail);
+//        in.putExtra(KeyValue.PHONE,mCustomerphone);
+//        in.putExtra(KeyValue.ADDRESS,mCustomeraddress);
+////        in.putExtra(KeyValue.DOB,mCustomerdob);
+//        in.putExtra(KeyValue.NOTE,mCustomerNote);
+//        startActivity(in);
 
 //        Call<JSONObject> call = apiService.addnewcustomer(baseArray.toString());
 //        call.enqueue(new Callback<JSONObject>() {

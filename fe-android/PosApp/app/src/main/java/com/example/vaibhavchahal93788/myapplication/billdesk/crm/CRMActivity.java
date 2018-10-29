@@ -6,8 +6,10 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.vaibhavchahal93788.myapplication.R;
+import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Utility;
 
 
 public class CRMActivity extends AppCompatActivity {
@@ -25,16 +27,23 @@ public class CRMActivity extends AppCompatActivity {
         findViewById(R.id.cardcrmaddcustomer).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(CRMActivity.this, CRMAddCustomerActivity.class);
-                startActivity(intent);
+                if(Utility.isNetworkAvailable(CRMActivity.this)) {
+                    Intent intent = new Intent(CRMActivity.this, CRMAddCustomerActivity.class);
+                    startActivity(intent);
+                } else{Toast.makeText(CRMActivity.this,getString(R.string.network_error),Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
         findViewById(R.id.crmcardviewcustomer).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(CRMActivity.this, CRMCustomerSearchActivity.class);
-                startActivity(intent);
+                if(Utility.isNetworkAvailable(CRMActivity.this)) {
+                    Intent intent = new Intent(CRMActivity.this, CRMCustomerSearchActivity.class);
+                    startActivity(intent);
+                }
+                else{Toast.makeText(CRMActivity.this,getString(R.string.network_error),Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

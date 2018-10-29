@@ -45,6 +45,7 @@
     <string name="text_total_value">Total Value</string>
     <string name="text_online">Online</string>
     <string name="text_connect_printer">Find/Connect Printer</string>
+    <string name="network_error">Please check your connection</string>
 
     <string-array name="payment_modes">
         <item>Cash</item>

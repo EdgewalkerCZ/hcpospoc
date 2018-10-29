@@ -15,6 +15,8 @@ import com.example.vaibhavchahal93788.myapplication.R;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.JsonCustomer;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.JsonCustomerSet;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductListModel;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.customer.DataItem;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.customer.JSONCustomerResponse;
 import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Utility;
 
 import java.util.ArrayList;
@@ -28,10 +30,10 @@ public class CustomerListAdaptor extends
     private static final String TAG = CustomerListAdaptor.class.getSimpleName();
 
     private Context context;
-    private JsonCustomerSet list;
+    private JSONCustomerResponse list;
     private OnItemClickListener onItemClickListener;
 
-    public CustomerListAdaptor(Context context,JsonCustomerSet list,
+    public CustomerListAdaptor(Context context,JSONCustomerResponse list,
                                OnItemClickListener onItemClickListener) {
         this.context = context;
         this.list = list;
@@ -57,7 +59,7 @@ public class CustomerListAdaptor extends
 
         }
 
-        public void bind(final JsonCustomer model,
+        public void bind(final DataItem model,
                          final OnItemClickListener listener) {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -81,22 +83,22 @@ public class CustomerListAdaptor extends
 
         return viewHolder;
     }
-    public void filterList(ArrayList<JsonCustomer> filterdNames) {
-
-        list.setCustomers(filterdNames);
-
-        notifyDataSetChanged();
-    }
+//    public void filterList(ArrayList<JsonCustomer> filterdNames) {
+//
+//        list.setCustomers(filterdNames);
+//
+//        notifyDataSetChanged();
+//    }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        JsonCustomer item = list.getCustomers().get(position);
+        DataItem item = list.getData().get(position);
         holder.bind(item, onItemClickListener);
         holder.mCustomerName.setText(item.getName());
         holder.mCustomeremail.setText(item.getName());
         holder.mCustomerphone.setText(item.getPhone());
 
-        if(TextUtils.isEmpty(item.getImg())) {
+        if(!TextUtils.isEmpty(item.getName())) {
             holder.mCustomerImage.setVisibility(View.GONE);
             holder.mCustomerNameSymbol.setVisibility(View.VISIBLE);
             if(!TextUtils.isEmpty(item.getName())) {
@@ -106,16 +108,16 @@ public class CustomerListAdaptor extends
             }
         } else {
             //ToDo: set image from web url
-            holder.mCustomerImage.setVisibility(View.VISIBLE);
-            holder.mCustomerNameSymbol.setVisibility(View.GONE);
-            holder.mCustomerNameSymbol.setText("");
+//            holder.mCustomerImage.setVisibility(View.VISIBLE);
+//            holder.mCustomerNameSymbol.setVisibility(View.GONE);
+//            holder.mCustomerNameSymbol.setText("");
         }
     }
 
 
     @Override
     public int getItemCount() {
-        return list.getCustomers() == null ? 0 : list.getCustomers().size();
+        return list.getData() == null ? 0 : list.getData().size();
     }
 
     public interface OnItemClickListener {

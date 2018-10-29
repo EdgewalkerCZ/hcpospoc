@@ -12,17 +12,28 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.example.vaibhavchahal93788.myapplication.R;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.JSONAddCustomer;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.customer.JSONCustomerResponse;
+import com.example.vaibhavchahal93788.myapplication.billdesk.network.ResponseHandler;
 import com.example.vaibhavchahal93788.myapplication.billdesk.payment.ViewCustomerDetailActivity;
 import com.example.vaibhavchahal93788.myapplication.billdesk.payment.api.ApiClient;
 import com.example.vaibhavchahal93788.myapplication.billdesk.payment.api.ApiInterface;
 import com.example.vaibhavchahal93788.myapplication.billdesk.preferences.AppPreferences;
+import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Constants;
 import com.example.vaibhavchahal93788.myapplication.billdesk.utility.KeyValue;
 import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Validation;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.util.HashMap;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CRMAddCustomerActivity extends AppCompatActivity  {
     private TextInputLayout mInputCustomerName,mInputCustomerphone,mInputCustomeremail,mInputCustomeraddress,mInputCustomerdob,mInputCustomerNote;
@@ -64,7 +75,7 @@ public class CRMAddCustomerActivity extends AppCompatActivity  {
         mCustomerlastNameEDT.addTextChangedListener(new MyTextWatcher(mCustomerlastNameEDT));
         mCustomeremailEDT.addTextChangedListener(new MyTextWatcher(mCustomeremailEDT));
         mCustomerphoneEDT.addTextChangedListener(new MyTextWatcher(mCustomerphoneEDT));
-
+        mCustomerlastName=mCustomerlastNameEDT.getText().toString();
         Intent in=getIntent();
         String name=in.getStringExtra(KeyValue.NAME);
         if(name!=null){
@@ -97,6 +108,7 @@ public class CRMAddCustomerActivity extends AppCompatActivity  {
     }
     public void submitform(){
         mCustomerfirstName=mCustomerfirstNameEDT.getText().toString();
+        mCustomerlastName=mCustomerlastNameEDT.getText().toString();
         mCustomerphone=mCustomerphoneEDT.getText().toString();
         mCustomeremail=mCustomeremailEDT.getText().toString();
         mCustomeraddress=mCustomeraddressEDT.getText().toString();
@@ -130,56 +142,65 @@ public class CRMAddCustomerActivity extends AppCompatActivity  {
     }
 
     public void submitcustomerserver() throws Exception{
-        JSONArray baseArray=new JSONArray();
-        JSONObject object=new JSONObject();
-        object.put("name",mCustomerfirstName);
-        object.put("email",mCustomeremail);
-        object.put("phone",mCustomerphone);
-        object.put("address",mCustomeraddress);
-//        object.put("dob",mCustomerdob);
-        object.put("note",mCustomerNote);
-        baseArray.put(object);
+
+        JSONAddCustomer addCustomer=new JSONAddCustomer();
+
+        addCustomer.setName(mCustomerfirstName +" "+ mCustomerlastNameEDT.getText().toString());
+        addCustomer.setFirstName(mCustomerfirstName);
+        addCustomer.setAddress(mCustomeraddress);
+        addCustomer.setEmail(mCustomeremail);
+        addCustomer.setPhone(mCustomerphone);
+        addCustomer.setDescription(mCustomerNote);
+        addCustomer.setIsCustomer(true);
+        addCustomer.setPartnerCategoryId(1);
+//        JSONObject object=new JSONObject();
+////        object.put(KeyValue.FIRST_NAME,mCustomerfirstName);
+////        object.put(KeyValue.NAME,mCustomerfirstName +" "+ mCustomerlastNameEDT.getText().toString());
+//        object.put(KeyValue.EMAIL,mCustomeremail);
+//        object.put(KeyValue.PHONE,mCustomerphone);
+//        object.put(KeyValue.ADDRESS,mCustomeraddress);
+////        object.put("dob",mCustomerdob);
+//        object.put(KeyValue.DESCRIPTION,mCustomerNote);
+//        object.put(KeyValue.ISCUSTOMER,true);
+//        object.put(KeyValue.PARTNERCATEGORYID,1);
+//        baseArray.put(object);
 
         ApiInterface apiService =
                 ApiClient.getClient().create(ApiInterface.class);
-        Intent in=new Intent(CRMAddCustomerActivity.this,CRMViewCustomerActivity.class);
-        in.putExtra(KeyValue.NAME,mCustomerfirstName);
-        in.putExtra(KeyValue.EMAIL,mCustomeremail);
-        in.putExtra(KeyValue.PHONE,mCustomerphone);
-        in.putExtra(KeyValue.ADDRESS,mCustomeraddress);
-//        in.putExtra(KeyValue.DOB,mCustomerdob);
-        in.putExtra(KeyValue.NOTE,mCustomerNote);
-        startActivity(in);
 
-//        Call<JSONObject> call = apiService.addnewcustomer(baseArray.toString());
-//        call.enqueue(new Callback<JSONObject>() {
-//            @Override
-//            public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {
-//                Log.e("Response",response.toString());
-//
-//                Intent in=new Intent(AddNewCustomerActivity.this,ViewCustomerDetailActivity.class);
-//                in.putExtra(KeyValue.NAME,mCustomerName);
-//                in.putExtra(KeyValue.EMAIL,mCustomeremail);
-//                in.putExtra(KeyValue.PHONE,mCustomerphone);
-//                in.putExtra(KeyValue.ADDRESS,mCustomeraddress);
-//                in.putExtra(KeyValue.DOB,mCustomerdob);
-//                in.putExtra(KeyValue.NOTE,mCustomerNote);
-//                startActivity(in);
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Call<JSONObject> call, Throwable t) {
-//                Intent in=new Intent(AddNewCustomerActivity.this,ViewCustomerDetailActivity.class);
-//                in.putExtra(KeyValue.NAME,mCustomerName);
-//                in.putExtra(KeyValue.EMAIL,mCustomeremail);
-//                in.putExtra(KeyValue.PHONE,mCustomerphone);
-//                in.putExtra(KeyValue.ADDRESS,mCustomeraddress);
-//                in.putExtra(KeyValue.DOB,mCustomerdob);
-//                in.putExtra(KeyValue.NOTE,mCustomerNote);
-//                startActivity(in);
-//            }
-//        });
+
+
+        HashMap<String,String> headerkey=new HashMap<>();
+        headerkey.put("Content-Type","application/json");
+        headerkey.put("Accept","application/json");
+        headerkey.put(Constants.SESSION_ID,mSessionId);
+        Call<JSONAddCustomer> call = apiService.addnewcustomer(headerkey,addCustomer);
+        call.enqueue(new Callback<JSONAddCustomer>() {
+            @Override
+            public void onResponse(Call<JSONAddCustomer> call, Response<JSONAddCustomer> response) {
+                if(response!=null){
+                    Toast.makeText(CRMAddCustomerActivity.this,"Customer add successfully",Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(CRMAddCustomerActivity.this,CRMActivity.class));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JSONAddCustomer> call, Throwable t) {
+            Toast.makeText(CRMAddCustomerActivity.this,t.getMessage(),Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+//        Intent in=new Intent(CRMAddCustomerActivity.this,CRMViewCustomerActivity.class);
+//        in.putExtra(KeyValue.NAME,mCustomerfirstName);
+//        in.putExtra(KeyValue.EMAIL,mCustomeremail);
+//        in.putExtra(KeyValue.PHONE,mCustomerphone);
+//        in.putExtra(KeyValue.ADDRESS,mCustomeraddress);
+////        in.putExtra(KeyValue.DOB,mCustomerdob);
+//        in.putExtra(KeyValue.NOTE,mCustomerNote);
+//        startActivity(in);
+
+
     }
 
 

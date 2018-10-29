@@ -58,7 +58,7 @@ public class CRMViewCustomerActivity extends AppCompatActivity implements View.O
         view_phone_str=in.getStringExtra(KeyValue.PHONE);
         view_email_str=in.getStringExtra(KeyValue.EMAIL);
         view_address_str=in.getStringExtra(KeyValue.ADDRESS);
-        view_dob_str=in.getStringExtra(KeyValue.DOB);
+
         view_note_str=in.getStringExtra(KeyValue.NOTE);
 
 
@@ -66,7 +66,7 @@ public class CRMViewCustomerActivity extends AppCompatActivity implements View.O
         view_phone_value.setText(view_phone_str);
         view_email_value.setText(view_email_str);
         view_address_value.setText(view_address_str);
-        view_dob_value.setText(view_dob_str);
+
         view_note_value.setText(Html.fromHtml(view_note_str+" "+""));
 
 //        findViewById(R.id.crm_edit_customer).setOnClickListener(new View.OnClickListener() {

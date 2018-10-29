@@ -68,6 +68,9 @@ public interface productApi {
     @GET("updateProduct")
     Call<ProductCategoryModel> updateProduct(@Query("id") long id,@Query("updateStock") String updatestock);
 
+
+    @Headers({"Content-Type: application/json",
+            "Accept: application/json"})
     @GET(Constants.GET_ALL_CUSTOMER)
-    Call<JSONCustomerResponse> getcustomers(@Query(Constants.SESSION_ID) String sid);
+    Call<JSONCustomerResponse> getcustomers(@Header(Constants.SESSION_ID) String sid);
 }
