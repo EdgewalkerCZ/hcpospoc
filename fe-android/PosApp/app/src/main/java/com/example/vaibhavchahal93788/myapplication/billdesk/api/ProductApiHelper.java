@@ -89,8 +89,8 @@ public void userLogin (LoginBodyModel user_data , IApiRequestComplete successInt
 
     }
 
-    public void addProduct(String body, IApiRequestComplete successInterface){
-        Call<AddProductResponse> addProductResponseCall=productApi.postAddProduct(body);
+    public void addProduct(HashMap<String, String> body,PostAddProduct postAddProduct, IApiRequestComplete successInterface){
+        Call<AddProductResponse> addProductResponseCall=productApi.postAddProduct(body,postAddProduct);
         addProductResponseCall.enqueue(new ResponseHandler<AddProductResponse>(successInterface));
 
     }

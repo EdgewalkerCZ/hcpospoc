@@ -1,10 +1,12 @@
 package com.example.vaibhavchahal93788.myapplication.billdesk.payment.api;
 
 
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.JSONAddCustomer;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.SearchProductRequestModel;
 
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.JsonCustomerSet;
 
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.customer.JSONCustomerResponse;
 import com.google.gson.JsonObject;
 
 import org.json.JSONObject;

@@ -4,7 +4,7 @@ public class Constants {
 
   // public static final String SERVER_BASE_URL_ ="http://hcinhcpospoc.centralindia.azurecontainer.io:8081/restconnect/service/";
  //public static final String SERVER_BASE_URL_ ="http://axelorhcpospoc.centralindia.azurecontainer.io:8081/restconnect/service/";
- public static final String SERVER_BASE_URL_ ="http://10.55.139.0:8081/restconnect/service/";
+ public static final String SERVER_BASE_URL_ ="http://hcpospocbe.cloudapp.net:8081/restconnect/service/";
 
  public static final String SERVER_BASE_URL  ="https://private-b2ba4a-hcinpospoc.apiary-mock.com/";
 
@@ -14,7 +14,7 @@ public class Constants {
     public static final String LOCALE_KEY = "localekey";
     public static final String HINDI_LOCALE = "hi";
     public static final String ENGLISH_LOCALE = "en_US";
-    public static final String SESSION_ID = "JSESSIONID";
+
 
     // customer APIs methods server
     public static final String GET_ALL_CUSTOMER = "customer";
