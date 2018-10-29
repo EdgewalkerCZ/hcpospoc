@@ -1,5 +1,6 @@
 package com.example.vaibhavchahal93788.myapplication.billdesk.adapter;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -15,22 +16,27 @@ import com.example.vaibhavchahal93788.myapplication.R;
 import com.example.vaibhavchahal93788.myapplication.billdesk.activity.StockViewProductActivity;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.AllProductModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductListModel;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.allproduct.AllProductResponse;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.allproduct.DataItem;
+import com.example.vaibhavchahal93788.myapplication.billdesk.network.IApiRequestComplete;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class StockViewAdapter extends RecyclerView.Adapter<StockViewAdapter.ViewHolder> {
 
-    private List<AllProductModel> productList;
+    private List<DataItem> productList;
     private String[] arrColors = new String[]{"#FFE4C4",
             "#0000FF",
             "#A52A2A",
             "#FF7F50"};
     private OnItemClickListener onItemClickListener;
+    private Context mContext;
 
-    public StockViewAdapter(StockViewProductActivity stockViewProductActivity, List<AllProductModel> products, OnItemClickListener onItemClickListener) {
-        this.productList = products;
+    public StockViewAdapter(Context mContext, List<DataItem> data, OnItemClickListener onItemClickListener) {
+        this.productList = data;
         this.onItemClickListener = onItemClickListener;
+        this.mContext=mContext;
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -65,32 +71,36 @@ public class StockViewAdapter extends RecyclerView.Adapter<StockViewAdapter.View
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        final AllProductModel product = productList.get(position);
+
+        DataItem product = productList.get(position);
         holder.txtProductName.setText(product.getName());
-        holder.txtPrice.setText("₹" + product.getPrice());
-        holder.txtDescription.setText(product.getDesc());
+        double price=Double.valueOf(product.getSalePrice());
+        double roundOff = Math.round(price*100)/100;
+        holder.txtPrice.setText("₹" +roundOff);
+        holder.txtDescription.setText(product.getDescription());
         holder.txtQuantity.setText("QTY: " + product.getQuantity());
 
-        if (product.isSelected()) {
+       /* if (product.isSelected()) {
           //  holder.cardProductImg.setCardBackgroundColor(Color.parseColor("#FF0000"));
-        } else {
+        } else {*/
             int randomNum = 0 + (int) (Math.random() * ((3 - 0) + 1));
             Log.e("random", "" + randomNum);
             holder.cardProductImg.setCardBackgroundColor(Color.parseColor(arrColors[randomNum]));
-            if (TextUtils.isEmpty(product.getImg())) {
+           // if (TextUtils.isEmpty(product.getImg())) {
                 holder.imvProduct.setVisibility(View.GONE);
                 holder.txtProductSymbol.setVisibility(View.VISIBLE);
                 if (!TextUtils.isEmpty(product.getName())) {
                     String initial = product.getName().subSequence(0, 1).toString().toUpperCase();
                     holder.txtProductSymbol.setText(initial);
                 }
-            } else {
+          //  }
+            /*else {
                 //ToDo: set image from web url
                 holder.imvProduct.setVisibility(View.VISIBLE);
                 holder.txtProductSymbol.setVisibility(View.GONE);
                 holder.txtProductSymbol.setText("");
-            }
-        }
+            }*/
+       // }
 
         holder.cardViewMain.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,23 +126,11 @@ public class StockViewAdapter extends RecyclerView.Adapter<StockViewAdapter.View
         return position;
     }
 
-    public List<AllProductModel> getAllProducts() {
-        return productList;
-    }
-
-    public void addProducts(List<AllProductModel> list) {
-        productList.clear();
-        if (list != null) {
-            productList.addAll(list);
-        }
-        notifyDataSetChanged();
-    }
-
     public interface OnItemClickListener {
         void onItemClick(int position);
     }
 
-    public void filterList(ArrayList<AllProductModel> filterdNames) {
+    public void filterList(ArrayList<DataItem> filterdNames) {
         this.productList = filterdNames;
         notifyDataSetChanged();
     }

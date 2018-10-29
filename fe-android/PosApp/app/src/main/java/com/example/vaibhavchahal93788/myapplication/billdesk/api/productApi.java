@@ -5,14 +5,15 @@ import com.example.vaibhavchahal93788.myapplication.billdesk.model.CategoryModel
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.LoginBodyModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductCategoryModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductListModel;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.addproduct.PostAddProduct;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.allproduct.AllProductResponse;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.productsuccess.AddProductResponse;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.profile.ProfileResponse;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.userlogin.LoginSuccessResponse;
-import com.example.vaibhavchahal93788.myapplication.billdesk.model.userlogin.UserLoginModel;
 import com.google.gson.JsonObject;
 
+import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -54,9 +55,9 @@ public interface productApi {
     @GET("category")
     Call<ProductCategoryModel> getCategoryList();
 
-    @Headers("Content-Type: application/json")
-    @POST("products")
-    Call<AddProductResponse> postAddProduct(@Body String body);
+
+    @PUT("product")
+    Call<AddProductResponse> postAddProduct(@HeaderMap HashMap<String,String> headerValues, @Body PostAddProduct body);
 
     @Headers({"Content-Type: application/json",
               "Accept: application/json"})
@@ -68,4 +69,9 @@ public interface productApi {
 
     @GET("updateProduct")
     Call<ProductCategoryModel> updateProduct(@Query("id") long id,@Query("updateStock") String updatestock);
+
+    @GET("product")
+    Call<AllProductResponse> getAllProduct(@HeaderMap HashMap<String,String> headerValues);
+
+
 }

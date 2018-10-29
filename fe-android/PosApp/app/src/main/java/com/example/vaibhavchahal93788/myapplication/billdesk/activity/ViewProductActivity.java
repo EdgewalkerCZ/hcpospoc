@@ -12,15 +12,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.vaibhavchahal93788.myapplication.R;
-import com.example.vaibhavchahal93788.myapplication.billdesk.model.AllProductModel;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.allproduct.DataItem;
 import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Constants;
 
 public class ViewProductActivity extends AppCompatActivity implements View.OnClickListener{
 
     private MenuItem removeMenu;
-    private AllProductModel productListModel;
+    private DataItem productListModel;
     private TextView tvProductName,tvProduct,tvTag,tvRamSize,tvHdSize,tvColor,tvSerialNumber,tvGSTPercent,tvGSTPrice,tvTotalprice,tvDescription;
     private EditText edtQuantity,edtPrice;
     private Button addUnitBtn,updateBtn;
@@ -60,25 +59,33 @@ public class ViewProductActivity extends AppCompatActivity implements View.OnCli
     private void setData() {
         if(productListModel!=null){
             tvProductName.setText(productListModel.getName());
-            tvProduct.setText(productListModel.getName());
+            tvProduct.setText(productListModel.getDescription());
             tvTag.setText(productListModel.getName().charAt(0)+"".toUpperCase());
-            tvRamSize.setText(productListModel.getRam());
-            tvHdSize.setText(productListModel.getRom());
-            tvColor.setText(productListModel.getColor());
+           // tvRamSize.setText(productListModel.getRam());
+           // tvHdSize.setText(productListModel.getRom());
+            //tvColor.setText(productListModel.getColor());
             edtQuantity.setText(productListModel.getQuantity()+"");
-            tvDescription.setText(productListModel.getDesc());
-            tvGSTPercent.setText("GST("+productListModel.getGst()+"%)");
+            tvDescription.setText(productListModel.getDescription());
+            tvGSTPercent.setText("GST("+18+"%)");
 
             tvGSTPrice.setText("");
-            edtPrice.setText(""+productListModel.getPrice());
-            if(productListModel.getGst()>0) {
+            double price=Double.valueOf(productListModel.getSalePrice());
+            double roundOff_price = Math.round(price*100)/100;
+            edtPrice.setText(""+roundOff_price);
+
+
+            double gst_price, base_price, total_price = 0.0;
+            gst_price = roundOff_price * 18 / 100;
+            total_price = roundOff_price + gst_price;
+            tvTotalprice.setText("₹"+total_price);
+           /* if(productListModel.getGst()>0) {
                    int taxPercent = (productListModel.getGst());
                    Float percentage =(float)taxPercent/100;
                    Float percentageAmount = (float)percentage*productListModel.getPrice();
                    tvGSTPrice.setText("(₹"+percentageAmount+")");
                    float finalPrice = productListModel.getPrice()+percentageAmount;
                    tvTotalprice.setText("₹"+finalPrice);
-            }
+            }*/
             unitCounter = Integer.parseInt(edtQuantity.getText().toString());
         }
 
@@ -88,7 +95,7 @@ public class ViewProductActivity extends AppCompatActivity implements View.OnCli
     getting the stock data,display in view mode
      */
     private void getStockData() {
-        productListModel = (AllProductModel) getIntent().getParcelableExtra(Constants.STOCK_DATA);
+        productListModel = (DataItem) getIntent().getSerializableExtra(Constants.STOCK_DATA);
         setData();
     }
 

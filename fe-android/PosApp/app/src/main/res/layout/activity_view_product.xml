@@ -64,19 +64,21 @@
 
                 <TextView
                     android:id="@+id/tv_pname"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/dp3"
                     android:paddingBottom="@dimen/dp6"
                     android:text="oppo"
                     android:textColor="@color/color_configuration"
                     android:textSize="@dimen/sp12"
+                    android:gravity="center"
                     android:textStyle="bold" />
 
                 <View
                     android:layout_width="@dimen/dp1"
                     android:layout_height="@dimen/dp11"
                     android:layout_gravity="center"
+                    android:visibility="gone"
                     android:background="@color/color_configuration" />
 
                 <TextView
@@ -89,12 +91,14 @@
                     android:text="4GB"
                     android:textColor="@color/color_configuration"
                     android:textSize="@dimen/sp12"
+                    android:visibility="gone"
                     android:textStyle="bold" />
 
                 <View
                     android:layout_width="@dimen/dp1"
                     android:layout_height="@dimen/dp11"
                     android:layout_gravity="center"
+                    android:visibility="gone"
                     android:background="@color/color_configuration" />
 
                 <TextView
@@ -107,12 +111,14 @@
                     android:text="32GB"
                     android:textColor="@color/color_configuration"
                     android:textSize="@dimen/sp12"
+                    android:visibility="gone"
                     android:textStyle="bold" />
 
                 <View
                     android:layout_width="@dimen/dp1"
                     android:layout_height="@dimen/dp11"
                     android:layout_gravity="center"
+                    android:visibility="gone"
                     android:background="@color/color_configuration" />
 
                 <TextView
@@ -125,6 +131,7 @@
                     android:text="White"
                     android:textColor="@color/color_configuration"
                     android:textSize="@dimen/sp12"
+                    android:visibility="gone"
                     android:textStyle="bold" />
 
 

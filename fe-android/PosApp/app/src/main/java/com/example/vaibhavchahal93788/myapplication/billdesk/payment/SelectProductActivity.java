@@ -29,6 +29,8 @@ import com.example.vaibhavchahal93788.myapplication.billdesk.model.SearchProduct
 import com.example.vaibhavchahal93788.myapplication.billdesk.payment.api.ApiClient;
 import com.example.vaibhavchahal93788.myapplication.billdesk.payment.api.ApiInterface;
 import com.example.vaibhavchahal93788.myapplication.billdesk.payment.api.ApiUtils;
+import com.example.vaibhavchahal93788.myapplication.billdesk.preferences.AppPreferences;
+import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Constants;
 import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Utility;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -39,6 +41,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -57,6 +60,7 @@ public class SelectProductActivity extends AppCompatActivity
     private Set<AllProduct> mDataSelected = new HashSet<>();
     private boolean isSearchingProduct;
     Set<AllProduct> set;
+    private AppPreferences mAppPreferences;
 
     public static final int REQ_CODE_SELECT_CATEGORY = 1;
 
@@ -64,7 +68,7 @@ public class SelectProductActivity extends AppCompatActivity
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_product);
-
+        mAppPreferences=AppPreferences.getInstance(this);
         setUpToolbar();
         init();
         fetchProductsList();
@@ -118,7 +122,11 @@ public class SelectProductActivity extends AppCompatActivity
     private void fetchProductsList() {
         progreeBar.setVisibility(View.VISIBLE);
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Call<JsonObject> call = apiService.getAllProductsList();
+        HashMap<String,String> headerValues= new HashMap<>();
+        headerValues.put("Content-Type", "application/json");
+        headerValues.put("Accept", "application/json");
+        headerValues.put(Constants.SESSION_ID,mAppPreferences.getJsessionId());
+        Call<JsonObject> call = apiService.getAllProductsList(headerValues);
         Log.e("request", call.request().url().toString());
         call.enqueue(new Callback<JsonObject>() {
             @Override

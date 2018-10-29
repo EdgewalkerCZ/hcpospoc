@@ -5,16 +5,18 @@ import com.example.vaibhavchahal93788.myapplication.billdesk.model.CategoryModel
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.LoginBodyModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductCategoryModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductListModel;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.addproduct.PostAddProduct;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.allproduct.AllProductResponse;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.productsuccess.AddProductResponse;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.profile.ProfileResponse;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.userlogin.LoginSuccessResponse;
-import com.example.vaibhavchahal93788.myapplication.billdesk.model.userlogin.UserLoginModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.network.IApiRequestComplete;
 import com.example.vaibhavchahal93788.myapplication.billdesk.network.ResponseHandler;
 import com.example.vaibhavchahal93788.myapplication.billdesk.network.RetrofitClient;
 import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Constants;
 import com.google.gson.JsonObject;
 
+import java.util.HashMap;
 import java.util.List;
 
 import okhttp3.ResponseBody;
@@ -86,9 +88,15 @@ public void userLogin (LoginBodyModel user_data , IApiRequestComplete successInt
 
     }
 
-    public void addProduct(String body, IApiRequestComplete successInterface){
-        Call<AddProductResponse> addProductResponseCall=productApi.postAddProduct(body);
+    public void addProduct(HashMap<String, String> headerValues,  PostAddProduct body, IApiRequestComplete successInterface){
+        Call<AddProductResponse> addProductResponseCall=productApi.postAddProduct(headerValues, body);
         addProductResponseCall.enqueue(new ResponseHandler<AddProductResponse>(successInterface));
+
+    }
+
+    public void getProductList(HashMap<String, String> headerValues , final IApiRequestComplete successInterface){
+        Call<AllProductResponse> allProductResponseCall=productApi.getAllProduct(headerValues);
+        allProductResponseCall.enqueue(new ResponseHandler<AllProductResponse>(successInterface));
 
     }
 
