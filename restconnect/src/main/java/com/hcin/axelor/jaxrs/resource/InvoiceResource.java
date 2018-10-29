@@ -105,6 +105,7 @@ public class InvoiceResource extends BaseResourceWrite<Invoice> {
     	invoice.setAmountRejected(getBigDecimalValue(jsonObject, "amountRejected"));
     	invoice.setExTaxTotal(getBigDecimalValue(jsonObject, "exTaxTotal"));
     	invoice.setDirectDebitAmount(getBigDecimalValue(jsonObject, "directDebitAmount"));
+    	invoice.setNote(jsonObject.getString("note", null));
 
     	return invoice;
     }
@@ -154,6 +155,7 @@ public class InvoiceResource extends BaseResourceWrite<Invoice> {
     	if(invoice.getAmountRejected() != null) builder.add("amountRejected", invoice.getAmountRejected());
     	if(invoice.getExTaxTotal() != null) builder.add("exTaxTotal", invoice.getExTaxTotal());
     	if(invoice.getDirectDebitAmount()!= null) builder.add("directDebitAmount", invoice.getDirectDebitAmount());
+    	if(invoice.getNote() != null) builder.add("note", invoice.getNote());
         
         return builder;
     }

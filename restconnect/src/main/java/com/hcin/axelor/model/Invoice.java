@@ -22,6 +22,7 @@ public class Invoice extends BaseEntity {
     private BigDecimal amountRejected;
     private BigDecimal exTaxTotal;
     private BigDecimal directDebitAmount;
+    private String note;
 
 	public Invoice() {
 		super();
@@ -126,4 +127,11 @@ public class Invoice extends BaseEntity {
 	public void setDirectDebitAmount(BigDecimal directDebitAmount) {
 		this.directDebitAmount = directDebitAmount;
 	}
+	public String getNote() {
+		return note;
+	}
+	public void setNote(String note) {
+		this.note = note;
+	}
+
 }
