@@ -5,6 +5,8 @@ import com.example.vaibhavchahal93788.myapplication.billdesk.model.CategoryModel
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.LoginBodyModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductCategoryModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductListModel;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.SaveHistorySuccessModel;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.SaveInvoiceModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.addproduct.PostAddProduct;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.allproduct.AllProductResponse;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.customer.JSONCustomerResponse;
@@ -82,4 +84,10 @@ public interface productApi {
             "Accept: application/json"})
     @GET(Constants.GET_ALL_CUSTOMER)
     Call<JSONCustomerResponse> getcustomers(@Header(Constants.SESSION_ID) String sid);
+
+    //Save Invoice history
+    @Headers({"Content-Type: application/json",
+            "Accept: application/json"})
+    @POST("invoice")
+    Call<SaveHistorySuccessModel> SaveInvoiceHistory(@Query(Constants.SESSION_ID) String sid, @Body SaveInvoiceModel saveInvoice);
 }

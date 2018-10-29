@@ -5,6 +5,8 @@ import com.example.vaibhavchahal93788.myapplication.billdesk.model.CategoryModel
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.LoginBodyModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductCategoryModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductListModel;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.SaveHistorySuccessModel;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.SaveInvoiceModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.addproduct.PostAddProduct;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.allproduct.AllProductResponse;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.customer.JSONCustomerResponse;
@@ -119,4 +121,13 @@ public void userLogin (LoginBodyModel user_data , IApiRequestComplete successInt
         customerResponseCall.enqueue(new ResponseHandler<JSONCustomerResponse>(requestComplete));
 
     }
+
+    //Save Invoice History
+    public void saveHistory (String mSessionId, SaveInvoiceModel saveInvoice , IApiRequestComplete successInterface){
+
+        Call<SaveHistorySuccessModel> saveHistoryModelCall = productApi.SaveInvoiceHistory(mSessionId,saveInvoice);
+        saveHistoryModelCall.enqueue(new ResponseHandler<SaveHistorySuccessModel>(successInterface));
+
+    }
+
 }
