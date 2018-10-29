@@ -117,6 +117,7 @@ public class CustomerListAdaptor extends
 
     @Override
     public int getItemCount() {
+
         return list.getData() == null ? 0 : list.getData().size();
     }
 

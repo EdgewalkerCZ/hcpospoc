@@ -125,7 +125,14 @@ public class CRMCustomerSearchActivity extends AppCompatActivity {
                in.putExtra(KeyValue.PHONE,JSONCustomerResponse.getData().get(position).getPhone());
                in.putExtra(KeyValue.ADDRESS,JSONCustomerResponse.getData().get(position).getAddress());
 //               in.putExtra(KeyValue.DOB,JSONCustomerResponse.getData().get(position).get;
-               in.putExtra(KeyValue.NOTE,JSONCustomerResponse.getData().get(position).getDescription().toString());
+               if(JSONCustomerResponse.getData().get(position).getDescription()!=null){
+                   try {
+                       in.putExtra(KeyValue.NOTE,JSONCustomerResponse.getData().get(position).getDescription().toString());
+                   }catch (Exception e){
+
+                   }
+               }
+
                startActivity(in);
 
            }
@@ -176,7 +183,7 @@ public class CRMCustomerSearchActivity extends AppCompatActivity {
                 progressBar.setVisibility(View.GONE);
                 if(response!=null){
                     customerResponse= response.body();
-                    if (customerResponse.getData().size()>0) {
+                    if (customerResponse!=null) {
                         setAdaptor(customerResponse);
                     }
                 }
