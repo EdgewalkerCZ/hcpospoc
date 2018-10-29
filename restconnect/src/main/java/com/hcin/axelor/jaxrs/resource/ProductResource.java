@@ -57,6 +57,11 @@ public class ProductResource extends BaseResourceWrite<Product> {
     }
     
     @Override
+    protected boolean filter(Product entity) {
+    	return entity.getIsSellable();
+    }
+    
+    @Override
     public Product mapAxelorJson(JsonObject jsonObject, String token) throws Exception {
     	Product product = super.mapAxelorJson(jsonObject, token);
 

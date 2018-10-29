@@ -8,7 +8,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.hcin.axelor.model.BaseEntity;
 import com.hcin.axelor.model.PaymentMode;
 
 @Path("/paymentMode")
@@ -49,8 +48,8 @@ public class PaymentModeResource extends BaseResourceRead<PaymentMode> {
     }
 
 	@Override
-	protected boolean filter(BaseEntity entity) {
-		return ((PaymentMode)entity).getInOutSelect() == 2;
+	protected boolean filter(PaymentMode entity) {
+		return entity.getInOutSelect() == 2;
 	}
 
 }

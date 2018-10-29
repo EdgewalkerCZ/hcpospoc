@@ -1,8 +1,8 @@
 package com.hcin.axelor.model;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 public class Invoice extends BaseEntity {
 	private String invoiceId;
@@ -12,7 +12,7 @@ public class Invoice extends BaseEntity {
     private Integer paymentConditionId;
     private Integer customerId;
     private Integer paymentModeId;
-    private List<Integer> invoiceLineIdList;
+    private SortedSet<ProductItem> invoiceLineIdList;
     private Integer currencyId;
     private BigDecimal companyExTaxTotal;
     private BigDecimal companyTaxTotal;
@@ -26,7 +26,7 @@ public class Invoice extends BaseEntity {
 
 	public Invoice() {
 		super();
-		invoiceLineIdList = new ArrayList<Integer>();
+		invoiceLineIdList = new TreeSet<ProductItem>();
 	}
 	public String getInvoiceId() {
 		return invoiceId;
@@ -70,7 +70,7 @@ public class Invoice extends BaseEntity {
 	public void setPaymentModeId(Integer paymentModeId) {
 		this.paymentModeId = paymentModeId;
 	}
-	public List<Integer> getInvoiceLineIdList() {
+	public SortedSet<ProductItem> getInvoiceLineIdList() {
 		return invoiceLineIdList;
 	}
 	public Integer getCurrencyId() {
@@ -134,4 +134,25 @@ public class Invoice extends BaseEntity {
 		this.note = note;
 	}
 
+	public static class ProductItem implements Comparable<ProductItem> {
+		private int id;
+		private Integer quantity;
+		public int getId() {
+			return id;
+		}
+		public void setId(int id) {
+			this.id = id;
+		}
+		public Integer getQuantity() {
+			return quantity;
+		}
+		public void setQuantity(Integer quantity) {
+			this.quantity = quantity;
+		}
+		
+		@Override
+		public int compareTo(ProductItem o) {
+			return ((Integer)id).compareTo(o.getId());
+		}
+	}
 }

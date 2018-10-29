@@ -47,7 +47,7 @@ public abstract class BaseResourceRead<T extends BaseEntity> {
 
     	Client client = ClientBuilder.newClient(config);
 
-    	WebTarget target = client.target(getBaseURI()).path(WS).path(REST).path(getService());
+    	WebTarget target = client.target(getBaseURI()).path(WS).path(REST).path(getService()).queryParam("offset", 40).queryParam("total", 100);
     	Builder request = target.request().accept(MediaType.APPLICATION_JSON).header("Cookie", JSESSIONID + "=" + token);
     	JsonObject jsonAxelorResponse = request.get(JsonObject.class);
 
@@ -89,7 +89,7 @@ public abstract class BaseResourceRead<T extends BaseEntity> {
     			ObjectMapper objectMapper = new ObjectMapper();
 
     			for (int i = 0; i < jsonDataArray.size(); i++) {
-    				BaseEntity entity = mapAxelorJson(jsonDataArray.getJsonObject(i), token);
+    				T entity = mapAxelorJson(jsonDataArray.getJsonObject(i), token);
     				
     				if(filter(entity)) {
     					String jsonInString = objectMapper.writeValueAsString(entity);
@@ -110,7 +110,7 @@ public abstract class BaseResourceRead<T extends BaseEntity> {
     	return jsonHcinResponse.build();
     }
 
-    protected boolean filter(BaseEntity entity) {
+    protected boolean filter(T entity) {
     	return true;
     }
 

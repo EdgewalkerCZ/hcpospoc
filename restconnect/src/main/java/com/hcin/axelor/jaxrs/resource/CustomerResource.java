@@ -16,7 +16,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import com.hcin.axelor.model.Address;
-import com.hcin.axelor.model.BaseEntity;
 import com.hcin.axelor.model.Customer;
 import com.hcin.axelor.model.EmailAddress;
 import com.hcin.axelor.model.PartnerAddress;
@@ -58,8 +57,8 @@ public class CustomerResource extends BaseResourceWrite<Customer> {
     }
     
 	@Override
-	protected boolean filter(BaseEntity entity) {
-		return ((Customer)entity).getIsCustomer();
+	protected boolean filter(Customer entity) {
+		return entity.getIsCustomer();
 	}
 
 	@Override

@@ -1,12 +1,17 @@
 package com.hcin.axelor.jaxrs.resource;
 
+import java.io.StringReader;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.SortedSet;
 
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
+import javax.json.JsonReader;
+import javax.json.JsonValue;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
@@ -18,6 +23,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import com.hcin.axelor.model.Invoice;
+import com.hcin.axelor.model.Invoice.ProductItem;
 
 @Path("/invoice")
 public class InvoiceResource extends BaseResourceWrite<Invoice> {
@@ -29,21 +35,21 @@ public class InvoiceResource extends BaseResourceWrite<Invoice> {
 
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public JsonObject getProducts(@HeaderParam(JSESSIONID) String token) throws Exception {
+    public JsonObject getInvoices(@HeaderParam(JSESSIONID) String token) throws Exception {
     	return getObjects(token);
     }
     
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public JsonObject getProduct(@PathParam("id") String id, @HeaderParam(JSESSIONID) String token) throws Exception {
+    public JsonObject getInvoice(@PathParam("id") String id, @HeaderParam(JSESSIONID) String token) throws Exception {
     	return getObject(id, token);
     }
     
     @PUT
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
-    public JsonObject createProduct(@HeaderParam(JSESSIONID) String token, Invoice invoice) throws Exception {
+    public JsonObject createInvoice(@HeaderParam(JSESSIONID) String token, Invoice invoice) throws Exception {
     	return createObject(token, invoice);
     }
     
@@ -51,7 +57,7 @@ public class InvoiceResource extends BaseResourceWrite<Invoice> {
     @Path("/{id}")
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
-    public JsonObject updateProduct(@PathParam("id") String id, @HeaderParam(JSESSIONID) String token, Invoice invoice) throws Exception {
+    public JsonObject updateInvoice(@PathParam("id") String id, @HeaderParam(JSESSIONID) String token, Invoice invoice) throws Exception {
     	return updateObject(id, token, invoice);
     }
 
@@ -89,12 +95,34 @@ public class InvoiceResource extends BaseResourceWrite<Invoice> {
     	}
 
     	JsonArray jsonArray = jsonObject.getJsonArray("invoiceLineList");
-    	List<Integer> invoiceLineIdList = invoice.getInvoiceLineIdList();
+    	SortedSet<Invoice.ProductItem> invoiceLineIdList = invoice.getInvoiceLineIdList();
     	invoiceLineIdList.clear();
+    	
+    	String quantityString = jsonObject.get("externalReference").equals(JsonValue.NULL) ? null :
+    		jsonObject.getString("externalReference");
+    	List<Integer> quantity = new ArrayList<>();
+
+    	if(quantityString != null) {
+			JsonReader jsonReader = Json.createReader(new StringReader(quantityString));
+			JsonArray quantityJsonArr = jsonReader.readArray();
+
+			for (int i = 0; i < quantityJsonArr.size(); i++) {
+				quantity.add(quantityJsonArr.getInt(i));
+			}
+    	}
     	
     	for (int i = 0; i < jsonArray.size(); i++) {
 			JsonObject arrayObject = jsonArray.getJsonObject(i);
-			invoiceLineIdList.add(arrayObject.getInt(ID));
+			ProductItem productItem = new ProductItem();
+			productItem.setId(arrayObject.getInt(ID));
+			
+			if(i < quantity.size()) {
+				productItem.setQuantity(quantity.get(i));
+			} else {
+				productItem.setQuantity(1);
+			}
+			
+			invoiceLineIdList.add(productItem);
 		}
     	
 		invoice.setCompanyExTaxTotal(getBigDecimalValue(jsonObject, "companyExTaxTotal"));
@@ -135,14 +163,17 @@ public class InvoiceResource extends BaseResourceWrite<Invoice> {
     	builder.add("operationTypeSelect", 3);
     	builder.add("statusSelect", 3);
 
-        List<Integer> invoiceLineIdList = invoice.getInvoiceLineIdList();
+    	SortedSet<ProductItem> invoiceLineIdList = invoice.getInvoiceLineIdList();
         JsonArrayBuilder jsonArray = Json.createArrayBuilder();
+        JsonArrayBuilder jsonQuantityArr = Json.createArrayBuilder();
         
-        for(int i = 0; i < invoiceLineIdList.size(); i++) {
-        	jsonArray.add(Json.createObjectBuilder().add(ID, invoiceLineIdList.get(i)).build());
+        for (ProductItem productItem : invoiceLineIdList) {
+        	jsonArray.add(Json.createObjectBuilder().add(ID, productItem.getId()).build());
+        	jsonQuantityArr.add(productItem.getQuantity());
         }
 
         builder.add("invoiceLineList", jsonArray.build());
+    	builder.add("externalReference", jsonQuantityArr.build().toString());
 
     	if (invoice.getCurrencyId() != null)
     		builder.add("currency", Json.createObjectBuilder().add("id", invoice.getCurrencyId()));
