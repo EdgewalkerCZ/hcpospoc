@@ -145,7 +145,7 @@ public class CRMAddCustomerActivity extends AppCompatActivity  {
 
         JSONAddCustomer addCustomer=new JSONAddCustomer();
 
-        addCustomer.setName(mCustomerfirstName +" "+ mCustomerlastNameEDT.getText().toString());
+        addCustomer.setName(mCustomerlastNameEDT.getText().toString());
         addCustomer.setFirstName(mCustomerfirstName);
         addCustomer.setAddress(mCustomeraddress);
         addCustomer.setEmail(mCustomeremail);

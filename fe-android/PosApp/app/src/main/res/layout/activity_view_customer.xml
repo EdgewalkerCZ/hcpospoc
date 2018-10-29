@@ -189,7 +189,7 @@
 
             android:layout_marginLeft="@dimen/dp30"
             android:layout_toRightOf="@+id/view_note"
-            android:text="13-jan-1989"/>
+            android:text=""/>
         <View
             android:layout_width="match_parent"
             android:layout_marginTop="@dimen/dp5"
