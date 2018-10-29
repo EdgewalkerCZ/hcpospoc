@@ -8,11 +8,10 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.hcin.axelor.model.BaseEntity;
 import com.hcin.axelor.model.Currency;
 
 @Path("/currency")
-public class CurrencyResource extends BaseResourceRead {
+public class CurrencyResource extends BaseResourceRead<Currency> {
     
 	@Override
 	protected String getService() {
@@ -32,10 +31,14 @@ public class CurrencyResource extends BaseResourceRead {
 		return getObject(id, token);
 	}
 
-	public BaseEntity mapAxelorJson(JsonObject jsonObject, String token) {
-    	Currency currency = new Currency();
+    @Override
+    protected Currency createEntity() {
+    	return new Currency();
+    }
+    
+	public Currency mapAxelorJson(JsonObject jsonObject, String token) throws Exception {
+    	Currency currency = super.mapAxelorJson(jsonObject, token);
 
-    	currency.setId(jsonObject.getInt(ID));
     	currency.setCode(jsonObject.getString("code", null));
     	currency.setName(jsonObject.getString("name", null));
     	currency.setSymbol(jsonObject.getString("symbol", null));

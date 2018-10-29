@@ -1,5 +1,7 @@
 package com.hcin.axelor.model;
 
+import java.math.BigDecimal;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -10,12 +12,13 @@ public class Product extends BaseEntity {
     private String code;
     private Integer productCategoryId;
     private Integer productFamilyId;
-    private Integer quantity;
+    private BigDecimal quantity;
     private String description;
     private String salePrice;
     private Boolean isGst;
     private Boolean isSellable;
 	private String name;
+    private Integer warrantyNbrOfMonths;
 
 	public String getName() {
 		return name;
@@ -48,14 +51,14 @@ public class Product extends BaseEntity {
 		this.productFamilyId = productFamilyId;
 	}
 
-	public Integer getQuantity() {
+	public BigDecimal getQuantity() {
 		return quantity;
 	}
-	
-	public void setQuantity(Integer quantity) {
+
+	public void setQuantity(BigDecimal quantity) {
 		this.quantity = quantity;
 	}
-	
+
 	public String getDescription() {
 		return description;
 	}
@@ -87,69 +90,11 @@ public class Product extends BaseEntity {
 	public void setIsSellable(Boolean isSellable) {
 		this.isSellable = isSellable;
 	}
-	
-	
-/*    {
- "purchasesUnit": null,
- "barcodeTypeConfig": null,
- "id": 11,
- "productSubTypeSelect": 3,
- "productTypeSelect": "storable",
- "isActivity": false,
- "warrantyNbrOfMonths": 12,
- "salePrice": "60.0000000000",
- "costPrice": "54.0000000000",
- "picture":          {
-    "fileName": "COMP-0001.png",
-    "id": 165,
-    "$version": 0
- },
- "name": "Hard Disk SATA 1To",
- "blockExpenseTax": false,
- "productFamily":          {
-    "code": "COMP",
-    "name": "Components",
-    "id": 3,
-    "$version": 0
- },
- "description": "Internal HDD 3,5'' - Capacity : 1 To / Memory : 64 Mo / Speed : 7200 trs/min",
- "productCategory":          {
-    "code": "HDD",
-    "name": "Hard Disk",
-    "id": 5,
-    "$version": 0
- },
- "saleSupplySelect": 1,
- "saleCurrency":          {
-    "code": "EUR",
-    "name": "Euro",
-    "id": 46,
-    "$version": 0
- },
-};
-*/	
-	
-	
-	
-	
-	
-
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+	public Integer getWarrantyNbrOfMonths() {
+		return warrantyNbrOfMonths;
+	}
+	public void setWarrantyNbrOfMonths(Integer warrantyNbrOfMonths) {
+		this.warrantyNbrOfMonths = warrantyNbrOfMonths;
+	}
 
 }

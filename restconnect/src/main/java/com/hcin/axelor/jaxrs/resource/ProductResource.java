@@ -1,13 +1,8 @@
 package com.hcin.axelor.jaxrs.resource;
 
-import java.io.StringReader;
-
 import javax.json.Json;
-import javax.json.JsonArray;
-import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
-import javax.json.JsonReader;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
@@ -16,21 +11,12 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.client.Invocation.Builder;
-import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 
-import org.glassfish.jersey.client.ClientConfig;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hcin.axelor.model.Product;
 
 @Path("/product")
-public class ProductResource extends BaseResourceRead {
+public class ProductResource extends BaseResourceWrite<Product> {
     
 	@Override
 	protected String getService() {
@@ -54,19 +40,7 @@ public class ProductResource extends BaseResourceRead {
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
     public JsonObject createProduct(@HeaderParam(JSESSIONID) String token, Product product) throws Exception {
-        if(product == null) {
-            return Json.createObjectBuilder().add(STATUS, 404).build();
-        }
-
-    	ClientConfig config = new ClientConfig();
-
-    	Client client = ClientBuilder.newClient(config);
-
-    	WebTarget target = client.target(getBaseURI()).path(WS).path(REST).path("com.axelor.apps.base.db.Product");
-    	Builder request = target.request().accept(MediaType.APPLICATION_JSON).header("Cookie", JSESSIONID + "=" + token);
-    	JsonObject jsonAxelorResponse = request.put(Entity.entity(produceAxelorJson(product), MediaType.APPLICATION_JSON), JsonObject.class);
-
-    	return processAxelorResponse(jsonAxelorResponse, token);
+    	return createObject(token, product);
     }
     
     @POST
@@ -74,95 +48,52 @@ public class ProductResource extends BaseResourceRead {
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
     public JsonObject updateProduct(@PathParam("id") String id, @HeaderParam(JSESSIONID) String token, Product product) throws Exception {
-        if((id == null) || id.isEmpty()) {
-            return Json.createObjectBuilder().add(STATUS, 200).build();
-        }
+    	return updateObject(id, token, product);
+    }
 
-        if((product == null) || (product.getId() == null) || !id.equals(String.valueOf(product.getId()))) {
-            return Json.createObjectBuilder().add(STATUS, 404).build();
-        }
-
-    	ClientConfig config = new ClientConfig();
-
-    	Client client = ClientBuilder.newClient(config);
-
-    	WebTarget target = client.target(getBaseURI()).path(WS).path(REST).path("com.axelor.apps.base.db.Product").path(id);
-    	Builder request = target.request().accept(MediaType.APPLICATION_JSON).header("Cookie", JSESSIONID + "=" + token);
-    	JsonObject jsonAxelorResponse = request.post(Entity.entity(product, MediaType.APPLICATION_JSON), JsonObject.class);
-
-    	return processAxelorResponse(jsonAxelorResponse, token);
+    @Override
+    protected Product createEntity() {
+    	return new Product();
     }
     
-    private JsonObject processAxelorResponse(JsonObject jsonAxelorResponse, String token) throws JsonProcessingException {
-    	JsonObjectBuilder jsonHcinResponse = Json.createObjectBuilder();
-    	boolean statusOk = true;
-    	
-    	if(jsonAxelorResponse.containsKey(STATUS)) {
-    		jsonHcinResponse.add(STATUS, jsonAxelorResponse.get(STATUS));
-    		statusOk = jsonAxelorResponse.getInt(STATUS) == 0;
-    	}
-
-    	if(jsonAxelorResponse.containsKey(OFFSET))
-    		jsonHcinResponse.add(OFFSET, jsonAxelorResponse.get(OFFSET));
-    	
-    	if(jsonAxelorResponse.containsKey(TOTAL))
-    		jsonHcinResponse.add(TOTAL, jsonAxelorResponse.get(TOTAL));
-
-    	if(jsonAxelorResponse.containsKey(DATA)) {
-    		if(statusOk) {
-    			JsonArray jsonDataArray = jsonAxelorResponse.getJsonArray(DATA);
-    			JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
-    			ObjectMapper objectMapper = new ObjectMapper();
-
-    			for (int i = 0; i < jsonDataArray.size(); i++) {
-    				Product product = mapAxelorJson(jsonDataArray.getJsonObject(i), token);
-    				String jsonInString = objectMapper.writeValueAsString(product);
-    				JsonReader jsonReader = Json.createReader(new StringReader(jsonInString));
-    				jsonArrayBuilder.add(jsonReader.readObject());
-    				jsonReader.close();
-    			}
-
-    			jsonHcinResponse.add(DATA, jsonArrayBuilder);
-    		} else
-        		jsonHcinResponse.add(DATA, jsonAxelorResponse.get(DATA));
-    	}
-
-    	return jsonHcinResponse.build();
+    @Override
+    protected boolean filter(Product entity) {
+    	return entity.getIsSellable();
     }
+    
+    @Override
+    public Product mapAxelorJson(JsonObject jsonObject, String token) throws Exception {
+    	Product product = super.mapAxelorJson(jsonObject, token);
 
-    public Product mapAxelorJson(JsonObject jsonProduct, String token) {
-    	Product product = new Product();
+    	product.setCode(jsonObject.getString("code"));
+    	product.setName(jsonObject.getString("name"));
 
-    	product.setId(jsonProduct.getInt("id"));
-    	product.setCode(jsonProduct.getString("code"));
-    	product.setName(jsonProduct.getString("name"));
+    	if(jsonObject.getJsonObject("productCategory") != null) {
+    		product.setProductCategoryId(jsonObject.getJsonObject("productCategory").getInt(ID));
+    	}
 
-    	JsonObject jsonObject = jsonProduct.getJsonObject("productCategory");
-    	
-    	product.setProductCategoryId(jsonObject.getInt("id"));
+    	if(jsonObject.getJsonObject("productFamily") != null) {
+    		product.setProductFamilyId(jsonObject.getJsonObject("productFamily").getInt(ID));
+    	}
 
-    	jsonObject = jsonProduct.getJsonObject("productFamily");
-
-    	product.setProductFamilyId(jsonProduct.getInt("id"));
-
-    	product.setDescription(jsonProduct.get("description").toString());
-        product.setSalePrice(jsonProduct.getString("salePrice"));
-        product.setIsGst(jsonProduct.getBoolean("blockExpenseTax"));
-        product.setIsSellable(jsonProduct.getBoolean("sellable"));
+    	product.setDescription(jsonObject.get("description").toString());
+        product.setSalePrice(jsonObject.getString("salePrice"));
+        product.setIsGst(jsonObject.getBoolean("blockExpenseTax"));
+        product.setIsSellable(jsonObject.getBoolean("sellable"));
+    	product.setWarrantyNbrOfMonths(jsonObject.getInt("warrantyNbrOfMonths"));
+        product.setQuantity(getBigDecimalValue(jsonObject, "articleVolume"));
 
     	return product;
     }
 
-    private static JsonObject produceAxelorJson(Product product) throws Exception {
-    	JsonObjectBuilder builder = Json.createObjectBuilder();
+    @Override
+    protected JsonObjectBuilder buildAxelorJson(JsonObjectBuilder builder, String token, Product product) throws Exception {
+    	builder = super.buildAxelorJson(builder, token, product);
     	
     	builder.add("productTypeSelect", "storable");
 
-    	if(product.getId() != null) builder.add("id", product.getId());
     	if(product.getCode() != null) builder.add("code", product.getCode());
     	if(product.getName() != null) builder.add("name", product.getName());
-    	if(product.getDescription() != null) builder.add("description", product.getDescription());
-    	if(product.getSalePrice() != null) builder.add("salePrice", product.getSalePrice());
 
     	if (product.getProductCategoryId() != null)
     		builder.add("productCategory", Json.createObjectBuilder().add("id", product.getProductCategoryId()));
@@ -170,7 +101,15 @@ public class ProductResource extends BaseResourceRead {
     	if (product.getProductFamilyId() != null)
     		builder.add("productFamily", Json.createObjectBuilder().add("id", product.getProductFamilyId()));
 
-    	return Json.createObjectBuilder().add(DATA, builder).build();
+    	if(product.getDescription() != null) builder.add("description", product.getDescription());
+    	if(product.getSalePrice() != null) builder.add("salePrice", product.getSalePrice());
+
+    	if(product.getIsGst() != null) builder.add("blockExpenseTax", product.getIsGst());
+    	if(product.getIsSellable() != null) builder.add("sellable", product.getIsSellable());
+    	if(product.getWarrantyNbrOfMonths() != null) builder.add("warrantyNbrOfMonths", product.getWarrantyNbrOfMonths());
+    	if(product.getQuantity() != null) builder.add("articleVolume", product.getQuantity());
+
+    	return builder;
     }
-    
+
 }

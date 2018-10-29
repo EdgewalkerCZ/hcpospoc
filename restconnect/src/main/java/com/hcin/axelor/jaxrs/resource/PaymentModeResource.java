@@ -8,11 +8,10 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.hcin.axelor.model.BaseEntity;
 import com.hcin.axelor.model.PaymentMode;
 
 @Path("/paymentMode")
-public class PaymentModeResource extends BaseResourceRead {
+public class PaymentModeResource extends BaseResourceRead<PaymentMode> {
     
 	@Override
 	protected String getService() {
@@ -32,10 +31,15 @@ public class PaymentModeResource extends BaseResourceRead {
     	return getObject(id, token);
     }
     
-    public PaymentMode mapAxelorJson(JsonObject jsonObject, String token) {
-    	PaymentMode paymentMode = new PaymentMode();
+    @Override
+    protected PaymentMode createEntity() {
+    	return new PaymentMode();
+    }
+    
+    @Override
+    public PaymentMode mapAxelorJson(JsonObject jsonObject, String token) throws Exception {
+    	PaymentMode paymentMode = super.mapAxelorJson(jsonObject, token);
 
-    	paymentMode.setId(jsonObject.getInt("id"));
     	paymentMode.setCode(jsonObject.getString("code"));
     	paymentMode.setName(jsonObject.getString("name"));
     	paymentMode.setInOutSelect(jsonObject.getInt("inOutSelect"));
@@ -44,8 +48,8 @@ public class PaymentModeResource extends BaseResourceRead {
     }
 
 	@Override
-	protected boolean filter(BaseEntity entity) {
-		return ((PaymentMode)entity).getInOutSelect() == 2;
+	protected boolean filter(PaymentMode entity) {
+		return entity.getInOutSelect() == 2;
 	}
 
 }

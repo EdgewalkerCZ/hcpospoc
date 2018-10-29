@@ -1,8 +1,8 @@
 package com.hcin.axelor.model;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 public class Invoice extends BaseEntity {
 	private String invoiceId;
@@ -12,7 +12,7 @@ public class Invoice extends BaseEntity {
     private Integer paymentConditionId;
     private Integer customerId;
     private Integer paymentModeId;
-    private List<Integer> invoiceLineIdList;
+    private SortedSet<ProductItem> invoiceLineIdList;
     private Integer currencyId;
     private BigDecimal companyExTaxTotal;
     private BigDecimal companyTaxTotal;
@@ -22,10 +22,11 @@ public class Invoice extends BaseEntity {
     private BigDecimal amountRejected;
     private BigDecimal exTaxTotal;
     private BigDecimal directDebitAmount;
+    private String note;
 
 	public Invoice() {
 		super();
-		invoiceLineIdList = new ArrayList<Integer>();
+		invoiceLineIdList = new TreeSet<ProductItem>();
 	}
 	public String getInvoiceId() {
 		return invoiceId;
@@ -69,7 +70,7 @@ public class Invoice extends BaseEntity {
 	public void setPaymentModeId(Integer paymentModeId) {
 		this.paymentModeId = paymentModeId;
 	}
-	public List<Integer> getInvoiceLineIdList() {
+	public SortedSet<ProductItem> getInvoiceLineIdList() {
 		return invoiceLineIdList;
 	}
 	public Integer getCurrencyId() {
@@ -125,5 +126,54 @@ public class Invoice extends BaseEntity {
 	}
 	public void setDirectDebitAmount(BigDecimal directDebitAmount) {
 		this.directDebitAmount = directDebitAmount;
+	}
+	public String getNote() {
+		return note;
+	}
+	public void setNote(String note) {
+		this.note = note;
+	}
+
+	public static class ProductItem implements Comparable<ProductItem> {
+		private int id;
+		private Integer quantity;
+
+		public ProductItem() {
+			super();
+		}
+
+		public ProductItem(String value) {
+			super();
+
+			String idStr = value.substring(0, value.indexOf(":"));
+			String qntStr = value.substring(value.indexOf(":") + 1);
+			
+			id = Integer.parseInt(idStr);
+			quantity = Integer.parseInt(qntStr);
+		}
+
+		public int getId() {
+			return id;
+		}
+		public void setId(int id) {
+			this.id = id;
+		}
+		public Integer getQuantity() {
+			return quantity;
+		}
+		public void setQuantity(Integer quantity) {
+			this.quantity = quantity;
+		}
+		
+		@Override
+		public int compareTo(ProductItem o) {
+			return ((Integer)id).compareTo(o.getId());
+		}
+		
+		@Override
+		public String toString() {
+			return String.valueOf(id) + ":" + String.valueOf(quantity);
+		}
+	
 	}
 }

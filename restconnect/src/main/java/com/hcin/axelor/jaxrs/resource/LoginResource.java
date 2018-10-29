@@ -24,7 +24,7 @@ import com.hcin.axelor.model.Credentials;
 
 
 @Path("/login")
-public class LoginResource extends BaseResourceRead {
+public class LoginResource extends BaseResourceRead<BaseEntity> {
     
 	@Override
 	protected String getService() {
@@ -52,9 +52,13 @@ public class LoginResource extends BaseResourceRead {
         return Json.createObjectBuilder().add("error", response.toString()).build();
     }
 
+    @Override
+    protected BaseEntity createEntity() {
+    	return null;
+    }
+    
 	@Override
 	public BaseEntity mapAxelorJson(JsonObject jsonObject, String token) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

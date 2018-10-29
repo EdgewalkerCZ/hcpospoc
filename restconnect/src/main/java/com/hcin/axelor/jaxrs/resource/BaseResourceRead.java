@@ -1,7 +1,10 @@
 package com.hcin.axelor.jaxrs.resource;
 
 import java.io.StringReader;
+import java.math.BigDecimal;
 import java.net.URI;
+import java.text.DecimalFormat;
+import java.text.ParseException;
 
 import javax.json.Json;
 import javax.json.JsonArray;
@@ -21,7 +24,7 @@ import org.glassfish.jersey.client.ClientConfig;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hcin.axelor.model.BaseEntity;
 
-public abstract class BaseResourceRead {
+public abstract class BaseResourceRead<T extends BaseEntity> {
 
 	protected static final String JSESSIONID = "JSESSIONID";
 	protected static final String WS = "ws";
@@ -38,14 +41,13 @@ public abstract class BaseResourceRead {
     }
 
     protected abstract String getService();
-    public abstract BaseEntity mapAxelorJson(JsonObject jsonObject, String token) throws Exception;
     
     public JsonObject getObjects(String token) throws Exception {
     	ClientConfig config = new ClientConfig();
 
     	Client client = ClientBuilder.newClient(config);
 
-    	WebTarget target = client.target(getBaseURI()).path(WS).path(REST).path(getService());
+    	WebTarget target = client.target(getBaseURI()).path(WS).path(REST).path(getService()).queryParam("offset", 40).queryParam("total", 100);
     	Builder request = target.request().accept(MediaType.APPLICATION_JSON).header("Cookie", JSESSIONID + "=" + token);
     	JsonObject jsonAxelorResponse = request.get(JsonObject.class);
 
@@ -68,7 +70,7 @@ public abstract class BaseResourceRead {
     	return processAxelorResponse(jsonAxelorResponse, token);
     }
     
-    private JsonObject processAxelorResponse(JsonObject jsonAxelorResponse, String token) throws Exception {
+    protected JsonObject processAxelorResponse(JsonObject jsonAxelorResponse, String token) throws Exception {
     	JsonObjectBuilder jsonHcinResponse = Json.createObjectBuilder();
     	boolean statusOk = true;
     	
@@ -87,7 +89,7 @@ public abstract class BaseResourceRead {
     			ObjectMapper objectMapper = new ObjectMapper();
 
     			for (int i = 0; i < jsonDataArray.size(); i++) {
-    				BaseEntity entity = mapAxelorJson(jsonDataArray.getJsonObject(i), token);
+    				T entity = mapAxelorJson(jsonDataArray.getJsonObject(i), token);
     				
     				if(filter(entity)) {
     					String jsonInString = objectMapper.writeValueAsString(entity);
@@ -108,8 +110,29 @@ public abstract class BaseResourceRead {
     	return jsonHcinResponse.build();
     }
 
-    protected boolean filter(BaseEntity entity) {
+    protected boolean filter(T entity) {
     	return true;
+    }
+
+    protected abstract T createEntity();
+    
+    public T mapAxelorJson(JsonObject jsonObject, String token) throws Exception {
+    	T entity = createEntity();
+
+    	entity.setId(jsonObject.getInt(ID));
+    	
+    	return entity;
+    }
+
+    protected BigDecimal getBigDecimalValue(JsonObject jsonObject, String key) {
+    	DecimalFormat decimalFormat = new DecimalFormat("0.00");
+    	decimalFormat.setParseBigDecimal(true);
+    	
+    	try {
+			return (BigDecimal)decimalFormat.parse(jsonObject.getString(key));
+		} catch (ParseException e) {
+			return BigDecimal.ZERO;
+		}
     }
     
 }

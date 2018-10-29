@@ -1,10 +1,7 @@
 package com.hcin.axelor.jaxrs.resource;
 
 import java.io.StringReader;
-import java.math.BigDecimal;
-import java.text.DecimalFormat;
-import java.text.ParseException;
-import java.util.List;
+import java.util.SortedSet;
 
 import javax.json.Json;
 import javax.json.JsonArray;
@@ -12,6 +9,7 @@ import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import javax.json.JsonReader;
+import javax.json.JsonValue;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
@@ -20,21 +18,13 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.client.Invocation.Builder;
-import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 
-import org.glassfish.jersey.client.ClientConfig;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hcin.axelor.model.Invoice;
+import com.hcin.axelor.model.Invoice.ProductItem;
 
 @Path("/invoice")
-public class InvoiceResource extends BaseResourceRead {
+public class InvoiceResource extends BaseResourceWrite<Invoice> {
     
 	@Override
 	protected String getService() {
@@ -43,101 +33,41 @@ public class InvoiceResource extends BaseResourceRead {
 
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public JsonObject getProducts(@HeaderParam(JSESSIONID) String token) throws Exception {
+    public JsonObject getInvoices(@HeaderParam(JSESSIONID) String token) throws Exception {
     	return getObjects(token);
     }
     
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public JsonObject getProduct(@PathParam("id") String id, @HeaderParam(JSESSIONID) String token) throws Exception {
+    public JsonObject getInvoice(@PathParam("id") String id, @HeaderParam(JSESSIONID) String token) throws Exception {
     	return getObject(id, token);
     }
     
     @PUT
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
-    public JsonObject createProduct(@HeaderParam(JSESSIONID) String token, Invoice invoice) throws Exception {
-        if(invoice == null) {
-            return Json.createObjectBuilder().add(STATUS, 404).build();
-        }
-
-    	ClientConfig config = new ClientConfig();
-
-    	Client client = ClientBuilder.newClient(config);
-
-    	WebTarget target = client.target(getBaseURI()).path(WS).path(REST).path(getService());
-    	Builder request = target.request().accept(MediaType.APPLICATION_JSON).header("Cookie", JSESSIONID + "=" + token);
-    	JsonObject jsonAxelorResponse = request.put(Entity.entity(produceAxelorJson(invoice), MediaType.APPLICATION_JSON), JsonObject.class);
-
-    	return processAxelorResponse(jsonAxelorResponse, token);
+    public JsonObject createInvoice(@HeaderParam(JSESSIONID) String token, Invoice invoice) throws Exception {
+    	return createObject(token, invoice);
     }
     
     @POST
     @Path("/{id}")
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
-    public JsonObject updateProduct(@PathParam("id") String id, @HeaderParam(JSESSIONID) String token, Invoice invoice) throws Exception {
-        if((id == null) || id.isEmpty()) {
-            return Json.createObjectBuilder().add(STATUS, 200).build();
-        }
+    public JsonObject updateInvoice(@PathParam("id") String id, @HeaderParam(JSESSIONID) String token, Invoice invoice) throws Exception {
+    	return updateObject(id, token, invoice);
+    }
 
-        if((invoice == null) || (invoice.getId() == null) || !id.equals(String.valueOf(invoice.getId()))) {
-            return Json.createObjectBuilder().add(STATUS, 404).build();
-        }
-
-    	ClientConfig config = new ClientConfig();
-
-    	Client client = ClientBuilder.newClient(config);
-
-    	WebTarget target = client.target(getBaseURI()).path(WS).path(REST).path(getService()).path(id);
-    	Builder request = target.request().accept(MediaType.APPLICATION_JSON).header("Cookie", JSESSIONID + "=" + token);
-    	JsonObject jsonAxelorResponse = request.post(Entity.entity(invoice, MediaType.APPLICATION_JSON), JsonObject.class);
-
-    	return processAxelorResponse(jsonAxelorResponse, token);
+    @Override
+    protected Invoice createEntity() {
+    	return new Invoice();
     }
     
-    private JsonObject processAxelorResponse(JsonObject jsonAxelorResponse, String token) throws JsonProcessingException {
-    	JsonObjectBuilder jsonHcinResponse = Json.createObjectBuilder();
-    	boolean statusOk = true;
-    	
-    	if(jsonAxelorResponse.containsKey(STATUS)) {
-    		jsonHcinResponse.add(STATUS, jsonAxelorResponse.get(STATUS));
-    		statusOk = jsonAxelorResponse.getInt(STATUS) == 0;
-    	}
+    @Override
+    public Invoice mapAxelorJson(JsonObject jsonObject, String token) throws Exception {
+    	Invoice invoice = super.mapAxelorJson(jsonObject, token);
 
-    	if(jsonAxelorResponse.containsKey(OFFSET))
-    		jsonHcinResponse.add(OFFSET, jsonAxelorResponse.get(OFFSET));
-    	
-    	if(jsonAxelorResponse.containsKey(TOTAL))
-    		jsonHcinResponse.add(TOTAL, jsonAxelorResponse.get(TOTAL));
-
-    	if(jsonAxelorResponse.containsKey(DATA)) {
-    		if(statusOk) {
-    			JsonArray jsonDataArray = jsonAxelorResponse.getJsonArray(DATA);
-    			JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
-    			ObjectMapper objectMapper = new ObjectMapper();
-
-    			for (int i = 0; i < jsonDataArray.size(); i++) {
-    				Invoice invoice = mapAxelorJson(jsonDataArray.getJsonObject(i), token);
-    				String jsonInString = objectMapper.writeValueAsString(invoice);
-    				JsonReader jsonReader = Json.createReader(new StringReader(jsonInString));
-    				jsonArrayBuilder.add(jsonReader.readObject());
-    				jsonReader.close();
-    			}
-
-    			jsonHcinResponse.add(DATA, jsonArrayBuilder);
-    		} else
-        		jsonHcinResponse.add(DATA, jsonAxelorResponse.get(DATA));
-    	}
-
-    	return jsonHcinResponse.build();
-    }
-
-    public Invoice mapAxelorJson(JsonObject jsonObject, String token) {
-    	Invoice invoice = new Invoice();
-
-    	invoice.setId(jsonObject.getInt("id"));
     	invoice.setInvoiceId(jsonObject.getString("invoiceId"));
     	invoice.setInvoiceDate(jsonObject.getString("invoiceDate"));
     	invoice.setDueDate(jsonObject.getString("dueDate"));
@@ -163,13 +93,30 @@ public class InvoiceResource extends BaseResourceRead {
     	}
 
     	JsonArray jsonArray = jsonObject.getJsonArray("invoiceLineList");
-    	List<Integer> invoiceLineIdList = invoice.getInvoiceLineIdList();
+    	SortedSet<Invoice.ProductItem> invoiceLineIdList = invoice.getInvoiceLineIdList();
     	invoiceLineIdList.clear();
     	
-    	for (int i = 0; i < jsonArray.size(); i++) {
-			JsonObject arrayObject = jsonArray.getJsonObject(i);
-			invoiceLineIdList.add(arrayObject.getInt(ID));
-		}
+    	String quantityString = jsonObject.get("externalReference").equals(JsonValue.NULL) ? null :
+    		jsonObject.getString("externalReference");
+
+    	if(quantityString != null) {
+			JsonReader jsonReader = Json.createReader(new StringReader(quantityString));
+			JsonArray quantityJsonArr = jsonReader.readArray();
+
+			for (int i = 0; i < quantityJsonArr.size(); i++) {
+				ProductItem productItem = new ProductItem(quantityJsonArr.getString(i));
+				invoiceLineIdList.add(productItem);
+			}
+    	} else {
+    		for (int i = 0; i < jsonArray.size(); i++) {
+    			JsonObject arrayObject = jsonArray.getJsonObject(i);
+    			ProductItem productItem = new ProductItem();
+    			productItem.setId(arrayObject.getInt(ID));
+   				productItem.setQuantity(1);
+
+    			invoiceLineIdList.add(productItem);
+    		}
+    	}
     	
 		invoice.setCompanyExTaxTotal(getBigDecimalValue(jsonObject, "companyExTaxTotal"));
     	invoice.setCompanyTaxTotal(getBigDecimalValue(jsonObject, "companyTaxTotal"));
@@ -179,23 +126,14 @@ public class InvoiceResource extends BaseResourceRead {
     	invoice.setAmountRejected(getBigDecimalValue(jsonObject, "amountRejected"));
     	invoice.setExTaxTotal(getBigDecimalValue(jsonObject, "exTaxTotal"));
     	invoice.setDirectDebitAmount(getBigDecimalValue(jsonObject, "directDebitAmount"));
+    	invoice.setNote(jsonObject.getString("note", null));
 
     	return invoice;
     }
 
-    private BigDecimal getBigDecimalValue(JsonObject jsonObject, String key) {
-    	DecimalFormat decimalFormat = new DecimalFormat("0.00");
-    	decimalFormat.setParseBigDecimal(true);
-    	
-    	try {
-			return (BigDecimal)decimalFormat.parse(jsonObject.getString(key));
-		} catch (ParseException e) {
-			return BigDecimal.ZERO;
-		}
-    }
-    
-    private static JsonObject produceAxelorJson(Invoice invoice) throws Exception {
-    	JsonObjectBuilder builder = Json.createObjectBuilder();
+    @Override
+    protected JsonObjectBuilder buildAxelorJson(JsonObjectBuilder builder, String token, Invoice invoice) throws Exception {
+    	builder = super.buildAxelorJson(builder, token, invoice);
     	
     	if(invoice.getId() != null) builder.add("id", invoice.getId());
 
@@ -218,14 +156,17 @@ public class InvoiceResource extends BaseResourceRead {
     	builder.add("operationTypeSelect", 3);
     	builder.add("statusSelect", 3);
 
-        List<Integer> invoiceLineIdList = invoice.getInvoiceLineIdList();
+    	SortedSet<ProductItem> invoiceLineIdList = invoice.getInvoiceLineIdList();
         JsonArrayBuilder jsonArray = Json.createArrayBuilder();
+        JsonArrayBuilder jsonQuantityArr = Json.createArrayBuilder();
         
-        for(int i = 0; i < invoiceLineIdList.size(); i++) {
-        	jsonArray.add(Json.createObjectBuilder().add(ID, invoiceLineIdList.get(i)).build());
+        for (ProductItem productItem : invoiceLineIdList) {
+        	jsonArray.add(Json.createObjectBuilder().add(ID, productItem.getId()).build());
+        	jsonQuantityArr.add(productItem.toString());
         }
 
         builder.add("invoiceLineList", jsonArray.build());
+    	builder.add("externalReference", jsonQuantityArr.build().toString());
 
     	if (invoice.getCurrencyId() != null)
     		builder.add("currency", Json.createObjectBuilder().add("id", invoice.getCurrencyId()));
@@ -238,8 +179,9 @@ public class InvoiceResource extends BaseResourceRead {
     	if(invoice.getAmountRejected() != null) builder.add("amountRejected", invoice.getAmountRejected());
     	if(invoice.getExTaxTotal() != null) builder.add("exTaxTotal", invoice.getExTaxTotal());
     	if(invoice.getDirectDebitAmount()!= null) builder.add("directDebitAmount", invoice.getDirectDebitAmount());
+    	if(invoice.getNote() != null) builder.add("note", invoice.getNote());
         
-        return Json.createObjectBuilder().add(DATA, builder).build();
+        return builder;
     }
     
 }
