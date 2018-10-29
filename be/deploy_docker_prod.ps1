@@ -36,8 +36,8 @@ $AZURE_STORAGE_CONNECTION_STRING=(az storage account show-connection-string --re
 Write-Host $AZURE_STORAGE_CONNECTION_STRING
 
 #DONE
-#Write-Host "Creating storage file share"
-#az storage share create -n $HCPOSPOC_PERS_STORAGE_SHARE_NAME --connection-string $AZURE_STORAGE_CONNECTION_STRING
+Write-Host "Creating storage file share"
+az storage share create -n $HCPOSPOC_PERS_STORAGE_SHARE_NAME --connection-string $AZURE_STORAGE_CONNECTION_STRING
 
 #DONE
 Write-Host "Storage account set"
@@ -66,9 +66,11 @@ Write-Host $acr_password
 Write-Host "Creating Azure Container Instance"
 #az container create --resource-group $HCPOSPOC_RESOURCE_GROUP --name $HCPOSPOC_CONTAINER_NAME --image $HCPOSPOC_AXELOR_IMAGE_NAME --cpu 1 --memory 1 --registry-login-server $HCPOSPOC_CONTAINER_REGISTRY_SERVER_NAME --registry-username $HCPOSPOC_CONTAINER_REGISTRY_USERNAME --registry-password $acr_password --dns-name-label $HCPOSPOC_DNS_LABEL --ports 80 8080 8081 443 --azure-file-volume-account-name $HCPOSPOC_PERS_STORAGE_NAME --azure-file-volume-account-key $storage_key --azure-file-volume-share-name $HCPOSPOC_PERS_STORAGE_SHARE_NAME --azure-file-volume-mount-path $HCPOSPOC_PERS_STORAGE_MOUNT_PATH
 
+az container create --resource-group $HCPOSPOC_RESOURCE_GROUP --name $HCPOSPOC_CONTAINER_NAME --image $HCPOSPOC_AXELOR_IMAGE_NAME --cpu 1 --memory 1 --registry-login-server $HCPOSPOC_CONTAINER_REGISTRY_SERVER_NAME --registry-username $HCPOSPOC_CONTAINER_REGISTRY_USERNAME --registry-password $acr_password --dns-name-label $HCPOSPOC_DNS_LABEL --ports 80 8080 8081 443 
+
 #az container create --resource-group $HCPOSPOC_RESOURCE_GROUP -f azure_axelor_prod.json
 
-az group deployment create --resource-group HCIN --template-file azure_axelor_prod.json
+#az group deployment create --resource-group HCIN --template-file azure_axelor_prod.json
 
 
 Write-Host "Checking Container Status"
@@ -77,6 +79,6 @@ $container_status = (az container show --resource-group HCIN --name axelor-be --
 
 Write-Host $container_status
 
-Write-Host "Where to find fileshare"
-Write-Host "Alternatively you can use https://azure.microsoft.com/en-us/features/storage-explorer/"
+#Write-Host "Where to find fileshare"
+#Write-Host "Alternatively you can use https://azure.microsoft.com/en-us/features/storage-explorer/"
 
