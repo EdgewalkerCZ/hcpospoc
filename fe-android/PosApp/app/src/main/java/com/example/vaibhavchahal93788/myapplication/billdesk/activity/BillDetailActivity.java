@@ -33,6 +33,7 @@ import com.example.vaibhavchahal93788.myapplication.billdesk.adapter.BillDetailR
 import com.example.vaibhavchahal93788.myapplication.billdesk.api.ProductApiHelper;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.BillProduct;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.DiscountModel;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.InvoiceIdModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.LoginBodyModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.PaymentMode;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductListModel;
@@ -94,7 +95,7 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
     private String seletedPaymentMode;
     private String userPhone,userName,userEmail;
     private AppPreferences mAppPreferences;
-
+    String uniqueID;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -138,7 +139,7 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         list.add(totalBillDetail);
 
         //list.add(new HeadingPaymentMode("Payment Mode"));
-
+         uniqueID = UUID.randomUUID().toString();
 
     }
 
@@ -895,15 +896,35 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
 
     private void saveBill()
     {
+        String productName = "";
         List<Integer> invoideId = new ArrayList<Integer>();
         invoideId.add(1);
 
-        String uniqueID = UUID.randomUUID().toString();
+        InvoiceIdModel invoiceIs = new InvoiceIdModel();
+        //check
+        ArrayList<BillProduct> billProducts = getBillProductsList();
+        if(billProducts.size()>0)
+        {
+            int len =billProducts.size()-1;
+            productName = billProducts.get(0).getName()+" + "+ len+"items";
+            //Set id
+            for(int i=0;i<billProducts.size();i++)
+            {
+                invoiceIs.setId(1);
+                invoiceIs.setQuantity(billProducts.get(i).getQuantity());
+            }
+
+        }
+        Log.e("==productName===>",productName);
+
+
+
+
         String date_n = new SimpleDateFormat("dd MMM, yyyy HH:mm", Locale.getDefault()).format(new Date());
 
 
         SaveInvoiceModel invoiceMode = new SaveInvoiceModel();
-        invoiceMode.setInvoiceId("76786887");
+        invoiceMode.setInvoiceId(uniqueID);
         invoiceMode.setInvoiceDate(date_n);
         invoiceMode.setDueDate(date_n);
         invoiceMode.setCompanyId(1);
@@ -919,7 +940,7 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         invoiceMode.setAmountRejected(0);
         invoiceMode.setExTaxTotal(3782);
         invoiceMode.setDirectDebitAmount(0);
-        invoiceMode.setNote("Note 1");
+        invoiceMode.setNote(productName);
 
 
         new ProductApiHelper().saveHistory(mSessionId,invoiceMode, new IApiRequestComplete<SaveHistorySuccessModel>() {
