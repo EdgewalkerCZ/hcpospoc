@@ -81,7 +81,7 @@ public class CustomerResource extends BaseResourceWrite<Customer> {
     		customer.setPartnerCategoryId(jsonObject.getJsonObject("partnerCategory").getInt(ID));
     	}
 
-    	if(jsonObject.getJsonObject("emailAddress") != null) {
+    	if(jsonObject.containsKey("emailAddress") && !jsonObject.get("emailAddress").equals(JsonValue.NULL)) {
         	customer.setEmail(getEmail(jsonObject.getJsonObject("emailAddress")));
         	customer.setEmailAddressId(jsonObject.getJsonObject("emailAddress").getInt(ID));
     	}

@@ -47,7 +47,7 @@ public abstract class BaseResourceRead<T extends BaseEntity> {
 
     	Client client = ClientBuilder.newClient(config);
 
-    	WebTarget target = client.target(getBaseURI()).path(WS).path(REST).path(getService()).queryParam("offset", 40).queryParam("total", 100);
+    	WebTarget target = client.target(getBaseURI()).path(WS).path(REST).path(getService());
     	Builder request = target.request().accept(MediaType.APPLICATION_JSON).header("Cookie", JSESSIONID + "=" + token);
     	JsonObject jsonAxelorResponse = request.get(JsonObject.class);
 
