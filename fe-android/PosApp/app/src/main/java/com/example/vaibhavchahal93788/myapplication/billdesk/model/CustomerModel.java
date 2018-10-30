@@ -1,15 +1,20 @@
 package com.example.vaibhavchahal93788.myapplication.billdesk.model;
 
-
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
-public class SaveHistorySuccessModel {
+public class CustomerModel {
+
+    @SerializedName("status")
+    @Expose
     private Integer status;
-    private List<SaveHistoryDataModel> data = null;
+    @SerializedName("data")
+    @Expose
+    private List<CustomerDetails> data = null;
+    @SerializedName("total")
+    @Expose
     private Integer total;
-
 
     public Integer getStatus() {
         return status;
@@ -19,11 +24,11 @@ public class SaveHistorySuccessModel {
         this.status = status;
     }
 
-    public List<SaveHistoryDataModel> getData() {
+    public List<CustomerDetails> getData() {
         return data;
     }
 
-    public void setData(List<SaveHistoryDataModel> data) {
+    public void setData(List<CustomerDetails> data) {
         this.data = data;
     }
 
@@ -35,11 +40,4 @@ public class SaveHistorySuccessModel {
         this.total = total;
     }
 
-
-
-
-
 }
-
-
-

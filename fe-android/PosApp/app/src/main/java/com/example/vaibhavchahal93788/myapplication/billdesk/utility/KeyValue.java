@@ -16,6 +16,7 @@ public class KeyValue {
     public static final String SOUND = "sound";
     public static final String SOUND_PUSH = "sound_push";
     public static final String NAME = "name";
+    public static final String FULL_NAME = "full_name";
     public static final String FIRST_NAME = "firstName";
     public static final String EMAIL = "email";
     public static final String USER_EMAIL = "USER_EMAIL";
@@ -24,6 +25,7 @@ public class KeyValue {
     public static final String DOB = "dob";
     public static final String NOTE = "note";
     public static final String CUSTOMER_ID = "id";
+    public static final String CUSTOMER_IDs = "ids";
     public static final String DESCRIPTION = "description";
     public static final String ISCUSTOMER = "isCustomer";
     public static final String PARTNERCATEGORYID = "partnerCategoryId";

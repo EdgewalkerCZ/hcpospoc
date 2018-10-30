@@ -8,6 +8,7 @@ import android.graphics.Typeface;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -16,6 +17,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -25,13 +27,24 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
 import com.example.vaibhavchahal93788.myapplication.R;
+import com.example.vaibhavchahal93788.myapplication.billdesk.adapter.StockViewAdapter;
 import com.example.vaibhavchahal93788.myapplication.billdesk.adapter.TransactionHistoryAdapterNew;
+import com.example.vaibhavchahal93788.myapplication.billdesk.api.ProductApiHelper;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.CustomerModel;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.InvoiceList;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.InvoiceModelNew;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.TranHistoryNew;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.allproduct.AllProductResponse;
+import com.example.vaibhavchahal93788.myapplication.billdesk.network.IApiRequestComplete;
+import com.example.vaibhavchahal93788.myapplication.billdesk.preferences.AppPreferences;
+import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Constants;
+import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Utility;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
@@ -43,6 +56,7 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 
 public class TransactionHistoryActivityNew extends BaseActivity {
@@ -55,11 +69,14 @@ public class TransactionHistoryActivityNew extends BaseActivity {
     View dialogDownloadOrMail;
     EditText etSearchHistory;
     TransactionHistoryAdapterNew adapter;
+    private ProgressBar progreeBar;
+    private AppPreferences mAppPreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transaction_history_new);
 
+        mAppPreferences=AppPreferences.getInstance(this);
         setTitle("Transaction History");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -67,7 +84,7 @@ public class TransactionHistoryActivityNew extends BaseActivity {
         //Initialize Views
         initViews();
 
-        populateList();
+        getInvoiceList();
         populateList2();
         //showPieChart();
         drawPieGraph();
@@ -79,7 +96,6 @@ public class TransactionHistoryActivityNew extends BaseActivity {
                 showDialog(TransactionHistoryActivityNew.this);
             }
         });
-
         etSearchHistory.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -95,6 +111,9 @@ public class TransactionHistoryActivityNew extends BaseActivity {
                 //filter(editable.toString());
             }
         });
+
+        //Get customer details
+        getCustomerDetails();
     }
       /*Initialize views*/
       public void initViews(){
@@ -107,24 +126,22 @@ public class TransactionHistoryActivityNew extends BaseActivity {
           btnDownloadOrMailHistory = findViewById(R.id.btnDownloadOrMailHistory);
           dialogDownloadOrMail = findViewById(R.id.dialogDownload);
           etSearchHistory = findViewById(R.id.etSearchHistory);
+          progreeBar = findViewById(R.id.progress_bar);
       }
 
      private void populateList2(){
 
      }
 
-    private void populateList() {
-
+     /*Populate invoice list*/
+    private void populateList(InvoiceModelNew response) {
+        InvoiceList iv;
         tranHistoryNewList = new ArrayList<>();
-
-        tranHistoryNewList.add(new TranHistoryNew("Opp F9", "10-Oct-2018, 11:10", 2, 17000));
-        tranHistoryNewList.add(new TranHistoryNew("Mi Note 3", "15-Oct-2018, 13:10", 1, 15000));
-        tranHistoryNewList.add(new TranHistoryNew("Redmi A5", "10-Oct-2018, 10:10", 3, 14000));
-        tranHistoryNewList.add(new TranHistoryNew("Moto G3", "24-Sep-2018, 16:10", 1, 17000));
-        tranHistoryNewList.add(new TranHistoryNew("Samsung", "10-Sep-2018, 11:15", 2, 20000));
-
+        for(int i=0;i<response.getData().size();i++){
+            iv = response.getData().get(i);
+            tranHistoryNewList.add(new TranHistoryNew(iv.getNote(), iv.getInvoiceDate(), iv.getAmountPaid()));
+        }
         adapter = new TransactionHistoryAdapterNew(TransactionHistoryActivityNew.this, tranHistoryNewList);
-
         rvProducts.setAdapter(adapter);
     }
 
@@ -300,6 +317,68 @@ public class TransactionHistoryActivityNew extends BaseActivity {
         //calling a method of the adapter class and passing the filtered list
         adapter.filterList(thList);
     }
+
+    /*Satish code- Get customer details*/
+    //Get customer details from server
+    public void getCustomerDetails(){
+        progreeBar.setVisibility(View.VISIBLE);
+        HashMap<String,String> headerValues= new HashMap<>();
+        headerValues.put("Content-Type", "application/json");
+        headerValues.put("Accept", "application/json");
+        headerValues.put(Constants.SESSION_ID,mAppPreferences.getJsessionId());
+
+        new ProductApiHelper().getCustomerDetails(headerValues,String.valueOf(30), new IApiRequestComplete<CustomerModel>() {
+            @Override
+            public void onSuccess(final CustomerModel response) {
+                progreeBar.setVisibility(View.GONE);
+                if (response!=null){
+                    if (response.getData().size()!=0){
+                        int status = response.getStatus();
+                        Log.v("Status", status+"");
+                    }else {
+                        //Utility.showToast(getApplicationContext(),getResources().getString(R.string.no_data));
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(String message) {
+
+            }
+        });
+    }
+
+    //Get invoice list from server
+    public void getInvoiceList(){
+        //progreeBar.setVisibility(View.VISIBLE);
+        HashMap<String,String> headerValues= new HashMap<>();
+        headerValues.put("Content-Type", "application/json");
+        headerValues.put("Accept", "application/json");
+        headerValues.put(Constants.SESSION_ID,mAppPreferences.getJsessionId());
+
+        new ProductApiHelper().getInvoiceList(headerValues, new IApiRequestComplete<InvoiceModelNew>() {
+            @Override
+            public void onSuccess(final InvoiceModelNew response) {
+                //progreeBar.setVisibility(View.GONE);
+                if (response!=null){
+                    if (response.getData().size()!=0){
+                        int status = response.getStatus();
+                        //InvoiceList iv = response.getData().get(1);
+                        populateList(response);
+                    }else {
+                        //Utility.showToast(getApplicationContext(),getResources().getString(R.string.no_data));
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(String message) {
+
+            }
+        });
+    }
+
+    /*End*/
 }
 
 

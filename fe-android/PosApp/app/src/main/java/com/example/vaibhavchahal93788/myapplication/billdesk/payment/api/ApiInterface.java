@@ -49,5 +49,5 @@ public interface ApiInterface {
 
 
     @POST("customer/{Id}")
-    Call<JSONAddCustomerResponse> updatecustomer(@Path("Id") String customerId, @HeaderMap HashMap<String,String> header, @Body JSONAddCustomer jsonArray);
+    Call<JSONObject> updatecustomer(@Path("Id") int customerId, @HeaderMap HashMap<String,String> header, @Body JSONAddCustomer jsonArray);
 }

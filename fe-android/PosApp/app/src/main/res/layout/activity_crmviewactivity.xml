@@ -205,7 +205,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:padding="@dimen/dp20"
         android:orientation="horizontal"
-        android:weightSum="2"
+        android:weightSum="3"
         android:layout_alignParentBottom="true"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_height="wrap_content">
@@ -238,6 +238,22 @@
             android:layout_marginBottom="8dp"
             android:background="@drawable/round_corner_rectangle_fill"
             android:text="@string/edit_str"
+            android:textColor="@color/white_color"
+            />
+
+        <Button
+            android:id="@+id/crm_submit_customer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:onClick="onClick"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/round_corner_rectangle_fill"
+            android:text="@string/submit_str"
             android:textColor="@color/white_color"
             />
     </LinearLayout>

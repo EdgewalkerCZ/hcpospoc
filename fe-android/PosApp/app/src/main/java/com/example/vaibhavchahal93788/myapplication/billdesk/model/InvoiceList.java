@@ -1,32 +1,68 @@
 package com.example.vaibhavchahal93788.myapplication.billdesk.model;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
-public class SaveHistoryDataModel {
+public class InvoiceList {
 
+    @SerializedName("id")
+    @Expose
     private Integer id;
+    @SerializedName("invoiceId")
+    @Expose
     private String invoiceId;
+    @SerializedName("invoiceDate")
+    @Expose
     private String invoiceDate;
+    @SerializedName("dueDate")
+    @Expose
     private String dueDate;
+    @SerializedName("companyId")
+    @Expose
     private Integer companyId;
+    @SerializedName("paymentConditionId")
+    @Expose
     private Integer paymentConditionId;
+    @SerializedName("customerId")
+    @Expose
     private Integer customerId;
+    @SerializedName("paymentModeId")
+    @Expose
     private Integer paymentModeId;
-    //private List<Integer> invoiceLineIdList = null;
-    private List<InvoiceIdModel> invoiceLineIdList = null;
+    @SerializedName("invoiceLineIdList")
+    @Expose
+    private List<InvoiceLineIdList> invoiceLineIdList = null;
+    @SerializedName("currencyId")
+    @Expose
     private Integer currencyId;
+    @SerializedName("companyExTaxTotal")
+    @Expose
     private Integer companyExTaxTotal;
+    @SerializedName("companyTaxTotal")
+    @Expose
     private Integer companyTaxTotal;
+    @SerializedName("amountRemaining")
+    @Expose
     private Integer amountRemaining;
+    @SerializedName("amountPaid")
+    @Expose
     private Integer amountPaid;
+    @SerializedName("companyInTaxTotalRemaining")
+    @Expose
     private Integer companyInTaxTotalRemaining;
+    @SerializedName("amountRejected")
+    @Expose
     private Integer amountRejected;
-    private Integer exTaxTotal;
+    @SerializedName("exTaxTotal")
+    @Expose
+    private Double exTaxTotal;
+    @SerializedName("directDebitAmount")
+    @Expose
     private Integer directDebitAmount;
+    @SerializedName("note")
+    @Expose
     private String note;
-
 
     public Integer getId() {
         return id;
@@ -92,11 +128,11 @@ public class SaveHistoryDataModel {
         this.paymentModeId = paymentModeId;
     }
 
-    public List<InvoiceIdModel> getInvoiceLineIdList() {
+    public List<InvoiceLineIdList> getInvoiceLineIdList() {
         return invoiceLineIdList;
     }
 
-    public void setInvoiceLineIdList(List<InvoiceIdModel> invoiceLineIdList) {
+    public void setInvoiceLineIdList(List<InvoiceLineIdList> invoiceLineIdList) {
         this.invoiceLineIdList = invoiceLineIdList;
     }
 
@@ -156,11 +192,11 @@ public class SaveHistoryDataModel {
         this.amountRejected = amountRejected;
     }
 
-    public Integer getExTaxTotal() {
+    public Double getExTaxTotal() {
         return exTaxTotal;
     }
 
-    public void setExTaxTotal(Integer exTaxTotal) {
+    public void setExTaxTotal(Double exTaxTotal) {
         this.exTaxTotal = exTaxTotal;
     }
 
@@ -179,6 +215,4 @@ public class SaveHistoryDataModel {
     public void setNote(String note) {
         this.note = note;
     }
-
-
 }

@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.vaibhavchahal93788.myapplication.R;
+import com.example.vaibhavchahal93788.myapplication.billdesk.api.LoginApiHelper;
 import com.example.vaibhavchahal93788.myapplication.billdesk.api.ProductApiHelper;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.profile.ProfileResponse;
 import com.example.vaibhavchahal93788.myapplication.billdesk.network.IApiRequestComplete;
@@ -61,7 +62,7 @@ public class UserProfileActivity extends AppCompatActivity implements AdapterVie
     private void getUserProfile() {
         pb_dialogue.setVisibility(View.VISIBLE);
         pb_dialogue.bringToFront();
-        new ProductApiHelper().userProfile(new IApiRequestComplete<ProfileResponse>() {
+        new LoginApiHelper().userProfile(new IApiRequestComplete<ProfileResponse>() {
             @Override
             public void onSuccess(ProfileResponse response) {
                 if (response != null) {

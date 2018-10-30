@@ -27,11 +27,9 @@ public class TransactionHistoryAdapterNew extends RecyclerView.Adapter<Transacti
         this.ctx = ctx;
     }
 
-
-
     class ViewHolder extends RecyclerView.ViewHolder{
 
-        TextView tvProductName, tvDate, tvPrice, tvAvailableItems;
+        TextView tvProductName, tvDate, tvPrice;
         ImageView ivProductImage;
 
         ViewHolder(View itemView) {
@@ -40,7 +38,6 @@ public class TransactionHistoryAdapterNew extends RecyclerView.Adapter<Transacti
             tvDate = itemView.findViewById(R.id.tvDate);
             tvPrice = itemView.findViewById(R.id.tvProductPrice);
             ivProductImage = itemView.findViewById(R.id.ivProductImage);
-            tvAvailableItems = itemView.findViewById(R.id.tvAvailableItems);
         }
 //        @Override
 //        public void onClick(View v) {
@@ -60,13 +57,18 @@ public class TransactionHistoryAdapterNew extends RecyclerView.Adapter<Transacti
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.list_item_history, parent, false);
 
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ctx.startActivity(new Intent(ctx,BillDetailHistory.class));
+            }
+        });
         return new ViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.tvProductName.setText(tranHistoryNewList.get(position).getpName()+" +");
-        holder.tvAvailableItems.setText(tranHistoryNewList.get(position).getAvailItem()+ "Items");
+        holder.tvProductName.setText(tranHistoryNewList.get(position).getpName());
         holder.tvDate.setText(tranHistoryNewList.get(position).getDate());
         holder.tvPrice.setText("\u20B9 "+tranHistoryNewList.get(position).getPrice());
         if(position%2==0)

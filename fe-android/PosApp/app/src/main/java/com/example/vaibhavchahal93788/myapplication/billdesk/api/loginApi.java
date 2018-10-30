@@ -5,6 +5,7 @@ import com.example.vaibhavchahal93788.myapplication.billdesk.model.AddProductMod
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.LoginBodyModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.LoginModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductListModel;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.profile.ProfileResponse;
 
 import java.util.List;
 
@@ -19,4 +20,6 @@ public interface loginApi
 {
     @POST("login")
     Call<LoginModel> validateLogin(@Body LoginBodyModel loginBodyModel);
+    @GET("profiles")
+    Call<ProfileResponse> getProfileDetails();
 }

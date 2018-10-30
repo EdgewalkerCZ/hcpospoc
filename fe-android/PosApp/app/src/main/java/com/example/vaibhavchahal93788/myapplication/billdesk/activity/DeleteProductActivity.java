@@ -8,16 +8,24 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.vaibhavchahal93788.myapplication.R;
 import com.example.vaibhavchahal93788.myapplication.billdesk.api.ProductApiHelper;
-import com.example.vaibhavchahal93788.myapplication.billdesk.model.AllProductModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductCategoryModel;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.UpdateStatusResponse;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.allproduct.DataItem;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.updateProduct.UpdateProductModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.network.IApiRequestComplete;
+import com.example.vaibhavchahal93788.myapplication.billdesk.preferences.AppPreferences;
 import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Constants;
-import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Utility;
+
+import java.util.HashMap;
+
+import libs.mjn.prettydialog.PrettyDialog;
+import libs.mjn.prettydialog.PrettyDialogCallback;
+
 
 public class DeleteProductActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -25,13 +33,17 @@ public class DeleteProductActivity extends AppCompatActivity implements View.OnC
     private EditText edtStore,edtDamage,edtTheft,edtLoss,edtRestock;
     private Button btnUpdate,btnStoreRecountInrement,btnStoreRecountdecrement,btnDamageInrement,btnDamagedecrement,btnTheftInrement,btnTheftdecrement,btnLossInrement,btnLossdecrement,btnRestockInrement,btnRestockdecrement;
     private int storeCounter = 0, damageCounter =0,theftCounter =0,lossCounter = 0,restockCounter = 0;
-    private AllProductModel productListModel;
+    private DataItem productListModel;
     private Context context;
     private int updatedTotalQuantity;
+    private AppPreferences mAppPreferences;
+    private UpdateProductModel updateProductModel;
+    private ProgressBar pb_dialogue;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delete_product);
+        mAppPreferences=AppPreferences.getInstance(this);
         setTitle("Remove");
         context = this;
         init();
@@ -40,19 +52,19 @@ public class DeleteProductActivity extends AppCompatActivity implements View.OnC
     }
 /* get product data */
   private void getStockData() {
-      productListModel = (AllProductModel) getIntent().getParcelableExtra(Constants.STOCK_DATA);
+      productListModel = (DataItem) getIntent().getSerializableExtra(Constants.STOCK_DATA);
       setData();
       updateQuantity();
 }
 
     private void setData() {
         tvProductName.setText(productListModel.getName());
-        tvProduct.setText(productListModel.getName());
+        tvProduct.setText(productListModel.getDescription());
         tvTag.setText(productListModel.getName().charAt(0)+"".toUpperCase());
-        tvRamSize.setText(productListModel.getRam());
-        tvHdSize.setText(productListModel.getRom());
-        tvColor.setText(productListModel.getColor());
-        tvTotalprice.setText(productListModel.getPrice()+"");
+        double price=Double.valueOf(productListModel.getSalePrice());
+        double roundOff = Math.round(price*100)/100;
+
+        tvTotalprice.setText(roundOff+"");
         tvCurrentStock.setText(productListModel.getQuantity()+"");
     }
 
@@ -82,6 +94,8 @@ public class DeleteProductActivity extends AppCompatActivity implements View.OnC
         btnLossInrement = findViewById(R.id.btn_loss_in);
         btnRestockdecrement = findViewById(R.id.btn_restock_de);
         btnRestockInrement = findViewById(R.id.btn_restock_in);
+
+        pb_dialogue=findViewById(R.id.pb_dialogue);
 
         edtStore = findViewById(R.id.edt_store);
         edtDamage = findViewById(R.id.edt_damage);
@@ -231,11 +245,12 @@ public class DeleteProductActivity extends AppCompatActivity implements View.OnC
 
             case R.id.btn_update:
                 if(updatedTotalQuantity!=0){
-                    Toast.makeText(context,R.string.successfully_message,Toast.LENGTH_LONG).show();
+                  /*  Toast.makeText(context,R.string.successfully_message,Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(context, StockViewProductActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
-                    finish();
+                    finish();*/
+                    deleteProduct();
                 }
               //  deleteProduct();
                 break;
@@ -253,23 +268,83 @@ public class DeleteProductActivity extends AppCompatActivity implements View.OnC
             btnUpdate.setBackgroundColor(getResources().getColor(R.color.color_configuration));
         }
         tvReduceCount.setText(totalQuantiy+"");
-        int updatedStock = productListModel.getQuantity()+totalQuantiy;
+        int updatedStock = productListModel.getQuantity()-totalQuantiy;
         tvUpdatedStock.setText(updatedStock+"");
 
   }
 
     private void deleteProduct() {
-        new ProductApiHelper().removeProduct(productListModel.getId(),tvUpdatedStock.getText().toString(),new IApiRequestComplete<ProductCategoryModel>() {
+        pb_dialogue.setVisibility(View.VISIBLE);
+        HashMap<String,String> headerValues= new HashMap<>();
+        headerValues.put("Content-Type", "application/json");
+        headerValues.put("Accept", "application/json");
+        headerValues.put(Constants.SESSION_ID,mAppPreferences.getJsessionId());
+        updateProductModel= new UpdateProductModel();
+        updateProductModel.setId(productListModel.getId());
+        updateProductModel.setCode(productListModel.getCode());
+        updateProductModel.setProductCategoryId(productListModel.getProductCategoryId());
+        updateProductModel.setProductFamilyId(productListModel.getProductFamilyId());
+        updateProductModel.setQuantity(Integer.valueOf(tvUpdatedStock.getText().toString()));
+        updateProductModel.setDescription(productListModel.getDescription());
+        updateProductModel.setSalePrice( productListModel.getSalePrice());
+        updateProductModel.setIsGst(true);
+        updateProductModel.setIsSellable(true);
+        updateProductModel.setName(productListModel.getName());
+       /* "code": "DELL",
+                "productCategoryId": 22,
+                "productFamilyId": 9,
+                "quantity": 60,
+                "description": "\"\\\"Internal HDD 3,5'' - Capacity : 5\"",
+                "salePrice": "60.0000000000",
+                "isGst": false,
+                "isSellable": true,
+                "name": "HP headphones",
+                "warrantyNbrOfMonths": 12*/
+
+        new ProductApiHelper().productUpdateList(headerValues,updateProductModel,productListModel.getId(), new IApiRequestComplete<UpdateStatusResponse>() {
 
             @Override
-            public void onSuccess(ProductCategoryModel categoryList) {
+            public void onSuccess(UpdateStatusResponse updateStatusResponse) {
+                pb_dialogue.setVisibility(View.GONE);
+                if (updateStatusResponse!=null){
+                    if (updateStatusResponse.getStatus()==0){
+                        final PrettyDialog dialog = new PrettyDialog(DeleteProductActivity.this);
+                        dialog.setIcon(R.drawable.pdlg_icon_success, R.color.pdlg_color_green, null)   // Icon resource
+                                .setTitle(getResources().getString(R.string.success))
+                                .setMessage(getResources().getString(R.string.success_updated_product))
+                                .addButton(getResources().getString(R.string.ok), R.color.pdlg_color_white, R.color.pdlg_color_green, new PrettyDialogCallback() {
+                                    @Override
+                                    public void onClick() {
+                                        dialog.dismiss();
+                                        Intent intent= new Intent(DeleteProductActivity.this,StockViewProductActivity.class);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        startActivity(intent);
+                                    }
+                                });
+                        dialog.show();
+
+                    }
+                }
 
             }
 
             @Override
             public void onFailure(String message) {
-                Toast.makeText(DeleteProductActivity.this, message, Toast.LENGTH_SHORT).show();
+                pb_dialogue.setVisibility(View.GONE);
+                final PrettyDialog dialog = new PrettyDialog(DeleteProductActivity.this);
+                dialog.setIcon(R.drawable.pdlg_icon_success, R.color.pdlg_color_green, null)   // Icon resource
+                        .setTitle(getResources().getString(R.string.success))
+                        .setMessage(message)
+                        .addButton(getResources().getString(R.string.ok), R.color.pdlg_color_white, R.color.pdlg_color_green, new PrettyDialogCallback() {
+                            @Override
+                            public void onClick() {
+                                dialog.dismiss();
+
+                            }
+                        });
+                dialog.show();
             }
         });
     }
+
 }

@@ -99,7 +99,7 @@ public class StockViewProductActivity extends AppCompatActivity implements  Stoc
 
         actionAddProduct();
 
-        fetchProductsList();
+
     }
 
     private void fetchProductsList() {
@@ -206,11 +206,13 @@ public class StockViewProductActivity extends AppCompatActivity implements  Stoc
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
 
                 if (position==1){
-                    categoryData(8);
+                    categoryData(7);
                 }else if (position==2){
-                    categoryData(9);
+                    categoryData(8);
                 }else if (position==3){
-                    categoryData(10);
+                    categoryData(9);
+                }else {
+                    fetchProductsList();
                 }
             }
 
@@ -347,5 +349,11 @@ public class StockViewProductActivity extends AppCompatActivity implements  Stoc
         crossmenu.setVisible(true);
 
 
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        fetchProductsList();
     }
 }
