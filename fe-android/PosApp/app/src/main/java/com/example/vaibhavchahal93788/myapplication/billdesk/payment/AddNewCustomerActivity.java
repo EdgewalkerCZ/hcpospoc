@@ -203,6 +203,8 @@ public class AddNewCustomerActivity extends AppCompatActivity {
                     in.putExtra(KeyValue.EMAIL,mCustomeremail);
                     in.putExtra(KeyValue.PHONE,mCustomerphone);
                     in.putExtra(KeyValue.ADDRESS,mCustomeraddress);
+                    in.putExtra(KeyValue.CUSTOMER_ID,response.body().getData().get(0).getId()+"");
+                    Log.e("HC Add==>",response.body().getData().get(0).getId()+"");
 //                in.putExtra(KeyValue.DOB,customerSets.getData().get(position).getDob());
                     in.putExtra(KeyValue.NOTE,mCustomerNote);
                     startActivity(in);

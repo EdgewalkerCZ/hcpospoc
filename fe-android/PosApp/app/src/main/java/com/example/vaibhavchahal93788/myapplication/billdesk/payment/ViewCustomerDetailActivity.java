@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -14,7 +15,7 @@ import com.example.vaibhavchahal93788.myapplication.billdesk.utility.KeyValue;
 
 public class ViewCustomerDetailActivity extends AppCompatActivity {
     private TextView view_name_value,view_phone_value,view_email_value,view_address_value,view_dob_value,view_note_value;
-    private String view_name_str,view_phone_str,view_email_str,view_address_str,view_dob_str,view_note_str;
+    private String view_name_str,view_phone_str,view_email_str,view_address_str,view_dob_str,view_note_str,view_id_str;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,7 +65,10 @@ public class ViewCustomerDetailActivity extends AppCompatActivity {
         view_address_str=in.getStringExtra(KeyValue.ADDRESS);
         view_dob_str=in.getStringExtra(KeyValue.DOB);
         view_note_str=in.getStringExtra(KeyValue.NOTE);
+        view_id_str=in.getStringExtra(KeyValue.CUSTOMER_ID);
 
+
+Log.e("HC view_id_str==>",view_id_str+">>>>>>>>>>>>>>>>>>");
 
         view_name_value.setText(view_name_str);
         view_phone_value.setText(view_phone_str);
@@ -83,6 +87,7 @@ public class ViewCustomerDetailActivity extends AppCompatActivity {
                 KeyValue.setString(ViewCustomerDetailActivity.this, KeyValue.ADDRESS,view_address_str);
                 KeyValue.setString(ViewCustomerDetailActivity.this, KeyValue.DOB,view_dob_str);
                 KeyValue.setString(ViewCustomerDetailActivity.this, KeyValue.NOTE,view_note_str);
+                KeyValue.setString(ViewCustomerDetailActivity.this, KeyValue.CUSTOMER_ID,view_note_str);
 
                 startActivity(new Intent(ViewCustomerDetailActivity.this,SelectProductActivity.class));
 
