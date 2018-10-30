@@ -87,7 +87,7 @@ Log.e("HC view_id_str==>",view_id_str+">>>>>>>>>>>>>>>>>>");
                 KeyValue.setString(ViewCustomerDetailActivity.this, KeyValue.ADDRESS,view_address_str);
                 KeyValue.setString(ViewCustomerDetailActivity.this, KeyValue.DOB,view_dob_str);
                 KeyValue.setString(ViewCustomerDetailActivity.this, KeyValue.NOTE,view_note_str);
-                KeyValue.setString(ViewCustomerDetailActivity.this, KeyValue.CUSTOMER_ID,view_note_str);
+                KeyValue.setString(ViewCustomerDetailActivity.this, KeyValue.CUSTOMER_ID,view_id_str);
 
                 startActivity(new Intent(ViewCustomerDetailActivity.this,SelectProductActivity.class));
 

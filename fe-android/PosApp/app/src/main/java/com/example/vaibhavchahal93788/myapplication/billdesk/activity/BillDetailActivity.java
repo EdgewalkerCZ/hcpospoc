@@ -71,11 +71,11 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
     private RecyclerView recyclerView;
     private BillDetailRecyclerAdapter adapter;
     private ArrayList<ProductListModel> selectedItemList;
-    private Button btnConnectPrinter, btnPrint, btnViewBill,btnEmail;
+    private Button btnConnectPrinter, btnPrint, btnViewBill, btnEmail;
     private TextView textBillingPrice;
     private String mSessionId;
 
-    private DiscountModel discountModelIs= DiscountModel.getInstance();
+    private DiscountModel discountModelIs = DiscountModel.getInstance();
 
 
     protected static final String TAG = "TAG";
@@ -96,9 +96,10 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
     private int totalPrice;
     private float totalPriceIs;
     private String seletedPaymentMode;
-    private String userPhone,userName,userEmail;
+    private String userPhone, userName, userEmail;
     private AppPreferences mAppPreferences;
     String uniqueID;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,20 +110,20 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         populateList();
         initViews();
         //Get preference values of user
-        userPhone = KeyValue.getString(this,KeyValue.PHONE);
-        userName = KeyValue.getString(this,KeyValue.NAME);
-        userEmail = KeyValue.getString(this,KeyValue.EMAIL);
+        userPhone = KeyValue.getString(this, KeyValue.PHONE);
+        userName = KeyValue.getString(this, KeyValue.NAME);
+        userEmail = KeyValue.getString(this, KeyValue.EMAIL);
 
 //Get Session Id
         mAppPreferences = AppPreferences.getInstance(this);
-        mSessionId=mAppPreferences.getJsessionId();
+        mSessionId = mAppPreferences.getJsessionId();
 
     }
 
     private void populateList() {
         selectedItemList = (ArrayList<ProductListModel>) getIntent().getSerializableExtra("selectedItemList");
         totalItems = getIntent().getIntExtra("totalItems", 1);
-        totalPriceIs= getIntent().getFloatExtra("totalPrice", 0);
+        totalPriceIs = getIntent().getFloatExtra("totalPrice", 0);
         totalPrice = Math.round(totalPriceIs);
 
         list = new ArrayList<>();
@@ -144,6 +145,7 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
 
         //list.add(new HeadingPaymentMode("Payment Mode"));
         uniqueID = UUID.randomUUID().toString();
+        uniqueID = uniqueID.substring(0, 11);
 
     }
 
@@ -167,14 +169,13 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         btnPrint = findViewById(R.id.btn_print_bill);
         btnPrint.setOnClickListener(this);
 
-        btnEmail=findViewById(R.id.btn_email);
+        btnEmail = findViewById(R.id.btn_email);
         btnEmail.setOnClickListener(this);
 
         textBillingPrice = findViewById(R.id.tv_billing_est_price);
         //Set Total Price and Item
 
-        if (totalItems!=0 && totalPrice!=0)
-        {
+        if (totalItems != 0 && totalPrice != 0) {
             textBillingPrice.setText(String.format(getString(R.string.text_billing_estimated_price), totalItems, totalPrice));
 
             // discountModelIs = getInstance();
@@ -261,10 +262,9 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
     }
 
     @Override
-    public void onDiscount(int discount)
-    {
-        int updatedPrice=0;
-        int totalItems=0;
+    public void onDiscount(int discount) {
+        int updatedPrice = 0;
+        int totalItems = 0;
         discountModelIs = DiscountModel.getInstance();
 
         if (discountModelIs.getFinalPrice() > 0) {
@@ -278,9 +278,8 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
 
 
     @Override
-    public void seletedPaymentMode(String mode)
-    {
-        if(!mode.equals(""))
+    public void seletedPaymentMode(String mode) {
+        if (!mode.equals(""))
             seletedPaymentMode = mode;
     }
 
@@ -288,13 +287,14 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_view_bill:
-                discountModelIs=DiscountModel.getInstance();
+                discountModelIs = DiscountModel.getInstance();
                 Intent intent = new Intent(BillDetailActivity.this, BillSummaryActivity.class);
                 ArrayList<BillProduct> billProducts = getBillProductsList();
                 intent.putParcelableArrayListExtra("billProductsList", billProducts);
 
-                intent.putExtra("discount",discountModelIs.getDiscount());
-                intent.putExtra("paymentMode",seletedPaymentMode);
+                intent.putExtra("discount", discountModelIs.getDiscount());
+                intent.putExtra("paymentMode", seletedPaymentMode);
+                intent.putExtra("uniqueID", uniqueID);
 
                 startActivity(intent);
                 //Save bill history
@@ -393,10 +393,10 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
 
 
     private void printContent() {
-        String uniqueID = UUID.randomUUID().toString();
+        //String uniqueID = UUID.randomUUID().toString();
         String date_n = new SimpleDateFormat("dd MMM, yyyy HH:mm", Locale.getDefault()).format(new Date());
 
-        Log.e("=userName=>",userName+"==>"+userPhone+"=="+userEmail);
+        Log.e("=userName=>", userName + "==>" + userPhone + "==" + userEmail);
         printPhoto(R.drawable.alphanew);
         //print normal text
         // printNewLine();
@@ -409,10 +409,10 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
 //        printCustom(userName, 0, 0);
 //        printCustom("Invoice No:"+uniqueID.substring(0, 11), 0, 1);
 //        printNewLine();
-        printTextNormal(userName+"        Invoice No:"+uniqueID.substring(0, 11));
+        printTextNormal(userName + "        Invoice No:" + uniqueID);
         makTextNormal();
         printNewLine();
-        printTextNormal(userPhone+"        "+date_n);
+        printTextNormal(userPhone + "        " + date_n);
         makTextNormal();
         printNewLine();
 
@@ -532,8 +532,7 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         }
     }
 
-    private int getDiscount()
-    {
+    private int getDiscount() {
         int discount = discountModelIs.getDiscount();
         return discount;
     }
@@ -606,7 +605,7 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
     }
 
     private void connectPrinter() {
-        Log.e("connect printer",":sddfd");
+        Log.e("connect printer", ":sddfd");
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if (mBluetoothAdapter == null) {
             Toast.makeText(BillDetailActivity.this, "Message1", Toast.LENGTH_SHORT).show();
@@ -620,7 +619,7 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
             } else {
                 if (!isBluetoothConnected)
                     connectBluetooth();
-                Log.e("initPrinting",":init");
+                Log.e("initPrinting", ":init");
                 initPrinting();
                 //               ListPairedDevices();
 //                Intent connectIntent = new Intent(BillDetailActivity.this,
@@ -862,12 +861,12 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         try {
             Bitmap bmp = BitmapFactory.decodeResource(getResources(),
                     img);
-            if(bmp!=null){
+            if (bmp != null) {
                 byte[] command = Utils.decodeBitmap(bmp);
-                Log.e("======>command",command+"");
+                Log.e("======>command", command + "");
                 os.write(PrinterCommands.ESC_ALIGN_CENTER);
                 printText(command);
-            }else{
+            } else {
                 Log.e("Print Photo error", "the file isn't exists");
             }
         } catch (Exception e) {
@@ -883,7 +882,7 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
                     img);
             if (bmp != null) {
                 byte[] command = Utils.decodeBitmap(bmp);
-                Log.e("======>command",command+"");
+                Log.e("======>command", command + "");
                 os.write(PrinterCommands.ESC_ALIGN_CENTER);
                 printText(command);
             } else {
@@ -896,9 +895,9 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
     }
 
 
-
-
     private void saveBill() {
+        int customerId = 30;
+
         AppPreferences mAppPreferences = AppPreferences.getInstance(this);
 
         HashMap<String, String> headerValues = new HashMap<>();
@@ -909,10 +908,11 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         String productName = "";
         String uniqueID = uniqueID = UUID.randomUUID().toString();
 
-        int customerId = 30;
 
-
-        Log.e("customerId====>", customerId + "");
+        String customerIdIs = KeyValue.getString(this, KeyValue.CUSTOMER_ID);
+        if (!customerIdIs.equals("")) {
+            customerId = Integer.parseInt(customerIdIs);
+        }
         List<InvoiceIdModel> invoiceIs = new ArrayList<InvoiceIdModel>();
         //check
         ArrayList<BillProduct> billProducts = getBillProductsList();
@@ -920,10 +920,9 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
 
         //foR Product Name
         InvoiceIdModel mod = new InvoiceIdModel();
-        if (billProducts.size() > 0)
-        {
-            int len =billProducts.size()-1;
-            productName = billProducts.get(0).getName()+" + "+ len+"items";
+        if (billProducts.size() > 0) {
+            int len = billProducts.size() - 1;
+            productName = billProducts.get(0).getName() + " + " + len + "items";
             for (int i = 0; i < billProducts.size(); i++) {
                 mod.setId(i);
                 mod.setQuantity(billProducts.get(i).getQuantity());
@@ -935,7 +934,7 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
 
 
         String currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
-        String date_n=currentDate.toString();
+        String date_n = currentDate.toString();
         Log.e("==date_n===>", date_n);
 
         SaveInvoiceModel invoiceMode = new SaveInvoiceModel();

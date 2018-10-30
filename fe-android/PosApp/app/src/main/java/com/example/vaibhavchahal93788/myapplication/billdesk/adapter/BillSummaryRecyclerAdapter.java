@@ -40,10 +40,11 @@ public class BillSummaryRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
 
     private Context context;
     String paymentMode="";
-
-    public BillSummaryRecyclerAdapter(List<Object> list, String mode) {
+String uniqueID="";
+    public BillSummaryRecyclerAdapter(List<Object> list, String mode,String invoicenum) {
         itemsList = list;
         paymentMode = mode;
+        uniqueID = invoicenum;
     }
 
     @Override
@@ -78,8 +79,8 @@ public class BillSummaryRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
 
             case TYPE_ITEM_SHOP_DETAIL:
                 ViewHolderItem1 holderSeletedItem = (ViewHolderItem1) holder;
-                String uniqueID = UUID.randomUUID().toString();
-                holderSeletedItem.tvInVoiceNumber.setText("Invoice No - " + uniqueID.substring(0, 11));
+               // String uniqueID = UUID.randomUUID().toString();
+                holderSeletedItem.tvInVoiceNumber.setText("Invoice No - " + uniqueID);
                 String currentDate = new SimpleDateFormat("dd MMM, yyyy HH:mm", Locale.getDefault()).format(new Date());
                 holderSeletedItem.tvDate.setText("Date -" + currentDate);
 //                holderSeletedItem.tv_customer_name.setText(KeyValue.getString(context,KeyValue.NAME));

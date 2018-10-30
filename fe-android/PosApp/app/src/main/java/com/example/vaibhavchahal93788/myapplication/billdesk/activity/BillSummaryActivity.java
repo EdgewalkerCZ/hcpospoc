@@ -73,6 +73,7 @@ public class BillSummaryActivity extends AppCompatActivity implements Runnable{
     private ArrayList<ProductListModel> selectedItemList;
     int billDiscount;
     String paymentMode;
+    String uniqueID;
     private String userPhone,userName,userEmail;
     private DiscountModel discountModelIs= DiscountModel.getInstance();
     @Override
@@ -101,6 +102,7 @@ public class BillSummaryActivity extends AppCompatActivity implements Runnable{
         } else {
             billDiscount= extras.getInt("discount");
             paymentMode = extras.getString("paymentMode");
+            uniqueID = extras.getString("uniqueID");
         }
 
 
@@ -140,7 +142,7 @@ public class BillSummaryActivity extends AppCompatActivity implements Runnable{
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        adapter = new BillSummaryRecyclerAdapter(list,paymentMode);
+        adapter = new BillSummaryRecyclerAdapter(list,paymentMode,uniqueID);
 
         recyclerView.setAdapter(adapter);
 
@@ -223,7 +225,7 @@ public class BillSummaryActivity extends AppCompatActivity implements Runnable{
 
 
     private void printContent() {
-        String uniqueID = UUID.randomUUID().toString();
+        //String uniqueID = UUID.randomUUID().toString();
         String date_n = new SimpleDateFormat("dd MMM, yyyy HH:mm", Locale.getDefault()).format(new Date());
 
         Log.e("=userName=>",userName+"==>"+userPhone+"=="+userEmail);
