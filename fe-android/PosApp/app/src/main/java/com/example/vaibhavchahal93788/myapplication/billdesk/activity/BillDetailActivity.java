@@ -123,8 +123,7 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         selectedItemList = (ArrayList<ProductListModel>) getIntent().getSerializableExtra("selectedItemList");
         totalItems = getIntent().getIntExtra("totalItems", 1);
         totalPriceIs= getIntent().getFloatExtra("totalPrice", 0);
-
-        totalPrice = (int)totalPriceIs;
+        totalPrice = Math.round(totalPriceIs);
 
         list = new ArrayList<>();
 
