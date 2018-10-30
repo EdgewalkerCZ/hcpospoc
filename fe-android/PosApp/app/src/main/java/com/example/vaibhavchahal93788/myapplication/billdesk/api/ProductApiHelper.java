@@ -73,12 +73,12 @@ public class ProductApiHelper {
 
 
     }
-    public void userProfile (IApiRequestComplete successInterface){
-
-        Call<ProfileResponse> profileResponseCall = productApi.getProfileDetails();
-        profileResponseCall.enqueue(new ResponseHandler<ProfileResponse>(successInterface));
-
-    }
+//    public void userProfile (IApiRequestComplete successInterface){
+//
+//        Call<ProfileResponse> profileResponseCall = productApi.getProfileDetails();
+//        profileResponseCall.enqueue(new ResponseHandler<ProfileResponse>(successInterface));
+//
+//    }
 //    public void userLogin (String user_data ,IApiRequestComplete successInterface){
 //
 //        Call<UserLoginModel> userLoginModelCall = productApi.UserLogin(user_data);
