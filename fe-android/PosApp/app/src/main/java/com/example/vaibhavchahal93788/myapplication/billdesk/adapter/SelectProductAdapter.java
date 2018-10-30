@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.vaibhavchahal93788.myapplication.R;
@@ -39,7 +40,7 @@ public class SelectProductAdapter extends RecyclerView.Adapter<SelectProductAdap
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        CardView cardViewMain;
+        LinearLayout llMain;
         CardView cardProductImg;
         ImageView imvProduct;
         TextView txtProductName;
@@ -51,7 +52,7 @@ public class SelectProductAdapter extends RecyclerView.Adapter<SelectProductAdap
 
         ViewHolder(View itemView) {
             super(itemView);
-            cardViewMain = itemView.findViewById(R.id.card_view);
+            llMain = itemView.findViewById(R.id.ll_main);
             cardProductImg = itemView.findViewById(R.id.card_product_img);
             imvProduct = itemView.findViewById(R.id.imv_product);
             txtProductName = itemView.findViewById(R.id.txt_product_name);
@@ -79,12 +80,12 @@ public class SelectProductAdapter extends RecyclerView.Adapter<SelectProductAdap
 
         if(product.isSelected()) {
             holder.cardProductImg.setCardBackgroundColor(Color.parseColor("#666666"));
-            holder.cardViewMain.setCardBackgroundColor(Color.parseColor("#90c0c0c0"));
+            holder.llMain.setBackgroundColor(Color.parseColor("#90c0c0c0"));
             holder.imvProduct.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_checked));
             holder.imvProduct.setVisibility(View.VISIBLE);
             holder.txtProductSymbol.setVisibility(View.GONE);
         } else {
-            holder.cardViewMain.setCardBackgroundColor(Color.parseColor("#ffffff"));
+            holder.llMain.setBackgroundColor(Color.parseColor("#ffffff"));
             holder.cardProductImg.setCardBackgroundColor(Color.parseColor(Utility.getColorForIndex(position)));
             if(TextUtils.isEmpty(product.getImg())) {
                 holder.imvProduct.setVisibility(View.GONE);
@@ -107,7 +108,7 @@ public class SelectProductAdapter extends RecyclerView.Adapter<SelectProductAdap
             holder.txtIncGST.setVisibility(View.GONE);
         }
 
-        holder.cardViewMain.setOnClickListener(new View.OnClickListener() {
+        holder.llMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onItemClickListener.onItemClick(position);

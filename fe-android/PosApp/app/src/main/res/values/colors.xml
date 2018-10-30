@@ -22,11 +22,15 @@
     <color name="color_product_name">#333333</color>
 
 
-
+    <color name="color_33a4a0">#33a4a0</color>
+    <color name="color_33a470">#33a470</color>
+    <color name="color_f1f2f2">#f1f2f2</color>
 
 
     <color name="color_configuration">#666666</color>
     <color name="color_add_button">#33a470</color>
+    <color name="light_green">#8FBC8F</color>
+
     <color name="color_horizontal_view">#d0c5c5</color>
     <color name="color_verified">#33a470</color>
     <color name="add_product">#f1efef</color>

@@ -1,5 +1,7 @@
 package com.example.vaibhavchahal93788.myapplication.billdesk.payment.api;
 
+import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Constants;
+
 import java.security.cert.CertificateException;
 
 import javax.net.ssl.SSLContext;
@@ -14,7 +16,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
 
-    public static final String BASE_URL = "https://private-14bc25-hcinpospoc.apiary-mock.com/";   //private-83b6be-durgesh1.apiary-mock.com   //private-14bc25-hcinpospoc.apiary-mock.com
     private static Retrofit retrofit = null;
 
     public static Retrofit getClient() {
@@ -26,7 +27,7 @@ public class ApiClient {
 
         if (retrofit==null) {
             retrofit = new Retrofit.Builder()
-                    .baseUrl(BASE_URL)
+                    .baseUrl(Constants.SERVER_BASE_URL_)
                     .addConverterFactory(GsonConverterFactory.create())
                     .client(getUnsafeOkHttpClient())
                     .build();

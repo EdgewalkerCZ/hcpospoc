@@ -5,8 +5,10 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
 import android.os.Build;
 import android.provider.Settings;
 import android.support.annotation.ColorRes;
@@ -19,6 +21,8 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.vaibhavchahal93788.myapplication.R;
 
 
 public class Utility {
@@ -54,6 +58,10 @@ public class Utility {
         }
     }
 
+    public static boolean isNetworkAvailable(Context context) {
+        final ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
+        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
+    }
 
     public static void hideKeyboard(Activity activity) {
         InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
@@ -94,11 +102,13 @@ public class Utility {
 
 
     public static String getColorForIndex(int position) {
-        String[] arrColors = new String[] {"#FFE4C4",
-                "#0000FF",
+        String[] arrColors = new String[] {
+                "#65afcb",
+                "#33a470",
                 "#A52A2A",
                 "#FF7F50",
-                "#ddb24b"};
+                "#ddb24b"
+        };
         return arrColors[position%arrColors.length];
     }
 
@@ -118,5 +128,11 @@ public class Utility {
 
         item.setBackground(wrapDrawable);
 
+    }
+
+    public static void launchActivity(Context mContext , Class<?> cls)
+    {
+        Intent _intent = new Intent(mContext, cls);
+        mContext.startActivity(_intent);
     }
 }

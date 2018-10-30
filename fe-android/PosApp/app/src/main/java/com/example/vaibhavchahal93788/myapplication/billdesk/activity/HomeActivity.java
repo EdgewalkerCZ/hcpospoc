@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.vaibhavchahal93788.myapplication.R;
+import com.example.vaibhavchahal93788.myapplication.billdesk.crm.CRMActivity;
 import com.example.vaibhavchahal93788.myapplication.billdesk.payment.CustomerSearchActivity;
 
 
@@ -28,7 +29,6 @@ public class HomeActivity extends AppCompatActivity {
         getSupportActionBar().setLogo(R.drawable.hc_logo);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setIcon(R.drawable.rupee_icon);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -46,20 +46,19 @@ public class HomeActivity extends AppCompatActivity {
         findViewById(R.id.cardStock).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(HomeActivity.this, StockDetailActivity.class);
+                Intent intent = new Intent(HomeActivity.this, StockViewProductActivity.class);
                 startActivity(intent);
             }
         });
-
-        findViewById(R.id.cardHistory).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.cardcustomerrelation).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(HomeActivity.this, TransactionHistoryActivity.class);
+                Intent intent = new Intent(HomeActivity.this, CRMActivity.class);
                 startActivity(intent);
-
-
             }
         });
+
+
     }
 
 

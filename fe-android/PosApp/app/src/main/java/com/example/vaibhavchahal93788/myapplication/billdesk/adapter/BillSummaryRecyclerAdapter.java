@@ -3,6 +3,10 @@ package com.example.vaibhavchahal93788.myapplication.billdesk.adapter;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,18 +15,18 @@ import android.widget.TextView;
 import com.example.vaibhavchahal93788.myapplication.R;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.BillProduct;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.BillSummaryHeaderModel;
-import com.example.vaibhavchahal93788.myapplication.billdesk.model.HeadingBillSummary;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.DiscountModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.HeadingPaymentMode;
-import com.example.vaibhavchahal93788.myapplication.billdesk.model.PaymentMode;
-import com.example.vaibhavchahal93788.myapplication.billdesk.model.SelectedProduct;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.SponceredModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.TotalBillDetail;
+import com.example.vaibhavchahal93788.myapplication.billdesk.utility.KeyValue;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
+
 
 public class BillSummaryRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -35,9 +39,11 @@ public class BillSummaryRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
     private final List<Object> itemsList;
 
     private Context context;
+    String paymentMode="";
 
-    public BillSummaryRecyclerAdapter(List<Object> list) {
+    public BillSummaryRecyclerAdapter(List<Object> list, String mode) {
         itemsList = list;
+        paymentMode = mode;
     }
 
     @Override
@@ -53,10 +59,11 @@ public class BillSummaryRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
             View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_bill_summary_total_bill, parent, false);
             return new ViewHolderTotalBill(v);
         } else if (viewType == TYPE_ITEM_HEADING_PAYMENT_MODE) {
-            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.bill_item_heading, parent, false);
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.payment_mode_summery, parent, false);
             return new ViewHolderHeadingPaymentMode(v);
         } else if (viewType == TYPE_ITEM_HEADING_PAYMENT_MODE) {
-            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.bill_item_heading, parent, false);
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.payment_mode_summery, parent, false);
+            v.setVisibility(View.GONE);
             return new ViewHolderHeadingPaymentMode(v);
         } else if (viewType == TYPE_ITEM_HEADING_SPONCERED_BY) {
             View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.bill_summary_sponcered_heading, parent, false);
@@ -68,12 +75,20 @@ public class BillSummaryRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         switch (getItemViewType(position)) {
+
             case TYPE_ITEM_SHOP_DETAIL:
                 ViewHolderItem1 holderSeletedItem = (ViewHolderItem1) holder;
                 String uniqueID = UUID.randomUUID().toString();
                 holderSeletedItem.tvInVoiceNumber.setText("Invoice No - " + uniqueID.substring(0, 11));
                 String currentDate = new SimpleDateFormat("dd MMM, yyyy HH:mm", Locale.getDefault()).format(new Date());
                 holderSeletedItem.tvDate.setText("Date -" + currentDate);
+//                holderSeletedItem.tv_customer_name.setText(KeyValue.getString(context,KeyValue.NAME));
+                SpannableStringBuilder mobileStr = appendString("Mob:", KeyValue.getString(context, KeyValue.PHONE));
+                SpannableStringBuilder emailStr = appendString("Email:", KeyValue.getString(context, KeyValue.EMAIL));
+                SpannableStringBuilder nameStr = appendString("", KeyValue.getString(context, KeyValue.NAME));
+                holderSeletedItem.tv_customer_phone.setText(mobileStr, TextView.BufferType.SPANNABLE);
+                holderSeletedItem.tv_customer_email.setText(emailStr, TextView.BufferType.SPANNABLE);
+                holderSeletedItem.tv_customer_name.setText(nameStr, TextView.BufferType.SPANNABLE);
                 break;
             case TYPE_ITEM_BILL_PRODUCT:
                 ViewHolderBillProduct holderBillProduct = (ViewHolderBillProduct) holder;
@@ -82,11 +97,21 @@ public class BillSummaryRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
                 holderBillProduct.tvBasePrice.setText("" + billProduct.getPrice());
                 holderBillProduct.tvGst.setText(billProduct.getGstTax() + "%");
                 holderBillProduct.tvQty.setText("" + billProduct.getQuantity());
-                holderBillProduct.tvTotalPrice.setText("" + billProduct.getFinalPrice() * billProduct.getQuantity());
+                holderBillProduct.tvTotalPrice.setText("" + billProduct.getFinalPrice());
+
+                Log.i("CHK Name==>", billProduct.getName() + "");
+                Log.i("CHK Price==>", billProduct.getPrice() + "");
+                Log.i("CHK GST==>", billProduct.getGstTax() + "");
+                Log.i("CHK Quantity==>", billProduct.getQuantity() + "");
+                Log.i("CHK Final Price==>", billProduct.getFinalPrice() + "");
+                Log.i("CHK Total Price==>", billProduct.getFinalPrice() * billProduct.getQuantity() + "");
+
+
                 break;
             case TYPE_ITEM_TOTAL_DETAIL:
                 ViewHolderTotalBill holderTotalBill = (ViewHolderTotalBill) holder;
                 TotalBillDetail totalBillDetail = (TotalBillDetail) itemsList.get(position);
+                DiscountModel discountModelIs = DiscountModel.getInstance();
                 holderTotalBill.name.setText(totalBillDetail.getTitle());
                 if (totalBillDetail.getTitle().equalsIgnoreCase("Cash")) {
                     holderTotalBill.divider.setVisibility(View.GONE);
@@ -99,21 +124,37 @@ public class BillSummaryRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
                     holderTotalBill.price.setTypeface(null, Typeface.BOLD);
                     holderTotalBill.itemView.setPadding(30, 30, 30, 0);
                 }
-                holderTotalBill.price.setText(holderTotalBill.name.getContext().getString(R.string.rupee_symbol) + totalBillDetail.getTotalPrice());
+                holderTotalBill.price.setText(holderTotalBill.name.getContext().getString(R.string.rupee_symbol) + discountModelIs.getDiscountedPrice());
+                //Set Discount
+                // Log.e("DYY ==>",discountModelIs.getDiscountedPrice()+"");
+                holderTotalBill.discount.setText(holderTotalBill.name.getContext().getString(R.string.rupee_symbol) + discountModelIs.getDiscount());
+                holderTotalBill.paymentMode.setText(paymentMode);
                 break;
             case TYPE_ITEM_HEADING_PAYMENT_MODE:
+                //CHK
                 ViewHolderHeadingPaymentMode holderHeadingPaymentMode = (ViewHolderHeadingPaymentMode) holder;
                 holderHeadingPaymentMode.itemView.setPadding(30, 50, 30, 0);
                 holderHeadingPaymentMode.heading.setTextSize(16);
                 holderHeadingPaymentMode.heading.setTypeface(null, Typeface.BOLD);
                 holderHeadingPaymentMode.heading.setTextColor(holderHeadingPaymentMode.heading.getContext().getResources().getColor(R.color.black_color));
                 holderHeadingPaymentMode.heading.setText("Payment Summary");
+                holderHeadingPaymentMode.heading.setVisibility(View.GONE);
                 break;
             case TYPE_ITEM_HEADING_SPONCERED_BY:
                 break;
             default:
                 break;
         }
+    }
+
+    //
+    private SpannableStringBuilder appendString(String str, String value) {
+        SpannableStringBuilder builder = new SpannableStringBuilder();
+        SpannableString greySpannable = new SpannableString(str);
+        greySpannable.setSpan(new ForegroundColorSpan(context.getResources().getColor(R.color.color_configuration)), 0, str.length(), 0);
+        builder.append(greySpannable);
+        builder.append(value);
+        return builder;
     }
 
     @Override
@@ -142,11 +183,15 @@ public class BillSummaryRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
     public class ViewHolderItem1 extends RecyclerView.ViewHolder {
 
         public TextView tvDate, tvInVoiceNumber;
+        public TextView tv_customer_name, tv_customer_email, tv_customer_phone;
 
         public ViewHolderItem1(View itemView) {
             super(itemView);
             tvDate = (TextView) itemView.findViewById(R.id.tv_date);
             tvInVoiceNumber = (TextView) itemView.findViewById(R.id.tv_invoice_number);
+            tv_customer_name = itemView.findViewById(R.id.tv_customer_name);
+            tv_customer_phone = itemView.findViewById(R.id.tv_phone);
+            tv_customer_email = itemView.findViewById(R.id.tv_email);
         }
     }
 
@@ -196,7 +241,7 @@ public class BillSummaryRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
 
     public class ViewHolderTotalBill extends RecyclerView.ViewHolder {
 
-        public TextView name, price;
+        public TextView name, price, discount, paymentMode;
         public View divider;
 
         public ViewHolderTotalBill(View itemView) {
@@ -204,6 +249,8 @@ public class BillSummaryRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
             name = (TextView) itemView.findViewById(R.id.product_name);
             price = (TextView) itemView.findViewById(R.id.product_price);
             divider = (View) itemView.findViewById(R.id.upper_divider);
+            discount = (TextView) itemView.findViewById(R.id.discount_id);
+            paymentMode = (TextView) itemView.findViewById(R.id.tv_mode);
 
         }
     }

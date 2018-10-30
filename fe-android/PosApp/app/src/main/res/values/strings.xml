@@ -45,10 +45,12 @@
     <string name="text_total_value">Total Value</string>
     <string name="text_online">Online</string>
     <string name="text_connect_printer">Find/Connect Printer</string>
+    <string name="network_error">Please check your connection</string>
 
     <string-array name="payment_modes">
         <item>Cash</item>
-    </string-array>
+        <item>Card</item>
+        </string-array>
 
     <string-array name="product_categories">
         <item>Categories*</item>
@@ -100,7 +102,7 @@
 
     <string-array name="product_sub_categories">
         <item>Sub Categories*</item>
-       <!-- <item>Phone</item>
+        <!-- <item>Phone</item>
         <item>Tablet</item>
         <item>iPad</item>
         <item>iPhone</item>
@@ -109,14 +111,14 @@
 
     <string-array name="product_sub_categories_mobile">
         <item>Sub Categories*</item>
-        <item>Mobile</item>
-      <!--  <item>Samsung</item>
-        <item>Iphone</item>
-        <item>Oppo</item>
-        <item>Xiaomi</item>
-        <item>Nokia</item>
-        <item>Huawei</item>
-        <item>Asus</item>-->
+        <item>Mobile Phones</item>
+        <!--  <item>Samsung</item>
+          <item>Iphone</item>
+          <item>Oppo</item>
+          <item>Xiaomi</item>
+          <item>Nokia</item>
+          <item>Huawei</item>
+          <item>Asus</item>-->
     </string-array>
 
     <string-array name="product_sub_categories_mobile_accessories">
@@ -135,7 +137,7 @@
 
     <string-array name="product_sub_categories_home_appliances">
         <item>Sub Categories*</item>
-       <!-- <item>Washing Machine</item>-->
+        <!-- <item>Washing Machine</item>-->
         <!--<item>Micro Wave</item>
         <item>Air Conditioner</item>-->
         <item>Televisions</item>
@@ -199,6 +201,15 @@
         <item>Blue</item>
     </string-array>
 
+    <string-array name="star_rate">
+        <item>Start Rating *</item>
+        <item>1 Star</item>
+        <item>2 Star</item>
+        <item>3 Star</item>
+        <item>4 Star</item>
+        <item>5 Star</item>
+    </string-array>
+
     <string-array name="product_type">
         <item>Product Type *</item>
         <item>Store</item>
@@ -212,6 +223,20 @@
         <item>Motorola</item>
         <item>Apple</item>
         <item>Sony</item>
+    </string-array>
+
+
+    <string-array name="tele_type">
+        <item>Type *</item>
+        <item>LED</item>
+        <item>PLASMA</item>
+        <item>LCD</item>
+    </string-array>
+
+    <string-array name="refre_type">
+        <item>Type *</item>
+        <item>Top freezer</item>
+        <item>Bottom freezer</item>
     </string-array>
 
 
@@ -301,15 +326,19 @@
     <string name="restock_return">Restock Return</string>
 
 
-
     <string name="minus">-</string>
+
+    <string name="zero">0</string>
 
     <string name="description_text">Oppo F9 has always put powerful technology
 in the hands of those who demand more</string>
     <string name="profile">Profile</string>
 
     <string name="search">Search</string>
+    <string name="delete_str">Delete</string>
+    <string name="edit_str">Edit</string>
     <string name="_contitue">Continue</string>
+    <string name="customer_relation">Customer Relation</string>
 
     <string name="inc_gst">Inc. GST</string>
 
@@ -318,17 +347,72 @@ in the hands of those who demand more</string>
     <string name="add_customer">ADD NEW CUSTOMER</string>
     <string name="add_customer_new">ADD CUSTOMER</string>
     <string name="countinue_str">COUNTINUE</string>
-    <string name="add_customer_name">Name*</string>
+    <string name="add_customer_first_name">First Name*</string>
+    <string name="add_customer_last_name">Last Name*</string>
     <string name="add_customer_email">Email*</string>
     <string name="add_customer_phone">Phone*</string>
     <string name="add_customer_address">Address</string>
     <string name="add_customer_dob">Date of Birth</string>
     <string name="add_customer_note">Note</string>
+    <string name="customer_delete_msg">Customer Delete</string>
+
+    <string name="successfully_message">Product deleted</string>
+    <string name="update_message">Product updated </string>
 
 
+    <string name="weight">Weight(in Grams)*</string>
+
+    <!--New Added String-->
+    <string name="payment_mode_heading">Payment Mode</string>
+    <string name="text_billing_estimated_price"><b>%1$d</b> items\n<b>\u20B9 %2$d</b>\nIncl of all Taxes</string>
+    <string name="text_email">Email</string>
+    <string name="model">Model *</string>
+    <string name="special_feature">Special Feature</string>
+    <string name="brand_name">Brand Name *</string>
+    <string name="product_dimensions">Product Dimensions</string>
+    <string name="final_price_for_customer">Final Price for customer</string>
+    <string name="symble">-</string>
+    <string name="included_component">Included Component</string>
+    <string name="error_product_type">Please Select Product Type</string>
+    <string name="error_categories">Please Select Categories</string>
+    <string name="error_sub_categories">Please Select Sub Categories</string>
+    <string name="error_model">Model should not blank</string>
+    <string name="error_brand_name">Brand name should not empty</string>
+    <string name="error_empty"> should not empty</string>
+    <string name="error_quantity">Quantity should not empty</string>
+    <string name="error_description">Description should not empty</string>
+    <string name="error_variant">Please select variant</string>
+    <string name="error_color">Please select color</string>
+    <string name="error_camera_pixel">Please select camera pixel</string>
+    <string name="error_weight">Weight should not empty</string>
+    <string name="error_battery_mah">Please select battery mAh</string>
+    <string name="error_compatible">Please select battery compatible</string>
+    <string name="error_star_rating">Please select star rating</string>
+    <string name="error_capacity">Please select capacity</string>
+    <string name="error_type">Please select type</string>
 
 
-
-    <string name="weight">Weight*</string>
-
+    <!--New Strings-->
+    <string name="selectDate">Select Date</string>
+    <string name="selectDateRange">Select Date Range</string>
+    <string name="paymentMode">Payment Mode</string>
+    <string name="today">Today</string>
+    <string name="todayDate">TODAY:</string>
+    <string name="sevenDays">7 DAYS</string>
+    <string name="thirtyDays">30 DAYS</string>
+    <string name="customDate">CUSTOM</string>
+    <string name="cash">Cash</string>
+    <string name="card">Card</string>
+    <string name="applyFilter">Apply</string>
+    <string name="downloadOption">Choose Your Download Option</string>
+    <string name="downloadMessage">Only displayed result will be downloaded or sent</string>
+    <string name="downloadPDF">Download As PDF</string>
+    <string name="sendMail">Send Mail</string>
+    <string name="downloadOrMail">Download OR EMail</string>
+    <string name="success">Success</string>
+    <string name="error">Oops !</string>
+    <string name="success_add_product">Product added successfully</string>
+    <string name="no_data">No Data Found</string>
+    <string name="user_name">User Name</string>
+    <string name="password">Password</string>
 </resources>

@@ -21,12 +21,21 @@ import com.example.vaibhavchahal93788.myapplication.billdesk.api.ProductApiHelpe
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.LoginBodyModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.LoginModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductListModel;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.userlogin.LoginSuccessResponse;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.userlogin.UserLoginModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.network.IApiRequestComplete;
+import com.example.vaibhavchahal93788.myapplication.billdesk.preferences.AppPreferences;
+import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Utility;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
 import java.util.List;
 
-public class LoginActivity extends AppCompatActivity
-{
+public class LoginActivity extends AppCompatActivity {
 
     private TextView txtLogin;
     private EditText edtUsername;
@@ -34,25 +43,23 @@ public class LoginActivity extends AppCompatActivity
     private ProgressBar progress_bar;
     private boolean isUsernameFilled = false;
     private boolean isPasswordFilled = false;
-
+    private AppPreferences mAppPreferences;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        mAppPreferences = AppPreferences.getInstance(this);
         txtLogin = (TextView) findViewById(R.id.txtLogin);
         edtUsername = (EditText) findViewById(R.id.edtUsername);
         edtPassword = (EditText) findViewById(R.id.edtPassword);
         progress_bar = (ProgressBar) findViewById(R.id.progress_bar);
 
 
-
-
         txtLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isUsernameFilled && isPasswordFilled)
+                if (isUsernameFilled && isPasswordFilled)
                     validateLogin();
             }
         });
@@ -97,8 +104,35 @@ public class LoginActivity extends AppCompatActivity
 
     }
 
-    private void validateLogin()
-    {
+    private void validateLogin() {
+
+        progress_bar.setVisibility(View.VISIBLE);
+
+        LoginBodyModel loginBodyModel = new LoginBodyModel();
+        loginBodyModel.setUsername(edtUsername.getText().toString());
+        loginBodyModel.setPassword(edtPassword.getText().toString());
+        new ProductApiHelper().userLogin(loginBodyModel, new IApiRequestComplete<LoginSuccessResponse>() {
+            @Override
+            public void onSuccess(LoginSuccessResponse response) {
+                if (response != null) {
+                    progress_bar.setVisibility(View.GONE);
+                    mAppPreferences.setJsesssionId(response.getJSESSIONID());
+                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                    LoginActivity.this.startActivity(intent);
+                    overridePendingTransition(R.anim.animation_enter, R.anim.animation_leave);
+                    finish();
+                }
+            }
+
+            @Override
+            public void onFailure(String message) {
+                Utility.showToast(getApplicationContext(), message);
+                progress_bar.setVisibility(View.GONE);
+            }
+        });
+
+    }
+    /*{
         progress_bar.setVisibility(View.VISIBLE);
         LoginBodyModel loginBodyModel = new LoginBodyModel();
         loginBodyModel.setUsername(edtUsername.getText().toString());
@@ -131,5 +165,5 @@ public class LoginActivity extends AppCompatActivity
 
             }
         });
-    }
+    }*/
 }

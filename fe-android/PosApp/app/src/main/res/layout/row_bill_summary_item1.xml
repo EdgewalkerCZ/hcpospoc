@@ -14,15 +14,19 @@
             android:id="@+id/tv_invoice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:text="@string/text_invoice_3_inch"
             android:textSize="16dp" />
 
-        <TextView
+        <ImageView
             android:id="@+id/print_preview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_height="@dimen/dp80"
             android:layout_below="@+id/tv_invoice"
             android:text="@string/text_print_preview"
+            android:visibility="visible"
+            android:background="@drawable/alpha"
+            android:layout_centerHorizontal="true"
             android:textColor="@color/black_color"
             android:textSize="18dp" />
 
@@ -30,12 +34,12 @@
             android:id="@+id/tv_merchant_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/print_preview"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="25dp"
-            android:text="Home Credit Store"
+            android:layout_marginTop="10dp"
+            android:text="Alpha Store"
+            android:layout_below="@+id/print_preview"
             android:textColor="@color/black_color"
-            android:textSize="16dp"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
 
@@ -46,9 +50,9 @@
             android:layout_below="@+id/tv_merchant_name"
             android:layout_centerHorizontal="true"
             android:gravity="center_horizontal"
-            android:text="@string/text_address"
+            android:text="Dlf Phase 3, Gurgaon - 122002"
             android:textColor="@color/black_color"
-            android:textSize="16dp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/tv_supply_heading"
@@ -56,12 +60,23 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_merchant_details"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="15dp"
             android:text="Supply of Goods"
+            android:visibility="gone"
             android:textColor="@color/black_color"
             android:textSize="16dp"
             android:textStyle="bold" />
 
+        <TextView
+            android:id="@+id/tv_customer_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_supply_heading"
+            android:layout_marginTop="20dp"
+            android:text="Name :Ashish Singh"
+            android:layout_alignParentLeft="true"
+            android:textColor="@color/black_color"
+            android:textSize="16dp" />
         <TextView
             android:id="@+id/tv_invoice_number"
             android:layout_width="wrap_content"
@@ -69,6 +84,26 @@
             android:layout_below="@+id/tv_supply_heading"
             android:layout_marginTop="20dp"
             android:text="Invoice No - 01df0339f"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/black_color"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/tv_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/tv_invoice_number"
+            android:text="phone"
+            android:textColor="@color/black_color"
+            android:textSize="16dp" />
+        <TextView
+            android:id="@+id/tv_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/tv_phone"
+            android:text="email"
             android:textColor="@color/black_color"
             android:textSize="16dp" />
 
@@ -76,18 +111,30 @@
             android:id="@+id/tv_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
             android:layout_below="@+id/tv_invoice_number"
-            android:text="Date - 29 Aug, 2018 20:17"
+            android:text="29 Aug, 2018 20:17"
             android:textColor="@color/black_color"
             android:textSize="16dp" />
-
+        <TextView
+            android:id="@+id/tv_invoice1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/tv_date"
+            android:layout_marginTop="30dp"
+            android:text="Invoice"
+            android:textStyle="bold"
+            android:textColor="@color/black_color"
+            android:textSize="16sp" />
         <View
             android:id="@+id/upper_divider"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_below="@+id/tv_date"
+            android:layout_below="@+id/tv_invoice1"
+
             android:layout_marginBottom="5dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="30dp"
             android:background="@color/black_color" />
 
         <TextView

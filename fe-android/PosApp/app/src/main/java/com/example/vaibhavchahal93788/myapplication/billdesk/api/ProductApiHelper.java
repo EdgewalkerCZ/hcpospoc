@@ -2,14 +2,24 @@ package com.example.vaibhavchahal93788.myapplication.billdesk.api;
 
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.AddProductModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.CategoryModel;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.LoginBodyModel;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductCategoryModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductListModel;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.SaveHistorySuccessModel;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.SaveInvoiceModel;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.addproduct.PostAddProduct;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.allproduct.AllProductResponse;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.customer.JSONCustomerResponse;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.productsuccess.AddProductResponse;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.profile.ProfileResponse;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.userlogin.LoginSuccessResponse;
 import com.example.vaibhavchahal93788.myapplication.billdesk.network.IApiRequestComplete;
 import com.example.vaibhavchahal93788.myapplication.billdesk.network.ResponseHandler;
 import com.example.vaibhavchahal93788.myapplication.billdesk.network.RetrofitClient;
 import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Constants;
 import com.google.gson.JsonObject;
 
+import java.util.HashMap;
 import java.util.List;
 
 import okhttp3.ResponseBody;
@@ -45,6 +55,17 @@ public class ProductApiHelper {
     }
 
 
+    public void getCategoryList(String sortfield, String sortorder, long limit, String type, final IApiRequestComplete successInterface) {
+        Call<List<CategoryModel>> categoryApiResponseCall = productApi.getCategoryList(Constants.API_KEY, sortfield, sortorder, limit, type);
+        categoryApiResponseCall.enqueue(new ResponseHandler<List<CategoryModel>>(successInterface));
+    }
+
+    public void getCategoryList(final IApiRequestComplete successInterface) {
+        Call<ProductCategoryModel> categoryApiResponseCall = productApi.getCategoryList();
+        categoryApiResponseCall.enqueue(new ResponseHandler<ProductCategoryModel>(successInterface));
+    }
+
+
     public void getAllProductList(String category, String subCategory, final IApiRequestComplete successInterface) {
         Call<JsonObject> productsApiResponseCall = productApi.getAllProductList();
         productsApiResponseCall.enqueue(new ResponseHandler<JsonObject>(successInterface));
@@ -57,4 +78,56 @@ public class ProductApiHelper {
         profileResponseCall.enqueue(new ResponseHandler<ProfileResponse>(successInterface));
 
     }
+//    public void userLogin (String user_data ,IApiRequestComplete successInterface){
+//
+//        Call<UserLoginModel> userLoginModelCall = productApi.UserLogin(user_data);
+//        userLoginModelCall.enqueue(new ResponseHandler<UserLoginModel>(successInterface));
+//
+//    }
+public void userLogin (LoginBodyModel user_data , IApiRequestComplete successInterface){
+
+        Call<LoginSuccessResponse> userLoginModelCall = productApi.UserLogin(user_data);
+        userLoginModelCall.enqueue(new ResponseHandler<LoginSuccessResponse>(successInterface));
+
+    }
+
+    public void addProduct(HashMap<String, String> body,PostAddProduct postAddProduct, IApiRequestComplete successInterface){
+        Call<AddProductResponse> addProductResponseCall=productApi.postAddProduct(body,postAddProduct);
+        addProductResponseCall.enqueue(new ResponseHandler<AddProductResponse>(successInterface));
+
+    }
+
+    public void getProductList(HashMap<String, String> headerValues , final IApiRequestComplete successInterface){
+        Call<AllProductResponse> allProductResponseCall=productApi.getAllProduct(headerValues);
+        allProductResponseCall.enqueue(new ResponseHandler<AllProductResponse>(successInterface));
+
+    }
+
+    /* remove product */
+
+    public void removeProduct(long productId,String updatedstock ,final IApiRequestComplete successInterface) {
+        Call<ProductCategoryModel> categoryApiResponseCall = productApi.removeProduct(productId,updatedstock);
+        categoryApiResponseCall.enqueue(new ResponseHandler<ProductCategoryModel>(successInterface));
+    }
+
+    public void updateProduct(long productId,String product,final IApiRequestComplete successInterface) {
+        Call<ProductCategoryModel> categoryApiResponseCall = productApi.updateProduct(productId,product);
+        categoryApiResponseCall.enqueue(new ResponseHandler<ProductCategoryModel>(successInterface));
+    }
+
+    //get customers
+    public void getCustomers(String sessionid,final IApiRequestComplete requestComplete){
+        Call<JSONCustomerResponse> customerResponseCall=productApi.getcustomers(sessionid);
+        customerResponseCall.enqueue(new ResponseHandler<JSONCustomerResponse>(requestComplete));
+
+    }
+
+    //Save Invoice History
+    public void saveHistory (String mSessionId, SaveInvoiceModel saveInvoice , IApiRequestComplete successInterface){
+
+        Call<SaveHistorySuccessModel> saveHistoryModelCall = productApi.SaveInvoiceHistory(mSessionId,saveInvoice);
+        saveHistoryModelCall.enqueue(new ResponseHandler<SaveHistorySuccessModel>(successInterface));
+
+    }
+
 }

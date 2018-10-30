@@ -17,15 +17,33 @@
         android:gravity="center"
         android:focusableInTouchMode="true">
 
-        <EditText
+        <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="44dp"
             android:layout_weight="1"
-            android:drawableRight="@drawable/ic_icon_search"
-            android:drawablePadding="8dp"
-            android:background="@drawable/shape_rect_round_gray"
-            android:padding="8dp"
-            android:hint="@string/search"/>
+            android:background="@drawable/shape_rect_round_gray">
+
+            <EditText
+                android:id="@+id/etxt_search"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:background="#00000000"
+                android:textSize="15sp"
+                android:layout_alignParentLeft="true"
+                android:layout_toLeftOf="@+id/imv_search"
+                android:hint="@string/text_search_products"/>
+
+            <ImageView
+                android:id="@+id/imv_search"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ic_icon_search"/>
+        </RelativeLayout>
     </LinearLayout>
 
     <RelativeLayout

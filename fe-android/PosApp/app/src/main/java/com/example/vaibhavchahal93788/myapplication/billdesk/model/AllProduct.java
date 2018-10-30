@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 import java.util.Objects;
 
-public class AllProduct implements Parcelable {
+public class AllProduct {
 
     private long id;
     private String name;
@@ -18,8 +18,10 @@ public class AllProduct implements Parcelable {
     private String ram;
     private String rom;
     private int ramExpandable;
+    private String categoryId;
     private String category;
     private String currency;
+    private String gstPercent;
 
     private boolean selected;
 
@@ -135,6 +137,22 @@ public class AllProduct implements Parcelable {
         this.selected = selected;
     }
 
+    public String getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public String getGstPercent() {
+        return gstPercent;
+    }
+
+    public void setGstPercent(String gstPercent) {
+        this.gstPercent = gstPercent;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -152,59 +170,4 @@ public class AllProduct implements Parcelable {
         result = 31 * result + (getName() != null ? getName().hashCode() : 0);
         return result;
     }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeLong(this.id);
-        dest.writeString(this.name);
-        dest.writeString(this.desc);
-        dest.writeFloat(this.price);
-        dest.writeInt(this.quantity);
-        dest.writeString(this.img);
-        dest.writeInt(this.gst);
-        dest.writeString(this.color);
-        dest.writeString(this.ram);
-        dest.writeString(this.rom);
-        dest.writeInt(this.ramExpandable);
-        dest.writeString(this.category);
-        dest.writeString(this.currency);
-        dest.writeByte(this.selected ? (byte) 1 : (byte) 0);
-    }
-
-    public AllProduct() {
-    }
-
-    protected AllProduct(Parcel in) {
-        this.id = in.readLong();
-        this.name = in.readString();
-        this.desc = in.readString();
-        this.price = in.readFloat();
-        this.quantity = in.readInt();
-        this.img = in.readString();
-        this.gst = in.readInt();
-        this.color = in.readString();
-        this.ram = in.readString();
-        this.rom = in.readString();
-        this.ramExpandable = in.readInt();
-        this.category = in.readString();
-        this.currency = in.readString();
-        this.selected = in.readByte() != 0;
-    }
-
-    public static final Parcelable.Creator<AllProduct> CREATOR = new Parcelable.Creator<AllProduct>() {
-        @Override
-        public AllProduct createFromParcel(Parcel source) {
-            return new AllProduct(source);
-        }
-
-        @Override
-        public AllProduct[] newArray(int size) {
-            return new AllProduct[size];
-        }
-    };
 }

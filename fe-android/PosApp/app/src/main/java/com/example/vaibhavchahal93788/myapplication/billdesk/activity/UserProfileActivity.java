@@ -16,7 +16,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -26,6 +25,7 @@ import com.example.vaibhavchahal93788.myapplication.billdesk.model.profile.Profi
 import com.example.vaibhavchahal93788.myapplication.billdesk.network.IApiRequestComplete;
 import com.example.vaibhavchahal93788.myapplication.billdesk.preferences.AppPreferences;
 import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Constants;
+import com.example.vaibhavchahal93788.myapplication.billdesk.utility.KeyValue;
 import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Utility;
 
 import java.util.Locale;
@@ -74,6 +74,7 @@ public class UserProfileActivity extends AppCompatActivity implements AdapterVie
                     tv_store_name.setText(response.getStoreName());
                     tv_mobile.setText(response.getMobileNumber());
                     tv_email_id.setText(response.getEmail());
+                    KeyValue.setString(UserProfileActivity.this,KeyValue.USER_EMAIL,response.getEmail());
                     tv_address.setText(response.getAddress());
                     tv_merchant_name.setText(response.getMerchant());
                     pb_dialogue.setVisibility(View.GONE);

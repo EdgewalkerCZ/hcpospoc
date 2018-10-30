@@ -2,23 +2,114 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white_color"
-    android:paddingBottom="10dp"
-    android:paddingLeft="12dp"
-    android:paddingRight="14dp"
-    android:paddingTop="10dp">
 
-    <Spinner
-        android:id="@+id/payment_mode"
-        android:layout_width="match_parent"
+    android:paddingLeft="12dp"
+    android:paddingTop="10dp"
+    android:paddingRight="14dp"
+    android:paddingBottom="10dp">
+
+    <LinearLayout
+        android:id="@+id/discountid"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:entries="@array/payment_modes" />
+
+
+        android:paddingLeft="12dp"
+        android:paddingTop="12dp"
+        android:paddingRight="12dp">
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight=".5"
+            android:text="Discount"
+            android:textColor="@color/black_color"
+            android:textSize="@dimen/textsize_normal" />
+
+        <EditText
+            android:id="@+id/product_discount"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_below="@id/imgIs"
+
+            android:layout_weight="1"
+            android:background="@drawable/rectangle"
+            android:drawableLeft="@drawable/rupee_icon"
+            android:drawablePadding="-5dp"
+            android:gravity="center"
+            android:inputType="number"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+
+
+            android:textColor="#000000" />
+
+
+        <!--<RelativeLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_below="@id/imgIs"-->
+        <!--android:layout_weight="1"-->
+        <!--android:layout_height="40dp"-->
+        <!--android:gravity="center"-->
+        <!--android:layout_marginLeft="15dp"-->
+        <!--android:layout_marginRight="15dp"-->
+
+        <!--android:background="@drawable/rectangle"-->
+        <!--&gt;-->
+
+        <!--<EditText-->
+        <!--android:id="@+id/product_discount"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+
+        <!--android:background="@null"-->
+        <!--android:inputType="number"-->
+        <!--android:gravity="center"-->
+        <!--android:drawableLeft="@drawable/rupee_icon"-->
+        <!--/>-->
+        <!--</RelativeLayout>-->
+
+    </LinearLayout>
 
     <View
-        android:layout_width="match_parent"
+        android:id="@+id/view_id"
+        android:layout_width="fill_parent"
         android:layout_height="1dp"
-        android:layout_below="@+id/payment_mode"
+        android:layout_below="@+id/discountid"
         android:layout_marginTop="5dp"
         android:background="@color/color_D0D0D0" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/view_id"
+
+        android:paddingLeft="12dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="8dp">
+
+        <TextView
+            android:id="@+id/tv_heading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:text="@string/payment_mode_heading"
+            android:textSize="19dp" />
+
+        <Spinner
+            android:id="@+id/payment_mode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.AppCompat.Spinner.Underlined"
+            android:layout_gravity="center"
+            android:layout_marginTop="12px"
+            android:layout_weight="1"
+            android:dropDownVerticalOffset="50dp"
+            android:entries="@array/payment_modes" />
+
+
+    </LinearLayout>
+
 
 </RelativeLayout>

@@ -13,6 +13,7 @@ public class AppPreferences {
         userID,
         password,
         userName,
+        jsessionid,
         langOpt
 
     }
@@ -43,5 +44,14 @@ public class AppPreferences {
 
     public String getLangOpt(){
         return mSharedPreferences.getString(SharePreferencesKey.langOpt.toString(),"en_US");
+    }
+
+    public void setJsesssionId(String jsesssionId){
+        mEditor.putString(SharePreferencesKey.jsessionid.toString(),jsesssionId);
+        mEditor.commit();
+    }
+
+    public String getJsessionId(){
+        return mSharedPreferences.getString(SharePreferencesKey.jsessionid.toString(),"");
     }
 }

@@ -1,6 +1,7 @@
 package com.example.vaibhavchahal93788.myapplication.billdesk.payment;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
@@ -12,15 +13,23 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.vaibhavchahal93788.myapplication.R;
+import com.example.vaibhavchahal93788.myapplication.billdesk.crm.CRMAddCustomerActivity;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.JSONAddCustomer;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.JsonCustomerSet;
 import com.example.vaibhavchahal93788.myapplication.billdesk.payment.api.ApiClient;
 import com.example.vaibhavchahal93788.myapplication.billdesk.payment.api.ApiInterface;
+import com.example.vaibhavchahal93788.myapplication.billdesk.preferences.AppPreferences;
+import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Constants;
+import com.example.vaibhavchahal93788.myapplication.billdesk.utility.KeyValue;
 import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Validation;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.util.HashMap;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -28,9 +37,11 @@ import retrofit2.Response;
 
 public class AddNewCustomerActivity extends AppCompatActivity {
     private TextInputLayout mInputCustomerName,mInputCustomerphone,mInputCustomeremail,mInputCustomeraddress,mInputCustomerdob,mInputCustomerNote;
-    private String mCustomerName,mCustomerphone,mCustomeremail,mCustomeraddress,mCustomerdob,mCustomerNote;
-    private EditText mCustomerNameEDT,mCustomerphoneEDT,mCustomeremailEDT,mCustomeraddressEDT,mCustomerdobEDT,mCustomerNoteEDT;
+    private String mCustomerfirstName,mCustomerlastName,mCustomerphone,mCustomeremail,mCustomeraddress,mCustomerdob,mCustomerNote;
+    private EditText mCustomerfirstNameEDT,mCustomerlastNameEDT,mCustomerphoneEDT,mCustomeremailEDT,mCustomeraddressEDT,mCustomerNoteEDT;
     private Button mSaveBTN;
+    private AppPreferences mAppPreferences;
+    private String mSessionId;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,22 +52,27 @@ public class AddNewCustomerActivity extends AppCompatActivity {
     }
 
     private void bindView() {
-        mCustomerNameEDT=findViewById(R.id.add_customer_name);
+        mCustomerfirstNameEDT=findViewById(R.id.add_customer_firstname);
+        mCustomerlastNameEDT=findViewById(R.id.add_customer_lastname);
         mCustomerphoneEDT=findViewById(R.id.add_customer_phone);
         mCustomeremailEDT=findViewById(R.id.add_customer_email);
         mCustomeraddressEDT=findViewById(R.id.add_customer_address);
-        mCustomerdobEDT=findViewById(R.id.add_customer_dob);
+//        mCustomerdobEDT=findViewById(R.id.add_customer_dob);
         mCustomerNoteEDT=findViewById(R.id.add_customer_note);
 
-        mInputCustomerName=findViewById(R.id.input_layout_name);
+        mInputCustomerName=findViewById(R.id.input_layout_firstname);
         mInputCustomeremail=findViewById(R.id.input_layout_email);
         mInputCustomerphone=findViewById(R.id.input_layout_phone);
         mInputCustomerdob=findViewById(R.id.input_layout_dob);
         mInputCustomeraddress=findViewById(R.id.input_layout_address);
         mInputCustomerNote=findViewById(R.id.input_layout_note);
         mSaveBTN=findViewById(R.id.add_customer_btn);
+        mAppPreferences = AppPreferences.getInstance(this);
 
-        mCustomerNameEDT.addTextChangedListener(new MyTextWatcher(mCustomerNameEDT));
+
+        mSessionId=mAppPreferences.getJsessionId();
+        mCustomerfirstNameEDT.addTextChangedListener(new MyTextWatcher(mCustomerfirstNameEDT));
+        mCustomerlastNameEDT.addTextChangedListener(new MyTextWatcher(mCustomerlastNameEDT));
         mCustomeremailEDT.addTextChangedListener(new MyTextWatcher(mCustomeremailEDT));
         mCustomerphoneEDT.addTextChangedListener(new MyTextWatcher(mCustomerphoneEDT));
 
@@ -94,14 +110,17 @@ public class AddNewCustomerActivity extends AppCompatActivity {
 
         public void afterTextChanged(Editable editable) {
             switch (view.getId()) {
-                case R.id.add_customer_name:
-                   Validation.isTextEmpty(mCustomerNameEDT.getText().toString());
+                case R.id.add_customer_firstname:
+                    Validation.isValidName(mCustomerfirstNameEDT.getText().toString());
+                    break;
+                case R.id.add_customer_lastname:
+                    Validation.isValidName(mCustomerlastNameEDT.getText().toString());
                     break;
                 case R.id.add_customer_email:
                     Validation.isValidEmail(mCustomeremailEDT.getText().toString());
                     break;
                 case R.id.add_customer_phone:
-                   Validation.isValidMobile(mCustomerphoneEDT.getText().toString()) ;
+                    Validation.isValidMobile(mCustomerphoneEDT.getText().toString()) ;
                     break;
             }
         }
@@ -122,31 +141,31 @@ public class AddNewCustomerActivity extends AppCompatActivity {
     }
 
     public void submitform(){
-        mCustomerName=mCustomerNameEDT.getText().toString();
+        mCustomerfirstName=mCustomerfirstNameEDT.getText().toString();
         mCustomerphone=mCustomerphoneEDT.getText().toString();
         mCustomeremail=mCustomeremailEDT.getText().toString();
         mCustomeraddress=mCustomeraddressEDT.getText().toString();
-        mCustomerdob=mCustomerdobEDT.getText().toString();
+//        mCustomerdob=mCustomerdobEDT.getText().toString();
         mCustomerNote=mCustomerNoteEDT.getText().toString();
 
-         if(!Validation.isValidPassword(mCustomerName)){
-             mCustomerNameEDT.setError("Please enter the customer name");
-         }
-         else if(!Validation.isValidEmail(mCustomeremail)){
-             mCustomeremailEDT.setError("Please enter the Valid Email");
+        if(!Validation.isValidName(mCustomerfirstName)){
+            mCustomerfirstNameEDT.setError("Please enter the customer name");
+        }
+        else if(!Validation.isValidEmail(mCustomeremail)){
+            mCustomeremailEDT.setError("Please enter the Valid Email");
         }
         else if(!Validation.isValidMobile(mCustomerphone)){
-             mCustomerphoneEDT.setError("Please enter the Valid Phone Number");
+            mCustomerphoneEDT.setError("Please enter the Valid Phone Number");
         }
         else{
-             try {
-                 submitcustomerserver();
-             }catch (Exception e){
-                 e.printStackTrace();
-             }
+            try {
+                submitcustomerserver();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
 
 
-         }
+        }
 
 
 
@@ -157,30 +176,76 @@ public class AddNewCustomerActivity extends AppCompatActivity {
 
     public void submitcustomerserver() throws Exception{
         JSONArray baseArray=new JSONArray();
-        JSONObject object=new JSONObject();
-        object.put("name",mCustomerName);
-        object.put("email",mCustomeremail);
-        object.put("phone",mCustomerphone);
-        object.put("address",mCustomeraddress);
-        object.put("dob",mCustomerdob);
-        object.put("note",mCustomerNote);
-        baseArray.put(object);
+//        JSONAddCustomer addCustomer=new JSONAddCustomer();
+//        addCustomer.setAddress(mCustomeraddress);
+//        addCustomer.setName();
+        JSONAddCustomer addCustomer=new JSONAddCustomer();
 
+        addCustomer.setName(mCustomerlastNameEDT.getText().toString());
+        addCustomer.setFirstName(mCustomerfirstName);
+        addCustomer.setAddress(mCustomeraddress);
+        addCustomer.setEmail(mCustomeremail);
+        addCustomer.setPhone(mCustomerphone);
+        addCustomer.setDescription(mCustomerNote);
+        addCustomer.setIsCustomer(true);
+        addCustomer.setPartnerCategoryId(1);
+        HashMap<String,String> headerkey=new HashMap<>();
+        headerkey.put("Content-Type","application/json");
+        headerkey.put("Accept","application/json");
+        headerkey.put(Constants.SESSION_ID,mSessionId);
         ApiInterface apiService =
                 ApiClient.getClient().create(ApiInterface.class);
-
-        Call<JSONObject> call = apiService.addnewcustomer(baseArray.toString());
-        call.enqueue(new Callback<JSONObject>() {
+        Call<JSONAddCustomer> call = apiService.addnewcustomer(headerkey,addCustomer);
+        call.enqueue(new Callback<JSONAddCustomer>() {
             @Override
-            public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {
-                Log.e("Response",response.toString());
-
+            public void onResponse(Call<JSONAddCustomer> call, Response<JSONAddCustomer> response) {
+                if(response!=null){
+                    Toast.makeText(AddNewCustomerActivity.this,"Added",Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
-            public void onFailure(Call<JSONObject> call, Throwable t) {
-
+            public void onFailure(Call<JSONAddCustomer> call, Throwable t) {
+                Toast.makeText(AddNewCustomerActivity.this,t.getMessage(),Toast.LENGTH_SHORT).show();
             }
         });
+//        Intent in=new Intent(AddNewCustomerActivity.this,ViewCustomerDetailActivity.class);
+//        in.putExtra(KeyValue.NAME,mCustomerfirstName);
+//        in.putExtra(KeyValue.EMAIL,mCustomeremail);
+//        in.putExtra(KeyValue.PHONE,mCustomerphone);
+//        in.putExtra(KeyValue.ADDRESS,mCustomeraddress);
+////        in.putExtra(KeyValue.DOB,mCustomerdob);
+//        in.putExtra(KeyValue.NOTE,mCustomerNote);
+//        startActivity(in);
+
+//        Call<JSONObject> call = apiService.addnewcustomer(baseArray.toString());
+//        call.enqueue(new Callback<JSONObject>() {
+//            @Override
+//            public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {
+//                Log.e("Response",response.toString());
+//
+//                Intent in=new Intent(AddNewCustomerActivity.this,ViewCustomerDetailActivity.class);
+//                in.putExtra(KeyValue.NAME,mCustomerName);
+//                in.putExtra(KeyValue.EMAIL,mCustomeremail);
+//                in.putExtra(KeyValue.PHONE,mCustomerphone);
+//                in.putExtra(KeyValue.ADDRESS,mCustomeraddress);
+//                in.putExtra(KeyValue.DOB,mCustomerdob);
+//                in.putExtra(KeyValue.NOTE,mCustomerNote);
+//                startActivity(in);
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<JSONObject> call, Throwable t) {
+//                Intent in=new Intent(AddNewCustomerActivity.this,ViewCustomerDetailActivity.class);
+//                in.putExtra(KeyValue.NAME,mCustomerName);
+//                in.putExtra(KeyValue.EMAIL,mCustomeremail);
+//                in.putExtra(KeyValue.PHONE,mCustomerphone);
+//                in.putExtra(KeyValue.ADDRESS,mCustomeraddress);
+//                in.putExtra(KeyValue.DOB,mCustomerdob);
+//                in.putExtra(KeyValue.NOTE,mCustomerNote);
+//                startActivity(in);
+//            }
+//        });
     }
 }
