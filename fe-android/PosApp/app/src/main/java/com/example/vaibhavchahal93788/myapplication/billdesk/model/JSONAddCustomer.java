@@ -21,6 +21,17 @@ public class JSONAddCustomer{
 	@SerializedName("name")
 	private String name;
 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	@SerializedName("id")
+	private int id;
+
 	@SerializedName("description")
 	private Object description;
 

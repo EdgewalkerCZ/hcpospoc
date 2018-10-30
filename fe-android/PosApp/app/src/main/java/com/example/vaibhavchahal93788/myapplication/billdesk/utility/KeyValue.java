@@ -24,6 +24,7 @@ public class KeyValue {
     public static final String DOB = "dob";
     public static final String NOTE = "note";
     public static final String CUSTOMER_ID = "id";
+    public static final String CUSTOMER_IDs = "ids";
     public static final String DESCRIPTION = "description";
     public static final String ISCUSTOMER = "isCustomer";
     public static final String PARTNERCATEGORYID = "partnerCategoryId";

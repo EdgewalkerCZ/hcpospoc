@@ -38,6 +38,7 @@
         android:layout_width="match_parent"
         android:layout_below="@+id/crm_seach_header_layout"
         android:padding="5dp"
+        android:layout_above="@+id/crm_add_new_customer_txt"
         android:id="@+id/customer_list_layout"
         android:layout_height="wrap_content">
 
