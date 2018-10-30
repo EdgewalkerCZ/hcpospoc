@@ -900,7 +900,7 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         List<Integer> invoideId = new ArrayList<Integer>();
         invoideId.add(1);
 
-        InvoiceIdModel invoiceIs = new InvoiceIdModel();
+        List<InvoiceIdModel> invoiceIs = new ArrayList<InvoiceIdModel>();
         //check
         ArrayList<BillProduct> billProducts = getBillProductsList();
         if(billProducts.size()>0)
@@ -910,8 +910,9 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
             //Set id
             for(int i=0;i<billProducts.size();i++)
             {
-                invoiceIs.setId(1);
-                invoiceIs.setQuantity(billProducts.get(i).getQuantity());
+                invoiceIs.get(i).setId(1);
+                invoiceIs.get(i).setQuantity(billProducts.get(i).getQuantity());
+
             }
 
         }
@@ -930,7 +931,7 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         invoiceMode.setCompanyId(1);
         invoiceMode.setCustomerId(30);
         invoiceMode.setPaymentModeId(15);
-        invoiceMode.setInvoiceLineIdList(invoideId);
+        invoiceMode.setInvoiceLineIdList(invoiceIs);
         invoiceMode.setCurrencyId(148);
         invoiceMode.setCompanyExTaxTotal(0);
         invoiceMode.setCompanyTaxTotal(0);
