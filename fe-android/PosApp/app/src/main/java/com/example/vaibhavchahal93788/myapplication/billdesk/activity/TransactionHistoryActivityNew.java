@@ -336,7 +336,7 @@ public class TransactionHistoryActivityNew extends BaseActivity {
                         int status = response.getStatus();
                         Log.v("Status", status+"");
                     }else {
-                        Utility.showToast(getApplicationContext(),getResources().getString(R.string.no_data));
+                        //Utility.showToast(getApplicationContext(),getResources().getString(R.string.no_data));
                     }
                 }
             }
@@ -366,7 +366,7 @@ public class TransactionHistoryActivityNew extends BaseActivity {
                         //InvoiceList iv = response.getData().get(1);
                         populateList(response);
                     }else {
-                        Utility.showToast(getApplicationContext(),getResources().getString(R.string.no_data));
+                        //Utility.showToast(getApplicationContext(),getResources().getString(R.string.no_data));
                     }
                 }
             }

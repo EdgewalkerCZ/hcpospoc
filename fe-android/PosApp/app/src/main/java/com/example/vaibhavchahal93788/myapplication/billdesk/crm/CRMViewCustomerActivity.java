@@ -32,7 +32,7 @@ import retrofit2.Response;
 
 public class CRMViewCustomerActivity extends AppCompatActivity implements View.OnClickListener{
     private TextView view_name_value,view_phone_value,view_email_value,view_address_value,view_dob_value,view_note_value;
-    private String view_fname_str,view_name_str,view_phone_str,view_email_str,view_address_str,view_customerid_str,view_note_str,view_id_str;
+    private String view_full_name_str,view_name_str,view_phone_str,view_email_str,view_address_str,view_first_name,view_note_str,view_id_str;
     private AppPreferences mAppPreferences;
     private String mSessionId;
     int view_customerid;
@@ -54,9 +54,7 @@ public class CRMViewCustomerActivity extends AppCompatActivity implements View.O
 
         switch (item.getItemId()){
             case android.R.id.home:
-
                 finish();
-
                 break;
             default:
                 return super.onOptionsItemSelected(item);
@@ -77,11 +75,13 @@ public class CRMViewCustomerActivity extends AppCompatActivity implements View.O
         Intent in=getIntent();
         Bundle bn=in.getExtras();
         view_name_str=in.getStringExtra(KeyValue.NAME);
+        view_first_name=in.getStringExtra(KeyValue.FIRST_NAME);
+        view_full_name_str=in.getStringExtra(KeyValue.FULL_NAME);
         view_phone_str=in.getStringExtra(KeyValue.PHONE);
         view_email_str=in.getStringExtra(KeyValue.EMAIL);
         view_address_str=in.getStringExtra(KeyValue.ADDRESS);
         view_note_str=in.getStringExtra(KeyValue.NOTE);
-        view_name_value.setText(view_name_str);
+        view_name_value.setText(view_full_name_str);
         view_customerid=bn.getInt(KeyValue.CUSTOMER_IDs);
         view_phone_value.setText(view_phone_str);
         view_email_value.setText(view_email_str);
@@ -197,6 +197,8 @@ public class CRMViewCustomerActivity extends AppCompatActivity implements View.O
 //                updatecustomer(true);
                 Intent in=new Intent(CRMViewCustomerActivity.this,CRMAddCustomerActivity.class);
                 in.putExtra(KeyValue.NAME,view_name_str);
+                in.putExtra(KeyValue.FIRST_NAME,view_first_name);
+                in.putExtra(KeyValue.FULL_NAME,view_full_name_str);
                 in.putExtra(KeyValue.PHONE,view_phone_str);
                 in.putExtra(KeyValue.EMAIL,view_email_str);
                 in.putExtra(KeyValue.ADDRESS,view_address_str);

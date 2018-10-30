@@ -57,6 +57,12 @@ public class TransactionHistoryAdapterNew extends RecyclerView.Adapter<Transacti
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.list_item_history, parent, false);
 
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ctx.startActivity(new Intent(ctx,BillDetailHistory.class));
+            }
+        });
         return new ViewHolder(v);
     }
 

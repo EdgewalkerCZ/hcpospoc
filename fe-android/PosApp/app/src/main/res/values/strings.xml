@@ -42,6 +42,7 @@
     <string name="text_invoice_3_inch">Invoice 3 Inch</string>
     <string name="text_qty">Qty</string>
     <string name="text_total">Total</string>
+    <string name="submit_str">Submit</string>
     <string name="text_total_value">Total Value</string>
     <string name="text_online">Online</string>
     <string name="text_connect_printer">Find/Connect Printer</string>
@@ -346,7 +347,7 @@ in the hands of those who demand more</string>
     <string name="search_customer_header">Search Custumer</string>
     <string name="add_customer">ADD NEW CUSTOMER</string>
     <string name="add_customer_new">ADD CUSTOMER</string>
-    <string name="countinue_str">COUNTINUE</string>
+    <string name="countinue_str">CONTINUE</string>
     <string name="add_customer_first_name">First Name*</string>
     <string name="add_customer_last_name">Last Name*</string>
     <string name="add_customer_email">Email*</string>

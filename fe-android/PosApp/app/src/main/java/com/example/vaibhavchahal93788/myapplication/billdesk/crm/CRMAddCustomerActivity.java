@@ -80,7 +80,8 @@ public class CRMAddCustomerActivity extends AppCompatActivity  {
         Intent in=getIntent();
         String name=in.getStringExtra(KeyValue.NAME);
         if(name!=null){
-            mCustomerfirstNameEDT.setText(name);
+            mCustomerfirstNameEDT.setText(in.getStringExtra(KeyValue.FIRST_NAME));
+            mCustomerlastNameEDT.setText(in.getStringExtra(KeyValue.NAME));
             mCustomerphoneEDT.setText(in.getStringExtra(KeyValue.PHONE));
             mCustomeremailEDT.setText(in.getStringExtra(KeyValue.EMAIL));
             mCustomeraddressEDT.setText(in.getStringExtra(KeyValue.ADDRESS));
@@ -170,6 +171,7 @@ public class CRMAddCustomerActivity extends AppCompatActivity  {
                        Intent in=new Intent(CRMAddCustomerActivity.this,CRMViewCustomerActivity.class);
                        in.putExtra(KeyValue.FIRST_NAME,getresponse.getData().get(0).getFirstName());
                        in.putExtra(KeyValue.NAME, getresponse.getData().get(0).getName());
+                       in.putExtra(KeyValue.FULL_NAME, getresponse.getData().get(0).getFullName());
                        in.putExtra(KeyValue.PHONE,getresponse.getData().get(0).getPhone());
                        in.putExtra(KeyValue.EMAIL,getresponse.getData().get(0).getEmail());
                        in.putExtra(KeyValue.ADDRESS,getresponse.getData().get(0).getAddress());
@@ -181,13 +183,6 @@ public class CRMAddCustomerActivity extends AppCompatActivity  {
                     else{
                        Toast.makeText(CRMAddCustomerActivity.this,getString(R.string.network_error),Toast.LENGTH_SHORT).show();
                    }
-// view_name_str=in.getStringExtra(KeyValue.NAME);
-//        view_phone_str=in.getStringExtra(KeyValue.PHONE);
-//        view_email_str=in.getStringExtra(KeyValue.EMAIL);
-//        view_address_str=in.getStringExtra(KeyValue.ADDRESS);
-//
-//        view_note_str=in.getStringExtra(KeyValue.NOTE);
-
                 }
             }
 
