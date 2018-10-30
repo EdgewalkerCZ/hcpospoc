@@ -57,8 +57,8 @@ public class CustomerResource extends BaseResourceWrite<Customer> {
     }
     
 	@Override
-	protected boolean filter(Customer entity) {
-		return entity.getIsCustomer();
+	protected boolean filter(Customer customer) {
+		return customer.getIsCustomer() && (customer.getPartnerCategoryId() == 1);
 	}
 
 	@Override
@@ -148,13 +148,13 @@ public class CustomerResource extends BaseResourceWrite<Customer> {
     	builder = super.buildAxelorJson(builder, token,  entity);
 
     	builder.add("isSupplier", false);
-    	builder.add("isCustomer", true);
     	
     	if(entity.getPhone() != null) builder.add("fixedPhone", entity.getPhone());
     	if(entity.getFirstName() != null) builder.add("firstName", entity.getFirstName());
     	if(entity.getName() != null) builder.add("name", entity.getName());
     	if(entity.getFullName() != null) builder.add("fullName", entity.getFullName());
     	if(entity.getDescription() != null) builder.add("description", entity.getDescription());
+    	if(entity.getIsCustomer() != null) builder.add("isCustomer", entity.getIsCustomer());
 
     	if (entity.getPartnerCategoryId() != null)
     		builder.add("partnerCategory", Json.createObjectBuilder().add("id", entity.getPartnerCategoryId()));
