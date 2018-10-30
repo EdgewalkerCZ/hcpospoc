@@ -5,11 +5,13 @@ import com.example.vaibhavchahal93788.myapplication.billdesk.model.CategoryModel
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.LoginBodyModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductCategoryModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductListModel;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.UpdateStatusResponse;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.addproduct.PostAddProduct;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.allproduct.AllProductResponse;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.customer.JSONCustomerResponse;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.productsuccess.AddProductResponse;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.profile.ProfileResponse;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.updateProduct.UpdateProductModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.userlogin.LoginSuccessResponse;
 import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Constants;
 import com.google.gson.JsonObject;
@@ -45,14 +47,11 @@ public interface productApi {
     Call<List<CategoryModel>> getCategoryList(@Header("DOLAPIKEY") String dolApiKey, @Query("sortfield") String sortfield, @Query("sortorder") String sortorder,
                                               @Query("limit") long limit, @Query("type") String type);
 
-    @PUT("products/{id}")
-    Call<ResponseBody> updateProduct(@Header("DOLAPIKEY") String dolApiKey, @Path("id") String id, @Body AddProductModel addProductModel);
-    @GET("allitems")
+     @GET("allitems")
     Call<JsonObject> getAllProductList();
 
 
-    @GET("profiles")
-    Call<ProfileResponse> getProfileDetails();
+
 
     @GET("category")
     Call<ProductCategoryModel> getCategoryList();
@@ -70,11 +69,13 @@ public interface productApi {
     Call<ProductCategoryModel> removeProduct(  @Query("id") long id, @Query("updateStock") String updatestock);
 
     @GET("updateProduct")
-    Call<ProductCategoryModel> updateProduct(@Query("id") long id,@Query("updateStock") String updatestock);
+    Call<ProductCategoryModel> updateProduct(@Query("id") long id, @Query("updateStock") String updatestock);
 
     @GET("product")
     Call<AllProductResponse> getAllProduct(@HeaderMap HashMap<String,String> headerValues);
 
+    @POST("product/{id}")
+    Call<UpdateStatusResponse> updateProduct(@HeaderMap HashMap<String,String> headerValues, @Path("id") int id, @Body UpdateProductModel addProductModel);
 
 
 

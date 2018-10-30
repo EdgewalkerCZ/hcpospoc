@@ -10,18 +10,25 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.vaibhavchahal93788.myapplication.R;
 import com.example.vaibhavchahal93788.myapplication.billdesk.api.ProductApiHelper;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductCategoryModel;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.UpdateStatusResponse;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.addproduct.PostAddProduct;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.allproduct.DataItem;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.updateProduct.UpdateProductModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.network.IApiRequestComplete;
 import com.example.vaibhavchahal93788.myapplication.billdesk.preferences.AppPreferences;
 import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Constants;
+import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Utility;
 
 import java.util.HashMap;
+
+import libs.mjn.prettydialog.PrettyDialog;
+import libs.mjn.prettydialog.PrettyDialogCallback;
 
 public class ViewProductActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -31,8 +38,9 @@ public class ViewProductActivity extends AppCompatActivity implements View.OnCli
     private EditText edtQuantity, edtPrice;
     private Button addUnitBtn, updateBtn;
     private int unitCounter = 1;
-    private PostAddProduct postAddProduct;
+    private UpdateProductModel updateProductModel;
     private AppPreferences mAppPreferences;
+    private ProgressBar pb_dialogue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +70,7 @@ public class ViewProductActivity extends AppCompatActivity implements View.OnCli
         tvTotalprice = findViewById(R.id.tv_final_price);
         tvDescription = findViewById(R.id.tv_description_text);
         addUnitBtn = findViewById(R.id.btn_add_unit);
+        pb_dialogue=findViewById(R.id.pb_dialogue);
         updateBtn = findViewById(R.id.btn_update);
         addUnitBtn.setOnClickListener(this);
         updateBtn.setOnClickListener(this);
@@ -131,9 +140,24 @@ public class ViewProductActivity extends AppCompatActivity implements View.OnCli
                 finish();
                 break;
             case R.id.btn_remove:
-                Intent intent = new Intent(ViewProductActivity.this, DeleteProductActivity.class);
-                intent.putExtra(Constants.STOCK_DATA, productListModel);
-                startActivity(intent);
+                if (productListModel.getQuantity()!=0){
+                    Intent intent = new Intent(ViewProductActivity.this, DeleteProductActivity.class);
+                    intent.putExtra(Constants.STOCK_DATA, productListModel);
+                    startActivity(intent);
+                }else {
+                    final PrettyDialog dialog = new PrettyDialog(ViewProductActivity.this);
+                    dialog.setIcon(R.drawable.pdlg_icon_info, R.color.pdlg_color_green, null)
+                            .setTitle(getResources().getString(R.string.error))
+                            .setMessage(getResources().getString(R.string.error_product_qauntity))
+                            .addButton(getResources().getString(R.string.ok), R.color.pdlg_color_white, R.color.pdlg_color_green, new PrettyDialogCallback() {
+                                @Override
+                                public void onClick() {
+                                    dialog.dismiss();
+                                }
+                            });
+                    dialog.show();
+                }
+
                 return true;
         }
 
@@ -156,23 +180,75 @@ public class ViewProductActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void updateProduct() {
+        pb_dialogue.setVisibility(View.VISIBLE);
         HashMap<String,String> headerValues= new HashMap<>();
         headerValues.put("Content-Type", "application/json");
         headerValues.put("Accept", "application/json");
         headerValues.put(Constants.SESSION_ID,mAppPreferences.getJsessionId());
-        postAddProduct= new PostAddProduct();
-        postAddProduct.setId(productListModel.getId());
+        updateProductModel= new UpdateProductModel();
+        updateProductModel.setId(productListModel.getId());
+        updateProductModel.setCode(productListModel.getCode());
+        updateProductModel.setProductCategoryId(productListModel.getProductCategoryId());
+        updateProductModel.setProductFamilyId(productListModel.getProductFamilyId());
+        updateProductModel.setQuantity(Integer.valueOf(edtQuantity.getText().toString()));
+        updateProductModel.setDescription(productListModel.getDescription());
+        updateProductModel.setSalePrice( productListModel.getSalePrice());
+        updateProductModel.setIsGst(true);
+        updateProductModel.setIsSellable(true);
+        updateProductModel.setName(productListModel.getName());
+       /* "code": "DELL",
+                "productCategoryId": 22,
+                "productFamilyId": 9,
+                "quantity": 60,
+                "description": "\"\\\"Internal HDD 3,5'' - Capacity : 5\"",
+                "salePrice": "60.0000000000",
+                "isGst": false,
+                "isSellable": true,
+                "name": "HP headphones",
+                "warrantyNbrOfMonths": 12*/
 
-        new ProductApiHelper().updateProduct(productListModel.getId(), edtQuantity.getText().toString(), new IApiRequestComplete<ProductCategoryModel>() {
+        new ProductApiHelper().productUpdateList(headerValues,updateProductModel,productListModel.getId(), new IApiRequestComplete<UpdateStatusResponse>() {
 
             @Override
-            public void onSuccess(ProductCategoryModel categoryList) {
+            public void onSuccess(UpdateStatusResponse updateStatusResponse) {
+                pb_dialogue.setVisibility(View.GONE);
+                if (updateStatusResponse!=null){
+                    if (updateStatusResponse.getStatus()==0){
+                        final PrettyDialog dialog = new PrettyDialog(ViewProductActivity.this);
+                        dialog.setIcon(R.drawable.pdlg_icon_success, R.color.pdlg_color_green, null)   // Icon resource
+                                .setTitle(getResources().getString(R.string.success))
+                                .setMessage(getResources().getString(R.string.success_updated_product))
+                                .addButton(getResources().getString(R.string.ok), R.color.pdlg_color_white, R.color.pdlg_color_green, new PrettyDialogCallback() {
+                                    @Override
+                                    public void onClick() {
+                                        dialog.dismiss();
+                                        Intent intent= new Intent(ViewProductActivity.this,StockViewProductActivity.class);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        startActivity(intent);
+                                    }
+                                });
+                        dialog.show();
+
+                    }
+                }
 
             }
 
             @Override
             public void onFailure(String message) {
+                pb_dialogue.setVisibility(View.GONE);
+                final PrettyDialog dialog = new PrettyDialog(ViewProductActivity.this);
+                dialog.setIcon(R.drawable.pdlg_icon_success, R.color.pdlg_color_green, null)   // Icon resource
+                        .setTitle(getResources().getString(R.string.success))
+                        .setMessage(message)
+                        .addButton(getResources().getString(R.string.ok), R.color.pdlg_color_white, R.color.pdlg_color_green, new PrettyDialogCallback() {
+                            @Override
+                            public void onClick() {
+                                dialog.dismiss();
 
+                            }
+                        });
+                dialog.show();
             }
         });
     }
