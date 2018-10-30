@@ -23,6 +23,7 @@ import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductListMo
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.allproduct.DataItem;
 import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Utility;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -75,9 +76,11 @@ public class SelectProductAdapter extends RecyclerView.Adapter<SelectProductAdap
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         final DataItem product = productList.get(position);
         holder.txtProductName.setText(product.getName());
-        double price=Double.valueOf(product.getSalePrice());
-        double roundOff = Math.round(price*100)/100;
-        holder.txtPrice.setText("₹"+roundOff);
+
+        DecimalFormat dec = new DecimalFormat("#0.00");
+        String price = dec.format(convertDouble(product.getSalePrice()));
+
+        holder.txtPrice.setText("₹"+price);
         holder.txtDescription.setText(product.getDescription());
         holder.txtQuantity.setText("QTY: "+product.getQuantity());
 
@@ -149,5 +152,14 @@ public class SelectProductAdapter extends RecyclerView.Adapter<SelectProductAdap
 
     public interface OnItemClickListener {
         void onItemClick(int position);
+    }
+
+    private double convertDouble(String value) {
+        try {
+            return Double.parseDouble(value);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0.0;
     }
 }
