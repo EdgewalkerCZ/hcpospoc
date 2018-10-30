@@ -98,8 +98,6 @@ public interface productApi {
     Call<JSONCustomerResponse> getcustomers(@Header(Constants.SESSION_ID) String sid);
 
     //Save Invoice history
-    @Headers({"Content-Type: application/json",
-            "Accept: application/json"})
-    @POST("invoice")
-    Call<SaveHistorySuccessModel> SaveInvoiceHistory(@Query(Constants.SESSION_ID) String sid, @Body SaveInvoiceModel saveInvoice);
+    @PUT("invoice")
+    Call<SaveHistorySuccessModel> SaveInvoiceHistory(@HeaderMap HashMap<String, String> headerValues, @Body SaveInvoiceModel saveInvoice);
 }

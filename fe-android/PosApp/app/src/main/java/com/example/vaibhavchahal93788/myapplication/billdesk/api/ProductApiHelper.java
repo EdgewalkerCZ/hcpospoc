@@ -143,11 +143,9 @@ public void userLogin (LoginBodyModel user_data , IApiRequestComplete successInt
     }
 
     //Save Invoice History
-    public void saveHistory (String mSessionId, SaveInvoiceModel saveInvoice , IApiRequestComplete successInterface){
-
+    public void saveHistory (HashMap<String, String> mSessionId, SaveInvoiceModel saveInvoice , IApiRequestComplete successInterface){
         Call<SaveHistorySuccessModel> saveHistoryModelCall = productApi.SaveInvoiceHistory(mSessionId,saveInvoice);
         saveHistoryModelCall.enqueue(new ResponseHandler<SaveHistorySuccessModel>(successInterface));
-
     }
 
 }
