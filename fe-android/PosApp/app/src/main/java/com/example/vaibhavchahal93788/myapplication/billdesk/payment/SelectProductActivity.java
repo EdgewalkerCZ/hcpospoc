@@ -226,6 +226,7 @@ public class SelectProductActivity extends AppCompatActivity
                 }
                 mDataSelected.clear();
                 txtActionBarRight.setText(mDataSelected.size() + (mDataSelected.size() > 1 ? " items" : " item"));
+                findViewById(R.id.ll_bottom_bar).setVisibility(View.GONE);
                 mAdapterSelectProduct.notifyDataSetChanged();
             }
         } else {
@@ -362,6 +363,7 @@ public class SelectProductActivity extends AppCompatActivity
     private Intent getBillDetailActivityIntent() {
         ArrayList<ProductListModel> list = new ArrayList<>();
         int totalQuantity = mDataSelected.size();
+        float totalPrice = 0f;
         for(DataItem item : mDataSelected) {
             ProductListModel product = new ProductListModel();
             product.setQuantity(1);
@@ -372,12 +374,18 @@ public class SelectProductActivity extends AppCompatActivity
             product.setLabel(item.getName());
             product.setTaxPercentage("18");
             list.add(product);
+
+            try {
+                totalPrice = totalPrice + Float.parseFloat(item.getSalePrice());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         Intent intent = new Intent(SelectProductActivity.this, BillDetailActivity.class);
         intent.putExtra("selectedItemList", list);
         intent.putExtra("totalItems", totalQuantity);
-        //intent.putExtra("totalPrice", totalPrice);
+        intent.putExtra("totalPrice", totalPrice);
 
         return intent;
     }
