@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.example.vaibhavchahal93788.myapplication.R;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.AllProduct;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductListModel;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.allproduct.DataItem;
 import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Utility;
 
 import java.util.ArrayList;
@@ -29,10 +30,10 @@ import java.util.concurrent.ThreadLocalRandom;
 public class SelectProductAdapter extends RecyclerView.Adapter<SelectProductAdapter.ViewHolder> {
 
     private Context context;
-    private List<AllProduct> productList;
+    private List<DataItem> productList;
     private OnItemClickListener onItemClickListener;
 
-    public SelectProductAdapter(Context context, List<AllProduct> products, OnItemClickListener onItemClickListener) {
+    public SelectProductAdapter(Context context, List<DataItem> products, OnItemClickListener onItemClickListener) {
         this.context = context;
         this.productList = products;
         this.onItemClickListener = onItemClickListener;
@@ -72,10 +73,12 @@ public class SelectProductAdapter extends RecyclerView.Adapter<SelectProductAdap
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        final AllProduct product = productList.get(position);
+        final DataItem product = productList.get(position);
         holder.txtProductName.setText(product.getName());
-        holder.txtPrice.setText("₹"+product.getPrice());
-        holder.txtDescription.setText(product.getDesc());
+        double price=Double.valueOf(product.getSalePrice());
+        double roundOff = Math.round(price*100)/100;
+        holder.txtPrice.setText("₹"+roundOff);
+        holder.txtDescription.setText(product.getDescription());
         holder.txtQuantity.setText("QTY: "+product.getQuantity());
 
         if(product.isSelected()) {
@@ -87,7 +90,7 @@ public class SelectProductAdapter extends RecyclerView.Adapter<SelectProductAdap
         } else {
             holder.llMain.setBackgroundColor(Color.parseColor("#ffffff"));
             holder.cardProductImg.setCardBackgroundColor(Color.parseColor(Utility.getColorForIndex(position)));
-            if(TextUtils.isEmpty(product.getImg())) {
+            if(TextUtils.isEmpty(/*product.getImg()*/"")) {
                 holder.imvProduct.setVisibility(View.GONE);
                 holder.txtProductSymbol.setVisibility(View.VISIBLE);
                 if(!TextUtils.isEmpty(product.getName())) {
@@ -102,7 +105,7 @@ public class SelectProductAdapter extends RecyclerView.Adapter<SelectProductAdap
             }
         }
 
-        if(product.getGst() == 1) {
+        if(product.isIsGst()) {
             holder.txtIncGST.setVisibility(View.VISIBLE);
         } else {
             holder.txtIncGST.setVisibility(View.GONE);
@@ -132,11 +135,11 @@ public class SelectProductAdapter extends RecyclerView.Adapter<SelectProductAdap
         return position;
     }
 
-    public List<AllProduct> getData() {
+    public List<DataItem> getData() {
         return productList;
     }
 
-    public void addData(List<AllProduct> list) {
+    public void addData(List<DataItem> list) {
         productList.clear();
         if(list != null) {
             productList.addAll(list);

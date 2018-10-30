@@ -41,6 +41,8 @@ public class DataItem implements Serializable {
 	@SerializedName("id")
 	private int id;
 
+	private boolean selected;
+
 	public void setProductFamilyId(int productFamilyId){
 		this.productFamilyId = productFamilyId;
 	}
@@ -127,5 +129,13 @@ public class DataItem implements Serializable {
 
 	public int getId(){
 		return id;
+	}
+
+	public boolean isSelected() {
+		return selected;
+	}
+
+	public void setSelected(boolean selected) {
+		this.selected = selected;
 	}
 }
