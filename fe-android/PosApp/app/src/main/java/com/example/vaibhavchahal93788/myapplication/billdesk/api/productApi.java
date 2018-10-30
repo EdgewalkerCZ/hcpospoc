@@ -2,6 +2,8 @@ package com.example.vaibhavchahal93788.myapplication.billdesk.api;
 
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.AddProductModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.CategoryModel;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.CustomerModel;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.InvoiceModelNew;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.LoginBodyModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductCategoryModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductListModel;
@@ -76,6 +78,15 @@ public interface productApi {
 
     @GET("product")
     Call<AllProductResponse> getAllProduct(@HeaderMap HashMap<String,String> headerValues);
+
+    /*Satish Code*/
+    @GET("invoice")
+    Call<InvoiceModelNew> getInvoiceList(@HeaderMap HashMap<String,String> headerValues);
+
+    @GET("customer/{customerId}")
+    Call<CustomerModel> getCustomerDetails(@HeaderMap HashMap<String,String> headerValues, @Path("customerId") String customerId);
+
+    /*End*/
 
 
 

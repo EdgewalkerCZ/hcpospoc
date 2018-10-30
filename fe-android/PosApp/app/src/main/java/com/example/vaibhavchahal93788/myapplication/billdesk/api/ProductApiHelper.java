@@ -2,6 +2,8 @@ package com.example.vaibhavchahal93788.myapplication.billdesk.api;
 
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.AddProductModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.CategoryModel;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.CustomerModel;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.InvoiceModelNew;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.LoginBodyModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductCategoryModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductListModel;
@@ -102,6 +104,19 @@ public void userLogin (LoginBodyModel user_data , IApiRequestComplete successInt
         allProductResponseCall.enqueue(new ResponseHandler<AllProductResponse>(successInterface));
 
     }
+
+    /*Satish Code*/
+    public void getInvoiceList(HashMap<String, String> headerValues , final IApiRequestComplete successInterface){
+        Call<InvoiceModelNew> allProductResponseCall=productApi.getInvoiceList(headerValues);
+        allProductResponseCall.enqueue(new ResponseHandler<InvoiceModelNew>(successInterface));
+
+    }
+    public void getCustomerDetails(HashMap<String, String> headerValues , String customerId, final IApiRequestComplete successInterface){
+        Call<CustomerModel> allProductResponseCall=productApi.getCustomerDetails(headerValues, customerId);
+        allProductResponseCall.enqueue(new ResponseHandler<CustomerModel>(successInterface));
+
+    }
+    /*End*/
 
     /* remove product */
 
