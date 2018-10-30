@@ -2,14 +2,15 @@ package com.example.vaibhavchahal93788.myapplication.billdesk.model;
 
 public class TranHistoryNew {
     private String pName, date;
-    private int price, availItem;
+    private int price;
 
-    public TranHistoryNew(String pName, String date, int availItem, int price){
+    public TranHistoryNew(String pName, String date, int price){
         this.pName = pName;
         this.date = date;
-        this.availItem = availItem;
         this.price = price;
     }
+
+    public TranHistoryNew(){}
 
     public String getpName() {
         return pName;
@@ -17,14 +18,6 @@ public class TranHistoryNew {
 
     public void setpName(String pName) {
         this.pName = pName;
-    }
-
-    public int getAvailItem() {
-        return availItem;
-    }
-
-    public void setAvailItem(int availItem) {
-        this.availItem = availItem;
     }
 
     public String getDate() {
