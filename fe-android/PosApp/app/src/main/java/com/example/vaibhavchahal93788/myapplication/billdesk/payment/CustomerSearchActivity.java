@@ -129,10 +129,8 @@ public class CustomerSearchActivity extends AppCompatActivity {
         mCustomerRecyclerList = findViewById(R.id.customer_recycler_list);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         mCustomerRecyclerList.setLayoutManager(mLayoutManager);
-
         mCustomerRecyclerList.setHasFixedSize(true);
         mCustomerRecyclerList.setItemAnimator(new DefaultItemAnimator());
-
         findViewById(R.id.add_new_customer_txt).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

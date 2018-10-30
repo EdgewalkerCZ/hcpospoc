@@ -8,16 +8,32 @@ import android.text.Html;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.vaibhavchahal93788.myapplication.R;
 import com.example.vaibhavchahal93788.myapplication.billdesk.activity.HomeActivity;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.JSONAddCustomer;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.userlogin.JSONAddCustomerResponse;
 import com.example.vaibhavchahal93788.myapplication.billdesk.payment.SelectProductActivity;
 import com.example.vaibhavchahal93788.myapplication.billdesk.payment.ViewCustomerDetailActivity;
+import com.example.vaibhavchahal93788.myapplication.billdesk.payment.api.ApiClient;
+import com.example.vaibhavchahal93788.myapplication.billdesk.payment.api.ApiInterface;
+import com.example.vaibhavchahal93788.myapplication.billdesk.preferences.AppPreferences;
+import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Constants;
 import com.example.vaibhavchahal93788.myapplication.billdesk.utility.KeyValue;
+
+import java.util.HashMap;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CRMViewCustomerActivity extends AppCompatActivity implements View.OnClickListener{
     private TextView view_name_value,view_phone_value,view_email_value,view_address_value,view_dob_value,view_note_value;
-    private String view_name_str,view_phone_str,view_email_str,view_address_str,view_dob_str,view_note_str;
+    private String view_fname_str,view_name_str,view_phone_str,view_email_str,view_address_str,view_customerid_str,view_note_str;
+    private AppPreferences mAppPreferences;
+    private String mSessionId;
+    public  static  String EDIT_CUSTOMER_URL="customer/";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,16 +68,21 @@ public class CRMViewCustomerActivity extends AppCompatActivity implements View.O
         view_address_value=findViewById(R.id.view_address_value);
         view_dob_value=findViewById(R.id.view_dob_value);
         view_note_value=findViewById(R.id.view_note_value);
+        mAppPreferences = AppPreferences.getInstance(this);
 
+
+        mSessionId=mAppPreferences.getJsessionId();
         Intent in=getIntent();
-        view_name_str=in.getStringExtra(KeyValue.NAME);
+        view_name_str=in.getStringExtra(KeyValue.FIRST_NAME);
+        view_customerid_str=in.getStringExtra(KeyValue.CUSTOMER_ID);
+        view_fname_str=in.getStringExtra(KeyValue.NAME);
         view_phone_str=in.getStringExtra(KeyValue.PHONE);
         view_email_str=in.getStringExtra(KeyValue.EMAIL);
         view_address_str=in.getStringExtra(KeyValue.ADDRESS);
 
         view_note_str=in.getStringExtra(KeyValue.NOTE);
 
-
+        EDIT_CUSTOMER_URL=in.getStringExtra(KeyValue.CUSTOMER_ID);
         view_name_value.setText(view_name_str);
         view_phone_value.setText(view_phone_str);
         view_email_value.setText(view_email_str);
@@ -107,20 +128,82 @@ public class CRMViewCustomerActivity extends AppCompatActivity implements View.O
     }
 
 
+    public void updatecustomer(final boolean customer_status){
+        JSONAddCustomer addCustomer=new JSONAddCustomer();
+
+        addCustomer.setName(view_name_str);
+        addCustomer.setFirstName(view_fname_str);
+        addCustomer.setAddress(view_address_str);
+        addCustomer.setEmail(view_email_str);
+        addCustomer.setPhone(view_phone_str);
+        addCustomer.setDescription(view_note_str);
+        addCustomer.setIsCustomer(customer_status);
+//        addCustomer.setId(Integer.valueOf(view_customerid_str));
+        addCustomer.setPartnerCategoryId(1);
+        ApiInterface apiService =
+                ApiClient.getClient().create(ApiInterface.class);
+        HashMap<String,String> headerkey=new HashMap<>();
+        headerkey.put("Content-Type","application/json");
+        headerkey.put("Accept","application/json");
+        headerkey.put(Constants.SESSION_ID,mSessionId);
+        Call<JSONAddCustomerResponse> call = apiService.updatecustomer(view_customerid_str,headerkey,addCustomer);
+        call.enqueue(new Callback<JSONAddCustomerResponse>() {
+            @Override
+            public void onResponse(Call<JSONAddCustomerResponse> call, Response<JSONAddCustomerResponse> response) {
+                if(response!=null){
+                    if( response.code()==200){
+                        JSONAddCustomerResponse getresponse=response.body();
+                        Intent in=new Intent(CRMViewCustomerActivity.this,CRMViewCustomerActivity.class);
+                        in.putExtra(KeyValue.NAME,getresponse.getData().get(0).getFirstName()+" " +getresponse.getData().get(0).getName());
+                        in.putExtra(KeyValue.PHONE,getresponse.getData().get(0).getPhone());
+                        in.putExtra(KeyValue.EMAIL,getresponse.getData().get(0).getEmail());
+                        in.putExtra(KeyValue.ADDRESS,getresponse.getData().get(0).getAddress());
+                        in.putExtra(KeyValue.NOTE,getresponse.getData().get(0).getDescription());
+                        in.putExtra(KeyValue.CUSTOMER_ID,getresponse.getData().get(0).getId());
+                        startActivity(in);
+                        if(!customer_status){
+                            Toast.makeText(CRMViewCustomerActivity.this,"Customer deleted successfully",Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+                            Toast.makeText(CRMViewCustomerActivity.this,"Customer add successfully",Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                    else{
+                        Toast.makeText(CRMViewCustomerActivity.this,getString(R.string.network_error),Toast.LENGTH_SHORT).show();
+                    }
+// view_name_str=in.getStringExtra(KeyValue.NAME);
+//        view_phone_str=in.getStringExtra(KeyValue.PHONE);
+//        view_email_str=in.getStringExtra(KeyValue.EMAIL);
+//        view_address_str=in.getStringExtra(KeyValue.ADDRESS);
+//
+//        view_note_str=in.getStringExtra(KeyValue.NOTE);
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JSONAddCustomerResponse> call, Throwable t) {
+                Toast.makeText(CRMViewCustomerActivity.this,t.getMessage(),Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.crm_edit_customer:
-                Intent in=new Intent(CRMViewCustomerActivity.this,CRMAddCustomerActivity.class);
-                in.putExtra(KeyValue.NAME,view_name_str);
-                in.putExtra(KeyValue.PHONE,view_phone_str);
-                in.putExtra(KeyValue.EMAIL,view_email_str);
-                in.putExtra(KeyValue.ADDRESS,view_address_str);
-                in.putExtra(KeyValue.NOTE,view_note_str);
-                startActivity(in);
+                updatecustomer(true);
+//                Intent in=new Intent(CRMViewCustomerActivity.this,CRMAddCustomerActivity.class);
+//                in.putExtra(KeyValue.NAME,view_name_str);
+//                in.putExtra(KeyValue.PHONE,view_phone_str);
+//                in.putExtra(KeyValue.EMAIL,view_email_str);
+//                in.putExtra(KeyValue.ADDRESS,view_address_str);
+//                in.putExtra(KeyValue.NOTE,view_note_str);
+//                in.putExtra(KeyValue.CUSTOMER_ID,view_note_str);
+//                startActivity(in);
                 break;
             case R.id.crm_delete_customer:
-
+                updatecustomer(false);
                 break;
         }
     }

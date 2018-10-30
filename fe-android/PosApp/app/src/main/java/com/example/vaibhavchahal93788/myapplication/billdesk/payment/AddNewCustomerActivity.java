@@ -19,6 +19,7 @@ import com.example.vaibhavchahal93788.myapplication.R;
 import com.example.vaibhavchahal93788.myapplication.billdesk.crm.CRMAddCustomerActivity;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.JSONAddCustomer;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.JsonCustomerSet;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.userlogin.JSONAddCustomerResponse;
 import com.example.vaibhavchahal93788.myapplication.billdesk.payment.api.ApiClient;
 import com.example.vaibhavchahal93788.myapplication.billdesk.payment.api.ApiInterface;
 import com.example.vaibhavchahal93788.myapplication.billdesk.preferences.AppPreferences;
@@ -127,12 +128,9 @@ public class AddNewCustomerActivity extends AppCompatActivity {
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         switch (item.getItemId()){
             case android.R.id.home:
-
                 finish();
-
                 break;
             default:
                 return super.onOptionsItemSelected(item);
@@ -195,17 +193,24 @@ public class AddNewCustomerActivity extends AppCompatActivity {
         headerkey.put(Constants.SESSION_ID,mSessionId);
         ApiInterface apiService =
                 ApiClient.getClient().create(ApiInterface.class);
-        Call<JSONAddCustomer> call = apiService.addnewcustomer(headerkey,addCustomer);
-        call.enqueue(new Callback<JSONAddCustomer>() {
+        Call<JSONAddCustomerResponse> call = apiService.addnewcustomer(headerkey,addCustomer);
+        call.enqueue(new Callback<JSONAddCustomerResponse>() {
             @Override
-            public void onResponse(Call<JSONAddCustomer> call, Response<JSONAddCustomer> response) {
+            public void onResponse(Call<JSONAddCustomerResponse> call, Response<JSONAddCustomerResponse> response) {
                 if(response!=null){
-                    Toast.makeText(AddNewCustomerActivity.this,"Added",Toast.LENGTH_SHORT).show();
+                    Intent in=new Intent(AddNewCustomerActivity.this,ViewCustomerDetailActivity.class);
+                    in.putExtra(KeyValue.NAME,mCustomerfirstName+" "+mCustomerlastNameEDT.getText().toString());
+                    in.putExtra(KeyValue.EMAIL,mCustomeremail);
+                    in.putExtra(KeyValue.PHONE,mCustomerphone);
+                    in.putExtra(KeyValue.ADDRESS,mCustomeraddress);
+//                in.putExtra(KeyValue.DOB,customerSets.getData().get(position).getDob());
+                    in.putExtra(KeyValue.NOTE,mCustomerNote);
+                    startActivity(in);
                 }
             }
 
             @Override
-            public void onFailure(Call<JSONAddCustomer> call, Throwable t) {
+            public void onFailure(Call<JSONAddCustomerResponse> call, Throwable t) {
                 Toast.makeText(AddNewCustomerActivity.this,t.getMessage(),Toast.LENGTH_SHORT).show();
             }
         });

@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.example.vaibhavchahal93788.myapplication.R;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.JSONAddCustomer;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.customer.JSONCustomerResponse;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.userlogin.JSONAddCustomerResponse;
 import com.example.vaibhavchahal93788.myapplication.billdesk.network.ResponseHandler;
 import com.example.vaibhavchahal93788.myapplication.billdesk.payment.ViewCustomerDetailActivity;
 import com.example.vaibhavchahal93788.myapplication.billdesk.payment.api.ApiClient;
@@ -153,39 +154,45 @@ public class CRMAddCustomerActivity extends AppCompatActivity  {
         addCustomer.setDescription(mCustomerNote);
         addCustomer.setIsCustomer(true);
         addCustomer.setPartnerCategoryId(1);
-//        JSONObject object=new JSONObject();
-////        object.put(KeyValue.FIRST_NAME,mCustomerfirstName);
-////        object.put(KeyValue.NAME,mCustomerfirstName +" "+ mCustomerlastNameEDT.getText().toString());
-//        object.put(KeyValue.EMAIL,mCustomeremail);
-//        object.put(KeyValue.PHONE,mCustomerphone);
-//        object.put(KeyValue.ADDRESS,mCustomeraddress);
-////        object.put("dob",mCustomerdob);
-//        object.put(KeyValue.DESCRIPTION,mCustomerNote);
-//        object.put(KeyValue.ISCUSTOMER,true);
-//        object.put(KeyValue.PARTNERCATEGORYID,1);
-//        baseArray.put(object);
-
         ApiInterface apiService =
                 ApiClient.getClient().create(ApiInterface.class);
-
-
-
         HashMap<String,String> headerkey=new HashMap<>();
         headerkey.put("Content-Type","application/json");
         headerkey.put("Accept","application/json");
         headerkey.put(Constants.SESSION_ID,mSessionId);
-        Call<JSONAddCustomer> call = apiService.addnewcustomer(headerkey,addCustomer);
-        call.enqueue(new Callback<JSONAddCustomer>() {
+        Call<JSONAddCustomerResponse> call = apiService.addnewcustomer(headerkey,addCustomer);
+        call.enqueue(new Callback<JSONAddCustomerResponse>() {
             @Override
-            public void onResponse(Call<JSONAddCustomer> call, Response<JSONAddCustomer> response) {
+            public void onResponse(Call<JSONAddCustomerResponse> call, Response<JSONAddCustomerResponse> response) {
                 if(response!=null){
-                    Toast.makeText(CRMAddCustomerActivity.this,"Customer add successfully",Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(CRMAddCustomerActivity.this,CRMActivity.class));
+                   if( response.code()==200){
+                       JSONAddCustomerResponse getresponse=response.body();
+                       Intent in=new Intent(CRMAddCustomerActivity.this,CRMViewCustomerActivity.class);
+                       in.putExtra(KeyValue.FIRST_NAME,getresponse.getData().get(0).getFirstName());
+                       in.putExtra(KeyValue.NAME, getresponse.getData().get(0).getName());
+                       in.putExtra(KeyValue.PHONE,getresponse.getData().get(0).getPhone());
+                       in.putExtra(KeyValue.EMAIL,getresponse.getData().get(0).getEmail());
+                       in.putExtra(KeyValue.ADDRESS,getresponse.getData().get(0).getAddress());
+                       in.putExtra(KeyValue.NOTE,getresponse.getData().get(0).getDescription());
+                       in.putExtra(KeyValue.CUSTOMER_ID,getresponse.getData().get(0).getId()+"");
+                       startActivity(in);
+                       Toast.makeText(CRMAddCustomerActivity.this,"Customer added successfully",Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                       Toast.makeText(CRMAddCustomerActivity.this,getString(R.string.network_error),Toast.LENGTH_SHORT).show();
+                   }
+// view_name_str=in.getStringExtra(KeyValue.NAME);
+//        view_phone_str=in.getStringExtra(KeyValue.PHONE);
+//        view_email_str=in.getStringExtra(KeyValue.EMAIL);
+//        view_address_str=in.getStringExtra(KeyValue.ADDRESS);
+//
+//        view_note_str=in.getStringExtra(KeyValue.NOTE);
+
                 }
             }
 
             @Override
-            public void onFailure(Call<JSONAddCustomer> call, Throwable t) {
+            public void onFailure(Call<JSONAddCustomerResponse> call, Throwable t) {
             Toast.makeText(CRMAddCustomerActivity.this,t.getMessage(),Toast.LENGTH_SHORT).show();
             }
         });

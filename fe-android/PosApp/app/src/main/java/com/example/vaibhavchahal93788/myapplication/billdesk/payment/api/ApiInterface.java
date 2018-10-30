@@ -7,6 +7,7 @@ import com.example.vaibhavchahal93788.myapplication.billdesk.model.SearchProduct
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.JsonCustomerSet;
 
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.customer.JSONCustomerResponse;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.userlogin.JSONAddCustomerResponse;
 import com.google.gson.JsonObject;
 
 import org.json.JSONObject;
@@ -19,6 +20,7 @@ import retrofit2.http.GET;
 import retrofit2.http.HeaderMap;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiInterface {
@@ -42,8 +44,10 @@ public interface ApiInterface {
     Call<JSONCustomerResponse> getallCustomers(@HeaderMap HashMap<String,String> header);
 
 
-
-
     @PUT("customer")
-    Call<JSONAddCustomer> addnewcustomer(@HeaderMap HashMap<String,String> header, @Body JSONAddCustomer jsonArray);
+    Call<JSONAddCustomerResponse> addnewcustomer(@HeaderMap HashMap<String,String> header, @Body JSONAddCustomer jsonArray);
+
+
+    @POST("customer/{Id}")
+    Call<JSONAddCustomerResponse> updatecustomer(@Path("Id") String customerId, @HeaderMap HashMap<String,String> header, @Body JSONAddCustomer jsonArray);
 }
