@@ -5,7 +5,7 @@ public class AllCategory {
     private long categoryId;
     private String category;
     private String[] subCategory;
-    private long subCategoryId;
+    private String[] subCategoryId;
     private String image;
 
     private boolean selected;
@@ -34,11 +34,11 @@ public class AllCategory {
         this.subCategory = subCategory;
     }
 
-    public long getSubCategoryId() {
+    public String[] getSubCategoryId() {
         return subCategoryId;
     }
 
-    public void setSubCategoryId(long subCategoryId) {
+    public void setSubCategoryId(String[] subCategoryId) {
         this.subCategoryId = subCategoryId;
     }
 

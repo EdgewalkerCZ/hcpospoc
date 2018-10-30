@@ -47,6 +47,7 @@ import com.example.vaibhavchahal93788.myapplication.billdesk.preferences.AppPref
 import com.example.vaibhavchahal93788.myapplication.billdesk.printing.DeviceListActivity;
 import com.example.vaibhavchahal93788.myapplication.billdesk.printing.PrinterCommands;
 import com.example.vaibhavchahal93788.myapplication.billdesk.printing.Utils;
+import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Constants;
 import com.example.vaibhavchahal93788.myapplication.billdesk.utility.KeyValue;
 import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Utility;
 
@@ -55,6 +56,7 @@ import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
@@ -92,6 +94,7 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
     private boolean isBluetoothConnected = false;
     private int totalItems;
     private int totalPrice;
+    private float totalPriceIs;
     private String seletedPaymentMode;
     private String userPhone,userName,userEmail;
     private AppPreferences mAppPreferences;
@@ -119,7 +122,9 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
     private void populateList() {
         selectedItemList = (ArrayList<ProductListModel>) getIntent().getSerializableExtra("selectedItemList");
         totalItems = getIntent().getIntExtra("totalItems", 1);
-        totalPrice = getIntent().getIntExtra("totalPrice", 0);
+        totalPriceIs= getIntent().getFloatExtra("totalPrice", 0);
+
+        totalPrice = (int)totalPriceIs;
 
         list = new ArrayList<>();
 
@@ -139,7 +144,7 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         list.add(totalBillDetail);
 
         //list.add(new HeadingPaymentMode("Payment Mode"));
-         uniqueID = UUID.randomUUID().toString();
+        uniqueID = UUID.randomUUID().toString();
 
     }
 
@@ -894,68 +899,78 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
 
 
 
-    private void saveBill()
-    {
-        String productName = "";
-        List<Integer> invoideId = new ArrayList<Integer>();
-        invoideId.add(1);
+    private void saveBill() {
+        AppPreferences mAppPreferences = AppPreferences.getInstance(this);
 
+        HashMap<String, String> headerValues = new HashMap<>();
+        headerValues.put("Content-Type", "application/json");
+        headerValues.put("Accept", "application/json");
+        headerValues.put(Constants.SESSION_ID, mAppPreferences.getJsessionId());
+
+        String productName = "";
+        String uniqueID = uniqueID = UUID.randomUUID().toString();
+
+        int customerId = 30;
+
+
+        Log.e("customerId====>", customerId + "");
         List<InvoiceIdModel> invoiceIs = new ArrayList<InvoiceIdModel>();
         //check
         ArrayList<BillProduct> billProducts = getBillProductsList();
-        if(billProducts.size()>0)
+
+
+        //foR Product Name
+        InvoiceIdModel mod = new InvoiceIdModel();
+        if (billProducts.size() > 0)
         {
             int len =billProducts.size()-1;
             productName = billProducts.get(0).getName()+" + "+ len+"items";
-            //Set id
-            for(int i=0;i<billProducts.size();i++)
-            {
-                invoiceIs.get(i).setId(1);
-                invoiceIs.get(i).setQuantity(billProducts.get(i).getQuantity());
-
+            for (int i = 0; i < billProducts.size(); i++) {
+                mod.setId(i);
+                mod.setQuantity(billProducts.get(i).getQuantity());
+                invoiceIs.add(mod);
             }
-
         }
-        Log.e("==productName===>",productName);
+        productName = "Samsung";
+        Log.e("==productName===>", productName);
 
 
-
-
-        String date_n = new SimpleDateFormat("dd MMM, yyyy HH:mm", Locale.getDefault()).format(new Date());
-
+        String currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+        String date_n=currentDate.toString();
+        Log.e("==date_n===>", date_n);
 
         SaveInvoiceModel invoiceMode = new SaveInvoiceModel();
         invoiceMode.setInvoiceId(uniqueID);
         invoiceMode.setInvoiceDate(date_n);
         invoiceMode.setDueDate(date_n);
         invoiceMode.setCompanyId(1);
-        invoiceMode.setCustomerId(30);
+        invoiceMode.setCustomerId(customerId);
         invoiceMode.setPaymentModeId(15);
         invoiceMode.setInvoiceLineIdList(invoiceIs);
         invoiceMode.setCurrencyId(148);
         invoiceMode.setCompanyExTaxTotal(0);
         invoiceMode.setCompanyTaxTotal(0);
         invoiceMode.setAmountRemaining(0);
-        invoiceMode.setAmountPaid(totalPrice);
+        invoiceMode.setAmountPaid(11111);
         invoiceMode.setCompanyInTaxTotalRemaining(0);
         invoiceMode.setAmountRejected(0);
         invoiceMode.setExTaxTotal(3782);
         invoiceMode.setDirectDebitAmount(0);
         invoiceMode.setNote(productName);
+        invoiceMode.setPaymentConditionId(5);
 
-
-        new ProductApiHelper().saveHistory(mSessionId,invoiceMode, new IApiRequestComplete<SaveHistorySuccessModel>() {
+        new ProductApiHelper().saveHistory(headerValues, invoiceMode, new IApiRequestComplete<SaveHistorySuccessModel>() {
             @Override
             public void onSuccess(SaveHistorySuccessModel response) {
                 if (response != null) {
-                    Log.e("Success","==="+response);
+                    Log.e("DY Success", "===" + response);
 
                 }
             }
 
             @Override
             public void onFailure(String message) {
-                Log.e("Failure","===");
+                Log.e("DY Failure", "===");
             }
         });
 

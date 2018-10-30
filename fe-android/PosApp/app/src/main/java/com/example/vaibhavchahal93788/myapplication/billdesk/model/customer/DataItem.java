@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
 public class DataItem{
 
 	@SerializedName("firstName")
-	private Object firstName;
+	private String firstName;
 
 	@SerializedName("address")
 	private String address;
@@ -39,7 +39,7 @@ public class DataItem{
 	@SerializedName("partnerCategoryId")
 	private int partnerCategoryId;
 
-	public void setFirstName(Object firstName){
+	public void setFirstName(String firstName){
 		this.firstName = firstName;
 	}
 

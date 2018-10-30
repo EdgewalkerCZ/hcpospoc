@@ -2,16 +2,20 @@ package com.example.vaibhavchahal93788.myapplication.billdesk.api;
 
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.AddProductModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.CategoryModel;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.CustomerModel;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.InvoiceModelNew;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.LoginBodyModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductCategoryModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductListModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.SaveHistorySuccessModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.SaveInvoiceModel;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.UpdateStatusResponse;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.addproduct.PostAddProduct;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.allproduct.AllProductResponse;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.customer.JSONCustomerResponse;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.productsuccess.AddProductResponse;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.profile.ProfileResponse;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.updateProduct.UpdateProductModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.userlogin.LoginSuccessResponse;
 import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Constants;
 import com.google.gson.JsonObject;
@@ -47,14 +51,11 @@ public interface productApi {
     Call<List<CategoryModel>> getCategoryList(@Header("DOLAPIKEY") String dolApiKey, @Query("sortfield") String sortfield, @Query("sortorder") String sortorder,
                                               @Query("limit") long limit, @Query("type") String type);
 
-    @PUT("products/{id}")
-    Call<ResponseBody> updateProduct(@Header("DOLAPIKEY") String dolApiKey, @Path("id") String id, @Body AddProductModel addProductModel);
-    @GET("allitems")
+     @GET("allitems")
     Call<JsonObject> getAllProductList();
 
 
-    @GET("profiles")
-    Call<ProfileResponse> getProfileDetails();
+
 
     @GET("category")
     Call<ProductCategoryModel> getCategoryList();
@@ -72,11 +73,22 @@ public interface productApi {
     Call<ProductCategoryModel> removeProduct(  @Query("id") long id, @Query("updateStock") String updatestock);
 
     @GET("updateProduct")
-    Call<ProductCategoryModel> updateProduct(@Query("id") long id,@Query("updateStock") String updatestock);
+    Call<ProductCategoryModel> updateProduct(@Query("id") long id, @Query("updateStock") String updatestock);
 
     @GET("product")
     Call<AllProductResponse> getAllProduct(@HeaderMap HashMap<String,String> headerValues);
 
+    /*Satish Code*/
+    @GET("invoice")
+    Call<InvoiceModelNew> getInvoiceList(@HeaderMap HashMap<String,String> headerValues);
+
+    @GET("customer/{customerId}")
+    Call<CustomerModel> getCustomerDetails(@HeaderMap HashMap<String,String> headerValues, @Path("customerId") String customerId);
+
+    /*End*/
+
+    @POST("product/{id}")
+    Call<UpdateStatusResponse> updateProduct(@HeaderMap HashMap<String,String> headerValues, @Path("id") int id, @Body UpdateProductModel addProductModel);
 
 
 
@@ -86,8 +98,6 @@ public interface productApi {
     Call<JSONCustomerResponse> getcustomers(@Header(Constants.SESSION_ID) String sid);
 
     //Save Invoice history
-    @Headers({"Content-Type: application/json",
-            "Accept: application/json"})
-    @POST("invoice")
-    Call<SaveHistorySuccessModel> SaveInvoiceHistory(@Query(Constants.SESSION_ID) String sid, @Body SaveInvoiceModel saveInvoice);
+    @PUT("invoice")
+    Call<SaveHistorySuccessModel> SaveInvoiceHistory(@HeaderMap HashMap<String, String> headerValues, @Body SaveInvoiceModel saveInvoice);
 }

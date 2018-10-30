@@ -21,9 +21,10 @@ import android.widget.Toast;
 import com.example.vaibhavchahal93788.myapplication.R;
 import com.example.vaibhavchahal93788.myapplication.billdesk.adapter.SelectCategoryAdapter;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.AllCategory;
-import com.example.vaibhavchahal93788.myapplication.billdesk.payment.api.ApiClient;
-import com.example.vaibhavchahal93788.myapplication.billdesk.payment.api.ApiInterface;
-import com.example.vaibhavchahal93788.myapplication.billdesk.payment.api.ApiUtils;
+
+import com.example.vaibhavchahal93788.myapplication.billdesk.payment.apiary.ApiClient;
+import com.example.vaibhavchahal93788.myapplication.billdesk.payment.apiary.ApiInterface;
+import com.example.vaibhavchahal93788.myapplication.billdesk.payment.apiary.ApiUtils;
 import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Utility;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
