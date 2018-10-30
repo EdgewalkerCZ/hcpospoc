@@ -24,7 +24,6 @@ public class SaveInvoiceModel {
     private Integer exTaxTotal;
     private Integer directDebitAmount;
     private String note;
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     public String getInvoiceId() {
         return invoiceId;
@@ -170,13 +169,7 @@ public class SaveInvoiceModel {
         this.note = note;
     }
 
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
 
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
-    }
 
 
 }

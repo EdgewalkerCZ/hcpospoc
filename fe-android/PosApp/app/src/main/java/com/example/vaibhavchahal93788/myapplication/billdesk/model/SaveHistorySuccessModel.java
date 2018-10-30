@@ -9,7 +9,7 @@ public class SaveHistorySuccessModel {
     private Integer status;
     private List<SaveHistoryDataModel> data = null;
     private Integer total;
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+
 
     public Integer getStatus() {
         return status;
@@ -35,13 +35,7 @@ public class SaveHistorySuccessModel {
         this.total = total;
     }
 
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
 
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
-    }
 
 
 
