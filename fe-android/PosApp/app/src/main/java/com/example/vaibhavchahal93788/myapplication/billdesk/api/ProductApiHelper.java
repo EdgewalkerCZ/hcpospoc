@@ -9,11 +9,13 @@ import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductCatego
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductListModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.SaveHistorySuccessModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.SaveInvoiceModel;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.UpdateStatusResponse;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.addproduct.PostAddProduct;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.allproduct.AllProductResponse;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.customer.JSONCustomerResponse;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.productsuccess.AddProductResponse;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.profile.ProfileResponse;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.updateProduct.UpdateProductModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.userlogin.LoginSuccessResponse;
 import com.example.vaibhavchahal93788.myapplication.billdesk.network.IApiRequestComplete;
 import com.example.vaibhavchahal93788.myapplication.billdesk.network.ResponseHandler;
@@ -51,10 +53,7 @@ public class ProductApiHelper {
         productsApiResponseCall.enqueue(new ResponseHandler<ResponseBody>(successInterface));
     }
 
-    public void updateProduct(String productId, AddProductModel addProductModel, final IApiRequestComplete successInterface) {
-        Call<ResponseBody> productsApiResponseCall = productApi.updateProduct(Constants.API_KEY, productId, addProductModel);
-        productsApiResponseCall.enqueue(new ResponseHandler<ResponseBody>(successInterface));
-    }
+
 
 
     public void getCategoryList(String sortfield, String sortorder, long limit, String type, final IApiRequestComplete successInterface) {
@@ -117,6 +116,12 @@ public void userLogin (LoginBodyModel user_data , IApiRequestComplete successInt
 
     }
     /*End*/
+
+    public void productUpdateList(HashMap<String, String> headerValues , UpdateProductModel updateProductModel,int id,final IApiRequestComplete successInterface){
+        Call<UpdateStatusResponse> allProductResponseCall=productApi.updateProduct(headerValues,id,updateProductModel);
+        allProductResponseCall.enqueue(new ResponseHandler<UpdateStatusResponse>(successInterface));
+
+    }
 
     /* remove product */
 

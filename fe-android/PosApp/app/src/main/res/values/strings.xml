@@ -415,4 +415,6 @@ in the hands of those who demand more</string>
     <string name="no_data">No Data Found</string>
     <string name="user_name">User Name</string>
     <string name="password">Password</string>
+    <string name="success_updated_product">Product Upded Successfully</string>
+    <string name="error_product_qauntity">Sorry ! Product quantity is OUT OF STOCK</string>
 </resources>

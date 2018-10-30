@@ -266,7 +266,7 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
 
     private void updateProduct(String productId, AddCategoryModel addCategoryModel) {
         AddProductModel addProductModel = new AddProductModel(etProductName.getText().toString(), etProductDescptn.getText().toString(), etBasePrice.getText().toString(), addCategoryModel);
-        new ProductApiHelper().updateProduct(productId, addProductModel, new IApiRequestComplete() {
+     /*   new ProductApiHelper().updateProduct(productId, addProductModel, new IApiRequestComplete() {
 
             @Override
             public void onSuccess(Object response) {
@@ -281,7 +281,7 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
                 progressBar.setVisibility(View.GONE);
                 Toast.makeText(AddProductActivity.this, message, Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
     }
 }
 
