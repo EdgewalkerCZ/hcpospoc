@@ -301,6 +301,9 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
 
                 saveBill();
 
+
+
+
                 break;
 
             case R.id.btn_print_bill:
@@ -954,19 +957,17 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
 
 
         //foR Product Name
-        InvoiceIdModel mod = new InvoiceIdModel();
+
         if (billProducts.size() > 0) {
             int len = billProducts.size() - 1;
             productName = billProducts.get(0).getName() + " + " + len + " items";
             for (int i = 0; i < billProducts.size(); i++) {
+                InvoiceIdModel mod = new InvoiceIdModel();
                 mod.setId(billProducts.get(i).getId());
                 mod.setQuantity(billProducts.get(i).getQuantity());
                 invoiceIs.add(mod);
             }
         }
-
-        Log.e("==productName===>", productName);
-
 
         String currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
         String date_n = currentDate.toString();
