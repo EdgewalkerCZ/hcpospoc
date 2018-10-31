@@ -94,13 +94,22 @@ String uniqueID="";
             case TYPE_ITEM_BILL_PRODUCT:
                 ViewHolderBillProduct holderBillProduct = (ViewHolderBillProduct) holder;
                 BillProduct billProduct = (BillProduct) itemsList.get(position);
-                holderBillProduct.tvName.setText(billProduct.getName());
+                String selectedProductName="";
+                if (billProduct.getName().length() > 8) {
+                    selectedProductName = billProduct.getName().substring(0, 8);
+                    //productName = productName + "...";
+                } else {
+                    selectedProductName = billProduct.getName();
+                }
+
+
+                holderBillProduct.tvName.setText(selectedProductName);
                 holderBillProduct.tvBasePrice.setText("" + billProduct.getPrice());
                 holderBillProduct.tvGst.setText(billProduct.getGstTax() + "%");
                 holderBillProduct.tvQty.setText("" + billProduct.getQuantity());
                 holderBillProduct.tvTotalPrice.setText("" + billProduct.getFinalPrice());
 
-                Log.i("CHK Name==>", billProduct.getName() + "");
+                Log.i("CHK Name==>", selectedProductName + "");
                 Log.i("CHK Price==>", billProduct.getPrice() + "");
                 Log.i("CHK GST==>", billProduct.getGstTax() + "");
                 Log.i("CHK Quantity==>", billProduct.getQuantity() + "");

@@ -91,7 +91,15 @@ public class BillDetailRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
 
                 ViewHolderSeletedItem holderSeletedItem = (ViewHolderSeletedItem) holder;
                 SelectedProduct selectedProduct = (SelectedProduct) itemsList.get(position);
-                holderSeletedItem.name.setText(selectedProduct.getName());
+
+                String selectedProductName="";
+                if (selectedProduct.getName().length() > 10) {
+                    selectedProductName = selectedProduct.getName().substring(0, 10);
+                    selectedProductName = selectedProductName + "..";
+                } else {
+                    selectedProductName = selectedProduct.getName();
+                }
+                holderSeletedItem.name.setText(selectedProductName);
 
 //                holderSeletedItem.price.setCompoundDrawablesWithIntrinsicBounds(R.drawable.rupee_icon, 0, 0, 0);
                 holderSeletedItem.price.setText(String.valueOf(selectedProduct.getFinalPrice()));
