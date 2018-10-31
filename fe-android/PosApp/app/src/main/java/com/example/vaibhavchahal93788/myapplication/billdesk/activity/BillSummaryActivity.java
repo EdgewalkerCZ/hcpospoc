@@ -73,6 +73,7 @@ public class BillSummaryActivity extends AppCompatActivity implements Runnable{
     private ArrayList<ProductListModel> selectedItemList;
     int billDiscount;
     String paymentMode;
+    String uniqueID;
     private String userPhone,userName,userEmail;
     private DiscountModel discountModelIs= DiscountModel.getInstance();
     @Override
@@ -101,8 +102,8 @@ public class BillSummaryActivity extends AppCompatActivity implements Runnable{
         } else {
             billDiscount= extras.getInt("discount");
             paymentMode = extras.getString("paymentMode");
+            uniqueID = extras.getString("uniqueID");
         }
-
 
         list = new ArrayList<>();
 
@@ -140,7 +141,7 @@ public class BillSummaryActivity extends AppCompatActivity implements Runnable{
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        adapter = new BillSummaryRecyclerAdapter(list,paymentMode);
+        adapter = new BillSummaryRecyclerAdapter(list,paymentMode,uniqueID);
 
         recyclerView.setAdapter(adapter);
 
@@ -223,7 +224,7 @@ public class BillSummaryActivity extends AppCompatActivity implements Runnable{
 
 
     private void printContent() {
-        String uniqueID = UUID.randomUUID().toString();
+        //String uniqueID = UUID.randomUUID().toString();
         String date_n = new SimpleDateFormat("dd MMM, yyyy HH:mm", Locale.getDefault()).format(new Date());
 
         Log.e("=userName=>",userName+"==>"+userPhone+"=="+userEmail);
@@ -256,7 +257,7 @@ public class BillSummaryActivity extends AppCompatActivity implements Runnable{
         printCustom("Invoice", 1, 1);
         printNewLine();
         printNewLine();
-        printTextNormal("Item Name  Gst%   Price  Qty  Total");
+        printTextNormal("ItemName  Gst%  Price  Qty  Total");
         makTextNormal();
         printNewLine();
         printCustom("--------------------------------", 1, 0);
@@ -588,21 +589,19 @@ public class BillSummaryActivity extends AppCompatActivity implements Runnable{
         int maxLengthQty = 4;//getQtyMaxLength(startIndex, endIndex);
 
         int totalPrice = 0;
-        Log.e("=billProductsList==>",billProductsList.size()+"");
+
 
         for (int i = 0; i < billProductsList.size(); i++) {
             BillProduct billProduct = ((BillProduct) billProductsList.get(i));
 
-            Log.e("=Summery totalPrice==>",totalPrice+"");
-            Log.e("=Summery Price==>",billProduct.getPrice()+"");
-            Log.e("=Summery Quantity==>",billProduct.getQuantity()+"");
+
 
             int priceAfterGst = billProduct.getPrice() * billProduct.getQuantity();
             printTextNormal(billProduct.getName() + " : " + billProduct.getGstTax() + "%" + "    " + spacingRequired(maxLengthBasePrice, billProduct.getPrice()) + billProduct.getPrice() + "    " + spacingRequired(maxLengthQty, billProduct.getQuantity()) + billProduct.getQuantity() + "   " + spacingRequired(maxLengthFinalPrice, priceAfterGst) + (priceAfterGst));
 
             printNewLine();
             totalPrice = totalPrice + priceAfterGst;
-            Log.e("=Summery total N==>",totalPrice+"");
+
 
         }
 
