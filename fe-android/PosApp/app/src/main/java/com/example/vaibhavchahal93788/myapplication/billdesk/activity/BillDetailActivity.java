@@ -147,6 +147,7 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         uniqueID = UUID.randomUUID().toString();
         uniqueID = uniqueID.substring(0, 11);
 
+
     }
 
     private void initViews() {
@@ -295,7 +296,6 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
                 intent.putExtra("discount", discountModelIs.getDiscount());
                 intent.putExtra("paymentMode", seletedPaymentMode);
                 intent.putExtra("uniqueID", uniqueID);
-
                 startActivity(intent);
                 //Save bill history
 
@@ -396,7 +396,6 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         //String uniqueID = UUID.randomUUID().toString();
         String date_n = new SimpleDateFormat("dd MMM, yyyy HH:mm", Locale.getDefault()).format(new Date());
 
-        Log.e("=userName=>", userName + "==>" + userPhone + "==" + userEmail);
         printPhoto(R.drawable.alphanew);
         //print normal text
         // printNewLine();
@@ -406,9 +405,6 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         printNewLine();
         printCustom("Billing To", 0, 0);
         printNewLine();
-//        printCustom(userName, 0, 0);
-//        printCustom("Invoice No:"+uniqueID.substring(0, 11), 0, 1);
-//        printNewLine();
         printTextNormal(userName + "        Invoice No:" + uniqueID);
         makTextNormal();
         printNewLine();
@@ -906,7 +902,7 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         headerValues.put(Constants.SESSION_ID, mAppPreferences.getJsessionId());
 
         String productName = "";
-        String uniqueID = uniqueID = UUID.randomUUID().toString();
+        //String uniqueID = uniqueID = UUID.randomUUID().toString();
 
 
         String customerIdIs = KeyValue.getString(this, KeyValue.CUSTOMER_ID);
@@ -935,7 +931,6 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
 
         String currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
         String date_n = currentDate.toString();
-        Log.e("==date_n===>", date_n);
 
         SaveInvoiceModel invoiceMode = new SaveInvoiceModel();
         invoiceMode.setInvoiceId(uniqueID);

@@ -105,7 +105,6 @@ public class BillSummaryActivity extends AppCompatActivity implements Runnable{
             uniqueID = extras.getString("uniqueID");
         }
 
-
         list = new ArrayList<>();
 
         list.add(new BillSummaryHeaderModel());
