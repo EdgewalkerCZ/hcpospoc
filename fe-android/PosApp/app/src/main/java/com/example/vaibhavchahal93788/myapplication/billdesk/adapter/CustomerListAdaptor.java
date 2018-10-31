@@ -124,5 +124,4 @@ public class CustomerListAdaptor extends
     public interface OnItemClickListener {
         void onItemClick(int position);
     }
-
 }

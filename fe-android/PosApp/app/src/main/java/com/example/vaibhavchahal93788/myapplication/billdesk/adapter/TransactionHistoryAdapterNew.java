@@ -13,6 +13,7 @@ import com.example.vaibhavchahal93788.myapplication.R;
 import com.example.vaibhavchahal93788.myapplication.billdesk.activity.BillDetailHistory;
 import com.example.vaibhavchahal93788.myapplication.billdesk.activity.TransactionHistoryActivityNew;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.TranHistoryNew;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.customer.DataItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,10 +22,12 @@ public class TransactionHistoryAdapterNew extends RecyclerView.Adapter<Transacti
 
     private List<TranHistoryNew> tranHistoryNewList;
     Context ctx;
+    private OnItemClickListener onItemClickListener;
 
-    public TransactionHistoryAdapterNew(Context ctx, List<TranHistoryNew> tranHistoryNewList) {
+    public TransactionHistoryAdapterNew(Context ctx, List<TranHistoryNew> tranHistoryNewList, OnItemClickListener onItemClickListener) {
         this.tranHistoryNewList = tranHistoryNewList;
         this.ctx = ctx;
+        this.onItemClickListener = onItemClickListener;
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{
@@ -43,6 +46,16 @@ public class TransactionHistoryAdapterNew extends RecyclerView.Adapter<Transacti
 //        public void onClick(View v) {
 //            ctx.startActivity(new Intent(ctx, BillDetailHistory.class));
 //        }
+    public void bind(final TranHistoryNew model,
+                     final OnItemClickListener listener) {
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onItemClick(getLayoutPosition());
+
+            }
+        });
+    }
 
     }
     @Override
@@ -69,6 +82,8 @@ public class TransactionHistoryAdapterNew extends RecyclerView.Adapter<Transacti
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.tvProductName.setText(tranHistoryNewList.get(position).getpName());
+        TranHistoryNew item = tranHistoryNewList.get(position);
+        holder.bind(item, onItemClickListener);
         holder.tvDate.setText(tranHistoryNewList.get(position).getDate());
         holder.tvPrice.setText("\u20B9 "+tranHistoryNewList.get(position).getPrice());
         if(position%2==0)
@@ -81,4 +96,7 @@ public class TransactionHistoryAdapterNew extends RecyclerView.Adapter<Transacti
         notifyDataSetChanged();
     }
 
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
 }

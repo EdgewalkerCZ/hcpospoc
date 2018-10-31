@@ -82,8 +82,7 @@
         <activity
             android:name=".billdesk.activity.DeleteProductActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden"
-            />
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".billdesk.activity.ViewProductActivity"
             android:screenOrientation="portrait"
@@ -100,6 +99,32 @@
             android:name=".billdesk.payment.SelectCategoryActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".billdesk.payment.CustomerSearchActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".billdesk.payment.AddNewCustomerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".billdesk.payment.ViewCustomerDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".billdesk.activity.TransactionHistoryActivityNew"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".billdesk.activity.FilterHistoryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".billdesk.activity.ScanActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".billdesk.activity.BillDetailHistory"
+            android:screenOrientation="portrait" />
+        <activity android:name=".billdesk.crm.CRMActivity" />
+        <activity android:name=".billdesk.crm.CRMAddCustomerActivity" />
+        <activity android:name=".billdesk.crm.CRMCustomerSearchActivity" />
+        <activity android:name=".billdesk.crm.CRMViewCustomerActivity" />
+        <activity android:name=".billdesk.activity.BillSummaryActivityNew"/>
         <activity android:name=".billdesk.payment.CustomerSearchActivity" android:screenOrientation="portrait"/>
         <activity android:name=".billdesk.payment.AddNewCustomerActivity" android:screenOrientation="portrait"/>
         <activity android:name=".billdesk.payment.ViewCustomerDetailActivity" android:screenOrientation="portrait"/>

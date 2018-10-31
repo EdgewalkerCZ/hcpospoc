@@ -52,7 +52,7 @@
     <string-array name="payment_modes">
         <item>Cash</item>
         <item>Card</item>
-        </string-array>
+    </string-array>
 
     <string-array name="product_categories">
         <item>Categories*</item>
@@ -413,10 +413,12 @@ in the hands of those who demand more</string>
     <string name="downloadOrMail">Download OR EMail</string>
     <string name="success">Success</string>
     <string name="error">Oops !</string>
+    <string name="error_no_product_in_invoice">Invoice does not contain any product</string>
     <string name="success_add_product">Product added successfully</string>
     <string name="no_data">No Data Found</string>
     <string name="user_name">User Name</string>
     <string name="password">Password</string>
+    <string name="error_product_detail">Product details not found</string>
     <string name="success_updated_product">Product Upded Successfully</string>
     <string name="error_product_qauntity">Sorry ! Product quantity is OUT OF STOCK</string>
     <string name="alert_gallery">Please allow permission</string>

@@ -9,11 +9,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -26,29 +26,35 @@ import android.widget.Toast;
 
 import com.example.vaibhavchahal93788.myapplication.R;
 import com.example.vaibhavchahal93788.myapplication.billdesk.adapter.BillSummaryRecyclerAdapter;
+import com.example.vaibhavchahal93788.myapplication.billdesk.api.ProductApiHelper;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.BillProduct;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.BillSummaryHeaderModel;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.CustomerModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.DiscountModel;
-import com.example.vaibhavchahal93788.myapplication.billdesk.model.HeadingPaymentMode;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductListModel;
-import com.example.vaibhavchahal93788.myapplication.billdesk.model.SponceredModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.TotalBillDetail;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.billproduct.BillProductInvoice;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.billproduct.BillProductInvoiceData;
+import com.example.vaibhavchahal93788.myapplication.billdesk.network.IApiRequestComplete;
+import com.example.vaibhavchahal93788.myapplication.billdesk.preferences.AppPreferences;
 import com.example.vaibhavchahal93788.myapplication.billdesk.printing.DeviceListActivity;
 import com.example.vaibhavchahal93788.myapplication.billdesk.printing.PrinterCommands;
 import com.example.vaibhavchahal93788.myapplication.billdesk.printing.Utils;
+import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Constants;
 import com.example.vaibhavchahal93788.myapplication.billdesk.utility.KeyValue;
+import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Utility;
 
 import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.Set;
 import java.util.UUID;
 
-
-public class BillSummaryActivity extends AppCompatActivity implements Runnable{
+public class BillSummaryActivityNew extends AppCompatActivity implements Runnable{
 
     private RecyclerView recyclerView;
     private ArrayList<BillProduct> billProductsList;
@@ -73,7 +79,6 @@ public class BillSummaryActivity extends AppCompatActivity implements Runnable{
     private ArrayList<ProductListModel> selectedItemList;
     int billDiscount;
     String paymentMode;
-    String uniqueID;
     private String userPhone,userName,userEmail;
     private DiscountModel discountModelIs= DiscountModel.getInstance();
     @Override
@@ -102,8 +107,8 @@ public class BillSummaryActivity extends AppCompatActivity implements Runnable{
         } else {
             billDiscount= extras.getInt("discount");
             paymentMode = extras.getString("paymentMode");
-            uniqueID = extras.getString("uniqueID");
         }
+
 
         list = new ArrayList<>();
 
@@ -138,7 +143,7 @@ public class BillSummaryActivity extends AppCompatActivity implements Runnable{
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        adapter = new BillSummaryRecyclerAdapter(list,paymentMode,uniqueID);
+        adapter = new BillSummaryRecyclerAdapter(list,paymentMode);
 
         recyclerView.setAdapter(adapter);
 
@@ -160,7 +165,7 @@ public class BillSummaryActivity extends AppCompatActivity implements Runnable{
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_home) {
-            Intent intent = new Intent(BillSummaryActivity.this, HomeActivity.class);
+            Intent intent = new Intent(BillSummaryActivityNew.this, HomeActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         } else if (id == android.R.id.home) {
@@ -221,15 +226,13 @@ public class BillSummaryActivity extends AppCompatActivity implements Runnable{
 
 
     private void printContent() {
-        //String uniqueID = UUID.randomUUID().toString();
+        String uniqueID = UUID.randomUUID().toString();
         String date_n = new SimpleDateFormat("dd MMM, yyyy HH:mm", Locale.getDefault()).format(new Date());
 
-       //Add Space
-        StringBuilder sb =new StringBuilder();
-        sb.append(userName);
-        sb.append(" : ");
-
-        printPhoto(R.drawable.alpha_print);
+        Log.e("=userName=>",userName+"==>"+userPhone+"=="+userEmail);
+        //print normal text
+        // printNewLine();
+        printPhoto(R.drawable.alphanew);
         printCustom("Alpha Store", 1, 1);
         printNewLine();
         printCustom("Dlf Phase 3,Gurgaon - 122002", 0, 1);
@@ -239,10 +242,10 @@ public class BillSummaryActivity extends AppCompatActivity implements Runnable{
 //        printCustom(userName, 0, 0);
 //        printCustom("Invoice No:"+uniqueID.substring(0, 11), 0, 1);
 //        printNewLine();
-        printTextNormal(sb+" Invoice No:"+uniqueID);
+        printTextNormal(userName+"        Invoice No:"+uniqueID.substring(0, 11));
         makTextNormal();
         printNewLine();
-        printTextNormal(userPhone+"         "+date_n);
+        printTextNormal(userPhone+"        "+date_n);
         makTextNormal();
         printNewLine();
 
@@ -256,8 +259,8 @@ public class BillSummaryActivity extends AppCompatActivity implements Runnable{
         printCustom("Invoice", 1, 1);
         printNewLine();
         printNewLine();
-        printTextNormal("ItemName  Gst% Price  Qty  Total");
-       // makTextNormal();
+        printTextNormal("Item Name  Gst%   Price  Qty  Total");
+        makTextNormal();
         printNewLine();
         printCustom("--------------------------------", 1, 0);
         makTextNormal();
@@ -292,7 +295,7 @@ public class BillSummaryActivity extends AppCompatActivity implements Runnable{
         //resetPrint(); //reset printer
         printNewLine();
         printNewLine();
-       // printCustom("  Powered by. Home Credit India.   1800 121 6660", 1, 1);
+        // printCustom("  Powered by. Home Credit India.   1800 121 6660", 1, 1);
         printCustom("      Powered by   ", 1, 1);
         printNewLine();
         printCustom("      HOMECREDIT INDIA   ", 1, 1);
@@ -304,7 +307,7 @@ public class BillSummaryActivity extends AppCompatActivity implements Runnable{
         Log.e("connect printer",":sddfd");
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if (mBluetoothAdapter == null) {
-            Toast.makeText(BillSummaryActivity.this, "Message1", Toast.LENGTH_SHORT).show();
+            Toast.makeText(BillSummaryActivityNew.this, "Message1", Toast.LENGTH_SHORT).show();
         } else {
             if (!mBluetoothAdapter.isEnabled()) {
                 isBluetoothConnected = false;
@@ -339,7 +342,7 @@ public class BillSummaryActivity extends AppCompatActivity implements Runnable{
     private void connectBluetooth() {
         if (getFirstConnectedDevice().isEmpty()) {
             Toast.makeText(this, "No device paired, please paired a device!", Toast.LENGTH_LONG).show();
-            Intent connectIntent = new Intent(BillSummaryActivity.this,
+            Intent connectIntent = new Intent(BillSummaryActivityNew.this,
                     DeviceListActivity.class);
             startActivityForResult(connectIntent,
                     REQUEST_CONNECT_DEVICE);
@@ -391,7 +394,7 @@ public class BillSummaryActivity extends AppCompatActivity implements Runnable{
                         connectBluetooth();
                     initPrinting();
                 } else {
-                    Toast.makeText(BillSummaryActivity.this, "Message", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BillSummaryActivityNew.this, "Message", Toast.LENGTH_SHORT).show();
                 }
                 break;
         }
@@ -450,7 +453,7 @@ public class BillSummaryActivity extends AppCompatActivity implements Runnable{
         @Override
         public void handleMessage(Message msg) {
             mBluetoothConnectProgressDialog.dismiss();
-            Toast.makeText(BillSummaryActivity.this, "DeviceConnected", Toast.LENGTH_SHORT).show();
+            Toast.makeText(BillSummaryActivityNew.this, "DeviceConnected", Toast.LENGTH_SHORT).show();
         }
     };
 
@@ -588,32 +591,21 @@ public class BillSummaryActivity extends AppCompatActivity implements Runnable{
         int maxLengthQty = 4;//getQtyMaxLength(startIndex, endIndex);
 
         int totalPrice = 0;
+        Log.e("=billProductsList==>",billProductsList.size()+"");
 
-        String productName = "";
         for (int i = 0; i < billProductsList.size(); i++) {
             BillProduct billProduct = ((BillProduct) billProductsList.get(i));
 
-            if (billProduct.getName().length() > 8) {
-                productName = billProduct.getName().substring(0, 8);
-                //productName = productName + "...";
-            } else {
-                productName = billProduct.getName();
-            }
-//            if(productName.length()<8)
-//            {
-//                int size = 8-productName.length();
-//               // for(int j=0;j<size;j++)
-//                productName=productName+"";
-//            }
-            Log.e("HC product name==>",productName);
+            Log.e("=Summery totalPrice==>",totalPrice+"");
+            Log.e("=Summery Price==>",billProduct.getPrice()+"");
+            Log.e("=Summery Quantity==>",billProduct.getQuantity()+"");
 
             int priceAfterGst = billProduct.getPrice() * billProduct.getQuantity();
-            printTextNormal(productName + " : " + billProduct.getGstTax() + "%" + "    " + spacingRequired(maxLengthBasePrice, billProduct.getPrice()) + billProduct.getPrice() + "    " + spacingRequired(maxLengthQty, billProduct.getQuantity()) + billProduct.getQuantity() + "   " + spacingRequired(maxLengthFinalPrice, priceAfterGst) + (priceAfterGst));
-          //  printTextNormal(productName + "  " + billProduct.getGstTax() + "%" + " " + billProduct.getPrice() + " " + billProduct.getQuantity() + " " + billProduct.getFinalPrice());
+            printTextNormal(billProduct.getName() + " : " + billProduct.getGstTax() + "%" + "    " + spacingRequired(maxLengthBasePrice, billProduct.getPrice()) + billProduct.getPrice() + "    " + spacingRequired(maxLengthQty, billProduct.getQuantity()) + billProduct.getQuantity() + "   " + spacingRequired(maxLengthFinalPrice, priceAfterGst) + (priceAfterGst));
 
             printNewLine();
             totalPrice = totalPrice + priceAfterGst;
-
+            Log.e("=Summery total N==>",totalPrice+"");
 
         }
 
