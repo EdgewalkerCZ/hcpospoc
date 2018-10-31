@@ -399,6 +399,7 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         printPhoto(R.drawable.alphanew);
         //print normal text
         // printNewLine();
+        printNewLine();
         printCustom("Alpha Store", 1, 1);
         printNewLine();
         printCustom("Dlf Phase 3,Gurgaon - 122002", 0, 1);
@@ -422,8 +423,8 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         printCustom("Invoice", 1, 1);
         printNewLine();
         printNewLine();
-        printTextNormal("Item Name  Gst%   Price  Qty  Total");
-        makTextNormal();
+        printTextNormal("ItemName  Gst% Price  Qty  Total");
+        //makTextNormal();
         printNewLine();
         printCustom("--------------------------------", 1, 0);
         makTextNormal();
@@ -441,6 +442,7 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         makTextNormal();
         printTextNormal("Discount  :   " + "Rs " + discount);
         printNewLine();
+        printTextNormal("12345678901234567890123456789012345678901234");
         printNewLine();
 
         int netAmount = discountModelIs.getDiscountedPrice();
@@ -534,6 +536,7 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
     }
 
     private int getIndividualBill() {
+
         int startIndex = (selectedItemList.size() + 1);
         int endIndex = (selectedItemList.size() * 2) + 1;
 

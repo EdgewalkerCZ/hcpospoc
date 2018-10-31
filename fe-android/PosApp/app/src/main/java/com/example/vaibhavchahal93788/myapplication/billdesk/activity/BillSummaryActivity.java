@@ -257,7 +257,7 @@ public class BillSummaryActivity extends AppCompatActivity implements Runnable{
         printCustom("Invoice", 1, 1);
         printNewLine();
         printNewLine();
-        printTextNormal("Item Name  Gst%   Price  Qty  Total");
+        printTextNormal("ItemName  Gst%  Price  Qty  Total");
         makTextNormal();
         printNewLine();
         printCustom("--------------------------------", 1, 0);
@@ -589,21 +589,19 @@ public class BillSummaryActivity extends AppCompatActivity implements Runnable{
         int maxLengthQty = 4;//getQtyMaxLength(startIndex, endIndex);
 
         int totalPrice = 0;
-        Log.e("=billProductsList==>",billProductsList.size()+"");
+
 
         for (int i = 0; i < billProductsList.size(); i++) {
             BillProduct billProduct = ((BillProduct) billProductsList.get(i));
 
-            Log.e("=Summery totalPrice==>",totalPrice+"");
-            Log.e("=Summery Price==>",billProduct.getPrice()+"");
-            Log.e("=Summery Quantity==>",billProduct.getQuantity()+"");
+
 
             int priceAfterGst = billProduct.getPrice() * billProduct.getQuantity();
             printTextNormal(billProduct.getName() + " : " + billProduct.getGstTax() + "%" + "    " + spacingRequired(maxLengthBasePrice, billProduct.getPrice()) + billProduct.getPrice() + "    " + spacingRequired(maxLengthQty, billProduct.getQuantity()) + billProduct.getQuantity() + "   " + spacingRequired(maxLengthFinalPrice, priceAfterGst) + (priceAfterGst));
 
             printNewLine();
             totalPrice = totalPrice + priceAfterGst;
-            Log.e("=Summery total N==>",totalPrice+"");
+
 
         }
 
