@@ -23,8 +23,6 @@
                     android:layout_height="wrap_content"
                     android:padding="@dimen/dp20"
                     android:textSize="16sp"
-                    android:scrollbars="vertical"
-                    android:inputType="text"
                     android:hint="@string/add_customer_first_name"
                     android:maxLines="1"
                     />
@@ -39,8 +37,6 @@
                     android:layout_height="wrap_content"
                     android:padding="@dimen/dp20"
                     android:textSize="16sp"
-                    android:scrollbars="vertical"
-                    android:inputType="text"
                     android:hint="@string/add_customer_last_name"
                     android:maxLines="1"
                     />
@@ -53,7 +49,6 @@
                     android:id="@+id/crm_add_customer_email"
                     android:layout_width="match_parent"
                     android:inputType="textEmailAddress"
-                    android:scrollbars="vertical"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp10"
                     android:textSize="16sp"
@@ -72,7 +67,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp10"
                     android:hint="@string/add_customer_phone"
-                    android:scrollbars="vertical"
                     android:textSize="16sp"
                     android:inputType="phone"
                     android:maxLines="1"
@@ -88,8 +82,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp10"
                     android:hint="@string/add_customer_address"
-                    android:scrollbars="vertical"
-                    android:inputType="textPostalAddress"
                     android:textSize="16sp"
                     android:maxLines="1"
                     android:padding="@dimen/dp20" />
@@ -120,8 +112,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp10"
                     android:hint="@string/add_customer_note"
-                    android:scrollbars="vertical"
-                    android:inputType="text"
                     android:textSize="16sp"
                     android:padding="@dimen/dp20" />
             </android.support.design.widget.TextInputLayout>
