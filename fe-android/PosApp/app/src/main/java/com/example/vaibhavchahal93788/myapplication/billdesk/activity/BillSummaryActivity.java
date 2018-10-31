@@ -232,7 +232,7 @@ public class BillSummaryActivity extends AppCompatActivity implements Runnable{
         sb.append(userName);
         sb.append(" : ");
 
-        printPhoto(R.drawable.alphanew);
+        printPhoto(R.drawable.alpha_print);
         printCustom("Alpha Store", 1, 1);
         printNewLine();
         printCustom("Dlf Phase 3,Gurgaon - 122002", 0, 1);
@@ -602,7 +602,12 @@ public class BillSummaryActivity extends AppCompatActivity implements Runnable{
             } else {
                 productName = billProduct.getName();
             }
-
+//            if(productName.length()<8)
+//            {
+//                int size = 8-productName.length();
+//               // for(int j=0;j<size;j++)
+//                productName=productName+"";
+//            }
             Log.e("HC product name==>",productName);
 
             int priceAfterGst = billProduct.getPrice() * billProduct.getQuantity();

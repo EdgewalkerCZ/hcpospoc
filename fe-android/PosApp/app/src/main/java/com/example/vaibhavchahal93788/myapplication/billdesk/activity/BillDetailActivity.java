@@ -425,7 +425,7 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         sb.append(" : ");
 
     Log.e("HC New Name====>",sb.toString());
-        printPhoto(R.drawable.alphanew);
+        printPhoto(R.drawable.alpha_print);
         //print normal text
         // printNewLine();
         printNewLine();
