@@ -44,11 +44,12 @@ public class CRMAddCustomerActivity extends AppCompatActivity  {
     private ProgressBar progressBar;
     private AppPreferences mAppPreferences;
     private String mSessionId;
+    private boolean isCustomerUpdated;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crmaddcustomer);
-        getToolbar();
+        getToolbar(getString(R.string.add_new_customer));
         bindView();
     }
 
@@ -68,6 +69,7 @@ public class CRMAddCustomerActivity extends AppCompatActivity  {
 //        mInputCustomeraddress=findViewById(R.id.input_layout_address);
 //        mInputCustomerNote=findViewById(R.id.input_layout_note);
         mSaveBTN=findViewById(R.id.crm_add_customer_btn);
+        mSaveBTN.setText(getString(R.string.add_new_customer));
         mAppPreferences = AppPreferences.getInstance(this);
         progressBar = findViewById(R.id.progress_bar);
 
@@ -80,6 +82,8 @@ public class CRMAddCustomerActivity extends AppCompatActivity  {
         Intent in=getIntent();
         String name=in.getStringExtra(KeyValue.NAME);
         if(name!=null){
+            getToolbar(getString(R.string.customer_details));
+            mSaveBTN.setText(getString(R.string.customer_details));
             mCustomerfirstNameEDT.setText(in.getStringExtra(KeyValue.FIRST_NAME));
             mCustomerlastNameEDT.setText(in.getStringExtra(KeyValue.NAME));
             mCustomerphoneEDT.setText(in.getStringExtra(KeyValue.PHONE));
@@ -132,21 +136,11 @@ public class CRMAddCustomerActivity extends AppCompatActivity  {
             }catch (Exception e){
                 e.printStackTrace();
             }
-
-
         }
-
-
-
-
-
-
     }
 
     public void submitcustomerserver() throws Exception{
-
         JSONAddCustomer addCustomer=new JSONAddCustomer();
-
         addCustomer.setName(mCustomerlastNameEDT.getText().toString());
         addCustomer.setFirstName(mCustomerfirstName);
         addCustomer.setAddress(mCustomeraddress);
@@ -155,8 +149,7 @@ public class CRMAddCustomerActivity extends AppCompatActivity  {
         addCustomer.setDescription(mCustomerNote);
         addCustomer.setIsCustomer(true);
         addCustomer.setPartnerCategoryId(1);
-        ApiInterface apiService =
-                ApiClient.getClient().create(ApiInterface.class);
+        ApiInterface apiService =ApiClient.getClient().create(ApiInterface.class);
         HashMap<String,String> headerkey=new HashMap<>();
         headerkey.put("Content-Type","application/json");
         headerkey.put("Accept","application/json");
@@ -191,18 +184,6 @@ public class CRMAddCustomerActivity extends AppCompatActivity  {
             Toast.makeText(CRMAddCustomerActivity.this,t.getMessage(),Toast.LENGTH_SHORT).show();
             }
         });
-
-
-//        Intent in=new Intent(CRMAddCustomerActivity.this,CRMViewCustomerActivity.class);
-//        in.putExtra(KeyValue.NAME,mCustomerfirstName);
-//        in.putExtra(KeyValue.EMAIL,mCustomeremail);
-//        in.putExtra(KeyValue.PHONE,mCustomerphone);
-//        in.putExtra(KeyValue.ADDRESS,mCustomeraddress);
-////        in.putExtra(KeyValue.DOB,mCustomerdob);
-//        in.putExtra(KeyValue.NOTE,mCustomerNote);
-//        startActivity(in);
-
-
     }
 
 
@@ -239,9 +220,9 @@ public class CRMAddCustomerActivity extends AppCompatActivity  {
         }
     }
 
-    private void getToolbar() {
+    private void getToolbar(String title) {
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(getResources().getString(R.string.add_new_customer));
+        getSupportActionBar().setTitle(title);
     }
 }

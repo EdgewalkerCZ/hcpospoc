@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -105,13 +106,23 @@ public class CustomerSearchActivity extends AppCompatActivity {
         customerListAdaptor = new CustomerListAdaptor(CustomerSearchActivity.this, customerSets, new CustomerListAdaptor.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                Intent in=new Intent(CustomerSearchActivity.this,ViewCustomerDetailActivity.class);
-                in.putExtra(KeyValue.NAME,customerSets.getData().get(position).getName());
+                Intent in=new Intent(CustomerSearchActivity.this,SelectProductActivity.class);
+                in.putExtra(KeyValue.NAME,customerSets.getData().get(position).getFullName());
                 in.putExtra(KeyValue.EMAIL,customerSets.getData().get(position).getEmail());
                 in.putExtra(KeyValue.PHONE,customerSets.getData().get(position).getPhone());
                 in.putExtra(KeyValue.ADDRESS,customerSets.getData().get(position).getAddress());
-//                in.putExtra(KeyValue.DOB,customerSets.getData().get(position).getDob());
                 in.putExtra(KeyValue.NOTE,customerSets.getData().get(position).getDescription());
+                KeyValue.setString(CustomerSearchActivity.this, KeyValue.NAME,customerSets.getData().get(position).getFullName());
+                KeyValue.setString(CustomerSearchActivity.this, KeyValue.PHONE,customerSets.getData().get(position).getPhone());
+                KeyValue.setString(CustomerSearchActivity.this, KeyValue.EMAIL,customerSets.getData().get(position).getEmail());
+//                 KeyValue.setString(ViewCustomerDetailActivity.this, KeyValue.NAME,view_name_str);
+                //                KeyValue.setString(ViewCustomerDetailActivity.this, KeyValue.PHONE,view_phone_str);
+                //                KeyValue.setString(ViewCustomerDetailActivity.this, KeyValue.EMAIL,view_email_str);
+                //                KeyValue.setString(ViewCustomerDetailActivity.this, KeyValue.ADDRESS,view_address_str);
+                //                KeyValue.setString(ViewCustomerDetailActivity.this, KeyValue.DOB,view_dob_str);
+                //                KeyValue.setString(ViewCustomerDetailActivity.this, KeyValue.NOTE,view_note_str);
+                //
+                //                startActivity(new Intent(ViewCustomerDetailActivity.this,SelectProductActivity.class));
             startActivity(in);
             }
         });
@@ -180,10 +191,24 @@ public class CustomerSearchActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.customer_search_menu, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
+                break;
+
+            case R.id.menu_close:
+                KeyValue.setString(CustomerSearchActivity.this, KeyValue.NAME,"Demo");
+                KeyValue.setString(CustomerSearchActivity.this, KeyValue.PHONE,"91-XXX-XXX-XXX");
+                KeyValue.setString(CustomerSearchActivity.this, KeyValue.EMAIL,"demo@homecredit.co.in");
+                startActivity(new Intent(CustomerSearchActivity.this,SelectProductActivity.class));
+
                 break;
             default:
                 return super.onOptionsItemSelected(item);

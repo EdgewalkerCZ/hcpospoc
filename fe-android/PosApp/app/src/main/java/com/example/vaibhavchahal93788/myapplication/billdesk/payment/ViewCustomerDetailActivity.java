@@ -26,11 +26,8 @@ public class ViewCustomerDetailActivity extends AppCompatActivity {
     }
 
     private void getToolbar() {
-
-
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        getSupportActionBar().setIcon(R.drawable.ic_icon_pos);
         getSupportActionBar().setTitle(getResources().getString(R.string.customer_details));
 
     }
