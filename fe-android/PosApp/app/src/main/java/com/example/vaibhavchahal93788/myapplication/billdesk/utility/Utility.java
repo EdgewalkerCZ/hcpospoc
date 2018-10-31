@@ -135,4 +135,13 @@ public class Utility {
         Intent _intent = new Intent(mContext, cls);
         mContext.startActivity(_intent);
     }
+
+    public static double convertDouble(Context context, String value) {
+        try {
+            return Double.parseDouble(value);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0.0;
+    }
 }

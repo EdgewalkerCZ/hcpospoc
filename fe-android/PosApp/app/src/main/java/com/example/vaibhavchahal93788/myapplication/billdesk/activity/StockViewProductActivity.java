@@ -1,5 +1,6 @@
 package com.example.vaibhavchahal93788.myapplication.billdesk.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -11,16 +12,20 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.vaibhavchahal93788.myapplication.R;
@@ -98,6 +103,16 @@ public class StockViewProductActivity extends AppCompatActivity implements  Stoc
         actionCategorySelection();
 
         actionAddProduct();
+        editTextSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    closeKeyboard();
+                    return true;
+                }
+                return false;
+            }
+        });
 
 
     }
@@ -138,7 +153,7 @@ public class StockViewProductActivity extends AppCompatActivity implements  Stoc
 
             @Override
             public void onFailure(String message) {
-
+                progreeBar.setVisibility(View.GONE);
             }
         });
 
@@ -235,6 +250,7 @@ public class StockViewProductActivity extends AppCompatActivity implements  Stoc
                 relativeHeader.setVisibility(View.VISIBLE);
                 setTitle("Product List");
                 crossmenu.setVisible(false);
+                closeKeyboard();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -266,15 +282,15 @@ public class StockViewProductActivity extends AppCompatActivity implements  Stoc
         ArrayList<DataItem> filterdNames = new ArrayList<>();
 
         //looping through existing elements
-        for (DataItem dataItem : dataItems) {
-            //if the existing elements contains the search input
-            if (dataItem.getName().toLowerCase().contains(text.toLowerCase())) {
-                //adding the element to filtered list
-                filterdNames.add(dataItem
-                );
+        if (dataItems!=null&&dataItems.size()!=0){
+            for (DataItem dataItem : dataItems) {
+                //if the existing elements contains the search input
+                if (dataItem.getName().toLowerCase().contains(text.toLowerCase())) {
+                    //adding the element to filtered list
+                    filterdNames.add(dataItem);
+                }
             }
         }
-
         //calling a method of the adapter class and passing the filtered list
 
         int size = filterdNames.size();
@@ -283,8 +299,11 @@ public class StockViewProductActivity extends AppCompatActivity implements  Stoc
             relativeHeader.setVisibility(View.GONE);
         else relativeHeader.setVisibility(View.VISIBLE);
         crossmenu.setVisible(true);
+        if (filterdNames!=null&&filterdNames.size()!=0){
+            adapter.filterList(filterdNames);
 
-        adapter.filterList(filterdNames);
+        }
+
     }
 
     @Override
@@ -321,21 +340,24 @@ public class StockViewProductActivity extends AppCompatActivity implements  Stoc
         //looping through existing elements
 
         if(load_category_id!=0){
-            for (DataItem dataItem : dataItems) {
-                //if the existing elements contains the search input
+            if (dataItems!=null&&dataItems.size()!=0){
+                for (DataItem dataItem : dataItems) {
+                    //if the existing elements contains the search input
 
-                if(dataItem.getProductFamilyId()!=0){
-                    if (dataItem.getProductFamilyId()==( load_category_id)) {
-                        //adding the element to filtered list
-                        filterdNames.add(dataItem);
+                    if(dataItem.getProductFamilyId()!=0){
+                        if (dataItem.getProductFamilyId()==( load_category_id)) {
+                            //adding the element to filtered list
+                            filterdNames.add(dataItem);
+                        }
                     }
                 }
+                adapter.filterList(filterdNames);
+            }else
+            {
+                fetchProductsList();
             }
-            adapter.filterList(filterdNames);
-        }else
-        {
-            fetchProductsList();
-        }
+            }
+
 
 
         if(filterdNames.size()!=0)
@@ -355,5 +377,13 @@ public class StockViewProductActivity extends AppCompatActivity implements  Stoc
     protected void onRestart() {
         super.onRestart();
         fetchProductsList();
+    }
+
+    private void closeKeyboard() {
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 }

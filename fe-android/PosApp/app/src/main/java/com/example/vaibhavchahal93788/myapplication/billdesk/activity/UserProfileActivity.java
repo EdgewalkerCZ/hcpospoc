@@ -5,7 +5,9 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
@@ -29,9 +31,10 @@ import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Constants;
 import com.example.vaibhavchahal93788.myapplication.billdesk.utility.KeyValue;
 import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Utility;
 
+import java.io.IOException;
 import java.util.Locale;
 
-public class UserProfileActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class UserProfileActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener,View.OnClickListener {
 
     private Spinner sp_lang;
     private Locale locale;
@@ -40,6 +43,7 @@ public class UserProfileActivity extends AppCompatActivity implements AdapterVie
     private ImageButton im_camera;
     private TextView tv_store_name, tv_mobile, tv_email_id, tv_address, tv_merchant_name;
     private ProgressBar pb_dialogue;
+    private int  SELECT_FILE = 1;
 
 
     public static void startActivity(Activity activity) {
@@ -91,6 +95,7 @@ public class UserProfileActivity extends AppCompatActivity implements AdapterVie
 
     private void iniListner() {
         sp_lang.setOnItemSelectedListener(this);
+        im_camera.setOnClickListener(this);
 
     }
 
@@ -160,6 +165,58 @@ public class UserProfileActivity extends AppCompatActivity implements AdapterVie
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.im_camera:
+                boolean result=Utility.checkPermission(UserProfileActivity.this);
+                if (result){
+                    galleryIntent();
+                }else {
+                    Utility.showToast(getApplicationContext(),getResources().getString(R.string.alert_gallery));
+                }
+
+                break;
+        }
+    }
+
+    private void galleryIntent() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);//
+        startActivityForResult(Intent.createChooser(intent, "Select File"),SELECT_FILE);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == SELECT_FILE){
+                onSelectFromGalleryResult(data);
+            }
+
+
+        }
+    }
+
+    private void onSelectFromGalleryResult(Intent data) {
+            Bitmap bm=null;
+            if (data != null) {
+                try {
+                    bm = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), data.getData());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        Glide.with(getApplicationContext())
+                .load(bm)
+                .thumbnail(.1f)
+                .apply(RequestOptions.circleCropTransform())
+                .into(im_profile);
 
     }
 }
