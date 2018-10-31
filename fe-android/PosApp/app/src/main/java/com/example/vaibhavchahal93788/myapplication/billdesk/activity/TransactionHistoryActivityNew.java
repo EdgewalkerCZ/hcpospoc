@@ -36,14 +36,21 @@ import com.example.vaibhavchahal93788.myapplication.R;
 import com.example.vaibhavchahal93788.myapplication.billdesk.adapter.StockViewAdapter;
 import com.example.vaibhavchahal93788.myapplication.billdesk.adapter.TransactionHistoryAdapterNew;
 import com.example.vaibhavchahal93788.myapplication.billdesk.api.ProductApiHelper;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.BillProduct;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.CustomerModel;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.InvoiceLineIdList;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.InvoiceList;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.InvoiceModelNew;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.TranHistoryNew;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.allproduct.AllProductResponse;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.billproduct.BillProductInvoice;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.billproduct.BillProductInvoiceData;
 import com.example.vaibhavchahal93788.myapplication.billdesk.network.IApiRequestComplete;
+import com.example.vaibhavchahal93788.myapplication.billdesk.payment.CustomerSearchActivity;
+import com.example.vaibhavchahal93788.myapplication.billdesk.payment.ViewCustomerDetailActivity;
 import com.example.vaibhavchahal93788.myapplication.billdesk.preferences.AppPreferences;
 import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Constants;
+import com.example.vaibhavchahal93788.myapplication.billdesk.utility.KeyValue;
 import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Utility;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.Entry;
@@ -71,6 +78,7 @@ public class TransactionHistoryActivityNew extends BaseActivity {
     TransactionHistoryAdapterNew adapter;
     private ProgressBar progreeBar;
     private AppPreferences mAppPreferences;
+    ArrayList<BillProduct> billProductsList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,9 +119,6 @@ public class TransactionHistoryActivityNew extends BaseActivity {
                 //filter(editable.toString());
             }
         });
-
-        //Get customer details
-        getCustomerDetails();
     }
       /*Initialize views*/
       public void initViews(){
@@ -134,14 +139,21 @@ public class TransactionHistoryActivityNew extends BaseActivity {
      }
 
      /*Populate invoice list*/
-    private void populateList(InvoiceModelNew response) {
+    private void populateList(final InvoiceModelNew response) {
         InvoiceList iv;
         tranHistoryNewList = new ArrayList<>();
+        ArrayList<BillProduct> billProducts = new ArrayList<>();
         for(int i=0;i<response.getData().size();i++){
             iv = response.getData().get(i);
             tranHistoryNewList.add(new TranHistoryNew(iv.getNote(), iv.getInvoiceDate(), iv.getAmountPaid()));
         }
-        adapter = new TransactionHistoryAdapterNew(TransactionHistoryActivityNew.this, tranHistoryNewList);
+        adapter = new TransactionHistoryAdapterNew(TransactionHistoryActivityNew.this, tranHistoryNewList, new TransactionHistoryAdapterNew.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                getCustomerDetails(response.getData().get(position).getCustomerId(),
+                        response.getData().get(position).getInvoiceLineIdList());
+            }
+        });
         rvProducts.setAdapter(adapter);
     }
 
@@ -319,38 +331,10 @@ public class TransactionHistoryActivityNew extends BaseActivity {
     }
 
     /*Satish code- Get customer details*/
-    //Get customer details from server
-    public void getCustomerDetails(){
-        progreeBar.setVisibility(View.VISIBLE);
-        HashMap<String,String> headerValues= new HashMap<>();
-        headerValues.put("Content-Type", "application/json");
-        headerValues.put("Accept", "application/json");
-        headerValues.put(Constants.SESSION_ID,mAppPreferences.getJsessionId());
-
-        new ProductApiHelper().getCustomerDetails(headerValues,String.valueOf(30), new IApiRequestComplete<CustomerModel>() {
-            @Override
-            public void onSuccess(final CustomerModel response) {
-                progreeBar.setVisibility(View.GONE);
-                if (response!=null){
-                    if (response.getData().size()!=0){
-                        int status = response.getStatus();
-                        Log.v("Status", status+"");
-                    }else {
-                        Utility.showToast(getApplicationContext(),getResources().getString(R.string.no_data));
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(String message) {
-
-            }
-        });
-    }
 
     //Get invoice list from server
     public void getInvoiceList(){
-        //progreeBar.setVisibility(View.VISIBLE);
+        progreeBar.setVisibility(View.VISIBLE);
         HashMap<String,String> headerValues= new HashMap<>();
         headerValues.put("Content-Type", "application/json");
         headerValues.put("Accept", "application/json");
@@ -359,11 +343,9 @@ public class TransactionHistoryActivityNew extends BaseActivity {
         new ProductApiHelper().getInvoiceList(headerValues, new IApiRequestComplete<InvoiceModelNew>() {
             @Override
             public void onSuccess(final InvoiceModelNew response) {
-                //progreeBar.setVisibility(View.GONE);
+                progreeBar.setVisibility(View.GONE);
                 if (response!=null){
                     if (response.getData().size()!=0){
-                        int status = response.getStatus();
-                        //InvoiceList iv = response.getData().get(1);
                         populateList(response);
                     }else {
                         Utility.showToast(getApplicationContext(),getResources().getString(R.string.no_data));
@@ -378,6 +360,88 @@ public class TransactionHistoryActivityNew extends BaseActivity {
         });
     }
 
+    //Get customer details from server
+    public void getCustomerDetails(int customerId, final List<InvoiceLineIdList> invoiceLineIdList){
+        progreeBar.setVisibility(View.VISIBLE);
+        HashMap<String,String> headerValues= new HashMap<>();
+        headerValues.put("Content-Type", "application/json");
+        headerValues.put("Accept", "application/json");
+        headerValues.put(Constants.SESSION_ID,mAppPreferences.getJsessionId());
+
+        new ProductApiHelper().getCustomerDetails(headerValues,String.valueOf(customerId), new IApiRequestComplete<CustomerModel>() {
+            @Override
+            public void onSuccess(final CustomerModel response) {
+                progreeBar.setVisibility(View.GONE);
+                if (response!=null){
+                    if (response.getData().size()!=0){
+                        response.getData().get(0).getAddress();
+                        int status = response.getStatus();
+                        Log.v("Status", status+"");
+
+                        KeyValue.setString(TransactionHistoryActivityNew.this, KeyValue.NAME,response.getData().get(0).getName());
+                        KeyValue.setString(TransactionHistoryActivityNew.this, KeyValue.PHONE,response.getData().get(0).getPhone());
+                        KeyValue.setString(TransactionHistoryActivityNew.this, KeyValue.EMAIL,response.getData().get(0).getEmail());
+                        KeyValue.setString(TransactionHistoryActivityNew.this, KeyValue.ADDRESS,response.getData().get(0).getAddress());
+                        KeyValue.setString(TransactionHistoryActivityNew.this, KeyValue.DOB,"01/03/1990");
+                        KeyValue.setString(TransactionHistoryActivityNew.this, KeyValue.NOTE,"Test Note");
+
+                        getBillProducts(invoiceLineIdList);
+                    }else {
+                        Utility.showToast(getApplicationContext(),getResources().getString(R.string.no_data));
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(String message) {
+
+            }
+        });
+    }
+
+
+    public void getBillProducts(List<InvoiceLineIdList> invoiceLineIdList){
+        //billProductsList = new ArrayList<>();
+        for(int i=0;i<invoiceLineIdList.size();i++){
+            //getProduct(invoiceLineIdList.get(i).getId(), invoiceLineIdList.get(i).getQuantity());
+            getProduct(64, invoiceLineIdList.get(i).getQuantity());
+        }
+        if (billProductsList.size()==invoiceLineIdList.size()){
+            Intent intent = new Intent(TransactionHistoryActivityNew.this, BillSummaryActivityNew.class);
+            intent.putExtra("billProductsList", billProductsList);
+
+            intent.putExtra("discount",0);
+            intent.putExtra("paymentMode","Cash");
+
+            startActivity(intent);
+        }else{
+            Utility.showToast(getApplicationContext(), getResources().getString(R.string.error_no_product_in_invoice));
+        }
+    }
+
+    public void getProduct(int productID, final int quantity){
+        progreeBar.setVisibility(View.VISIBLE);
+        HashMap<String,String> headerValues= new HashMap<>();
+        headerValues.put("Content-Type", "application/json");
+        headerValues.put("Accept", "application/json");
+        headerValues.put(Constants.SESSION_ID,mAppPreferences.getJsessionId());
+
+        new ProductApiHelper().getBillProduct(headerValues, productID, new IApiRequestComplete<BillProductInvoice>() {
+            @Override
+            public void onSuccess(final BillProductInvoice response) {
+                progreeBar.setVisibility(View.GONE);
+
+                if (response!=null && response.getData()!=null){
+                    billProductsList.add(new BillProduct(response.getData().get(0).getName(),
+                            quantity,response.getData().get(0).getSalePrice(),18, response.getData().get(0).getSalePrice()));
+                }
+            }
+            @Override
+            public void onFailure(String message) {
+                Toast.makeText(TransactionHistoryActivityNew.this, "Products not found", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
     /*End*/
 }
 

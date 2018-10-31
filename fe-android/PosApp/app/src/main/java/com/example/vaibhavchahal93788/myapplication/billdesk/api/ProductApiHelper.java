@@ -1,6 +1,7 @@
 package com.example.vaibhavchahal93788.myapplication.billdesk.api;
 
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.AddProductModel;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.BillProduct;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.CategoryModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.CustomerModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.InvoiceModelNew;
@@ -11,6 +12,7 @@ import com.example.vaibhavchahal93788.myapplication.billdesk.model.SaveHistorySu
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.SaveInvoiceModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.addproduct.PostAddProduct;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.allproduct.AllProductResponse;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.billproduct.BillProductInvoice;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.customer.JSONCustomerResponse;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.productsuccess.AddProductResponse;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.profile.ProfileResponse;
@@ -114,6 +116,11 @@ public void userLogin (LoginBodyModel user_data , IApiRequestComplete successInt
     public void getCustomerDetails(HashMap<String, String> headerValues , String customerId, final IApiRequestComplete successInterface){
         Call<CustomerModel> allProductResponseCall=productApi.getCustomerDetails(headerValues, customerId);
         allProductResponseCall.enqueue(new ResponseHandler<CustomerModel>(successInterface));
+
+    }
+    public void getBillProduct(HashMap<String, String> headerValues , int productId, final IApiRequestComplete successInterface){
+        Call<BillProductInvoice> allProductResponseCall=productApi.getBillProduct(headerValues, productId);
+        allProductResponseCall.enqueue(new ResponseHandler<BillProductInvoice>(successInterface));
 
     }
     /*End*/

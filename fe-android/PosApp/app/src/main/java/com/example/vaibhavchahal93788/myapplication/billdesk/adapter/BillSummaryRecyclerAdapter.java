@@ -176,7 +176,10 @@ public class BillSummaryRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
 
     @Override
     public int getItemCount() {
+        if(itemsList != null)
         return itemsList.size();
+        else
+            return 0;
     }
 
 

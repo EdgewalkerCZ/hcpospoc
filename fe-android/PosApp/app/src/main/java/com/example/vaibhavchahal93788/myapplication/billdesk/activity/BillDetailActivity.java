@@ -285,7 +285,17 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         switch (view.getId()) {
             case R.id.btn_view_bill:
                 discountModelIs=DiscountModel.getInstance();
-                Intent intent = new Intent(BillDetailActivity.this, BillSummaryActivity.class);
+                /*Intent intent = new Intent(BillDetailActivity.this, BillSummaryActivity.class);
+                ArrayList<BillProduct> billProducts = getBillProductsList();
+                intent.putParcelableArrayListExtra("billProductsList", billProducts);
+
+                intent.putExtra("discount",discountModelIs.getDiscount());
+                intent.putExtra("paymentMode",seletedPaymentMode);
+
+                startActivity(intent);*/
+
+                /*Satish code*/
+                Intent intent = new Intent(BillDetailActivity.this, BillSummaryActivityNew.class);
                 ArrayList<BillProduct> billProducts = getBillProductsList();
                 intent.putParcelableArrayListExtra("billProductsList", billProducts);
 
@@ -293,8 +303,8 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
                 intent.putExtra("paymentMode",seletedPaymentMode);
 
                 startActivity(intent);
+                /*End*/
                 //Save bill history
-
                 saveBill();
 
                 break;

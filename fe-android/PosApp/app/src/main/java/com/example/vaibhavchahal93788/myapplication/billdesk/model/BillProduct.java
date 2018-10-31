@@ -16,7 +16,7 @@ public class BillProduct implements Parcelable {
         this.finalPrice = finalPrice;
     }
 
-    protected BillProduct(Parcel in) {
+    public BillProduct(Parcel in) {
         name = in.readString();
         quantity = in.readInt();
         price = in.readInt();

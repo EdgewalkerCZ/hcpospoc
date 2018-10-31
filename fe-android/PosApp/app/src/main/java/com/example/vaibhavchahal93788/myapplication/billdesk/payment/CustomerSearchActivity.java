@@ -19,14 +19,18 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.vaibhavchahal93788.myapplication.R;
+import com.example.vaibhavchahal93788.myapplication.billdesk.activity.BillSummaryActivityNew;
 import com.example.vaibhavchahal93788.myapplication.billdesk.adapter.CustomerListAdaptor;
 import com.example.vaibhavchahal93788.myapplication.billdesk.adapter.ProductStockListAdapter;
+import com.example.vaibhavchahal93788.myapplication.billdesk.api.ProductApiHelper;
 import com.example.vaibhavchahal93788.myapplication.billdesk.crm.CRMCustomerSearchActivity;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.CustomerModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.JsonCustomer;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.JsonCustomerSet;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductListModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.customer.DataItem;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.customer.JSONCustomerResponse;
+import com.example.vaibhavchahal93788.myapplication.billdesk.network.IApiRequestComplete;
 import com.example.vaibhavchahal93788.myapplication.billdesk.payment.api.ApiClient;
 import com.example.vaibhavchahal93788.myapplication.billdesk.payment.api.ApiInterface;
 import com.example.vaibhavchahal93788.myapplication.billdesk.preferences.AppPreferences;
@@ -113,6 +117,8 @@ public class CustomerSearchActivity extends AppCompatActivity {
 //                in.putExtra(KeyValue.DOB,customerSets.getData().get(position).getDob());
                 in.putExtra(KeyValue.NOTE,customerSets.getData().get(position).getDescription());
             startActivity(in);
+
+            //getCustomerDetails(customerSets.getData().get(position).getId());
             }
         });
 
@@ -189,5 +195,46 @@ public class CustomerSearchActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    //Get customer details from server
+    public void getCustomerDetails(int id){
+        //progreeBar.setVisibility(View.VISIBLE);
+        HashMap<String,String> headerValues= new HashMap<>();
+        headerValues.put("Content-Type", "application/json");
+        headerValues.put("Accept", "application/json");
+        headerValues.put(Constants.SESSION_ID,mAppPreferences.getJsessionId());
+
+        new ProductApiHelper().getCustomerDetails(headerValues,String.valueOf(id), new IApiRequestComplete<CustomerModel>() {
+            @Override
+            public void onSuccess(final CustomerModel response) {
+                //progreeBar.setVisibility(View.GONE);
+                if (response!=null){
+                    if (response.getData().size()!=0){
+                        response.getData().get(0).getAddress();
+                        int status = response.getStatus();
+                        Log.v("Status", status+"");
+
+                        Intent in=new Intent(CustomerSearchActivity.this,ViewCustomerDetailActivity.class);
+                        in.putExtra(KeyValue.NAME,response.getData().get(0).getFullName());
+                        in.putExtra(KeyValue.EMAIL,response.getData().get(0).getEmail());
+                        in.putExtra(KeyValue.PHONE,response.getData().get(0).getPhone());
+                        in.putExtra(KeyValue.ADDRESS,response.getData().get(0).getAddress());
+//                in.putExtra(KeyValue.DOB,customerSets.getData().get(position).getDob());
+                        //in.putExtra(KeyValue.NOTE,response.getData().get(0).getNote());
+                        in.putExtra(KeyValue.NOTE,"Note");
+                        startActivity(in);
+
+                    }else {
+                        Utility.showToast(getApplicationContext(),getResources().getString(R.string.no_data));
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(String message) {
+
+            }
+        });
     }
 }

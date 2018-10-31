@@ -1,6 +1,7 @@
 package com.example.vaibhavchahal93788.myapplication.billdesk.api;
 
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.AddProductModel;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.BillProduct;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.CategoryModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.CustomerModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.InvoiceModelNew;
@@ -11,6 +12,7 @@ import com.example.vaibhavchahal93788.myapplication.billdesk.model.SaveHistorySu
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.SaveInvoiceModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.addproduct.PostAddProduct;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.allproduct.AllProductResponse;
+import com.example.vaibhavchahal93788.myapplication.billdesk.model.billproduct.BillProductInvoice;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.customer.JSONCustomerResponse;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.productsuccess.AddProductResponse;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.profile.ProfileResponse;
@@ -85,6 +87,9 @@ public interface productApi {
 
     @GET("customer/{customerId}")
     Call<CustomerModel> getCustomerDetails(@HeaderMap HashMap<String,String> headerValues, @Path("customerId") String customerId);
+
+    @GET("product/{productID}")
+    Call<BillProductInvoice> getBillProduct(@HeaderMap HashMap<String,String> headerValues, @Path("productID") int productID);
 
     /*End*/
 
