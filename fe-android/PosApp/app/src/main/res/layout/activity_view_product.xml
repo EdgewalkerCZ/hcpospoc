@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout android:layout_height="match_parent"
-             android:layout_width="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android" >
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="@dimen/margin_left_medium"
+    android:layout_marginRight="@dimen/margin_right_medium">
+
     <ProgressBar
 
         android:id="@+id/pb_dialogue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:theme="@style/progressBarRed"
-        android:visibility="gone"
+        android:layout_gravity="center"
         android:backgroundTint="@color/colorPrimaryDark"
-        android:layout_gravity="center"/>
-    <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:theme="@style/progressBarRed"
+        android:visibility="gone" />
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -23,6 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@+id/btn_update"
+            android:layout_marginBottom="@dimen/margin_bottom_medium"
             android:fillViewport="false">
 
             <RelativeLayout
@@ -38,8 +42,8 @@
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="@dimen/dp36"
-                    android:gravity="center"
                     android:background="@drawable/background_circle_blue"
+                    android:gravity="center"
                     android:text="@string/dummy_tag_A"
                     android:textColor="#FFFFFF"
                     android:textStyle="bold" />
@@ -78,19 +82,19 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="@dimen/dp3"
+                        android:gravity="center"
                         android:paddingBottom="@dimen/dp6"
                         android:text="oppo"
                         android:textColor="@color/color_configuration"
                         android:textSize="@dimen/sp12"
-                        android:gravity="center"
                         android:textStyle="bold" />
 
                     <View
                         android:layout_width="@dimen/dp1"
                         android:layout_height="@dimen/dp11"
                         android:layout_gravity="center"
-                        android:visibility="gone"
-                        android:background="@color/color_configuration" />
+                        android:background="@color/color_configuration"
+                        android:visibility="gone" />
 
                     <TextView
                         android:id="@+id/tv_rsize"
@@ -102,15 +106,15 @@
                         android:text="4GB"
                         android:textColor="@color/color_configuration"
                         android:textSize="@dimen/sp12"
-                        android:visibility="gone"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:visibility="gone" />
 
                     <View
                         android:layout_width="@dimen/dp1"
                         android:layout_height="@dimen/dp11"
                         android:layout_gravity="center"
-                        android:visibility="gone"
-                        android:background="@color/color_configuration" />
+                        android:background="@color/color_configuration"
+                        android:visibility="gone" />
 
                     <TextView
                         android:id="@+id/tv_hsize"
@@ -122,15 +126,15 @@
                         android:text="32GB"
                         android:textColor="@color/color_configuration"
                         android:textSize="@dimen/sp12"
-                        android:visibility="gone"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:visibility="gone" />
 
                     <View
                         android:layout_width="@dimen/dp1"
                         android:layout_height="@dimen/dp11"
                         android:layout_gravity="center"
-                        android:visibility="gone"
-                        android:background="@color/color_configuration" />
+                        android:background="@color/color_configuration"
+                        android:visibility="gone" />
 
                     <TextView
                         android:id="@+id/tv_color"
@@ -142,8 +146,8 @@
                         android:text="White"
                         android:textColor="@color/color_configuration"
                         android:textSize="@dimen/sp12"
-                        android:visibility="gone"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:visibility="gone" />
 
 
                 </LinearLayout>
@@ -170,16 +174,16 @@
                     android:layout_height="@dimen/dp1"
                     android:layout_below="@+id/layout_serial"
                     android:layout_marginLeft="@dimen/dp20"
-                    android:layout_marginRight="@dimen/dp20"
                     android:layout_marginTop="@dimen/dp24"
+                    android:layout_marginRight="@dimen/dp20"
                     android:background="@color/color_horizontal_view" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/viewHorizontal"
-                    android:layout_marginLeft="@dimen/dp20"
-                    android:layout_marginRight="@dimen/dp20"
+                    android:layout_marginLeft="@dimen/margin_left_medium"
+                    android:layout_marginRight="@dimen/margin_right_medium"
                     android:layout_marginTop="@dimen/dp12"
                     android:orientation="vertical">
 
@@ -210,10 +214,10 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/dp9"
                                 android:background="@android:color/transparent"
-                                android:inputType="number"
-                                android:text="0"
                                 android:focusable="true"
                                 android:focusableInTouchMode="true"
+                                android:inputType="number"
+                                android:text="0"
                                 android:textColor="@color/color_product_name"
                                 android:textSize="@dimen/sp20" />
                         </LinearLayout>
@@ -366,11 +370,9 @@
         <Button
             android:id="@+id/btn_update"
             android:layout_width="match_parent"
-            android:layout_height="46dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="23dp"
-            android:layout_marginLeft="@dimen/margin_left"
-            android:layout_marginRight="@dimen/margin_right"
+            android:layout_marginBottom="@dimen/margin_bottom_medium"
             android:background="@color/color_DA1A32"
             android:text="@string/update"
             android:textColor="@color/white_color"

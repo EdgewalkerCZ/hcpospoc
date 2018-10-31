@@ -175,6 +175,8 @@
                         android:fontFamily="sans-serif"
                         android:inputType="number"
                         android:imeOptions="actionNext"
+                        android:singleLine="true"
+                        android:nextFocusForward="@+id/et_excl_gst"
                         android:hint="@string/quantity" />
                 </android.support.design.widget.TextInputLayout>
                 <android.support.design.widget.TextInputLayout
@@ -193,7 +195,6 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif"
                         android:inputType="none"
-                        android:imeOptions="actionNext"
                         android:enabled="false"
                         android:textColor="@color/black_color"
                         android:hint="@string/gst" />
@@ -217,6 +218,8 @@
                         android:fontFamily="sans-serif"
                         android:inputType="numberDecimal"
                         android:imeOptions="actionNext"
+                        android:singleLine="true"
+                        android:nextFocusForward="@+id/et_description"
                         android:hint="@string/price_gst" />
                 </android.support.design.widget.TextInputLayout>
                 <android.support.design.widget.TextInputLayout
@@ -235,6 +238,7 @@
                         android:fontFamily="sans-serif"
                         android:inputType="textCapSentences"
                         android:imeOptions="actionNext"
+                        android:nextFocusForward="@+id/et_serial_number"
                         android:hint="@string/description" />
                 </android.support.design.widget.TextInputLayout>
 
@@ -260,7 +264,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="textCapSentences"
-                            android:imeOptions="actionNext"
+                            android:imeOptions="actionDone"
                             android:fontFamily="sans-serif"
                             android:hint="@string/serial_number" />
                     </android.support.design.widget.TextInputLayout>
@@ -642,7 +646,8 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:baselineAligned="false">
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -819,7 +824,7 @@
                         android:layout_height="match_parent"
                         android:orientation="horizontal"
 
-                        >
+                        android:baselineAligned="false">
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -865,7 +870,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="16dp"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:baselineAligned="false">
 
 
                         <LinearLayout

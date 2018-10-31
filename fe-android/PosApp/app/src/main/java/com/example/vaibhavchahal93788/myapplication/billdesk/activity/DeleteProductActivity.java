@@ -20,7 +20,9 @@ import com.example.vaibhavchahal93788.myapplication.billdesk.model.updateProduct
 import com.example.vaibhavchahal93788.myapplication.billdesk.network.IApiRequestComplete;
 import com.example.vaibhavchahal93788.myapplication.billdesk.preferences.AppPreferences;
 import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Constants;
+import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Utility;
 
+import java.text.DecimalFormat;
 import java.util.HashMap;
 
 import libs.mjn.prettydialog.PrettyDialog;
@@ -61,10 +63,10 @@ public class DeleteProductActivity extends AppCompatActivity implements View.OnC
         tvProductName.setText(productListModel.getName());
         tvProduct.setText(productListModel.getDescription());
         tvTag.setText(productListModel.getName().charAt(0)+"".toUpperCase());
-        double price=Double.valueOf(productListModel.getSalePrice());
-        double roundOff = Math.round(price*100)/100;
+        DecimalFormat dec = new DecimalFormat("#0.00");
+        String price = dec.format(Utility.convertDouble(getApplicationContext(),productListModel.getSalePrice()));
 
-        tvTotalprice.setText(roundOff+"");
+        tvTotalprice.setText("₹" +price);
         tvCurrentStock.setText(productListModel.getQuantity()+"");
     }
 
