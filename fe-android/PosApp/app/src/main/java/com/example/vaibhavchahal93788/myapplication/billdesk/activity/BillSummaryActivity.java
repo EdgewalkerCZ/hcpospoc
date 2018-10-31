@@ -257,8 +257,8 @@ public class BillSummaryActivity extends AppCompatActivity implements Runnable{
         printCustom("Invoice", 1, 1);
         printNewLine();
         printNewLine();
-        printTextNormal("ItemName  Gst%  Price  Qty  Total");
-        makTextNormal();
+        printTextNormal("ItemName  Gst% Price  Qty  Total");
+       // makTextNormal();
         printNewLine();
         printCustom("--------------------------------", 1, 0);
         makTextNormal();
@@ -590,14 +590,19 @@ public class BillSummaryActivity extends AppCompatActivity implements Runnable{
 
         int totalPrice = 0;
 
-
+        String productName = "";
         for (int i = 0; i < billProductsList.size(); i++) {
             BillProduct billProduct = ((BillProduct) billProductsList.get(i));
 
-
+            if (billProduct.getName().length() > 8) {
+                productName = billProduct.getName().substring(0, 8);
+                //productName = productName + "...";
+            } else {
+                productName = billProduct.getName();
+            }
 
             int priceAfterGst = billProduct.getPrice() * billProduct.getQuantity();
-            printTextNormal(billProduct.getName() + " : " + billProduct.getGstTax() + "%" + "    " + spacingRequired(maxLengthBasePrice, billProduct.getPrice()) + billProduct.getPrice() + "    " + spacingRequired(maxLengthQty, billProduct.getQuantity()) + billProduct.getQuantity() + "   " + spacingRequired(maxLengthFinalPrice, priceAfterGst) + (priceAfterGst));
+            printTextNormal(productName + " : " + billProduct.getGstTax() + "%" + "    " + spacingRequired(maxLengthBasePrice, billProduct.getPrice()) + billProduct.getPrice() + "    " + spacingRequired(maxLengthQty, billProduct.getQuantity()) + billProduct.getQuantity() + "   " + spacingRequired(maxLengthFinalPrice, priceAfterGst) + (priceAfterGst));
 
             printNewLine();
             totalPrice = totalPrice + priceAfterGst;

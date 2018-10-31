@@ -6,6 +6,7 @@
 
     <string name="add_product">Add \nProduct</string>
     <string name="text_print_bill">Print Bill</string>
+    <string name="skip_item">Skip</string>
     <string name="text_view_bill">View Bill</string>
     <string name="text_product_name">Product Name</string>
     <string name="dummy_price_10000">10,000</string>
