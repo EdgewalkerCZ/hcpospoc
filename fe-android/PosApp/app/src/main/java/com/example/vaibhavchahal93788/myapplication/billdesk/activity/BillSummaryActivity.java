@@ -227,9 +227,11 @@ public class BillSummaryActivity extends AppCompatActivity implements Runnable{
         //String uniqueID = UUID.randomUUID().toString();
         String date_n = new SimpleDateFormat("dd MMM, yyyy HH:mm", Locale.getDefault()).format(new Date());
 
-        Log.e("=userName=>",userName+"==>"+userPhone+"=="+userEmail);
-        //print normal text
-       // printNewLine();
+       //Add Space
+        StringBuilder sb =new StringBuilder();
+        sb.append(userName);
+        sb.append(" : ");
+
         printPhoto(R.drawable.alphanew);
         printCustom("Alpha Store", 1, 1);
         printNewLine();
@@ -240,10 +242,10 @@ public class BillSummaryActivity extends AppCompatActivity implements Runnable{
 //        printCustom(userName, 0, 0);
 //        printCustom("Invoice No:"+uniqueID.substring(0, 11), 0, 1);
 //        printNewLine();
-        printTextNormal(userName+"        Invoice No:"+uniqueID.substring(0, 11));
+        printTextNormal(sb+" Invoice No:"+uniqueID);
         makTextNormal();
         printNewLine();
-        printTextNormal(userPhone+"        "+date_n);
+        printTextNormal(userPhone+"         "+date_n);
         makTextNormal();
         printNewLine();
 
@@ -601,8 +603,11 @@ public class BillSummaryActivity extends AppCompatActivity implements Runnable{
                 productName = billProduct.getName();
             }
 
+            Log.e("HC product name==>",productName);
+
             int priceAfterGst = billProduct.getPrice() * billProduct.getQuantity();
             printTextNormal(productName + " : " + billProduct.getGstTax() + "%" + "    " + spacingRequired(maxLengthBasePrice, billProduct.getPrice()) + billProduct.getPrice() + "    " + spacingRequired(maxLengthQty, billProduct.getQuantity()) + billProduct.getQuantity() + "   " + spacingRequired(maxLengthFinalPrice, priceAfterGst) + (priceAfterGst));
+          //  printTextNormal(productName + "  " + billProduct.getGstTax() + "%" + " " + billProduct.getPrice() + " " + billProduct.getQuantity() + " " + billProduct.getFinalPrice());
 
             printNewLine();
             totalPrice = totalPrice + priceAfterGst;

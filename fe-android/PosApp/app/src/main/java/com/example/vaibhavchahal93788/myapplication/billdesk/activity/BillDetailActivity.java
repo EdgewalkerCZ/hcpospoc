@@ -99,7 +99,7 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
     private String userPhone, userName, userEmail;
     private AppPreferences mAppPreferences;
     String uniqueID;
-
+    //int totalItems = 0, totalPrice = 0;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -242,7 +242,7 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         int startIndex = (selectedItemList.size() + 1);
         int endIndex = (selectedItemList.size() * 2) + 1;
 
-        int totalItems = 0, totalPrice = 0;
+
         for (int i = startIndex; i < endIndex; i++) {
             totalItems = totalItems + ((BillProduct) list.get(i)).getQuantity();
             // totalPrice = totalPrice + ((BillProduct) list.get(i)).getFinalPrice() * ((BillProduct) list.get(i)).getQuantity();
@@ -393,10 +393,34 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
 
 
     private void printContent() {
-        //String uniqueID = UUID.randomUUID().toString();
+
+        //Add Space
+        StringBuilder sb =new StringBuilder();
         String date_n = new SimpleDateFormat("dd MMM, yyyy HH:mm", Locale.getDefault()).format(new Date());
+        Log.e("HC len====>",userName.length()+"");
+//        if(!userName.equals(""))
+//        {
+//            if(userName.length()<12)
+//            {
+//                int len = 8-userName.length();
+//                Log.e("HC len 2====>",len+"");
+//                sb.append(userName);
+//                for(int i=0;i<1;i++)
+//                {
+//                    sb.append(" : ");
+//                    Log.e("HC Add space====>",sb.toString());
+//                }
+//
+//
+//
+//            }else{
+//                sb.append(userName);
+//            }
+//        }
+        sb.append(userName);
+        sb.append(" : ");
 
-
+    Log.e("HC New Name====>",sb.toString());
         printPhoto(R.drawable.alphanew);
         //print normal text
         // printNewLine();
@@ -407,7 +431,8 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         printNewLine();
         printCustom("Billing To", 0, 0);
         printNewLine();
-        printTextNormal(userName + "               Invoice No:" + uniqueID);
+       // printTextNormal(userName + "               Invoice No:" + uniqueID);
+        printTextNormal(sb + " Invoice No:" + uniqueID);
         makTextNormal();
         printNewLine();
         printTextNormal(userPhone + "          " + date_n);
@@ -931,14 +956,14 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         InvoiceIdModel mod = new InvoiceIdModel();
         if (billProducts.size() > 0) {
             int len = billProducts.size() - 1;
-            productName = billProducts.get(0).getName() + " + " + len + "items";
+            productName = billProducts.get(0).getName() + " + " + len + " items";
             for (int i = 0; i < billProducts.size(); i++) {
                 mod.setId(i);
                 mod.setQuantity(billProducts.get(i).getQuantity());
                 invoiceIs.add(mod);
             }
         }
-        productName = "Samsung";
+
         Log.e("==productName===>", productName);
 
 
@@ -957,7 +982,7 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         invoiceMode.setCompanyExTaxTotal(0);
         invoiceMode.setCompanyTaxTotal(0);
         invoiceMode.setAmountRemaining(0);
-        invoiceMode.setAmountPaid(11111);
+        invoiceMode.setAmountPaid(totalPrice);
         invoiceMode.setCompanyInTaxTotalRemaining(0);
         invoiceMode.setAmountRejected(0);
         invoiceMode.setExTaxTotal(3782);
