@@ -128,13 +128,16 @@ public class CRMViewCustomerActivity extends AppCompatActivity implements View.O
 
     public void updatecustomer(final boolean customer_status){
         JSONAddCustomer addCustomer=new JSONAddCustomer();
+
         addCustomer.setName(view_name_str);
+//        addCustomer.setFirstName(view_fname_str);
         addCustomer.setAddress(view_address_str);
         addCustomer.setEmail(view_email_str);
         addCustomer.setPhone(view_phone_str);
         addCustomer.setDescription(view_note_str);
         addCustomer.setId(view_customerid);
         addCustomer.setIsCustomer(customer_status);
+//        addCustomer.setId(Integer.valueOf(view_customerid_str));
         addCustomer.setPartnerCategoryId(1);
         ApiInterface apiService =
                 ApiClient.getClient().create(ApiInterface.class);

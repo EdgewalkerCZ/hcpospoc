@@ -120,17 +120,7 @@ public class CRMCustomerSearchActivity extends AppCompatActivity {
            public void onItemClick(int position) {
 
                Intent in=new Intent(CRMCustomerSearchActivity.this,CRMViewCustomerActivity.class);
-            // in.putExtra(KeyValue.FIRST_NAME,getresponse.getData().get(0).getFirstName());
-               //                       in.putExtra(KeyValue.NAME, getresponse.getData().get(0).getName());
-               //                       in.putExtra(KeyValue.FULL_NAME, getresponse.getData().get(0).getFullName());
-               //                       in.putExtra(KeyValue.PHONE,getresponse.getData().get(0).getPhone());
-               //                       in.putExtra(KeyValue.EMAIL,getresponse.getData().get(0).getEmail());
-               //                       in.putExtra(KeyValue.ADDRESS,getresponse.getData().get(0).getAddress());
-               //                       in.putExtra(KeyValue.NOTE,getresponse.getData().get(0).getDescription());
-               //                       in.putExtra(KeyValue.CUSTOMER_ID,getresponse.getData().get(0).getId()+"");
-               in.putExtra(KeyValue.FIRST_NAME,JSONCustomerResponse.getData().get(0).getFirstName()+"");
-               in.putExtra(KeyValue.FULL_NAME, JSONCustomerResponse.getData().get(0).getFullName());
-               in.putExtra(KeyValue.NAME,JSONCustomerResponse.getData().get(position).getName());
+               in.putExtra(KeyValue.NAME,JSONCustomerResponse.getData().get(position).getFullName());
                in.putExtra(KeyValue.EMAIL,JSONCustomerResponse.getData().get(position).getEmail());
                in.putExtra(KeyValue.PHONE,JSONCustomerResponse.getData().get(position).getPhone());
                in.putExtra(KeyValue.ADDRESS,JSONCustomerResponse.getData().get(position).getAddress());
