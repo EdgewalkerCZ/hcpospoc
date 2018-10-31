@@ -4,6 +4,7 @@ import java.util.Map.Entry;
 
 import javax.json.Json;
 import javax.json.JsonArray;
+import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import javax.json.JsonValue;
@@ -32,8 +33,18 @@ public abstract class BaseResourceWrite<T extends BaseEntity> extends BaseResour
     	WebTarget target = client.target(getBaseURI()).path(WS).path(REST).path(getService());
     	Builder request = target.request().accept(MediaType.APPLICATION_JSON).header("Cookie", JSESSIONID + "=" + token);
     	JsonObject jsonAxelorResponse = request.put(Entity.entity(produceAxelorJson(buildAxelorJson(token, entity)), MediaType.APPLICATION_JSON), JsonObject.class);
+		JsonObject jsonObject = processResponseErrors(jsonAxelorResponse);
+		
+		//ends if error has been found
+		if(jsonObject != null)
+			return jsonObject;
+		
+		JsonArray dataArray = jsonAxelorResponse.getJsonArray(DATA);
+		JsonArrayBuilder responseDataBuilder = processAxelorResponse(Json.createArrayBuilder(), dataArray, token);
+    	JsonObjectBuilder responseBuilder = Json.createObjectBuilder();
+    	responseBuilder.add(STATUS, 0);
 
-    	return processAxelorResponse(jsonAxelorResponse, token);
+    	return responseBuilder.add(DATA, responseDataBuilder).build();
     }
     
     public JsonObject updateObject(String id, String token, T entity) throws Exception {
@@ -52,35 +63,32 @@ public abstract class BaseResourceWrite<T extends BaseEntity> extends BaseResour
     	WebTarget target = client.target(getBaseURI()).path(WS).path(REST).path(getService()).path(id);
     	Builder request = target.request().accept(MediaType.APPLICATION_JSON).header("Cookie", JSESSIONID + "=" + token);
     	JsonObject jsonAxelorResponse = request.get(JsonObject.class);
+		JsonObject jsonObject = processResponseErrors(jsonAxelorResponse);
+		
+		//ends if error has been found
+		if(jsonObject != null)
+			return jsonObject;
+		
+		JsonArray jsonDataArray = jsonAxelorResponse.getJsonArray(DATA);
 
-    	JsonObjectBuilder jsonHcinResponse = Json.createObjectBuilder();
-    	boolean statusOk = true;
-    	
-    	if(jsonAxelorResponse.containsKey(STATUS)) {
-    		jsonHcinResponse.add(STATUS, jsonAxelorResponse.get(STATUS));
-    		statusOk = jsonAxelorResponse.getInt(STATUS) == 0;
-    	}
+		if (jsonDataArray.size() > 0) {
+			JsonObject jsonObjectData = jsonDataArray.getJsonObject(0);
+			JsonObject jsonAxelorResponsePost = request.post(Entity.entity(produceAxelorJson(mergeEntity(jsonObjectData, token, entity)), MediaType.APPLICATION_JSON), JsonObject.class);
+			JsonObject jsonObjectPost = processResponseErrors(jsonAxelorResponse);
+			
+			//ends if error has been found
+			if(jsonObjectPost != null)
+				return jsonObjectPost;
+			
+			JsonArray dataArray = jsonAxelorResponsePost.getJsonArray(DATA);
+			JsonArrayBuilder responseDataBuilder = processAxelorResponse(Json.createArrayBuilder(), dataArray, token);
+	    	JsonObjectBuilder responseBuilder = Json.createObjectBuilder();
+	    	responseBuilder.add(STATUS, 0);
 
-    	if(jsonAxelorResponse.containsKey(OFFSET))
-    		jsonHcinResponse.add(OFFSET, jsonAxelorResponse.get(OFFSET));
+	    	return responseBuilder.add(DATA, responseDataBuilder).build();
+		}
 
-    	if(jsonAxelorResponse.containsKey(DATA)) {
-    		if(statusOk) {
-    			JsonArray jsonDataArray = jsonAxelorResponse.getJsonArray(DATA);
-
-    			if (jsonDataArray.size() > 0) {
-    				JsonObject jsonObjectData = jsonDataArray.getJsonObject(0);
-        			JsonObject jsonAxelorResponsePost = request.post(Entity.entity(produceAxelorJson(mergeEntity(jsonObjectData, token, entity)), MediaType.APPLICATION_JSON), JsonObject.class);
-
-        			return processAxelorResponse(jsonAxelorResponsePost, token);
-    			}
-
-    		} else {
-        		jsonHcinResponse.add(DATA, jsonAxelorResponse.get(DATA));
-    		}
-    	}
-
-    	return jsonHcinResponse.build();
+    	return Json.createObjectBuilder().build();
     }
     
     private JsonObjectBuilder buildAxelorJson(String token, T entity) throws Exception {

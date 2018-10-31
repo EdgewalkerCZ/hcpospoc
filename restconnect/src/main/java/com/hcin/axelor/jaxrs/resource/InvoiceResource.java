@@ -135,8 +135,6 @@ public class InvoiceResource extends BaseResourceWrite<Invoice> {
     protected JsonObjectBuilder buildAxelorJson(JsonObjectBuilder builder, String token, Invoice invoice) throws Exception {
     	builder = super.buildAxelorJson(builder, token, invoice);
     	
-    	if(invoice.getId() != null) builder.add("id", invoice.getId());
-
     	if(invoice.getInvoiceId() != null) builder.add("invoiceId", invoice.getInvoiceId());
     	if(invoice.getInvoiceDate() != null) builder.add("invoiceDate", invoice.getInvoiceDate());
     	if(invoice.getDueDate() != null) builder.add("dueDate", invoice.getDueDate());

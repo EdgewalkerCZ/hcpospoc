@@ -3,6 +3,7 @@ package com.hcin.axelor.jaxrs.resource;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
+import javax.json.JsonValue;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
@@ -76,8 +77,10 @@ public class ProductResource extends BaseResourceWrite<Product> {
     		product.setProductFamilyId(jsonObject.getJsonObject("productFamily").getInt(ID));
     	}
 
-    	product.setDescription(jsonObject.get("description").toString());
-        product.setSalePrice(jsonObject.getString("salePrice"));
+    	if((jsonObject.get("description") != null) && !jsonObject.get("description").equals(JsonValue.NULL))
+    		product.setDescription(jsonObject.getString("description"));
+
+    	product.setSalePrice(jsonObject.getString("salePrice"));
         product.setIsGst(jsonObject.getBoolean("blockExpenseTax"));
         product.setIsSellable(jsonObject.getBoolean("sellable"));
     	product.setWarrantyNbrOfMonths(jsonObject.getInt("warrantyNbrOfMonths"));

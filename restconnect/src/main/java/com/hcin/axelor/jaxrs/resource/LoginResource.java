@@ -43,13 +43,14 @@ public class LoginResource extends BaseResourceRead<BaseEntity> {
         Builder request = target.request().accept(MediaType.APPLICATION_JSON);
         Response response = request.post(Entity.entity(credentials, MediaType.APPLICATION_JSON));
 
-        Map<String, NewCookie> cookies = response.getCookies();
+        if(response.getStatus() == 200) {
+        	Map<String, NewCookie> cookies = response.getCookies();
 
-        if (cookies.containsKey(JSESSIONID)) {
-        	return Json.createObjectBuilder().add(JSESSIONID, cookies.get(JSESSIONID).getValue()).build();
+        	if (cookies.containsKey(JSESSIONID)) 
+        		return Json.createObjectBuilder().add(JSESSIONID, cookies.get(JSESSIONID).getValue()).build();
         }
         
-        return Json.createObjectBuilder().add("error", response.toString()).build();
+        return Json.createObjectBuilder().add(STATUS, response.getStatus()).add(MSG, response.getStatusInfo().getReasonPhrase()).build();
     }
 
     @Override

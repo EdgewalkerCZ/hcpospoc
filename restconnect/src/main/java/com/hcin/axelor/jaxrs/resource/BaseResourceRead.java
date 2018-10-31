@@ -35,6 +35,7 @@ public abstract class BaseResourceRead<T extends BaseEntity> {
 	protected static final String TOTAL = "total";
 	protected static final String DATA = "data";
 	protected static final String ID = "id";
+	protected static final String MSG = "message";
 
     protected static URI getBaseURI() {
         return UriBuilder.fromUri("http://localhost:8080/").build();
@@ -46,15 +47,60 @@ public abstract class BaseResourceRead<T extends BaseEntity> {
     	ClientConfig config = new ClientConfig();
 
     	Client client = ClientBuilder.newClient(config);
+    	int offset = 0;
+		JsonArrayBuilder responseDataBuilder = Json.createArrayBuilder();
 
-    	WebTarget target = client.target(getBaseURI()).path(WS).path(REST).path(getService());
-    	Builder request = target.request().accept(MediaType.APPLICATION_JSON).header("Cookie", JSESSIONID + "=" + token);
-    	JsonObject jsonAxelorResponse = request.get(JsonObject.class);
+    	while(true) {
+    		WebTarget target = client.target(getBaseURI()).path(WS).path(REST).path(getService()).queryParam(OFFSET, offset);
+    		Builder request = target.request().accept(MediaType.APPLICATION_JSON).header("Cookie", JSESSIONID + "=" + token);
+    		JsonObject jsonAxelorResponse = request.get(JsonObject.class);
 
-    	return processAxelorResponse(jsonAxelorResponse, token);
+    		JsonObject jsonObject = processResponseErrors(jsonAxelorResponse);
+    		
+    		//ends if error has been found
+    		if(jsonObject != null)
+    			return jsonObject;
+    		
+    		JsonArray dataArray = jsonAxelorResponse.getJsonArray(DATA);
+    		offset += dataArray.size();
+    		
+    		processAxelorResponse(responseDataBuilder, dataArray, token);
+
+           	int total = jsonAxelorResponse.containsKey(TOTAL) ? jsonAxelorResponse.getInt(TOTAL) : -1;
+
+           	if(dataArray.size() == 0) 
+           		break;
+           	
+            if((total >= 0) && (offset >= total))
+            	break;
+    	}
+    	
+    	JsonObjectBuilder responseBuilder = Json.createObjectBuilder();
+    	responseBuilder.add(STATUS, 0);
+    	JsonArray responseData = responseDataBuilder.build();
+    	responseBuilder.add(TOTAL, responseData.size());
+
+    	return responseBuilder.add(DATA, responseData).build();
     }
     
-    public JsonObject getObject(String id, String token) throws Exception {
+    protected JsonObject processResponseErrors(JsonObject jsonAxelorResponse) {
+		if(!jsonAxelorResponse.containsKey(STATUS))
+			return Json.createObjectBuilder().add(STATUS, 404).add(MSG, "Status is missing in the response.").build();
+
+		if(jsonAxelorResponse.getInt(STATUS) != 0) {
+			JsonObjectBuilder jsonObjectBuilder = Json.createObjectBuilder().add(STATUS, jsonAxelorResponse.getInt(STATUS));
+
+			if(jsonAxelorResponse.containsKey(DATA)) {
+	       		jsonObjectBuilder.add(DATA, jsonAxelorResponse.get(DATA));
+	    	}
+			
+			return jsonObjectBuilder.build();
+    	}
+
+    	return null;
+	}
+
+	public JsonObject getObject(String id, String token) throws Exception {
         if((id == null) || id.isEmpty()) {
             return Json.createObjectBuilder().add(STATUS, 200).build();
         }
@@ -66,48 +112,36 @@ public abstract class BaseResourceRead<T extends BaseEntity> {
     	WebTarget target = client.target(getBaseURI()).path(WS).path(REST).path(getService()).path(id);
     	Builder request = target.request().accept(MediaType.APPLICATION_JSON).header("Cookie", JSESSIONID + "=" + token);
     	JsonObject jsonAxelorResponse = request.get(JsonObject.class);
+		JsonObject jsonObject = processResponseErrors(jsonAxelorResponse);
+		
+		//ends if error has been found
+		if(jsonObject != null)
+			return jsonObject;
+		
+		JsonArray dataArray = jsonAxelorResponse.getJsonArray(DATA);
+		JsonArrayBuilder responseDataBuilder = processAxelorResponse(Json.createArrayBuilder(), dataArray, token);
 
-    	return processAxelorResponse(jsonAxelorResponse, token);
+    	JsonObjectBuilder responseBuilder = Json.createObjectBuilder();
+    	responseBuilder.add(STATUS, 0);
+
+    	return responseBuilder.add(DATA, responseDataBuilder).build();
     }
     
-    protected JsonObject processAxelorResponse(JsonObject jsonAxelorResponse, String token) throws Exception {
-    	JsonObjectBuilder jsonHcinResponse = Json.createObjectBuilder();
-    	boolean statusOk = true;
-    	
-    	if(jsonAxelorResponse.containsKey(STATUS)) {
-    		jsonHcinResponse.add(STATUS, jsonAxelorResponse.get(STATUS));
-    		statusOk = jsonAxelorResponse.getInt(STATUS) == 0;
-    	}
+    protected JsonArrayBuilder processAxelorResponse(JsonArrayBuilder responseBuilder, JsonArray jsonDataArray, String token) throws Exception {
+    	ObjectMapper objectMapper = new ObjectMapper();
 
-    	if(jsonAxelorResponse.containsKey(OFFSET))
-    		jsonHcinResponse.add(OFFSET, jsonAxelorResponse.get(OFFSET));
-    	
-    	if(jsonAxelorResponse.containsKey(DATA)) {
-    		if(statusOk) {
-    			JsonArray jsonDataArray = jsonAxelorResponse.getJsonArray(DATA);
-    			JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
-    			ObjectMapper objectMapper = new ObjectMapper();
+    	for (int i = 0; i < jsonDataArray.size(); i++) {
+    		T entity = mapAxelorJson(jsonDataArray.getJsonObject(i), token);
 
-    			for (int i = 0; i < jsonDataArray.size(); i++) {
-    				T entity = mapAxelorJson(jsonDataArray.getJsonObject(i), token);
-    				
-    				if(filter(entity)) {
-    					String jsonInString = objectMapper.writeValueAsString(entity);
-    					JsonReader jsonReader = Json.createReader(new StringReader(jsonInString));
-    					jsonArrayBuilder.add(jsonReader.readObject());
-    					jsonReader.close();
-    				}
-    			}
-
-    			JsonArray hcinDataArray = jsonArrayBuilder.build();
-    			jsonHcinResponse.add(DATA, hcinDataArray);
-    			jsonHcinResponse.add(TOTAL, hcinDataArray.size());
-    		} else {
-        		jsonHcinResponse.add(DATA, jsonAxelorResponse.get(DATA));
+    		if(filter(entity)) {
+    			String jsonInString = objectMapper.writeValueAsString(entity);
+    			JsonReader jsonReader = Json.createReader(new StringReader(jsonInString));
+    			responseBuilder.add(jsonReader.readObject());
+    			jsonReader.close();
     		}
     	}
 
-    	return jsonHcinResponse.build();
+    	return responseBuilder;
     }
 
     protected boolean filter(T entity) {
