@@ -396,6 +396,7 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         //String uniqueID = UUID.randomUUID().toString();
         String date_n = new SimpleDateFormat("dd MMM, yyyy HH:mm", Locale.getDefault()).format(new Date());
 
+
         printPhoto(R.drawable.alphanew);
         //print normal text
         // printNewLine();
@@ -406,10 +407,10 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         printNewLine();
         printCustom("Billing To", 0, 0);
         printNewLine();
-        printTextNormal(userName + "        Invoice No:" + uniqueID);
+        printTextNormal(userName + "               Invoice No:" + uniqueID);
         makTextNormal();
         printNewLine();
-        printTextNormal(userPhone + "        " + date_n);
+        printTextNormal(userPhone + "          " + date_n);
         makTextNormal();
         printNewLine();
 
@@ -442,7 +443,7 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         makTextNormal();
         printTextNormal("Discount  :   " + "Rs " + discount);
         printNewLine();
-        printTextNormal("12345678901234567890123456789012345678901234");
+      //  printTextNormal("12345678901234567890123456789012345678901234");
         printNewLine();
 
         int netAmount = discountModelIs.getDiscountedPrice();
@@ -545,12 +546,21 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         int maxLengthQty = getQtyMaxLength(startIndex, endIndex);
 
         int totalPrice = 0;
+        String productName = "";
         for (int i = startIndex; i < endIndex; i++) {
+
             BillProduct billProduct = ((BillProduct) list.get(i));
             // int priceAfterGst = billProduct.getFinalPrice() * billProduct.getQuantity();
             //
             int priceAfterGst = billProduct.getPrice() * billProduct.getQuantity();
-            printTextNormal(billProduct.getName() + " : " + billProduct.getGstTax() + "%" + "    " + spacingRequired(maxLengthBasePrice, billProduct.getPrice()) + billProduct.getPrice() + "    " + spacingRequired(maxLengthQty, billProduct.getQuantity()) + billProduct.getQuantity() + "   " + spacingRequired(maxLengthFinalPrice, priceAfterGst) + (priceAfterGst));
+            if (billProduct.getName().length() > 8) {
+                productName = billProduct.getName().substring(0, 8);
+                //productName = productName + "...";
+            } else {
+                productName = billProduct.getName();
+            }
+            Log.e("productName==>",productName);
+            printTextNormal(productName + " : " + billProduct.getGstTax() + "%" + "    " + spacingRequired(maxLengthBasePrice, billProduct.getPrice()) + billProduct.getPrice() + "    " + spacingRequired(maxLengthQty, billProduct.getQuantity()) + billProduct.getQuantity() + "   " + spacingRequired(maxLengthFinalPrice, priceAfterGst) + (priceAfterGst));
 
             printNewLine();
             totalPrice = totalPrice + priceAfterGst;
