@@ -136,7 +136,7 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         //  list.add(new HeadingBillSummary("Bill Summary"));
 
         for (ProductListModel listModel : selectedItemList) {
-            BillProduct billProduct = new BillProduct(listModel.getLabel(), listModel.getQuantity(), Math.round(Float.valueOf(listModel.getPrice())), Math.round(Float.valueOf(listModel.getTaxPercentage())), Math.round(Float.valueOf(listModel.getFinalPrice())));
+            BillProduct billProduct = new BillProduct(Integer.parseInt(listModel.getId()),listModel.getLabel(), listModel.getQuantity(), Math.round(Float.valueOf(listModel.getPrice())), Math.round(Float.valueOf(listModel.getTaxPercentage())), Math.round(Float.valueOf(listModel.getFinalPrice())));
             list.add(billProduct);
         }
 
@@ -305,6 +305,7 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
 
             case R.id.btn_print_bill:
                 connectPrinter();
+                saveBill();
                 break;
             case R.id.btn_email:
                 //Send Email
@@ -958,7 +959,7 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
             int len = billProducts.size() - 1;
             productName = billProducts.get(0).getName() + " + " + len + " items";
             for (int i = 0; i < billProducts.size(); i++) {
-                mod.setId(i);
+                mod.setId(billProducts.get(i).getId());
                 mod.setQuantity(billProducts.get(i).getQuantity());
                 invoiceIs.add(mod);
             }

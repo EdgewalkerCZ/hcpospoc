@@ -95,11 +95,13 @@ String uniqueID="";
                 ViewHolderBillProduct holderBillProduct = (ViewHolderBillProduct) holder;
                 BillProduct billProduct = (BillProduct) itemsList.get(position);
                 String selectedProductName="";
-                if (billProduct.getName().length() > 8) {
-                    selectedProductName = billProduct.getName().substring(0, 8);
-                    //productName = productName + "...";
-                } else {
-                    selectedProductName = billProduct.getName();
+                if(billProduct.getName()!=null) {
+                    if (billProduct.getName().length() > 8) {
+                        selectedProductName = billProduct.getName().substring(0, 8);
+                        //productName = productName + "...";
+                    } else {
+                        selectedProductName = billProduct.getName();
+                    }
                 }
 
 

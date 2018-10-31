@@ -6,10 +6,11 @@ import android.os.Parcelable;
 public class BillProduct implements Parcelable {
 
     private String name;
-    private int quantity, price, originalPrice, gstTax, finalPrice;
+    private int id, quantity, price, originalPrice, gstTax, finalPrice;
 
-    public BillProduct(String name, int quantity, int price, int gstTax, int finalPrice) {
+    public BillProduct(int id, String name, int quantity, int price, int gstTax, int finalPrice) {
         this.name = name;
+        this.id = id;
         this.quantity = quantity;
         this.price = price;
         this.gstTax = gstTax;
@@ -17,6 +18,7 @@ public class BillProduct implements Parcelable {
     }
 
     protected BillProduct(Parcel in) {
+        id = in.readInt();
         name = in.readString();
         quantity = in.readInt();
         price = in.readInt();
@@ -36,6 +38,14 @@ public class BillProduct implements Parcelable {
             return new BillProduct[size];
         }
     };
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -80,6 +90,7 @@ public class BillProduct implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(id);
         parcel.writeString(name);
         parcel.writeInt(quantity);
         parcel.writeInt(price);
