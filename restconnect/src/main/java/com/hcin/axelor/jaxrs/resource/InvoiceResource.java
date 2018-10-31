@@ -10,6 +10,7 @@ import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import javax.json.JsonReader;
 import javax.json.JsonValue;
+import javax.json.JsonValue.ValueType;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
@@ -104,7 +105,17 @@ public class InvoiceResource extends BaseResourceWrite<Invoice> {
 			JsonArray quantityJsonArr = jsonReader.readArray();
 
 			for (int i = 0; i < quantityJsonArr.size(); i++) {
-				ProductItem productItem = new ProductItem(quantityJsonArr.getString(i));
+				JsonValue value = quantityJsonArr.get(i);
+				ProductItem productItem;
+				
+				if(value.getValueType() == ValueType.STRING) {
+					productItem = new ProductItem(quantityJsonArr.getString(i));
+				} else {
+					productItem = new ProductItem();
+					productItem.setId(quantityJsonArr.getInt(i));
+	   				productItem.setQuantity(1);
+				}
+
 				invoiceLineIdList.add(productItem);
 			}
     	} else {
