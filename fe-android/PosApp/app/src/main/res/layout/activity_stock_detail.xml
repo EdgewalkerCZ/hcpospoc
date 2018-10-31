@@ -37,6 +37,9 @@
                 android:hint="@string/text_search_products"
                 android:maxLines="1"
                 android:padding="10dp"
+                android:inputType="text"
+                android:imeOptions="actionSearch"
+                android:singleLine="true"
                 android:textSize="15dp" />
 
 

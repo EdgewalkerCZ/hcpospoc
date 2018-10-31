@@ -19,7 +19,9 @@ import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductListMo
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.allproduct.AllProductResponse;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.allproduct.DataItem;
 import com.example.vaibhavchahal93788.myapplication.billdesk.network.IApiRequestComplete;
+import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Utility;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,9 +76,10 @@ public class StockViewAdapter extends RecyclerView.Adapter<StockViewAdapter.View
 
         DataItem product = productList.get(position);
         holder.txtProductName.setText(product.getName());
-        double price=Double.valueOf(product.getSalePrice());
-        double roundOff = Math.round(price*100)/100;
-        holder.txtPrice.setText("₹" +roundOff);
+        DecimalFormat dec = new DecimalFormat("#0.00");
+        String price = dec.format(Utility.convertDouble(mContext,product.getSalePrice()));
+
+        holder.txtPrice.setText("₹" +price);
         holder.txtDescription.setText(product.getDescription());
         holder.txtQuantity.setText("QTY: " + product.getQuantity());
 

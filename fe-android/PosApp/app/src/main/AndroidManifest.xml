@@ -9,6 +9,8 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -98,17 +100,17 @@
             android:name=".billdesk.payment.SelectCategoryActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".billdesk.payment.CustomerSearchActivity" android:screenOrientation="portrait"></activity>
-        <activity android:name=".billdesk.payment.AddNewCustomerActivity" android:screenOrientation="portrait"></activity>
-        <activity android:name=".billdesk.payment.ViewCustomerDetailActivity" android:screenOrientation="portrait"></activity>
-        <activity android:name=".billdesk.activity.TransactionHistoryActivityNew" android:screenOrientation="portrait"></activity>
-        <activity android:name=".billdesk.activity.FilterHistoryActivity" android:screenOrientation="portrait"></activity>
-        <activity android:name=".billdesk.activity.ScanActivity" android:screenOrientation="portrait"></activity>
-        <activity android:name=".billdesk.activity.BillDetailHistory" android:screenOrientation="portrait"></activity>
-        <activity android:name=".billdesk.crm.CRMActivity" />
-        <activity android:name=".billdesk.crm.CRMAddCustomerActivity" />
-        <activity android:name=".billdesk.crm.CRMCustomerSearchActivity" />
-        <activity android:name=".billdesk.crm.CRMViewCustomerActivity" />
+        <activity android:name=".billdesk.payment.CustomerSearchActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".billdesk.payment.AddNewCustomerActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".billdesk.payment.ViewCustomerDetailActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".billdesk.activity.TransactionHistoryActivityNew" android:screenOrientation="portrait"/>
+        <activity android:name=".billdesk.activity.FilterHistoryActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".billdesk.activity.ScanActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".billdesk.activity.BillDetailHistory" android:screenOrientation="portrait"/>
+        <activity android:name=".billdesk.crm.CRMActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".billdesk.crm.CRMAddCustomerActivity" android:screenOrientation="portrait" />
+        <activity android:name=".billdesk.crm.CRMCustomerSearchActivity" android:screenOrientation="portrait" />
+        <activity android:name=".billdesk.crm.CRMViewCustomerActivity" android:screenOrientation="portrait" />
     </application>
 
 </manifest>
