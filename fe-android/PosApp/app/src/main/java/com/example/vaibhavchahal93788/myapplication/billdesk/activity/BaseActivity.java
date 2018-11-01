@@ -1,6 +1,7 @@
 package com.example.vaibhavchahal93788.myapplication.billdesk.activity;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +16,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class BaseActivity extends AppCompatActivity {
+
+    private ProgressDialog pDialogBase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +60,33 @@ public class BaseActivity extends AppCompatActivity {
             }
         });
         dialog.show();
+    }
+
+    /**
+     * Shows progress bar
+     * @param a-   Activity context
+     * @param msg- Message to shown
+     **/
+    public void showProgress(AppCompatActivity a, String msg) {
+        try {
+            pDialogBase = new ProgressDialog(a);
+            pDialogBase.setMessage(msg);
+            pDialogBase.show();
+            pDialogBase.setCancelable(false);
+        } catch (Exception e) {
+        }
+    }
+    /**
+     * Stops progress bar
+     **/
+    public void stopProgress() {
+        try {
+            if (pDialogBase != null && pDialogBase.isShowing())
+                pDialogBase.dismiss();
+        } catch (Exception e) {
+
+        }
+
     }
 
     }
