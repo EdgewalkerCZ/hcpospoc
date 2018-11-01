@@ -2,9 +2,9 @@ package com.example.vaibhavchahal93788.myapplication.billdesk.model;
 
 public class TranHistoryNew {
     private String pName, date;
-    private int price;
+    private double price;
 
-    public TranHistoryNew(String pName, String date, int price){
+    public TranHistoryNew(String pName, String date, double price){
         this.pName = pName;
         this.date = date;
         this.price = price;
@@ -28,7 +28,7 @@ public class TranHistoryNew {
         this.date = date;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 

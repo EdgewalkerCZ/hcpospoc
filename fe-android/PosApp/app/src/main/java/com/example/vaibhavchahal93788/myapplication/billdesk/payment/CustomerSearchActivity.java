@@ -210,9 +210,9 @@ public class CustomerSearchActivity extends AppCompatActivity {
                 break;
 
             case R.id.menu_close:
-                KeyValue.setString(CustomerSearchActivity.this, KeyValue.NAME,"Demo");
-                KeyValue.setString(CustomerSearchActivity.this, KeyValue.PHONE,"91-XXX-XXX-XXX");
-                KeyValue.setString(CustomerSearchActivity.this, KeyValue.EMAIL,"demo@homecredit.co.in");
+                KeyValue.setString(CustomerSearchActivity.this, KeyValue.NAME," ");
+                KeyValue.setString(CustomerSearchActivity.this, KeyValue.PHONE," ");
+                KeyValue.setString(CustomerSearchActivity.this, KeyValue.EMAIL," ");
                 KeyValue.setString(CustomerSearchActivity.this, KeyValue.CUSTOMER_ID,"0");
                 startActivity(new Intent(CustomerSearchActivity.this,SelectProductActivity.class));
 

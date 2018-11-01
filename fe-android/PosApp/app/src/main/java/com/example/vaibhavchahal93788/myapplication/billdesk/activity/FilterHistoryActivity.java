@@ -81,7 +81,11 @@ public class FilterHistoryActivity extends AppCompatActivity implements View.OnC
         new DatePickerDialog(FilterHistoryActivity.this, date,
                 myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show();
     }
-
+    public String getSystemDate() {
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        return df.format(c.getTime());
+    }
     @Override
     public void onClick(View view) {
         switch (view.getId()){
@@ -90,9 +94,19 @@ public class FilterHistoryActivity extends AppCompatActivity implements View.OnC
                 datePicker((TextView)view);
                 break;
             case R.id.tvTodayFilter:
+                TransactionHistoryActivityNew.filterText = "Today : "+getSystemDate();
+                selectDate((TextView)view);
+                break;
             case R.id.tvSevenDaysFilter:
+                TransactionHistoryActivityNew.filterText = "Last Seven Days";
+                selectDate((TextView)view);
+                break;
             case R.id.tvThirtyDaysFilter:
+                TransactionHistoryActivityNew.filterText = "Last Thirty Days";
+                selectDate((TextView)view);
+                break;
             case R.id.tvCustomDateFilter:
+                TransactionHistoryActivityNew.filterText = "Custom Dates";
                 selectDate((TextView)view);
                 break;
             case R.id.bt_apply:

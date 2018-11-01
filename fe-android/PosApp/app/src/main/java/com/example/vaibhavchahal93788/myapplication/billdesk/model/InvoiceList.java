@@ -38,28 +38,28 @@ public class InvoiceList {
     private Integer currencyId;
     @SerializedName("companyExTaxTotal")
     @Expose
-    private Integer companyExTaxTotal;
+    private double companyExTaxTotal;
     @SerializedName("companyTaxTotal")
     @Expose
-    private Integer companyTaxTotal;
+    private double companyTaxTotal;
     @SerializedName("amountRemaining")
     @Expose
-    private Integer amountRemaining;
+    private double amountRemaining;
     @SerializedName("amountPaid")
     @Expose
-    private Integer amountPaid;
+    private double amountPaid;
     @SerializedName("companyInTaxTotalRemaining")
     @Expose
-    private Integer companyInTaxTotalRemaining;
+    private double companyInTaxTotalRemaining;
     @SerializedName("amountRejected")
     @Expose
-    private Integer amountRejected;
+    private double amountRejected;
     @SerializedName("exTaxTotal")
     @Expose
-    private Double exTaxTotal;
+    private double exTaxTotal;
     @SerializedName("directDebitAmount")
     @Expose
-    private Integer directDebitAmount;
+    private double directDebitAmount;
     @SerializedName("note")
     @Expose
     private String note;
@@ -144,7 +144,7 @@ public class InvoiceList {
         this.currencyId = currencyId;
     }
 
-    public Integer getCompanyExTaxTotal() {
+    public double getCompanyExTaxTotal() {
         return companyExTaxTotal;
     }
 
@@ -152,7 +152,7 @@ public class InvoiceList {
         this.companyExTaxTotal = companyExTaxTotal;
     }
 
-    public Integer getCompanyTaxTotal() {
+    public double getCompanyTaxTotal() {
         return companyTaxTotal;
     }
 
@@ -160,7 +160,7 @@ public class InvoiceList {
         this.companyTaxTotal = companyTaxTotal;
     }
 
-    public Integer getAmountRemaining() {
+    public double getAmountRemaining() {
         return amountRemaining;
     }
 
@@ -168,7 +168,7 @@ public class InvoiceList {
         this.amountRemaining = amountRemaining;
     }
 
-    public Integer getAmountPaid() {
+    public double getAmountPaid() {
         return amountPaid;
     }
 
@@ -176,7 +176,7 @@ public class InvoiceList {
         this.amountPaid = amountPaid;
     }
 
-    public Integer getCompanyInTaxTotalRemaining() {
+    public double getCompanyInTaxTotalRemaining() {
         return companyInTaxTotalRemaining;
     }
 
@@ -184,7 +184,7 @@ public class InvoiceList {
         this.companyInTaxTotalRemaining = companyInTaxTotalRemaining;
     }
 
-    public Integer getAmountRejected() {
+    public double getAmountRejected() {
         return amountRejected;
     }
 
@@ -200,7 +200,7 @@ public class InvoiceList {
         this.exTaxTotal = exTaxTotal;
     }
 
-    public Integer getDirectDebitAmount() {
+    public double getDirectDebitAmount() {
         return directDebitAmount;
     }
 

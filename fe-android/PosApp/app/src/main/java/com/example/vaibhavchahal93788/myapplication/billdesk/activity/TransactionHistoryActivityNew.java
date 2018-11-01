@@ -76,9 +76,12 @@ public class TransactionHistoryActivityNew extends BaseActivity {
     View dialogDownloadOrMail;
     EditText etSearchHistory;
     TransactionHistoryAdapterNew adapter;
+    boolean isLastProductGet = false;
+    int productListCount = 0;
     private ProgressBar progreeBar;
     private AppPreferences mAppPreferences;
     ArrayList<BillProduct> billProductsList = new ArrayList<>();
+    public static String filterText = "Today : ";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,7 +99,8 @@ public class TransactionHistoryActivityNew extends BaseActivity {
         populateList2();
         //showPieChart();
         drawPieGraph();
-        tvTodayDAte.setText(getSystemDate());
+        filterText = filterText + getSystemDate();
+        tvTodayDAte.setText(filterText);
 
         btnDownloadOrMailHistory.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,7 +124,14 @@ public class TransactionHistoryActivityNew extends BaseActivity {
             }
         });
     }
-      /*Initialize views*/
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        tvTodayDAte.setText(filterText);
+    }
+
+    /*Initialize views*/
       public void initViews(){
           rvProducts = findViewById(R.id.rvHistory);
           LinearLayoutManager lm = new LinearLayoutManager(TransactionHistoryActivityNew.this);
@@ -150,6 +161,7 @@ public class TransactionHistoryActivityNew extends BaseActivity {
         adapter = new TransactionHistoryAdapterNew(TransactionHistoryActivityNew.this, tranHistoryNewList, new TransactionHistoryAdapterNew.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
+                isLastProductGet = false;
                 getCustomerDetails(response.getData().get(position).getCustomerId(),
                         response.getData().get(position).getInvoiceLineIdList());
             }
@@ -386,6 +398,7 @@ public class TransactionHistoryActivityNew extends BaseActivity {
                         KeyValue.setString(TransactionHistoryActivityNew.this, KeyValue.NOTE,"Test Note");
 
                         getBillProducts(invoiceLineIdList);
+                        productListCount = invoiceLineIdList.size();
                     }else {
                         //Utility.showToast(getApplicationContext(),getResources().getString(R.string.no_data));
                     }
@@ -402,11 +415,12 @@ public class TransactionHistoryActivityNew extends BaseActivity {
 
     public void getBillProducts(List<InvoiceLineIdList> invoiceLineIdList){
         //billProductsList = new ArrayList<>();
+
         for(int i=0;i<invoiceLineIdList.size();i++){
-            //getProduct(invoiceLineIdList.get(i).getId(), invoiceLineIdList.get(i).getQuantity());
-            getProduct(64, invoiceLineIdList.get(i).getQuantity());
+            getProduct(i, invoiceLineIdList.get(i).getId(), invoiceLineIdList.get(i).getQuantity());
+            //getProduct(i,64, invoiceLineIdList.get(i).getQuantity());
         }
-        if (billProductsList.size()==invoiceLineIdList.size()){
+        //if (isLastProductGet){
             Intent intent = new Intent(TransactionHistoryActivityNew.this, BillSummaryActivityNew.class);
             intent.putExtra("billProductsList", billProductsList);
 
@@ -414,12 +428,12 @@ public class TransactionHistoryActivityNew extends BaseActivity {
             intent.putExtra("paymentMode","Cash");
 
             startActivity(intent);
-        }else{
-            Utility.showToast(getApplicationContext(), getResources().getString(R.string.error_no_product_in_invoice));
-        }
+//        }else{
+//            Utility.showToast(getApplicationContext(), getResources().getString(R.string.error_no_product_in_invoice));
+//        }
     }
 
-    public void getProduct(int productID, final int quantity){
+    public void getProduct(final int loopCount, int productID, final int quantity){
         progreeBar.setVisibility(View.VISIBLE);
         HashMap<String,String> headerValues= new HashMap<>();
         headerValues.put("Content-Type", "application/json");
@@ -431,9 +445,12 @@ public class TransactionHistoryActivityNew extends BaseActivity {
             public void onSuccess(final BillProductInvoice response) {
                 progreeBar.setVisibility(View.GONE);
 
-                if (response!=null && response.getData()!=null){
-                    billProductsList.add(new BillProduct(response.getData().get(0).getName(),
+                if (response!=null && response.getData()!=null && response.getData().size() > 0){
+                    billProductsList.add(new BillProduct(response.getData().get(0).getId(),response.getData().get(0).getName(),
                             quantity,response.getData().get(0).getSalePrice(),18, response.getData().get(0).getSalePrice()));
+                    if(loopCount+1 == productListCount){
+                        isLastProductGet = true;
+                    }
                 }
             }
             @Override

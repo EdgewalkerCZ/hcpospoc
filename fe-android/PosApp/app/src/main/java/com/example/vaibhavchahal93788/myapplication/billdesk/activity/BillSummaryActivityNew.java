@@ -143,7 +143,7 @@ public class BillSummaryActivityNew extends AppCompatActivity implements Runnabl
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        adapter = new BillSummaryRecyclerAdapter(list,paymentMode);
+        adapter = new BillSummaryRecyclerAdapter(list,paymentMode,"INV345796");
 
         recyclerView.setAdapter(adapter);
 
