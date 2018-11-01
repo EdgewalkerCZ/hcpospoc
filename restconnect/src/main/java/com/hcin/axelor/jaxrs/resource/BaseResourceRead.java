@@ -62,6 +62,10 @@ public abstract class BaseResourceRead<T extends BaseEntity> {
     			return jsonObject;
     		
     		JsonArray dataArray = jsonAxelorResponse.getJsonArray(DATA);
+
+    		if(dataArray == null)
+    			break;
+    		
     		offset += dataArray.size();
     		
     		processAxelorResponse(responseDataBuilder, dataArray, token);
@@ -130,14 +134,16 @@ public abstract class BaseResourceRead<T extends BaseEntity> {
     protected JsonArrayBuilder processAxelorResponse(JsonArrayBuilder responseBuilder, JsonArray jsonDataArray, String token) throws Exception {
     	ObjectMapper objectMapper = new ObjectMapper();
 
-    	for (int i = 0; i < jsonDataArray.size(); i++) {
-    		T entity = mapAxelorJson(jsonDataArray.getJsonObject(i), token);
+    	if(jsonDataArray != null) {
+    		for (int i = 0; i < jsonDataArray.size(); i++) {
+    			T entity = mapAxelorJson(jsonDataArray.getJsonObject(i), token);
 
-    		if(filter(entity)) {
-    			String jsonInString = objectMapper.writeValueAsString(entity);
-    			JsonReader jsonReader = Json.createReader(new StringReader(jsonInString));
-    			responseBuilder.add(jsonReader.readObject());
-    			jsonReader.close();
+    			if(filter(entity)) {
+    				String jsonInString = objectMapper.writeValueAsString(entity);
+    				JsonReader jsonReader = Json.createReader(new StringReader(jsonInString));
+    				responseBuilder.add(jsonReader.readObject());
+    				jsonReader.close();
+    			}
     		}
     	}
 
