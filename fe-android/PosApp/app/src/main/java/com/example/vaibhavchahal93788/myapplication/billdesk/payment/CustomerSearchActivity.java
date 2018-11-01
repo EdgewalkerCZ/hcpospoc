@@ -119,6 +119,7 @@ public class CustomerSearchActivity extends AppCompatActivity {
                 KeyValue.setString(CustomerSearchActivity.this, KeyValue.NAME,customerSets.getData().get(position).getFullName());
                 KeyValue.setString(CustomerSearchActivity.this, KeyValue.PHONE,customerSets.getData().get(position).getPhone());
                 KeyValue.setString(CustomerSearchActivity.this, KeyValue.EMAIL,customerSets.getData().get(position).getEmail());
+                KeyValue.setString(CustomerSearchActivity.this, KeyValue.CUSTOMER_ID,customerSets.getData().get(position).getId()+"");
 //                 KeyValue.setString(ViewCustomerDetailActivity.this, KeyValue.NAME,view_name_str);
                 //                KeyValue.setString(ViewCustomerDetailActivity.this, KeyValue.PHONE,view_phone_str);
                 //                KeyValue.setString(ViewCustomerDetailActivity.this, KeyValue.EMAIL,view_email_str);
