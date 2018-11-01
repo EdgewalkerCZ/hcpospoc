@@ -73,23 +73,23 @@ public class InvoiceResource extends BaseResourceWrite<Invoice> {
     	invoice.setInvoiceDate(jsonObject.getString("invoiceDate"));
     	invoice.setDueDate(jsonObject.getString("dueDate"));
 
-    	if(jsonObject.getJsonObject("company") != null) {
+    	if((jsonObject.get("company") != null) && !jsonObject.get("company").equals(JsonValue.NULL)) {
     		invoice.setCompanyId(jsonObject.getJsonObject("company").getInt(ID));
     	}
 
-    	if(jsonObject.getJsonObject("paymentCondition") != null) {
+    	if((jsonObject.get("paymentCondition") != null) && !jsonObject.get("paymentCondition").equals(JsonValue.NULL)) {
     		invoice.setPaymentConditionId(jsonObject.getJsonObject("paymentCondition").getInt(ID));
     	}
 
-    	if(jsonObject.getJsonObject("partner") != null) {
+    	if((jsonObject.get("partner") != null) && !jsonObject.get("partner").equals(JsonValue.NULL)) {
     		invoice.setCustomerId(jsonObject.getJsonObject("partner").getInt(ID));
     	}
 
-    	if(jsonObject.getJsonObject("paymentMode") != null) {
+    	if((jsonObject.get("paymentMode") != null) && !jsonObject.get("paymentMode").equals(JsonValue.NULL)) {
     		invoice.setPaymentModeId(jsonObject.getJsonObject("paymentMode").getInt(ID));
     	}
 
-    	if(jsonObject.getJsonObject("currency") != null) {
+    	if((jsonObject.get("currency") != null) && !jsonObject.get("currency").equals(JsonValue.NULL)) {
     		invoice.setCurrencyId(jsonObject.getJsonObject("currency").getInt(ID));
     	}
 

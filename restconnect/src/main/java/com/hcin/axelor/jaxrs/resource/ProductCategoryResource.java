@@ -1,6 +1,7 @@
 package com.hcin.axelor.jaxrs.resource;
 
 import javax.json.JsonObject;
+import javax.json.JsonValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
 import javax.ws.rs.Path;
@@ -43,7 +44,7 @@ public class ProductCategoryResource extends BaseResourceRead<ProductCategory> {
     	category.setCode(jsonObject.getString("code"));
     	category.setName(jsonObject.getString("name"));
 
-    	if(jsonObject.getJsonObject("productFamily") != null) {
+    	if((jsonObject.get("productFamily") != null) && !jsonObject.get("productFamily").equals(JsonValue.NULL)) {
     		category.setProductFamilyId(jsonObject.getJsonObject("productFamily").getInt(ID));
     	}
 
