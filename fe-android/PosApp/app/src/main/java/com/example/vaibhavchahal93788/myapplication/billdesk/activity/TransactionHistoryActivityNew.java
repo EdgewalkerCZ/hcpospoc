@@ -132,24 +132,24 @@ public class TransactionHistoryActivityNew extends BaseActivity {
     }
 
     /*Initialize views*/
-      public void initViews(){
-          rvProducts = findViewById(R.id.rvHistory);
-          LinearLayoutManager lm = new LinearLayoutManager(TransactionHistoryActivityNew.this);
-          lm.setOrientation(LinearLayoutManager.VERTICAL);
-          rvProducts.setLayoutManager(lm);
-          chart = findViewById(R.id.chart);
-          tvTodayDAte = findViewById(R.id.tvTodayDAte);
-          btnDownloadOrMailHistory = findViewById(R.id.btnDownloadOrMailHistory);
-          dialogDownloadOrMail = findViewById(R.id.dialogDownload);
-          etSearchHistory = findViewById(R.id.etSearchHistory);
-          progreeBar = findViewById(R.id.progress_bar);
-      }
+    public void initViews(){
+        rvProducts = findViewById(R.id.rvHistory);
+        LinearLayoutManager lm = new LinearLayoutManager(TransactionHistoryActivityNew.this);
+        lm.setOrientation(LinearLayoutManager.VERTICAL);
+        rvProducts.setLayoutManager(lm);
+        chart = findViewById(R.id.chart);
+        tvTodayDAte = findViewById(R.id.tvTodayDAte);
+        btnDownloadOrMailHistory = findViewById(R.id.btnDownloadOrMailHistory);
+        dialogDownloadOrMail = findViewById(R.id.dialogDownload);
+        etSearchHistory = findViewById(R.id.etSearchHistory);
+        progreeBar = findViewById(R.id.progress_bar);
+    }
 
-     private void populateList2(){
+    private void populateList2(){
 
-     }
+    }
 
-     /*Populate invoice list*/
+    /*Populate invoice list*/
     private void populateList(final InvoiceModelNew response) {
         InvoiceList iv;
         tranHistoryNewList = new ArrayList<>();
@@ -162,8 +162,14 @@ public class TransactionHistoryActivityNew extends BaseActivity {
             @Override
             public void onItemClick(int position) {
                 isLastProductGet = false;
-                getCustomerDetails(response.getData().get(position).getCustomerId(),
-                        response.getData().get(position).getInvoiceLineIdList());
+                int ci = response.getData().get(position).getCustomerId();
+                List<InvoiceLineIdList> myList = response.getData().get(position).getInvoiceLineIdList();
+                if(ci!=0 && myList!=null) {
+                    getCustomerDetails(response.getData().get(position).getCustomerId(),
+                            response.getData().get(position).getInvoiceLineIdList());
+                }else
+                    Toast.makeText(getApplicationContext(),"Details not available",
+                            Toast.LENGTH_LONG).show();
             }
         });
         rvProducts.setAdapter(adapter);
@@ -346,7 +352,7 @@ public class TransactionHistoryActivityNew extends BaseActivity {
 
     //Get invoice list from server
     public void getInvoiceList(){
-        progreeBar.setVisibility(View.VISIBLE);
+        showProgress(TransactionHistoryActivityNew.this, "Getting invoices...");
         HashMap<String,String> headerValues= new HashMap<>();
         headerValues.put("Content-Type", "application/json");
         headerValues.put("Accept", "application/json");
@@ -355,7 +361,7 @@ public class TransactionHistoryActivityNew extends BaseActivity {
         new ProductApiHelper().getInvoiceList(headerValues, new IApiRequestComplete<InvoiceModelNew>() {
             @Override
             public void onSuccess(final InvoiceModelNew response) {
-                progreeBar.setVisibility(View.GONE);
+                stopProgress();
                 if (response!=null){
                     if (response.getData().size()!=0){
                         populateList(response);
@@ -367,14 +373,15 @@ public class TransactionHistoryActivityNew extends BaseActivity {
 
             @Override
             public void onFailure(String message) {
-
+                stopProgress();
+                Utility.showToast(getApplicationContext(),getResources().getString(R.string.no_data));
             }
         });
     }
 
     //Get customer details from server
     public void getCustomerDetails(int customerId, final List<InvoiceLineIdList> invoiceLineIdList){
-        progreeBar.setVisibility(View.VISIBLE);
+        showProgress(TransactionHistoryActivityNew.this, "Fetching details...");
         HashMap<String,String> headerValues= new HashMap<>();
         headerValues.put("Content-Type", "application/json");
         headerValues.put("Accept", "application/json");
@@ -383,7 +390,6 @@ public class TransactionHistoryActivityNew extends BaseActivity {
         new ProductApiHelper().getCustomerDetails(headerValues,String.valueOf(customerId), new IApiRequestComplete<CustomerModel>() {
             @Override
             public void onSuccess(final CustomerModel response) {
-                progreeBar.setVisibility(View.GONE);
                 if (response!=null){
                     if (response.getData().size()!=0){
                         response.getData().get(0).getAddress();
@@ -400,41 +406,38 @@ public class TransactionHistoryActivityNew extends BaseActivity {
                         getBillProducts(invoiceLineIdList);
                         productListCount = invoiceLineIdList.size();
                     }else {
-                        //Utility.showToast(getApplicationContext(),getResources().getString(R.string.no_data));
+                        Toast.makeText(getApplicationContext(),"Details not available",
+                                Toast.LENGTH_LONG).show();
+                        stopProgress();
                     }
                 }
             }
 
             @Override
             public void onFailure(String message) {
-
+                Toast.makeText(getApplicationContext(),"Details not available",
+                        Toast.LENGTH_LONG).show();
+                stopProgress();
             }
         });
     }
 
-
+    /**
+     *Get all products for invoice
+     **/
     public void getBillProducts(List<InvoiceLineIdList> invoiceLineIdList){
-        //billProductsList = new ArrayList<>();
+        billProductsList = new ArrayList<>();
 
-        for(int i=0;i<invoiceLineIdList.size();i++){
-            getProduct(i, invoiceLineIdList.get(i).getId(), invoiceLineIdList.get(i).getQuantity());
-            //getProduct(i,64, invoiceLineIdList.get(i).getQuantity());
+        if(invoiceLineIdList.size()>0) {
+            getProduct(0, invoiceLineIdList.get(0).getId(), invoiceLineIdList.get(0).getQuantity(),invoiceLineIdList);
+        }else{
+            Toast.makeText(getApplicationContext(),"Details not available",
+                    Toast.LENGTH_LONG).show();
+            stopProgress();
         }
-        //if (isLastProductGet){
-            Intent intent = new Intent(TransactionHistoryActivityNew.this, BillSummaryActivityNew.class);
-            intent.putExtra("billProductsList", billProductsList);
-
-            intent.putExtra("discount",0);
-            intent.putExtra("paymentMode","Cash");
-
-            startActivity(intent);
-//        }else{
-//            Utility.showToast(getApplicationContext(), getResources().getString(R.string.error_no_product_in_invoice));
-//        }
     }
 
-    public void getProduct(final int loopCount, int productID, final int quantity){
-        progreeBar.setVisibility(View.VISIBLE);
+    public void getProduct(final int loopCount, int productID, final int quantity, final List<InvoiceLineIdList> invoiceLineIdList){
         HashMap<String,String> headerValues= new HashMap<>();
         headerValues.put("Content-Type", "application/json");
         headerValues.put("Accept", "application/json");
@@ -443,19 +446,28 @@ public class TransactionHistoryActivityNew extends BaseActivity {
         new ProductApiHelper().getBillProduct(headerValues, productID, new IApiRequestComplete<BillProductInvoice>() {
             @Override
             public void onSuccess(final BillProductInvoice response) {
-                progreeBar.setVisibility(View.GONE);
-
                 if (response!=null && response.getData()!=null && response.getData().size() > 0){
                     billProductsList.add(new BillProduct(response.getData().get(0).getId(),response.getData().get(0).getName(),
                             quantity,response.getData().get(0).getSalePrice(),18, response.getData().get(0).getSalePrice()));
-                    if(loopCount+1 == productListCount){
-                        isLastProductGet = true;
+
+                    invoiceLineIdList.remove(invoiceLineIdList.get(0));
+                    if(invoiceLineIdList.size()>0) {
+                        getProduct(0, invoiceLineIdList.get(0).getId(), invoiceLineIdList.get(0).getQuantity(), invoiceLineIdList);
+                    }else{
+                        stopProgress();
+                        Intent intent = new Intent(TransactionHistoryActivityNew.this, BillSummaryActivityNew.class);
+                        intent.putExtra("billProductsList", billProductsList);
+                        intent.putExtra("discount",0);
+                        intent.putExtra("paymentMode","Cash");
+                        startActivity(intent);
                     }
                 }
             }
             @Override
             public void onFailure(String message) {
-                Toast.makeText(TransactionHistoryActivityNew.this, "Products not found", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"Details not available",
+                        Toast.LENGTH_LONG).show();
+                stopProgress();
             }
         });
     }
