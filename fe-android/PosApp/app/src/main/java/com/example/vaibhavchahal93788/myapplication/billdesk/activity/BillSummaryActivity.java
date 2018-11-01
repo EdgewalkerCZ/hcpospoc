@@ -599,17 +599,39 @@ public class BillSummaryActivity extends AppCompatActivity implements Runnable{
             } else {
                 productName = billProduct.getName();
             }
-//            if(productName.length()<8)
-//            {
-//                int size = 8-productName.length();
-//               // for(int j=0;j<size;j++)
-//                productName=productName+"";
-//            }
-            Log.e("HC product name==>",productName);
+
+            //add space if charector length is short
+            if(productName.length()<8)
+            {
+                int size = 8-productName.length();
+                for(int j=0;j<size;j++)
+                productName=productName+" ";
+            }
+            int price =billProduct.getPrice();
+            String priceIs = String.valueOf(price);
+
+            int finalPrice =billProduct.getFinalPrice();
+            String finalPriceIs = String.valueOf(finalPrice);
+
+            if (priceIs.length() < 5) {
+
+                int size = 5 - priceIs.length();
+                for(int j=0;j<size;j++)
+                    priceIs =" "+ priceIs;
+            }
+
+            if (finalPriceIs.length() < 5) {
+
+                int size = 5 - finalPriceIs.length();
+                for(int j=0;j<size;j++)
+                    finalPriceIs =" "+ finalPriceIs;
+            }
+
 
             int priceAfterGst = billProduct.getPrice() * billProduct.getQuantity();
-            printTextNormal(productName + " : " + billProduct.getGstTax() + "%" + "    " + spacingRequired(maxLengthBasePrice, billProduct.getPrice()) + billProduct.getPrice() + "    " + spacingRequired(maxLengthQty, billProduct.getQuantity()) + billProduct.getQuantity() + "   " + spacingRequired(maxLengthFinalPrice, priceAfterGst) + (priceAfterGst));
+          //  printTextNormal(productName + " : " + billProduct.getGstTax() + "%" + "    " + spacingRequired(maxLengthBasePrice, billProduct.getPrice()) + billProduct.getPrice() + "    " + spacingRequired(maxLengthQty, billProduct.getQuantity()) + billProduct.getQuantity() + "   " + spacingRequired(maxLengthFinalPrice, priceAfterGst) + (priceAfterGst));
           //  printTextNormal(productName + "  " + billProduct.getGstTax() + "%" + " " + billProduct.getPrice() + " " + billProduct.getQuantity() + " " + billProduct.getFinalPrice());
+            printTextNormal(productName + " : " + billProduct.getGstTax() + "%" + "    "+priceIs + "    "+billProduct.getQuantity() + "   " + finalPriceIs);
 
             printNewLine();
             totalPrice = totalPrice + priceAfterGst;
