@@ -67,8 +67,8 @@
                 android:layout_height="wrap_content">
                 <ImageButton
                     android:id="@+id/btn_add"
-                    android:layout_width="45dp"
-                    android:layout_height="40dp"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
                     android:layout_centerVertical="true"
                     android:layout_toLeftOf="@+id/product_price"
                     android:background="@drawable/right_rectangle"
@@ -76,8 +76,8 @@
 
                 <Button
                     android:id="@+id/btn_count"
-                    android:layout_width="45dp"
-                    android:layout_height="40dp"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
                     android:layout_centerVertical="true"
                     android:layout_toLeftOf="@+id/btn_add"
                     android:background="@drawable/two_side_border_rectangle"
@@ -87,8 +87,8 @@
 
                 <ImageButton
                     android:id="@+id/btn_remove"
-                    android:layout_width="45dp"
-                    android:layout_height="40dp"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="5dp"
                     android:layout_toLeftOf="@+id/btn_count"
@@ -116,13 +116,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/imgIs"
-
                 android:layout_marginTop="25px"
-
                 android:drawableLeft="@drawable/rupee_icon"
                 android:text="2464"
-
-                android:paddingLeft="12dp"
+                android:gravity="right|center"
                 android:textSize="@dimen/textsize_large"
                 android:textStyle="bold"
                 android:textColor="#000000" />
