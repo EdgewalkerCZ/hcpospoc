@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
                 android:fontFamily="sans-serif"
-                android:text="Last login was at 14-07"
+                android:text="Last login: 14:30 PM, 06 Nov 18"
                 android:textColor="#ffffff"
                 android:textSize="14sp" />
 
