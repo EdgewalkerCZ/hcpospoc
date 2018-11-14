@@ -228,6 +228,8 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
 
     @Override
     public void onDataChanged(int quantity, int position, int price) {
+        totalItems = 0;
+        totalPrice = 0;
         int index = selectedItemList.size() + 1 + position;
         BillProduct billProduct = (BillProduct) list.get(index);
         billProduct.setQuantity(quantity);
