@@ -958,7 +958,7 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
 
         //foR Product Name
 
-        if (billProducts.size() > 0) {
+        if (billProducts.size() > 0 && billProducts.size()!=1) {
             int len = billProducts.size() - 1;
             productName = billProducts.get(0).getName() + " + " + len + " items";
             for (int i = 0; i < billProducts.size(); i++) {
@@ -967,6 +967,8 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
                 mod.setQuantity(billProducts.get(i).getQuantity());
                 invoiceIs.add(mod);
             }
+        }else{
+            productName = billProducts.get(0).getName();
         }
 
         String currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
