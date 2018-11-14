@@ -72,7 +72,7 @@ public class FilterHistoryActivity extends AppCompatActivity implements View.OnC
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                 //String myFormat = "dd MMMM yyyy"; // your format
-                String myFormat = "dd/MM/yyyy"; // your format
+                String myFormat = "dd, MMM yy"; // your format
                 SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
 
                 tv.setText(sdf.format(myCalendar.getTime()));

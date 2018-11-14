@@ -29,7 +29,7 @@ public class BaseActivity extends AppCompatActivity {
      **/
     public String getSystemDate() {
         Calendar c = Calendar.getInstance();
-        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat df = new SimpleDateFormat("dd, MMM yy");
         return df.format(c.getTime());
     }
 
