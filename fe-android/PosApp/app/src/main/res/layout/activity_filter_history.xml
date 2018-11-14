@@ -14,13 +14,13 @@
         android:layout_weight="1"
         android:orientation="vertical">
 
-       <TextView
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:textStyle="bold"
-           android:padding="10sp"
-           android:textSize="18sp"
-           android:text="@string/selectDate"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:padding="10sp"
+            android:textSize="18sp"
+            android:text="@string/selectDate"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -101,7 +101,7 @@
                     android:padding="10sp"
                     android:gravity="center_horizontal"
                     android:background="@drawable/custom_border"
-                    android:text="10/10/2018"/>
+                    android:text="10, Nov 18"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -119,7 +119,7 @@
                     android:padding="10sp"
                     android:background="@drawable/custom_border"
                     android:gravity="center_horizontal"
-                    android:text="15/10/2018"/>
+                    android:text="15, Nov 18"/>
             </LinearLayout>
         </LinearLayout>
 

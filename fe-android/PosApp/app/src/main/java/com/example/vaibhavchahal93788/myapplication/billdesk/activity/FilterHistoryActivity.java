@@ -26,6 +26,7 @@ public class FilterHistoryActivity extends AppCompatActivity implements View.OnC
     TextView tvFromDate, tvToDate, tvToday, tvSevenDays, tvThirtyDays, tvCustomDateFilter;
     Button btnCash, btnCard, btApply;
     LinearLayout llCustomDateFilter;
+    boolean isCustomDates = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -81,9 +82,24 @@ public class FilterHistoryActivity extends AppCompatActivity implements View.OnC
         new DatePickerDialog(FilterHistoryActivity.this, date,
                 myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show();
     }
+
     public String getSystemDate() {
         Calendar c = Calendar.getInstance();
-        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat df = new SimpleDateFormat("dd, MMM yy");
+        return df.format(c.getTime());
+    }
+
+    public String getDateLastSeventhDay() {
+        Calendar c = Calendar.getInstance();
+        c.add(Calendar.DATE, -6);
+        SimpleDateFormat df = new SimpleDateFormat("dd, MMM yy");
+        return df.format(c.getTime());
+    }
+
+    public String getDateLastThirtiethDay() {
+        Calendar c = Calendar.getInstance();
+        c.add(Calendar.DATE, -29);
+        SimpleDateFormat df = new SimpleDateFormat("dd, MMM yy");
         return df.format(c.getTime());
     }
     @Override
@@ -94,22 +110,29 @@ public class FilterHistoryActivity extends AppCompatActivity implements View.OnC
                 datePicker((TextView)view);
                 break;
             case R.id.tvTodayFilter:
+                isCustomDates = false;
                 TransactionHistoryActivityNew.filterText = "Today : "+getSystemDate();
                 selectDate((TextView)view);
                 break;
             case R.id.tvSevenDaysFilter:
-                TransactionHistoryActivityNew.filterText = "Last Seven Days";
+                isCustomDates = false;
+                TransactionHistoryActivityNew.filterText = "Last Seven Days: "+getSystemDate()+" To "+
+                        getDateLastSeventhDay();
                 selectDate((TextView)view);
                 break;
             case R.id.tvThirtyDaysFilter:
-                TransactionHistoryActivityNew.filterText = "Last Thirty Days";
+                isCustomDates = false;
+                TransactionHistoryActivityNew.filterText = "Last Thirty Days: "+getSystemDate()+" To "+
+                        getDateLastThirtiethDay();
                 selectDate((TextView)view);
                 break;
             case R.id.tvCustomDateFilter:
-                TransactionHistoryActivityNew.filterText = "Custom Dates";
+                isCustomDates = true;
                 selectDate((TextView)view);
                 break;
             case R.id.bt_apply:
+                if(isCustomDates)
+                    TransactionHistoryActivityNew.filterText = "Custom Dates: "+tvFromDate.getText()+" To "+tvToDate.getText();
                 finish();
                 break;
             case R.id.btnCash:

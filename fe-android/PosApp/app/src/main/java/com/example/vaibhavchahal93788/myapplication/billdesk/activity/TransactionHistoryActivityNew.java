@@ -92,8 +92,11 @@ public class TransactionHistoryActivityNew extends BaseActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        filterText = "Today : ";
         //Initialize Views
         initViews();
+
+        //String myId = UUID.randomUUID().toString();
 
         getInvoiceList();
         populateList2();
@@ -206,14 +209,15 @@ public class TransactionHistoryActivityNew extends BaseActivity {
         try{
             final PieChart pieChart = findViewById(R.id.chart);
             List<PieEntry> entries = new ArrayList<>();
-            entries.add(new PieEntry(52000, " Card  \u20B9 15000"));
-            entries.add(new PieEntry(38000, " Cash  \u20B9 20000"));
+            entries.add(new PieEntry(52000, " Card  \u20B9 52000"));
+            entries.add(new PieEntry(38000, " Cash  \u20B9 38000"));
+
             pieChart.setEntryLabelColor(Color.RED);
             //PieDataSet set = new PieDataSet(entries, "History Evaluation");
             PieDataSet set = new PieDataSet(entries,"");
             set.setDrawValues(false);
             pieChart.setDrawEntryLabels(false);
-            set.setColors(new int[] { R.color.color_33a4a0, R.color.color_33a470}, this);
+            set.setColors(new int[] { R.color.color_ffac2a, R.color.color_33a4a0}, this);
             PieData data = new PieData(set);
             pieChart.setData(data);
             //pieChart.invalidate(); // refresh
@@ -407,7 +411,7 @@ public class TransactionHistoryActivityNew extends BaseActivity {
                         productListCount = invoiceLineIdList.size();
                     }else {
                         Toast.makeText(getApplicationContext(),"Details not available",
-                                Toast.LENGTH_LONG).show();
+                                Toast.LENGTH_SHORT).show();
                         stopProgress();
                     }
                 }
@@ -416,7 +420,7 @@ public class TransactionHistoryActivityNew extends BaseActivity {
             @Override
             public void onFailure(String message) {
                 Toast.makeText(getApplicationContext(),"Details not available",
-                        Toast.LENGTH_LONG).show();
+                        Toast.LENGTH_SHORT).show();
                 stopProgress();
             }
         });
@@ -432,7 +436,7 @@ public class TransactionHistoryActivityNew extends BaseActivity {
             getProduct(0, invoiceLineIdList.get(0).getId(), invoiceLineIdList.get(0).getQuantity(),invoiceLineIdList);
         }else{
             Toast.makeText(getApplicationContext(),"Details not available",
-                    Toast.LENGTH_LONG).show();
+                    Toast.LENGTH_SHORT).show();
             stopProgress();
         }
     }
@@ -466,14 +470,10 @@ public class TransactionHistoryActivityNew extends BaseActivity {
             @Override
             public void onFailure(String message) {
                 Toast.makeText(getApplicationContext(),"Details not available",
-                        Toast.LENGTH_LONG).show();
+                        Toast.LENGTH_SHORT).show();
                 stopProgress();
             }
         });
     }
     /*End*/
 }
-
-
-
-

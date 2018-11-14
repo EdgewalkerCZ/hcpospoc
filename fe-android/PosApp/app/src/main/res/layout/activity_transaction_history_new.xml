@@ -45,7 +45,7 @@
             <com.github.mikephil.charting.charts.PieChart
                 android:id="@+id/chart"
                 android:layout_width="match_parent"
-                android:layout_height="220sp" />
+                android:layout_height="200sp" />
 
             <EditText
                 android:id="@+id/etSearchHistory"
@@ -71,6 +71,7 @@
                 android:layout_marginTop="10sp"
                 android:textColor="@color/white_color"
                 android:padding="10sp"
+                android:visibility="gone"
                 android:background="@color/colorPrimary"/>
             <include
                 android:id="@+id/dialogDownload"
@@ -85,6 +86,4 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:visibility="gone" />
-
-
 </LinearLayout>
