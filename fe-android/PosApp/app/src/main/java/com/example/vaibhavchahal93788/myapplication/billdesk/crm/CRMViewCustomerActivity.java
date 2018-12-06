@@ -47,7 +47,10 @@ public class CRMViewCustomerActivity extends AppCompatActivity implements View.O
     }
 
 
-
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(this,CRMActivity.class));
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

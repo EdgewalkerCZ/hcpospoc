@@ -83,6 +83,7 @@ public class CRMCustomerSearchActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
+
                 filter(s.toString());
             }
         });
@@ -97,21 +98,24 @@ public class CRMCustomerSearchActivity extends AppCompatActivity {
     }
 
     public void filter(String input){
-        ArrayList<DataItem> filtercustomerList= new ArrayList<>();
-        for(DataItem object : customerResponse.getData()){
 
-            if (object.getName().toLowerCase().contains(input.toLowerCase())) {
-                //adding the element to filtered list
-                filtercustomerList.add(object);
+            ArrayList<DataItem> filtercustomerList= new ArrayList<>();
+            if (customerResponse!=null&&customerResponse.getData().size()!=0){
+                for(DataItem object : customerResponse.getData()){
 
+                    if (object.getFullName().toLowerCase().contains(input.toLowerCase())) {
+                        //adding the element to filtered list
+                        filtercustomerList.add(object);
+
+                    }
+                    else if(object.getPhone().toLowerCase().contains(input.toLowerCase())){
+                        filtercustomerList.add(object);
+                    }
+                }
+                JSONCustomerResponse set= new JSONCustomerResponse();
+                set.setData(filtercustomerList);
+                setAdaptor(set);
             }
-            else if(object.getPhone().toLowerCase().contains(input.toLowerCase())){
-                filtercustomerList.add(object);
-            }
-        }
-        JSONCustomerResponse set= new JSONCustomerResponse();
-        set.setData(filtercustomerList);
-        setAdaptor(set);
     }
 
     public void setAdaptor(final JSONCustomerResponse JSONCustomerResponse) {
@@ -128,8 +132,8 @@ public class CRMCustomerSearchActivity extends AppCompatActivity {
                //                       in.putExtra(KeyValue.ADDRESS,getresponse.getData().get(0).getAddress());
                //                       in.putExtra(KeyValue.NOTE,getresponse.getData().get(0).getDescription());
                //                       in.putExtra(KeyValue.CUSTOMER_ID,getresponse.getData().get(0).getId()+"");
-               in.putExtra(KeyValue.FIRST_NAME,JSONCustomerResponse.getData().get(0).getFirstName()+"");
-               in.putExtra(KeyValue.FULL_NAME, JSONCustomerResponse.getData().get(0).getFullName());
+               in.putExtra(KeyValue.FIRST_NAME,JSONCustomerResponse.getData().get(position).getFirstName()+"");
+               in.putExtra(KeyValue.FULL_NAME, JSONCustomerResponse.getData().get(position).getFullName());
                in.putExtra(KeyValue.NAME,JSONCustomerResponse.getData().get(position).getName());
                in.putExtra(KeyValue.EMAIL,JSONCustomerResponse.getData().get(position).getEmail());
                in.putExtra(KeyValue.PHONE,JSONCustomerResponse.getData().get(position).getPhone());
@@ -208,6 +212,10 @@ public class CRMCustomerSearchActivity extends AppCompatActivity {
             }
         });
 
+    }
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(this,CRMActivity.class));
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

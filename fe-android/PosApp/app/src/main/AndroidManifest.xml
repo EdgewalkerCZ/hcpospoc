@@ -31,6 +31,7 @@
         <activity
             android:name=".billdesk.activity.AddProductActivity"
             android:screenOrientation="portrait"
+
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".billdesk.activity.UserProfileActivity"
@@ -104,9 +105,11 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".billdesk.payment.AddNewCustomerActivity"
+            android:noHistory="true"
             android:screenOrientation="portrait" />
         <activity
             android:name=".billdesk.payment.ViewCustomerDetailActivity"
+            android:noHistory="true"
             android:screenOrientation="portrait" />
         <activity
             android:name=".billdesk.activity.TransactionHistoryActivityNew"
@@ -120,11 +123,11 @@
         <activity
             android:name=".billdesk.activity.BillDetailHistory"
             android:screenOrientation="portrait" />
-        <activity android:name=".billdesk.crm.CRMActivity" />
-        <activity android:name=".billdesk.crm.CRMAddCustomerActivity" />
-        <activity android:name=".billdesk.crm.CRMCustomerSearchActivity" />
-        <activity android:name=".billdesk.crm.CRMViewCustomerActivity" />
-        <activity android:name=".billdesk.activity.BillSummaryActivityNew"/>
+        <activity android:name=".billdesk.crm.CRMActivity" android:noHistory="true" />
+        <activity android:name=".billdesk.crm.CRMAddCustomerActivity" android:noHistory="true" />
+        <activity android:name=".billdesk.crm.CRMCustomerSearchActivity" android:noHistory="true" />
+        <activity android:name=".billdesk.crm.CRMViewCustomerActivity" android:noHistory="true" />
+        <activity android:name=".billdesk.activity.BillSummaryActivityNew" android:noHistory="true"/>
             </application>
 
 </manifest>

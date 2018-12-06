@@ -11,7 +11,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -26,41 +25,23 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.vaibhavchahal93788.myapplication.R;
 import com.example.vaibhavchahal93788.myapplication.billdesk.adapter.StockViewAdapter;
 import com.example.vaibhavchahal93788.myapplication.billdesk.api.ProductApiHelper;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.AllProductModel;
-import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductCategoryModel;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.allproduct.AllProductResponse;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.allproduct.DataItem;
 import com.example.vaibhavchahal93788.myapplication.billdesk.network.IApiRequestComplete;
 import com.example.vaibhavchahal93788.myapplication.billdesk.preferences.AppPreferences;
-import com.example.vaibhavchahal93788.myapplication.billdesk.utility.ApiClient;
-import com.example.vaibhavchahal93788.myapplication.billdesk.utility.ApiInterface;
-import com.example.vaibhavchahal93788.myapplication.billdesk.utility.ApiUtils;
 import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Constants;
 import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Utility;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.reflect.TypeToken;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-import static com.example.vaibhavchahal93788.myapplication.billdesk.preferences.AppPreferences.mAppPreferences;
 
 public class StockViewProductActivity extends AppCompatActivity implements  StockViewAdapter.OnItemClickListener, View.OnClickListener {
 
@@ -77,7 +58,7 @@ public class StockViewProductActivity extends AppCompatActivity implements  Stoc
     private HashMap<String, String> hashMapCategories = new HashMap<>();
     private HashMap<String, String> hashMapCategoriesTax = new HashMap<>();
     private ArrayList<String> categoriesList;
-   // private SwipeRefreshLayout pullToRefresh;
+    // private SwipeRefreshLayout pullToRefresh;
     private List<AllProductModel> productsList;
     MenuItem crossmenu;
     private Set<AllProductModel> mDataSelected = new HashSet<>();
@@ -99,7 +80,7 @@ public class StockViewProductActivity extends AppCompatActivity implements  Stoc
         initViews();
 
         actionEditSearch();
-       // getCategoriesList();
+        // getCategoriesList();
         actionCategorySelection();
 
         actionAddProduct();
@@ -131,20 +112,7 @@ public class StockViewProductActivity extends AppCompatActivity implements  Stoc
                 progreeBar.setVisibility(View.GONE);
                 if (response!=null){
                     if (response.getData().size()!=0){
-                        editTextSearch.setEnabled(true);
-                        dataItems=response.getData();
-                        adapter = new StockViewAdapter(StockViewProductActivity.this, response.getData(), new StockViewAdapter.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(int position) {
-                                Intent intent = new Intent(StockViewProductActivity.this, ViewProductActivity.class);
-                                intent.putExtra(Constants.STOCK_DATA, response.getData().get(position));
-                                startActivity(intent);
-                            }
-                        });
-                        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-                        recyclerView.setLayoutManager(mLayoutManager);
-                        recyclerView.setItemAnimator(new DefaultItemAnimator());
-                        recyclerView.setAdapter(adapter);
+                        setAdapter(response);
                     }else {
                         Utility.showToast(getApplicationContext(),getResources().getString(R.string.no_data));
                     }
@@ -157,6 +125,23 @@ public class StockViewProductActivity extends AppCompatActivity implements  Stoc
             }
         });
 
+    }
+
+    public void setAdapter(final AllProductResponse response){
+        editTextSearch.setEnabled(true);
+        dataItems=response.getData();
+        adapter = new StockViewAdapter(StockViewProductActivity.this, response.getData(), new StockViewAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position, List<DataItem> productList) {
+                Intent intent = new Intent(StockViewProductActivity.this, ViewProductActivity.class);
+                intent.putExtra(Constants.STOCK_DATA, productList.get(position));
+                startActivity(intent);
+            }
+        });
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(adapter);
     }
 
     private void initViews() {
@@ -178,8 +163,8 @@ public class StockViewProductActivity extends AppCompatActivity implements  Stoc
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    AddProductSubmit.startActivity(StockViewProductActivity.this);
-                    overridePendingTransition(R.anim.animation_enter,R.anim.animation_leave);
+                AddProductSubmit.startActivity(StockViewProductActivity.this);
+                overridePendingTransition(R.anim.animation_enter,R.anim.animation_leave);
 
             }
         });
@@ -242,7 +227,7 @@ public class StockViewProductActivity extends AppCompatActivity implements  Stoc
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-               finish();
+                finish();
                 return true;
             case R.id.cross:
                 editTextSearch.setText("");
@@ -251,6 +236,14 @@ public class StockViewProductActivity extends AppCompatActivity implements  Stoc
                 setTitle("Product List");
                 crossmenu.setVisible(false);
                 closeKeyboard();
+
+                editTextSearch.setText("");
+                fetchProductsList();
+                relativeHeader.setVisibility(View.VISIBLE);
+                setTitle("Product List");
+                crossmenu.setVisible(false);
+                closeKeyboard();
+                resetSpinnerCategorySelection();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -280,8 +273,10 @@ public class StockViewProductActivity extends AppCompatActivity implements  Stoc
     private void filter(String text) {
         //new array list that will hold the filtered data
         ArrayList<DataItem> filterdNames = new ArrayList<>();
+       // AllProductResponse res=new AllProductResponse();
 
         //looping through existing elements
+        //List<DataItem>
         if (dataItems!=null&&dataItems.size()!=0){
             for (DataItem dataItem : dataItems) {
                 //if the existing elements contains the search input
@@ -290,15 +285,27 @@ public class StockViewProductActivity extends AppCompatActivity implements  Stoc
                     filterdNames.add(dataItem);
                 }
             }
+           // res.setData(filterdNames);
+            adapter.filterList(filterdNames);
         }
+
         //calling a method of the adapter class and passing the filtered list
 
         int size = filterdNames.size();
         setTitle(filterdNames.size()+" item found");
-        if(size==1)
-            relativeHeader.setVisibility(View.GONE);
-        else relativeHeader.setVisibility(View.VISIBLE);
-        crossmenu.setVisible(true);
+        if(size==1){
+            relativeHeader.setVisibility(View.VISIBLE);
+        }else {
+            if (text.equals("")){
+                relativeHeader.setVisibility(View.VISIBLE);
+                crossmenu.setVisible(false);
+                setTitle("Product List");
+            }else {
+                relativeHeader.setVisibility(View.VISIBLE);
+                crossmenu.setVisible(true);
+            }
+
+        }
         if (filterdNames!=null&&filterdNames.size()!=0){
             adapter.filterList(filterdNames);
 
@@ -312,9 +319,9 @@ public class StockViewProductActivity extends AppCompatActivity implements  Stoc
     }
 
     @Override
-    public void onItemClick(int position) {
+    public void onItemClick(int position, List<DataItem> productList) {
         Intent intent = new Intent(StockViewProductActivity.this, ViewProductActivity.class);
-        intent.putExtra(Constants.STOCK_DATA, productsList.get(position));
+        intent.putExtra(Constants.STOCK_DATA, productList.get(position));
         startActivity(intent);
     }
 
@@ -356,18 +363,19 @@ public class StockViewProductActivity extends AppCompatActivity implements  Stoc
             {
                 fetchProductsList();
             }
-            }
+        }
 
 
 
         if(filterdNames.size()!=0)
-        setTitle(filterdNames.size()+" item found");
+            setTitle(filterdNames.size()+" item found");
         //calling a method of the adapter class and passing the filtered list
         int size = filterdNames.size();
         setTitle(filterdNames.size()+" item found");
-        if(size==1)
+        //################# Below line comment
+       /* if(size==1)
             relativeHeader.setVisibility(View.GONE);
-        else relativeHeader.setVisibility(View.VISIBLE);
+        else relativeHeader.setVisibility(View.VISIBLE);*/
         crossmenu.setVisible(true);
 
 
@@ -377,6 +385,10 @@ public class StockViewProductActivity extends AppCompatActivity implements  Stoc
     protected void onRestart() {
         super.onRestart();
         fetchProductsList();
+        relativeHeader.setVisibility(View.VISIBLE);
+        crossmenu.setVisible(false);
+        setTitle("Product List");
+        editTextSearch.setText("");
     }
 
     private void closeKeyboard() {
@@ -386,4 +398,15 @@ public class StockViewProductActivity extends AppCompatActivity implements  Stoc
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
+
+    private void resetSpinnerCategorySelection() {
+        ArrayAdapter<CharSequence> dataAdapter = ArrayAdapter.createFromResource(this,
+                R.array.product_categories, android.R.layout.simple_spinner_item);
+        // Drop down layout style - list view with radio button
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // attaching data adapter to spinner
+        spinnerCategories.setAdapter(dataAdapter);
+    }
+
+
 }

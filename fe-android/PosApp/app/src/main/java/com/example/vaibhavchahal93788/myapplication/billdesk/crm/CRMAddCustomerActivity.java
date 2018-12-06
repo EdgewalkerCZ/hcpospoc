@@ -15,6 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.vaibhavchahal93788.myapplication.R;
+import com.example.vaibhavchahal93788.myapplication.billdesk.activity.HomeActivity;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.JSONAddCustomer;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.customer.JSONCustomerResponse;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.userlogin.JSONAddCustomerResponse;
@@ -111,6 +112,11 @@ public class CRMAddCustomerActivity extends AppCompatActivity  {
                 return super.onOptionsItemSelected(item);
         }
         return super.onOptionsItemSelected(item);
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(this,CRMActivity.class));
     }
     public void submitform(){
         mCustomerfirstName=mCustomerfirstNameEDT.getText().toString();

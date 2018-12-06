@@ -340,8 +340,9 @@ public class BillDetailRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
             public void onClick(View view) {
                 if (model.getQuantity() != 1) {
                     if (model.getQuantity() > 0) {
-                        model.setFinalPrice(model.getFinalPrice() / model.getQuantity());
+                        //model.setFinalPrice(model.getFinalPrice() / model.getQuantity());
                         model.setQuantity(model.getQuantity() - 1);
+                        model.setFinalPrice(model.getPrice() * model.getQuantity());
 
                     }
                     Log.e("=Minus ISISIS=>", model.getFinalPrice() + "");

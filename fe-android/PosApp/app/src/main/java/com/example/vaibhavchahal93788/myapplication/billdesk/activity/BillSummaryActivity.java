@@ -207,6 +207,10 @@ public class BillSummaryActivity extends AppCompatActivity implements Runnable{
                         printNewLine();
 
                         os.flush();
+
+                        Intent intent = new Intent(BillSummaryActivity.this, HomeActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -295,7 +299,7 @@ public class BillSummaryActivity extends AppCompatActivity implements Runnable{
        // printCustom("  Powered by. Home Credit India.   1800 121 6660", 1, 1);
         printCustom("      Powered by   ", 1, 1);
         printNewLine();
-        printCustom("      HOMECREDIT INDIA   ", 1, 1);
+        printCustom("      HOME CREDIT INDIA   ", 1, 1);
         printNewLine();
         printNewLine();
     }
@@ -451,6 +455,7 @@ public class BillSummaryActivity extends AppCompatActivity implements Runnable{
         public void handleMessage(Message msg) {
             mBluetoothConnectProgressDialog.dismiss();
             Toast.makeText(BillSummaryActivity.this, "DeviceConnected", Toast.LENGTH_SHORT).show();
+
         }
     };
 

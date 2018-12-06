@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.vaibhavchahal93788.myapplication.R;
+import com.example.vaibhavchahal93788.myapplication.billdesk.activity.HomeActivity;
 import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Utility;
 
 
@@ -56,11 +57,18 @@ public class CRMActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(this,HomeActivity.class));
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 break;
+
             default:
                 return super.onOptionsItemSelected(item);
         }

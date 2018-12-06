@@ -385,6 +385,9 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
                         printNewLine();
 
                         os.flush();
+                        Intent intent = new Intent(BillDetailActivity.this, HomeActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -496,7 +499,7 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
 //        printNewLine();
         printCustom("      Powered by   ", 1, 1);
         printNewLine();
-        printCustom("      HOMECREDIT INDIA   ", 1, 1);
+        printCustom("      HOME CREDIT INDIA   ", 1, 1);
         printNewLine();
         printNewLine();
     }
@@ -795,6 +798,7 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         public void handleMessage(Message msg) {
             mBluetoothConnectProgressDialog.dismiss();
             Toast.makeText(BillDetailActivity.this, "DeviceConnected", Toast.LENGTH_SHORT).show();
+
         }
     };
 

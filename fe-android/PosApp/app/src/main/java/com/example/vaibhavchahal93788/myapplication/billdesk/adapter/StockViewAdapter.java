@@ -13,12 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.vaibhavchahal93788.myapplication.R;
-import com.example.vaibhavchahal93788.myapplication.billdesk.activity.StockViewProductActivity;
-import com.example.vaibhavchahal93788.myapplication.billdesk.model.AllProductModel;
-import com.example.vaibhavchahal93788.myapplication.billdesk.model.ProductListModel;
-import com.example.vaibhavchahal93788.myapplication.billdesk.model.allproduct.AllProductResponse;
 import com.example.vaibhavchahal93788.myapplication.billdesk.model.allproduct.DataItem;
-import com.example.vaibhavchahal93788.myapplication.billdesk.network.IApiRequestComplete;
 import com.example.vaibhavchahal93788.myapplication.billdesk.utility.Utility;
 
 import java.text.DecimalFormat;
@@ -108,7 +103,7 @@ public class StockViewAdapter extends RecyclerView.Adapter<StockViewAdapter.View
         holder.cardViewMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onItemClickListener.onItemClick(position);
+                onItemClickListener.onItemClick(position, productList);
             }
         });
     }
@@ -130,7 +125,7 @@ public class StockViewAdapter extends RecyclerView.Adapter<StockViewAdapter.View
     }
 
     public interface OnItemClickListener {
-        void onItemClick(int position);
+        void onItemClick(int position, List<DataItem> productList);
     }
 
     public void filterList(ArrayList<DataItem> filterdNames) {

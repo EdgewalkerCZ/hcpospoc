@@ -176,20 +176,22 @@ public class CustomerSearchActivity extends AppCompatActivity {
     private void filter(String input) {
 //looping through existing elements
         ArrayList<DataItem> filterdNames = new ArrayList<>();
-        for (DataItem object : customerResponse.getData()) {
-            //if the existing elements contains the search input
-            if (object.getName().toLowerCase().contains(input.toLowerCase())) {
-                //adding the element to filtered list
-                filterdNames.add(object);
+        if (customerResponse!=null&&customerResponse.getData().size()!=0) {
+            for (DataItem object : customerResponse.getData()) {
+                //if the existing elements contains the search input
+                if (object.getFullName().toLowerCase().contains(input.toLowerCase())) {
+                    //adding the element to filtered list
+                    filterdNames.add(object);
 
+                } else if (object.getPhone().toLowerCase().contains(input.toLowerCase())) {
+                    filterdNames.add(object);
+                }
             }
-            else if(object.getPhone().toLowerCase().contains(input.toLowerCase())){
-                filterdNames.add(object);
-            }
+            JSONCustomerResponse filterset=new JSONCustomerResponse();
+            filterset.setData(filterdNames);
+            setAdapter(filterset);
         }
-        JSONCustomerResponse filterset=new JSONCustomerResponse();
-        filterset.setData(filterdNames);
-        setAdapter(filterset);
+
     }
     private void getToolbar() {
         getSupportActionBar().setHomeButtonEnabled(true);
