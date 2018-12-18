@@ -247,7 +247,6 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
     private void addProduct(AddCategoryModel addCategoryModel) {
         AddProductModel addProductModel = new AddProductModel(etProductName.getText().toString(), etProductDescptn.getText().toString(), etBasePrice.getText().toString(), etFinalPrice.getText().toString(), etProductName.getText().toString() + UUID.randomUUID().toString(), addCategoryModel, "1", "1");
         new ProductApiHelper().addNewProduct(addProductModel, new IApiRequestComplete() {
-
             @Override
             public void onSuccess(Object response) {
                 progressBar.setVisibility(View.GONE);
@@ -255,7 +254,6 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
                 setResult(RESULT_OK);
                 finish();
             }
-
             @Override
             public void onFailure(String message) {
                 progressBar.setVisibility(View.GONE);

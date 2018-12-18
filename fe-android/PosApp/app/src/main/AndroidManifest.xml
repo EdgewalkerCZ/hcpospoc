@@ -128,6 +128,10 @@
         <activity android:name=".billdesk.crm.CRMCustomerSearchActivity" android:noHistory="true" />
         <activity android:name=".billdesk.crm.CRMViewCustomerActivity" android:noHistory="true" />
         <activity android:name=".billdesk.activity.BillSummaryActivityNew" android:noHistory="true"/>
-            </application>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+    </application>
 
 </manifest>

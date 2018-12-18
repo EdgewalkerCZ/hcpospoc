@@ -341,6 +341,9 @@ in the hands of those who demand more</string>
     <string name="edit_str">Edit</string>
     <string name="_contitue">Continue</string>
     <string name="customer_relation">Customer Relation</string>
+    <string name="customer_details_deleted">Customer details deleted.</string>
+    <string name="customer_details_added">Customer Added. </string>
+    <string name="customer_details_edited">Customer details has been updated.</string>
 
     <string name="inc_gst">Inc. GST</string>
 
@@ -349,6 +352,7 @@ in the hands of those who demand more</string>
     <string name="add_customer">ADD NEW CUSTOMER</string>
     <string name="add_customer_new">ADD CUSTOMER</string>
     <string name="countinue_str">CONTINUE</string>
+    <string name="back_home_str">Back to Home</string>
     <string name="add_customer_first_name">First Name*</string>
     <string name="add_customer_last_name">Last Name*</string>
     <string name="add_customer_email">Email*</string>

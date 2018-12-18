@@ -51,6 +51,23 @@
                     />
             </android.support.design.widget.TextInputLayout>
             <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_top_xlarge">
+                <EditText
+                    android:id="@+id/crm_add_customer_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/add_customer_phone"
+                    android:textSize="16sp"
+                    android:inputType="phone"
+                    android:scrollbars="vertical"
+                    android:maxLines="1"
+                    android:imeOptions="actionNext"
+                    />
+            </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
                 android:id="@+id/input_layout_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -68,23 +85,7 @@
                     />
             </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/input_layout_phone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_top_xlarge">
-                <EditText
-                    android:id="@+id/crm_add_customer_phone"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/add_customer_phone"
-                    android:textSize="16sp"
-                    android:inputType="phone"
-                    android:scrollbars="vertical"
-                    android:maxLines="1"
-                    android:imeOptions="actionNext"
-                    />
-            </android.support.design.widget.TextInputLayout>
+
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/input_layout_address"
                 android:layout_width="match_parent"
