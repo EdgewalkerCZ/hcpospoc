@@ -45,11 +45,9 @@ public class AddNewProduct extends AppCompatActivity implements View.OnClickList
     }
 
     private void getToolbar() {
-
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(getResources().getString(R.string.add_product_new));
-
     }
     @Override
     public Intent getSupportParentActivityIntent() {

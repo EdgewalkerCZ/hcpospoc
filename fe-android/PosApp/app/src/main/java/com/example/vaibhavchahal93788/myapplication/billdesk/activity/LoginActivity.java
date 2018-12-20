@@ -105,9 +105,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void validateLogin() {
-
         progress_bar.setVisibility(View.VISIBLE);
-
         LoginBodyModel loginBodyModel = new LoginBodyModel();
         loginBodyModel.setUsername(edtUsername.getText().toString());
         loginBodyModel.setPassword(edtPassword.getText().toString());
@@ -123,14 +121,12 @@ public class LoginActivity extends AppCompatActivity {
                     finish();
                 }
             }
-
             @Override
             public void onFailure(String message) {
                 Utility.showToast(getApplicationContext(), message);
                 progress_bar.setVisibility(View.GONE);
             }
         });
-
     }
     /*{
         progress_bar.setVisibility(View.VISIBLE);

@@ -24,7 +24,6 @@ public class HomeActivity extends AppCompatActivity {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
         getSupportActionBar().setTitle("");
         getSupportActionBar().setLogo(R.drawable.hc_logo);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
@@ -32,9 +31,6 @@ public class HomeActivity extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
-
         findViewById(R.id.cardPayment).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
