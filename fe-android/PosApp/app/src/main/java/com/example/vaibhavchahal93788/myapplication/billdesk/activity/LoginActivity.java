@@ -119,7 +119,7 @@ public class LoginActivity extends AppCompatActivity {
                     mAppPreferences.setJsesssionId(response.getJSESSIONID());
                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                     LoginActivity.this.startActivity(intent);
-                    overridePendingTransition(R.anim.animation_enter, R.anim.animation_leave);
+                    overridePendingTransition(R.anim.animation_enter_backward, R.anim.animation_leave_backward);
                     finish();
                 }
             }

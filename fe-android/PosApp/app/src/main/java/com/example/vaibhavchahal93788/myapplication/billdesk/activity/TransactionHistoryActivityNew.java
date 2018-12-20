@@ -324,8 +324,8 @@ public class TransactionHistoryActivityNew extends BaseActivity {
     // If we need to display center text with textStyle
     private SpannableString generateCenterSpannableText() {
         SpannableString s = new SpannableString("\u20B9 90,000 \n Total Value ");
-        s.setSpan(new StyleSpan(Typeface.BOLD), 11, s.length(), 0);
-        s.setSpan(new RelativeSizeSpan(1f), 11, s.length(), 0);
+        s.setSpan(new StyleSpan(Typeface.BOLD), 0, 9, 0);
+        s.setSpan(new RelativeSizeSpan(1f), 9, s.length(), 0);
         return s;
     }
 

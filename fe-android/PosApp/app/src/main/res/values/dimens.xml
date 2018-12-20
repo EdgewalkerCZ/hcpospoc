@@ -7,6 +7,9 @@
     <dimen name="height_100dp">100dp</dimen>
     <dimen name="height_300dp">300dp</dimen>
 
+
+    <dimen name="button_height_22dp">50dp</dimen>
+
     <!-- Text sizes -->
     <dimen name="textsize_small">12sp</dimen>
     <dimen name="textsize_medium">14sp</dimen>

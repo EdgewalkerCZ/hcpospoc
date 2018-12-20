@@ -213,10 +213,7 @@ public class CRMCustomerSearchActivity extends AppCompatActivity {
         });
 
     }
-    public void onBackPressed() {
-        super.onBackPressed();
-        startActivity(new Intent(this,CRMActivity.class));
-    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 

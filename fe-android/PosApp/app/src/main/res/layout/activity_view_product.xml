@@ -27,6 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_above="@+id/btn_update"
             android:layout_marginBottom="@dimen/margin_bottom_medium"
+            android:layout_alignParentTop="true"
             android:fillViewport="false">
 
             <RelativeLayout
@@ -37,11 +38,11 @@
 
                 <TextView
                     android:id="@+id/tv_product_tag"
-                    android:layout_width="44dp"
-                    android:layout_height="44dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="@dimen/dp36"
+                    android:layout_marginTop="@dimen/dp25"
                     android:background="@drawable/background_circle_blue"
                     android:gravity="center"
                     android:text="@string/dummy_tag_A"
@@ -59,7 +60,7 @@
                         android:id="@+id/tv_product_name"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_marginTop="@dimen/dp14"
+                        android:layout_marginTop="@dimen/dp10"
                         android:gravity="center"
                         android:paddingBottom="@dimen/dp6"
                         android:text="OPP F9"
@@ -83,7 +84,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="@dimen/dp3"
                         android:gravity="center"
-                        android:paddingBottom="@dimen/dp6"
+                        android:paddingBottom="@dimen/dp3"
                         android:text="oppo"
                         android:textColor="@color/color_configuration"
                         android:textSize="@dimen/sp12"
@@ -102,7 +103,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp3"
                         android:layout_marginRight="@dimen/dp3"
-                        android:paddingBottom="@dimen/dp6"
+                        android:paddingBottom="@dimen/dp3"
                         android:text="4GB"
                         android:textColor="@color/color_configuration"
                         android:textSize="@dimen/sp12"
@@ -122,7 +123,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp3"
                         android:layout_marginRight="@dimen/dp3"
-                        android:paddingBottom="@dimen/dp6"
+                        android:paddingBottom="@dimen/dp3"
                         android:text="32GB"
                         android:textColor="@color/color_configuration"
                         android:textSize="@dimen/sp12"
@@ -142,7 +143,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/dp3"
                         android:layout_marginRight="@dimen/dp3"
-                        android:paddingBottom="@dimen/dp6"
+                        android:paddingBottom="@dimen/dp3"
                         android:text="White"
                         android:textColor="@color/color_configuration"
                         android:textSize="@dimen/sp12"
@@ -174,7 +175,7 @@
                     android:layout_height="@dimen/dp1"
                     android:layout_below="@+id/layout_serial"
                     android:layout_marginLeft="@dimen/dp20"
-                    android:layout_marginTop="@dimen/dp24"
+                    android:layout_marginTop="@dimen/dp14"
                     android:layout_marginRight="@dimen/dp20"
                     android:background="@color/color_horizontal_view" />
 
@@ -184,7 +185,7 @@
                     android:layout_below="@+id/viewHorizontal"
                     android:layout_marginLeft="@dimen/margin_left_medium"
                     android:layout_marginRight="@dimen/margin_right_medium"
-                    android:layout_marginTop="@dimen/dp12"
+                    android:layout_marginTop="@dimen/dp10"
                     android:orientation="vertical">
 
                     <RelativeLayout
@@ -212,7 +213,7 @@
                                 android:id="@+id/edt_quantity"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/dp9"
+                                android:layout_marginTop="@dimen/dp5"
                                 android:background="@android:color/transparent"
                                 android:focusable="true"
                                 android:focusableInTouchMode="true"
@@ -224,8 +225,8 @@
 
                         <Button
                             android:id="@+id/btn_add_unit"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="80dp"
+                            android:layout_height="40dp"
                             android:layout_alignParentRight="true"
                             android:background="@drawable/button_radious"
                             android:gravity="center"
@@ -239,13 +240,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp1"
                         android:layout_below="@+id/rel_layout_unit"
-                        android:layout_marginTop="@dimen/dp11"
+                        android:layout_marginTop="@dimen/dp6"
                         android:background="@color/color_horizontal_view" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dp29"
+                        android:layout_marginTop="@dimen/dp12"
                         android:orientation="vertical">
 
                         <TextView
@@ -282,14 +283,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp1"
                         android:layout_below="@+id/rel_layout_unit"
-                        android:layout_marginTop="@dimen/dp10"
+                        android:layout_marginTop="@dimen/dp6"
                         android:background="@color/color_horizontal_view" />
 
                     <RelativeLayout
                         android:id="@+id/rel_layout_gst"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dp28">
+                        android:layout_marginTop="@dimen/dp20">
 
 
                         <TextView
@@ -316,7 +317,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
 
-                        android:layout_marginTop="@dimen/dp27">
+                        android:layout_marginTop="@dimen/dp20">
 
 
                         <TextView
@@ -343,7 +344,7 @@
                         android:id="@+id/layout_desc"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="27dp"
+                        android:layout_marginTop="20dp"
                         android:orientation="vertical">
 
                         <TextView
@@ -357,7 +358,7 @@
                             android:id="@+id/tv_description_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="9dp"
+                            android:layout_marginTop="5dp"
                             android:text="@string/description_text"
                             android:textColor="@color/color_product_name"
                             android:textSize="14sp" />

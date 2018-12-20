@@ -271,10 +271,15 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
         discountModelIs = DiscountModel.getInstance();
 
         if (discountModelIs.getFinalPrice() > 0) {
-            updatedPrice = discountModelIs.getFinalPrice() - discount;
-            totalItems = discountModelIs.getQuantity();
-            textBillingPrice.setText(String.format(getString(R.string.text_billing_estimated_price), totalItems, updatedPrice));
-            discountModelIs.setDiscountedPrice(updatedPrice);
+            if(discountModelIs.getFinalPrice() < discount){
+                Toast.makeText(BillDetailActivity.this, "Discount can't be more than total price.", Toast.LENGTH_SHORT).show();
+            }else{
+                updatedPrice = discountModelIs.getFinalPrice() - discount;
+                totalItems = discountModelIs.getQuantity();
+                textBillingPrice.setText(String.format(getString(R.string.text_billing_estimated_price), totalItems, updatedPrice));
+                discountModelIs.setDiscountedPrice(updatedPrice);
+            }
+
         }
         //
     }
@@ -290,27 +295,32 @@ public class BillDetailActivity extends AppCompatActivity implements BillDetailR
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_view_bill:
-                discountModelIs = DiscountModel.getInstance();
-                Intent intent = new Intent(BillDetailActivity.this, BillSummaryActivity.class);
-                ArrayList<BillProduct> billProducts = getBillProductsList();
-                intent.putParcelableArrayListExtra("billProductsList", billProducts);
+                if(discountModelIs.getFinalPrice() < discountModelIs.getDiscount()){
+                    Toast.makeText(BillDetailActivity.this, "Discount can't be more than total price.", Toast.LENGTH_SHORT).show();
+                }else{
+                    discountModelIs = DiscountModel.getInstance();
+                    Intent intent = new Intent(BillDetailActivity.this, BillSummaryActivity.class);
+                    ArrayList<BillProduct> billProducts = getBillProductsList();
+                    intent.putParcelableArrayListExtra("billProductsList", billProducts);
 
-                intent.putExtra("discount", discountModelIs.getDiscount());
-                intent.putExtra("paymentMode", seletedPaymentMode);
-                intent.putExtra("uniqueID", uniqueID);
-                startActivity(intent);
-                //Save bill history
+                    intent.putExtra("discount", discountModelIs.getDiscount());
+                    intent.putExtra("paymentMode", seletedPaymentMode);
+                    intent.putExtra("uniqueID", uniqueID);
+                    startActivity(intent);
+                    //Save bill history
 
-                saveBill();
-
-
-
+                    saveBill();
+                }
 
                 break;
 
             case R.id.btn_print_bill:
-                connectPrinter();
-                saveBill();
+                if(discountModelIs.getFinalPrice() < discountModelIs.getDiscount()){
+                    Toast.makeText(BillDetailActivity.this, "Discount can't be more than total price.", Toast.LENGTH_SHORT).show();
+                }else{
+                    connectPrinter();
+                    saveBill();
+                }
                 break;
             case R.id.btn_email:
                 //Send Email

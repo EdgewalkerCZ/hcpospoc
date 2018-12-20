@@ -2,9 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
-    android:layout_marginLeft="@dimen/margin_left_medium"
-    android:layout_marginRight="@dimen/margin_right_medium">
+    android:background="#FFFFFF">
 
     <ProgressBar
 
@@ -20,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        android:layout_marginBottom="@dimen/margin_bottom_medium">
+        android:layout_margin="@dimen/margin_bottom_medium">
 
         <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/scrollView"
@@ -42,7 +40,9 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:orientation="horizontal"
-                    android:weightSum="5">
+                    android:weightSum="5"
+                    android:paddingLeft="3dp"
+                    android:paddingRight="3dp">
 
                     <TextView
                         android:id="@+id/tv_product_tag"
@@ -78,6 +78,7 @@
                                 android:layout_height="match_parent"
                                 android:gravity="left|center"
                                 android:paddingBottom="@dimen/dp6"
+                                android:paddingLeft="@dimen/dp6"
                                 android:text="OPP F9"
                                 android:textColor="@color/color_product_name"
                                 android:textSize="@dimen/textsize_medium"
@@ -88,6 +89,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="@dimen/dp3"
+                                android:paddingLeft="@dimen/dp6"
                                 android:gravity="left|center"
                                 android:paddingBottom="@dimen/dp6"
                                 android:text="oppo"
@@ -606,9 +608,9 @@
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="6"
-                            android:gravity="center"
-                            android:text="@string/reduce"
+                            android:layout_weight="5"
+                            android:gravity="end"
+                            android:text="Reduced(Less)   "
                             android:textColor="@color/color_configuration"
                             android:textSize="@dimen/sp14"
                             android:textStyle="bold" />
@@ -618,8 +620,9 @@
                             android:id="@+id/tv_reduce_count"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="4"
+                            android:layout_weight="5"
                             android:gravity="center"
+                            android:paddingLeft="@dimen/dp10"
                             android:text="0"
 
                             android:textColor="@color/color_configuration"
@@ -629,7 +632,7 @@
                     <View
                         android:id="@+id/viewHorizontal_reduce"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp2"
+                        android:layout_height="@dimen/dp1"
                         android:layout_below="@+id/layout_reduce"
                         android:layout_marginTop="@dimen/margin_top_normal"
                         android:background="@color/color_horizontal_view" />
@@ -676,7 +679,7 @@
                     <View
                         android:id="@+id/viewHorizontal_reduce_two"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp2"
+                        android:layout_height="@dimen/dp1"
                         android:layout_below="@+id/rel_updated_stock"
                         android:layout_marginTop="@dimen/margin_top_normal"
                         android:background="@color/color_horizontal_view" />

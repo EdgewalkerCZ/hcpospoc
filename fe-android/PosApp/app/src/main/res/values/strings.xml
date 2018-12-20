@@ -290,7 +290,7 @@
 
     <string name="add">+</string>
 
-    <string name="reduce">Reduced(Less)</string>
+    <string name="reduce">Reduced(Less)    </string>
 
     <string name="less">(Less)</string>
 
@@ -345,8 +345,8 @@ in the hands of those who demand more</string>
     <string name="inc_gst">Inc. GST</string>
 
     <string name="search_customer_hint">Enter phone no / Name</string>
-    <string name="search_customer_header">Search Custumer</string>
-    <string name="add_customer">ADD NEW CUSTOMER</string>
+    <string name="search_customer_header">Search Customer</string>
+    <string name="add_customer">ADD CUSTOMER</string>
     <string name="add_customer_new">ADD CUSTOMER</string>
     <string name="countinue_str">CONTINUE</string>
     <string name="add_customer_first_name">First Name*</string>
@@ -422,4 +422,5 @@ in the hands of those who demand more</string>
     <string name="success_updated_product">Product Upded Successfully</string>
     <string name="error_product_qauntity">Sorry ! Product quantity is OUT OF STOCK</string>
     <string name="alert_gallery">Please allow permission</string>
+    <string name="error_product_qauntity_non_negative">Product quantity should not be negative</string>
 </resources>

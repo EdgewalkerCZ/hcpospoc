@@ -46,12 +46,6 @@ public class CRMViewCustomerActivity extends AppCompatActivity implements View.O
 
     }
 
-
-    public void onBackPressed() {
-        super.onBackPressed();
-        startActivity(new Intent(this,CRMActivity.class));
-    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -164,7 +158,7 @@ public class CRMViewCustomerActivity extends AppCompatActivity implements View.O
 //                        startActivity(in);
                         if(!customer_status){
                             Toast.makeText(CRMViewCustomerActivity.this,"Customer deleted successfully",Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(CRMViewCustomerActivity.this,CRMActivity.class));
+                            finish();
                         }
                         else{
                             Toast.makeText(CRMViewCustomerActivity.this,"Customer add successfully",Toast.LENGTH_SHORT).show();

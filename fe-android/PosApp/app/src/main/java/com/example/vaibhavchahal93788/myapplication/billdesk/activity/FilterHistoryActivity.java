@@ -79,8 +79,11 @@ public class FilterHistoryActivity extends AppCompatActivity implements View.OnC
                 tv.setText(sdf.format(myCalendar.getTime()));
             }
         };
-        new DatePickerDialog(FilterHistoryActivity.this, date,
-                myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+
+        DatePickerDialog dialog = new DatePickerDialog(FilterHistoryActivity.this, date,
+                myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH));
+        dialog.getDatePicker().setMaxDate(System.currentTimeMillis());
+        dialog.show();
     }
 
     public String getSystemDate() {

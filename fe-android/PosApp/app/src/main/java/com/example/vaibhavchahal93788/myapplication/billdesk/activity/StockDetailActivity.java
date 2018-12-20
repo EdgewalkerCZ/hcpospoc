@@ -70,9 +70,10 @@ public class StockDetailActivity extends AppCompatActivity implements ProductSto
     private void initViews() {
         recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.addItemDecoration(new DividerItemDecoration(this,
-                DividerItemDecoration.VERTICAL));
+        recyclerView.removeItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        recyclerView.addItemDecoration(new DividerItemDecoration(this,
+//                DividerItemDecoration.VERTICAL));
 
         editTextSearch = (EditText) findViewById(R.id.editTextSearch);
         progreeBar = (ProgressBar) findViewById(R.id.progress_bar);
@@ -158,6 +159,7 @@ public class StockDetailActivity extends AppCompatActivity implements ProductSto
             }
         });
     }
+
  /* searching the data */
     private void filter(String text) {
         //new array list that will hold the filtered data

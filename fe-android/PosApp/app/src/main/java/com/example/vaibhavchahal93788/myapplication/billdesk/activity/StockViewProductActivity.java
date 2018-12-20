@@ -147,9 +147,9 @@ public class StockViewProductActivity extends AppCompatActivity implements  Stoc
     private void initViews() {
         recyclerView = findViewById(R.id.recyclerview);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.addItemDecoration(new DividerItemDecoration(this,
-                DividerItemDecoration.VERTICAL));
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        recyclerView.addItemDecoration(new DividerItemDecoration(this,
+//                DividerItemDecoration.VERTICAL));
 
         editTextSearch =  findViewById(R.id.editTextSearch);
         progreeBar = findViewById(R.id.progress_bar);
@@ -164,7 +164,7 @@ public class StockViewProductActivity extends AppCompatActivity implements  Stoc
             @Override
             public void onClick(View view) {
                 AddProductSubmit.startActivity(StockViewProductActivity.this);
-                overridePendingTransition(R.anim.animation_enter,R.anim.animation_leave);
+                overridePendingTransition(R.anim.animation_enter_backward,R.anim.animation_leave_backward);
 
             }
         });

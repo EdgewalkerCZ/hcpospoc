@@ -10,16 +10,16 @@
         android:layout_height="wrap_content"
         android:id="@+id/crm_seach_header_layout"
         android:focusableInTouchMode="true"
+        android:background="@color/color_DA1A32"
         android:padding="5dp">
 
         <EditText
             android:id="@+id/crm_search_customer_edt_txt"
             android:layout_width="match_parent"
-            android:background="@drawable/shape_rect_gray"
+            android:background="@color/white_color"
             android:layout_height="44dp"
             android:hint="@string/search_customer_hint"
             android:padding="10dp"
-
             android:textStyle="normal"
             android:maxLines="1"
             android:textSize="15sp"/>
@@ -29,15 +29,14 @@
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_centerInParent="true"
-            android:layout_marginRight="@dimen/dp10"
+            android:layout_marginRight="15dp"
             android:layout_alignParentRight="true"
-            android:background="@android:drawable/ic_menu_search" />
+            android:background="@android:drawable/ic_search_category_default" />
 
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_below="@+id/crm_seach_header_layout"
-        android:padding="5dp"
         android:layout_above="@+id/crm_add_new_customer_txt"
         android:id="@+id/customer_list_layout"
         android:layout_height="wrap_content">
@@ -54,11 +53,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
         android:background="@drawable/round_corner_rectangle_fill"
         android:text="@string/add_customer"
         android:textColor="@color/white_color"

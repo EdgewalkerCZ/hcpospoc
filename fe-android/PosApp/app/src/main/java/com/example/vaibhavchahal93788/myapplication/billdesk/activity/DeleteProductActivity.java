@@ -252,7 +252,22 @@ public class DeleteProductActivity extends AppCompatActivity implements View.OnC
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                     finish();*/
-                    deleteProduct();
+                    if (Integer.valueOf(tvUpdatedStock.getText().toString())>-1){
+                        deleteProduct();
+                    }else {
+                        final PrettyDialog dialog = new PrettyDialog(DeleteProductActivity.this);
+                        dialog.setIcon(R.drawable.pdlg_icon_info, R.color.pdlg_color_green, null)
+                                .setTitle(getResources().getString(R.string.error))
+                                .setMessage(getResources().getString(R.string.error_product_qauntity_non_negative))
+                                .addButton(getResources().getString(R.string.ok), R.color.pdlg_color_white, R.color.pdlg_color_green, new PrettyDialogCallback() {
+                                    @Override
+                                    public void onClick() {
+                                        dialog.dismiss();
+                                    }
+                                });
+                        dialog.show();
+                    }
+
                 }
               //  deleteProduct();
                 break;
@@ -286,6 +301,7 @@ public class DeleteProductActivity extends AppCompatActivity implements View.OnC
         updateProductModel.setCode(productListModel.getCode());
         updateProductModel.setProductCategoryId(productListModel.getProductCategoryId());
         updateProductModel.setProductFamilyId(productListModel.getProductFamilyId());
+
         updateProductModel.setQuantity(Integer.valueOf(tvUpdatedStock.getText().toString()));
         updateProductModel.setDescription(productListModel.getDescription());
         updateProductModel.setSalePrice( productListModel.getSalePrice());

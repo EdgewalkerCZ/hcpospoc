@@ -4,6 +4,7 @@ package com.example.vaibhavchahal93788.myapplication.billdesk.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -174,7 +175,10 @@ public class ViewProductActivity extends AppCompatActivity implements View.OnCli
 
             case R.id.btn_update:
                 //Toast.makeText(this,R.string.update_message,Toast.LENGTH_LONG).show();
-                updateProduct();
+                if(!TextUtils.isEmpty(edtQuantity.getText())){
+                    updateProduct();
+                }
+
                 break;
         }
     }

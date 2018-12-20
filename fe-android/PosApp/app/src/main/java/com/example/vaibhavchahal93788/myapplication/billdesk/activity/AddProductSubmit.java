@@ -69,7 +69,7 @@ public class AddProductSubmit extends AppCompatActivity implements AdapterView.O
     public static void startActivity(Activity activity) {
         Intent intent = new Intent(activity, AddProductSubmit.class);
         intent.putExtra(activity.getResources().getString(R.string.parent_class_name), activity.getClass().getSimpleName());
-        activity.overridePendingTransition(R.anim.animation_enter, R.anim.animation_leave);
+        activity.overridePendingTransition(R.anim.animation_enter_backward, R.anim.animation_leave_backward);
         activity.startActivity(intent);
     }
 
@@ -198,7 +198,7 @@ public class AddProductSubmit extends AppCompatActivity implements AdapterView.O
             newIntent = new Intent(AddProductSubmit.this, Class.forName(Constants.PACKAGE + className));
             newIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             finish();
-            overridePendingTransition(R.anim.animation_enter_backward, R.anim.animation_leave_backward);
+            overridePendingTransition(R.anim.animation_enter, R.anim.animation_leave);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }

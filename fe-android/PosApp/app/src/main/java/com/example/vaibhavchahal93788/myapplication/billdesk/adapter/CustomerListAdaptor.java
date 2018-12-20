@@ -94,8 +94,8 @@ public class CustomerListAdaptor extends
     public void onBindViewHolder(ViewHolder holder, int position) {
         DataItem item = list.getData().get(position);
         holder.bind(item, onItemClickListener);
-        holder.mCustomerName.setText(item.getName());
-        holder.mCustomeremail.setText(item.getName());
+        holder.mCustomerName.setText(item.getFullName());
+        holder.mCustomeremail.setText(item.getEmail());
         holder.mCustomerphone.setText(item.getPhone());
 
         if(!TextUtils.isEmpty(item.getName())) {

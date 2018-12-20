@@ -16,7 +16,7 @@
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_centerVertical="true"
-            android:background="@drawable/alpha"
+            android:background="@drawable/alpha_store_white_bg"
             android:fontFamily="sans-serif-medium"
             android:gravity="center"
             android:text=""
@@ -37,7 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
-                android:text="Welcome Alpha Store Limited"
+                android:text="Welcome, Alpha Store"
                 android:textColor="#ffffff"
                 android:textSize="20sp" />
 
@@ -64,9 +64,9 @@
             android:id="@+id/cardPayment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="7dp"
             app:cardCornerRadius="4dp"
             app:cardElevation="4dp">
 
@@ -97,7 +97,7 @@
                         android:fontFamily="sans-serif-medium"
                         android:text="Payment"
                         android:textColor="#333333"
-                        android:textSize="24sp" />
+                        android:textSize="21sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -120,9 +120,9 @@
             android:id="@+id/cardHistory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="7dp"
 
             app:cardCornerRadius="4dp"
             app:cardElevation="4dp">
@@ -163,7 +163,7 @@
                         android:fontFamily="sans-serif-medium"
                         android:text="History"
                         android:textColor="#333333"
-                        android:textSize="24sp" />
+                        android:textSize="21sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -186,9 +186,9 @@
             android:id="@+id/cardStock"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="7dp"
             app:cardCornerRadius="4dp"
             app:cardElevation="4dp">
 
@@ -228,7 +228,7 @@
                         android:fontFamily="sans-serif-medium"
                         android:text="Stock"
                         android:textColor="#333333"
-                        android:textSize="24sp" />
+                        android:textSize="21sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -250,9 +250,9 @@
             android:id="@+id/cardcustomerrelation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="7dp"
             app:cardCornerRadius="4dp"
             app:cardElevation="4dp">
 
@@ -292,7 +292,7 @@
                         android:fontFamily="sans-serif-medium"
                         android:text="Customer Relation"
                         android:textColor="#333333"
-                        android:textSize="24sp" />
+                        android:textSize="21sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
