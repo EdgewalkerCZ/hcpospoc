@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="62dp"
         android:orientation="horizontal"
-        android:background="@color/white_color"
+        android:background="@color/colorPrimary"
         android:elevation="4dp"
         android:padding="8dp"
         android:weightSum="1"
@@ -28,14 +28,15 @@
             android:paddingRight="8dp"
             android:textStyle="bold"
             android:textSize="16sp"
-            android:text="@string/category"/>
+            android:text="@string/category"
+            android:visibility="gone"/>
 
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="44dp"
             android:layout_weight="1"
-            android:layout_marginLeft="8dp"
-            android:background="@drawable/shape_rect_round_gray">
+            android:background="@color/white_color">
+            <!--android:background="@drawable/shape_rect_round_gray">-->
 
             <EditText
                 android:id="@+id/etxt_search"

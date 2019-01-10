@@ -32,7 +32,7 @@
                 android:layout_centerInParent="true"
                 android:layout_marginRight="@dimen/dp10"
                 android:layout_alignParentRight="true"
-                android:background="@android:drawable/ic_search_category_default" />
+                android:background="@drawable/ic_icon_search" />
 
         </RelativeLayout>
 <RelativeLayout

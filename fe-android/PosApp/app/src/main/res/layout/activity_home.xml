@@ -37,7 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
-                android:text="Welcome, Alpha Store"
+                android:text="Welcome : Alpha Store"
                 android:textColor="#ffffff"
                 android:textSize="20sp" />
 
@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
                 android:fontFamily="sans-serif"
-                android:text="Last login: 14:30 PM, 06 Nov 18"
+                android:text="Last login: 14:30 PM, 06 Nov 2018"
                 android:textColor="#ffffff"
                 android:textSize="14sp" />
 
@@ -161,7 +161,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-medium"
-                        android:text="History"
+                        android:text="Transaction History"
                         android:textColor="#333333"
                         android:textSize="21sp" />
 
@@ -226,7 +226,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-medium"
-                        android:text="Stock"
+                        android:text="Stock Management"
                         android:textColor="#333333"
                         android:textSize="21sp" />
 
@@ -290,7 +290,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-medium"
-                        android:text="Customer Relation"
+                        android:text="CRM"
                         android:textColor="#333333"
                         android:textSize="21sp" />
 
